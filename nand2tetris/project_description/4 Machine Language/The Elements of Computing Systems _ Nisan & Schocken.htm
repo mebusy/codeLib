@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0033)http://www.nand2tetris.org/04.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>The Elements of Computing Systems / Nisan &amp; Schocken</title>
+		<link rel="stylesheet" type="text/css" href="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/style.css">
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/jquery-1.7.1.min.js"></script>		
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/popup.js"></script></head><body><div id="nand_popup" onmouseover="overPopup(true);" onmouseout="overPopup(false);" style="display: none; z-index: 200; top: 250px; left: 501px;"></div>		
+	
+	
+		<div class="box">
+					
+				<a name="top"></a>
+				<div class="topbar">
+<img class="banner" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/banner.png" height="100px" alt="Banner">
+<span class="titletext">From NAND to Tetris</span>
+<span class="subtitletext">Building a Modern Computer From First
+Principles</span>
+</div>
+				<div class="sidemenu">
+					<a href="http://www.nand2tetris.org/" class="menu">Home</a><a href="http://www.nand2tetris.org/course.php" class="menu_selected">Course</a><a href="http://www.nand2tetris.org/book.php" class="menu">Book</a><a href="http://www.nand2tetris.org/software.php" class="menu">Software</a><a href="http://www.nand2tetris.org/terms.php" class="menu">License</a><a href="http://www.nand2tetris.org/papers.php" class="menu">Papers</a><a href="http://www.nand2tetris.org/media.php" class="menu">Talks</a><a href="http://www.nand2tetris.org/coolstuff.php" class="menu">Cool Stuff</a><a href="http://www.nand2tetris.org/about.php" class="menu">About</a><a href="http://www.nand2tetris.org/team.php" class="menu">Team</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSeGtR3QyvmjMubq3ij3h7CBKvDSxd9nnHhkLVZR4YB5FVo8sA/viewform" target="_blank" "="" class="menu">Stay in Touch</a><a href="http://questions-and-answers-forum.32033.n3.nabble.com/" target="_blank" "="" class="menu">Q&amp;A</a>				</div>
+			<div class="content">
+			<h1>Project 4: Machine Language Programming</h1>
+<span class="project_desc">Background</span>
+<p class="project_text">
+Every hardware platform is designed to execute commands in a certain machine language, expressed using agreed-upon binary codes. Writing programs directly in binary code is a possible, yet  unnecessary. Instead, we can write such programs using a low-level symbolic language, called <i>assembly</i>, and have them translated into binary code by a program called <i>assembler</i>. In this project you will write some low-level assembly programs, and will be forever thankful for high-level languages like C and Java. (Actually, assembly programming can be highly rewarding, allowing direct and complete control of the underlying machine.)
+</p>
+
+<span class="project_desc">Objective</span>
+<p class="project_text">
+To get a taste of low-level programming in machine language, and to get acquainted with the <i>Hack</i> computer platform. In the process of working on this project, you will become familiar with the <i>assembly process</i> - translating from symbolic language to machine-language - and you will appreciate visually how native binary code executes on the target hardware platform. These lessons will be learned in the context of writing and testing two low-level programs, as follows.
+</p>
+
+<span class="project_desc">Programs</span>
+<p class="project_text">
+</p>
+
+<table class="tests">
+<tbody><tr class="tblheader"> 
+	<td>Program</td>
+	<td>Description</td>
+	<td>Comments / Tests</td>
+</tr> 
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/04/mult/Mult.asm&quot;,true);"> Mult.asm </a> </td>
+	<td> <b>Multiplication:</b> in the Hack computer, the top 16 RAM words (<span class="code">RAM[0]</span> ... <span class="code">RAM[15]</span>) are also referred to as the so-called <i>virtual registers</i> <span class="code">R0</span> ... <span class="code">R15</span>. <br> <br>With this terminology in mind, this program computes the value <span class="code">R0*R1</span> and stores the result in <span class="code">R2</span>.<br> <br>Note that in the context of this program, we assume that <span class="code">R0&gt;=0</span>, <span class="code">R1&gt;=0</span>, and <span class="code">R0*R1&lt;32768</span> (you are welcome to ponder where this limiting value comes from). Your program need not test these conditions, but rather assume that they hold.</td>
+	<td>Start by using the supplied assembler to translate your <span class="code">Mult.asm</span> program into a <span class="code">Mult.hack</span> file. <br><br>To test your program, load <span class="code">Mult.hack</span> into the ROM. Next, put some values in R0 and R1, run the code, and inspect R2. <br> <br>Alternatively, use the supplied <a onmouseover="popup(&quot;projects/04/mult/Mult.tst&quot;,true);"> <span class="code"> Mult.tst </span> </a> script and <a onmouseover="popup(&quot;projects/04/mult/Mult.cmp&quot;,true);"> <span class="code">Mult.cmp</span> </a> compare file (that's how we test your program). These supplied files are designed to test your program by running it on several representative data values.</td> 
+</tr>
+
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/04/fill/Fill.asm&quot;,true);"> Fill.asm </a> </td>
+	<td> <b>I/O handling:</b> this program illustrates low-level handling of the screen and keyboard devices, as follows. <br> <br> The program runs an infinite loop that listens to the keyboard input. When a key is pressed (any key), the program blackens the screen, i.e. writes "black" in every pixel; the screen should remain fully black as long as the key is pressed. <br><br> When no key is pressed, the program clears the screen, i.e. writes "white" in every pixel; the screen should remain fully clear as long as no key is pressed.</td>
+	<td>Start by using the supplied assembler to translate your <span class="code">Fill.asm</span> program into a <span class="code">Fill.hack</span> file. Implementation note: your program may blacken and clear the screen's pixels in any spatial/visual order, as long as pressing a key continuously for long enough results in a fully blackened screen, and not pressing any key for long enough results in a fully cleared screen. <br> <br>The simple <span class="code"><a onmouseover="popup(&quot;projects/04/fill/Fill.tst&quot;,true);">Fill.tst</a></span> script, which comes with no compare file, is designed to do two things: (i) load the Fill.hack program, and (ii) remind you to select 'no animation', and then test the program interactively by pressing and releasing some keyboard keys. <br> <br>The <span class="code"><a onmouseover="popup(&quot;projects/04/fill/FillAutomatic.tst&quot;,true);">FillAUtomatic.tst</a></span> script, along with the compare file <span class="code"><a onmouseover="popup(&quot;projects/04/fill/FillAutomatic.cmp&quot;,true);">FillAutomatic.cmp</a></span>, are designed to test the Fill program automatically, as described by the test script documentation.<br> <br>For completeness of testing, it is recommended to test the Fill program both interactively and automatically.</td>
+</tr>
+</tbody></table>
+
+<span class="project_desc">Contract</span>
+<p class="project_text">
+Write and test the two programs described above. When executed on the supplied CPU emulator, your programs should generate the results mandated by the specified tests.
+</p>
+
+<span class="project_desc">Resources</span>
+<p class="project_text">
+The Hack assembly language is described in detail in <a target="_blank" href="http://www.nand2tetris.org/chapters/chapter%2004.pdf">Chapter 4</a>.
+</p>
+
+<p class="project_text">
+You will need two tools: the supplied <i>assembler</i> - a program that translates programs written in the Hack assembly language into binary Hack code, and the supplied <i>CPU emulator</i> - a program that runs binary Hack code on a simulated Hack platform. Assuming that you've downloaded the <i>Nand2Tetris Software Suite</i>, the assembler and the CPU emulator should be available in the <span class="code">nand2tetris/tools</span> folder on your computer.
+</p>
+
+<p class="project_text">
+Two other related and useful resources are the supplied <i>Assembler Tutorial</i> ( <a href="http://www.nand2tetris.org/tutorials/PPT/Assembler%20Tutorial.ppt"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/powerpoint.gif" alt="PowerPoint Format" width="16" height="16"></a> <a href="http://www.nand2tetris.org/tutorials/PDF/Assembler%20Tutorial.pdf"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/acrobat.gif" alt="Portable Document Format" width="16" height="16"></a> ) and <i>CPU Emulator Tutorial</i> ( <a href="http://www.nand2tetris.org/tutorials/PPT/CPU%20Emulator%20Tutorial.ppt"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/powerpoint.gif" alt="PowerPoint Format" width="16" height="16"></a> <a href="http://www.nand2tetris.org/tutorials/PDF/CPU%20Emulator%20Tutorial.pdf"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/acrobat.gif" alt="Portable Document Format" width="16" height="16"></a> ). We recommend going through these tutorials before starting to work on this project.
+</p>
+
+<p class="project_text">
+Finally, assuming that you've downloaded the <i>Nand2Tetris Software Suite</i>, all the project materials should be available in your <span class="code">nand2tetris/projects/04</span> folder. 
+</p>
+
+<span class="project_desc">Proposed Implementation</span>
+<ol>
+	<li>Use a plain text editor to write the first assembly program. Start by loading and editing the supplied  <span class="code">projects/04/mult/Mult.asm</span> file.</li>
+	<li>Use the supplied assembler (in either batch or interactive mode) to translate your program. If you get syntax errors, go to step 1; if there are no syntax errors, the assembler will generate a file named <span class="code">projects/04/mult/Mult.hack</span>, containing binary instructions written in the Hack machine language.
+	</li>
+	<li>Use the supplied CPU emulator to load, and then test, the translated <span class="code">Mult.hack</span> code. This can be done either interactively, or batch-style, using the supplied <span class="code">Mult.tst</span> script. If you get run-time errors, go to step 1.
+	</li>
+	<li>Repeat stages 1-3 for the second program (<span class="code">Fill.asm</span>), working in the <span class="code">projects/04/fill</span> folder.  
+	</li>
+</ol><b></b>
+<p></p>
+
+<p class="project_text">
+<b>Debugging tip:</b> The Hack language is case-sensitive. A common error occurs when one writes, say, "<span class="code">@foo</span>" and "<span class="code">@Foo</span>" in different parts of one's program, thinking that both labels are treated as the same symbol. In fact, the assembler treats them as two different symbols. This bug is difficult to detect, so you should be aware of it.
+</p>
+
+<span class="project_desc">Tools</span>
+
+<p class="project_text">
+<b>The supplied Hack Assembler</b> can be used in either command mode (from the command shell), or interactively. The latter mode of operation allows observing the translation process in a visual and step-wise fashion, as shown below:
+</p>
+
+<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/Assembler translating.gif" width="733" height="550/">
+
+<p class="project_text">
+The machine language programs produced by the assembler can be tested in two different ways. First, one can run the resulting <span class="code">.hack</span> program in the supplied CPU emulator. Alternatively, one can run the same program directly on the Hack hardware, using the supplied hardware simulator used in projects 1-3. To do so, one can load the <span class="code">Computer.hdl</span> chip (built in project 5) into the hardware simulator, and then proceed to load the binary code (from the <span class="code">.hack</span> file) into the computer's <i>Instruction Memory</i> (also called <i>ROM</i>). Since we will complete building the hardware platform and the <span class="code">Computer.hdl</span> chip only in the next project, at this stage we recommend testing machine-level programs using the supplied CPU emulator.
+</p>
+
+<p class="project_text">
+<b>The supplied <i>CPU Emulator</i></b> includes a <i>ROM</i> (also called <i>Instruction Memory</i>) representation, into which the binary code is loaded, and a <i>RAM</i> representation, which holds data. For ease of use, the emulator enables the user to view the loaded ROM-resident code in either binary mode, or in symbolic / assembly mode. In fact, the CPU emulator even allows loading symbolic code written in assembly directly into the ROM, in which case the emulator translates the loaded code into binary code on the fly. This utility seems to render the supplied assembler unnecessary, but this is not the case. First, the supplied assembler shows the translation process visually, for instructive purposes. Second, the assembler generates a persistent binary file. This file can be executed either on the CPU emulator, as we illustrate below, or directly on the hardware platform, as we'll do in the next project.
+</p>
+
+<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/CPU Emulator.gif" width="733" height="550/">
+
+
+			</div>
+		</div>
+		<div class="small">
+			Best viewed with 
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_firefox.gif">
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_chrome.gif"><br>
+			Designed and built by Tali Gutman ©
+		</div>
+	
+	
+</body></html>

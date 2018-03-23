@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0029)http://nand2tetris.org/03.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>The Elements of Computing Systems / Nisan &amp; Schocken</title>
+		<link rel="stylesheet" type="text/css" href="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/style.css">
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/jquery-1.7.1.min.js"></script>		
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/popup.js"></script></head><body><div id="nand_popup" onmouseover="overPopup(true);" onmouseout="overPopup(false);" style="display: none; z-index: 200; top: 642px; left: 1115px;"></div>		
+	
+	
+		<div class="box">
+					
+				<a name="top"></a>
+				<div class="topbar">
+<img class="banner" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/banner.png" height="100px" alt="Banner">
+<span class="titletext">From NAND to Tetris</span>
+<span class="subtitletext">Building a Modern Computer From First
+Principles</span>
+</div>
+				<div class="sidemenu">
+					<a href="http://nand2tetris.org/" class="menu">Home</a><a href="http://nand2tetris.org/course.php" class="menu_selected">Course</a><a href="http://nand2tetris.org/book.php" class="menu">Book</a><a href="http://nand2tetris.org/software.php" class="menu">Software</a><a href="http://nand2tetris.org/terms.php" class="menu">License</a><a href="http://nand2tetris.org/papers.php" class="menu">Papers</a><a href="http://nand2tetris.org/media.php" class="menu">Talks</a><a href="http://nand2tetris.org/coolstuff.php" class="menu">Cool Stuff</a><a href="http://nand2tetris.org/about.php" class="menu">About</a><a href="http://nand2tetris.org/team.php" class="menu">Team</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSeGtR3QyvmjMubq3ij3h7CBKvDSxd9nnHhkLVZR4YB5FVo8sA/viewform" target="_blank" "="" class="menu">Stay in Touch</a><a href="http://questions-and-answers-forum.32033.n3.nabble.com/" target="_blank" "="" class="menu">Q&amp;A</a>				</div>
+			<div class="content">
+			<h1>Project 3: Sequential Chips</h1>
+<span class="project_desc">Background</span>
+<p class="project_text">
+The computer's main memory, also called <i>Random Access Memory</i>, or <i>RAM</i>, is an addressable sequence of <i>n</i>-bit registers, each designed to hold an <i>n</i>-bit value. In this project you will gradually build a RAM unit. This involves two main issues: (i) how to use gate logic to store bits persistently, over time, and (ii) how to use gate logic to locate ("address") the memory register on which we wish to operate.
+</p>
+
+<span class="project_desc">Objective</span>
+<p class="project_text">
+Build all the chips described in Chapter 3 (see list below), leading up to a <i>Random Access Memory</i> (RAM) unit. The only building blocks that you can use are primitive <span class="code">DFF</span> gates, chips that you will build on top of them, and chips described in previous chapters.
+</p>
+
+<span class="project_desc">Chips</span>
+<table class="tests">
+<tbody><tr class="tblheader"> 
+	<td>Chip (HDL)</td>
+	<td>Description</td>
+	<td>Test script</td>
+	<td>Compare file</td>
+</tr> 
+
+<tr>
+	<td> DFF </td> 
+	<td> Data Flip-Flop (primitive) </td>
+	<td> </td>
+	<td> </td>
+</tr>
+
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/a/Bit.hdl&quot;,true);"> Bit </a> </td>
+	<td> 1-bit register </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/Bit.tst&quot;,true);"> Bit.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/Bit.cmp&quot;,true);"> Bit.cmp </a> </td>
+</tr>
+
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/a/Register.hdl&quot;,true);"> Register </a> </td>
+	<td> 16-bit register </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/Register.tst&quot;,true);"> Register.tst </a> </td> 
+	<td> <a onmouseover="popup(&quot;projects/03/a/Register.cmp&quot;,true);"> Register.cmp </a> </td>
+</tr>
+
+<tr> 
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM8.hdl&quot;,true);"> RAM8 </a> </td>
+	<td> 16-bit / 8-register memory </td> 
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM8.tst&quot;,true);"> RAM8.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM8.cmp&quot;,true);"> RAM8.cmp </a> </td>
+</tr> 
+<tr> 
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM64.hdl&quot;,true);"> RAM64 </a> </td>
+	<td> 16-bit / 64-register memory </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM64.tst&quot;,true);"> RAM64.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/RAM64.cmp&quot;,true);"> RAM64.cmp </a> </td>
+</tr>
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM512.hdl&quot;,true);"> RAM512 </a> </td>
+	<td> 16-bit / 512-register memory </td> 
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM512.tst&quot;,true);"> RAM512.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM512.cmp&quot;,true);"> RAM512.cmp </a> </td>
+</tr>
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM4K.hdl&quot;,true);"> RAM4K </a> </td> 
+	<td> 16-bit / 4096-register memory </td>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM4K.tst&quot;,true);"> RAM4K.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM4K.cmp&quot;,true);"> RAM4K.cmp </a> </td>
+</tr>
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM16K.hdl&quot;,true);"> RAM16K </a> </td> 
+	<td> 16-bit / 16384-register memory </td>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM16K.tst&quot;,true);"> RAM16K.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/b/RAM16K.cmp&quot;,true);"> RAM16K.cmp </a> </td>
+</tr>
+<tr>
+	<td> <a onmouseover="popup(&quot;projects/03/a/PC.hdl&quot;,true);"> PC </a> </td>
+	<td> 16-bit program counter </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/PC.tst&quot;,true);"> PC.tst </a> </td>
+	<td> <a onmouseover="popup(&quot;projects/03/a/PC.cmp&quot;,true);"> PC.cmp </a> </td>
+</tr>
+
+</tbody></table>
+<p></p>
+
+<span class="project_desc">Contract</span>
+<p class="project_text">
+When loaded into the supplied <i>Hardware Simulator</i>, your chip design (modified <span class="code">.hdl</span>
+program), tested on the supplied <span class="code">.tst</span> script, should produce the outputs listed in the supplied <span class="code">.cmp</span> file. If that is not the case, the simulator will let you know.
+</p>
+
+<span class="project_desc">Resources</span>
+<p class="project_text">
+The relevant reading for this project is <a target="_blank" href="http://nand2tetris.org/chapters/chapter%2003.pdf">Chapter 3</a> and <a target="_blank" href="http://nand2tetris.org/chapters/appendix%20A.pdf">Appendix A</a>. Specifically, all the chips described in Chapter 3 should be implemented in the <i>Hardware Description Language</i> (HDL) specified in Appendix A.
+</p>
+
+<p class="project_text">
+For each chip, we supply a skeletal <span class="code">.hdl</span> file with a missing implementation part. In addition, for each chip we supply a <span class="code">.tst</span> script that instructs the hardware simulator how to test it, and a <span class="code">.cmp</span> ("compare file") containing the correct output that this test should generate. Your job is to complete and test the supplied skeletal <span class="code">.hdl</span> files.
+</p>
+
+<p class="project_text">
+The resources that you need for this project are the supplied <i>Hardware Simulator</i> and the files listed above. If you've downloaded the <i>Nand2Tstris Software Suite</i>, these files are stored in your <span class="code">projects/03</span> directory. The directory is further partitioned into two sub-directories, for reasons described below. 
+</p>
+
+<span class="project_desc">Tips</span>
+<p class="project_text">
+</p>
+
+<p class="project_text">
+<b>The Data Flip-Flop (DFF) gate</b> is considered primitive and thus there is no need to build it: when the simulator encounters a DFF chip part in an HDL program, it automatically invokes the built-in <span class="code"> tools/builtInChips/DFF.hdl</span> implementation.
+</p>
+
+<p class="project_text">
+<b>Built-in chips:</b> When constructing RAM chips from lower-level RAM chip-parts, we recommend using built-in versions of the latter. Otherwise, the simulator will recursively generate numerous memory-resident software objects, one for each one of the many chip parts that make up a typical RAM unit. This may cause the simulator to run slowly, or, worse, out of memory. i.e. out of the memory of the computer on which the simulator is running.
+<br><br>
+To avert this problem, we've partitioned the RAM chips that you have to build in this project into two sub-directories, named <span class="code">projects/03/a</span> and <span class="code">projects/03/b</span>. This partition is superficial, and is done with one purpose only: when building the chips stored in <span class="code">b</span>, the simulator is forced to use built-in implementations of the lower-level chip parts whose <span class="code">.hdl</span> programs are stored in <span class="code">a</span> but not in <span class="code">b</span>.
+</p>
+
+<span class="project_desc">Tools</span>
+<p class="project_text">
+All the chips mentioned projects 0-5 can be implemented and tested using the supplied <i>Hardware Simulator</i>. Here is a screen shot of testing a built-in <span class="code">RAM8.hdl</span> chip implementation on the Hardware Simulator: 
+</p>
+
+<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/HW simulator RAM8.JPG" width="733" height="550/">
+
+<br> <br>
+
+			</div>
+		</div>
+		<div class="small">
+			Best viewed with 
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_firefox.gif">
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_chrome.gif"><br>
+			Designed and built by Tali Gutman ©
+		</div>
+	
+	
+</body></html>

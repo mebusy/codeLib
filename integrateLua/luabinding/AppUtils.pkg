@@ -1,0 +1,28 @@
+
+
+namespace PLATFORM {
+    enum   {
+        OS_UNKNOWN           =0,
+        OS_IOS                ,
+        OS_ANDROID            ,
+        OS_WIN32              ,
+        OS_MARMALADE          ,
+        OS_LINUX              ,
+        OS_BADA               ,
+        OS_BLACKBERRY         ,
+        OS_MAC                ,
+        OS_NACL               ,
+        OS_EMSCRIPTEN        ,
+        OS_TIZEN             ,
+        OS_QT5               ,
+        OS_WINRT             ,
+    }  ;
+}
+
+class AppUtils
+{
+public:
+    static AppUtils& getInstance() ;
+    
+    int getTargetPlatform() ;
+} ;

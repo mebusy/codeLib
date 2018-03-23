@@ -1,0 +1,48 @@
+#include "AppUtils.h"
+#include <string>
+#include "platform_header.h"
+
+int AppUtils::getTargetPlatform() {
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    return PLATFORM::OS_IOS ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    return PLATFORM::OS_ANDROID ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    return PLATFORM::OS_WIN32 ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
+    return PLATFORM::OS_MARMALADE ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+    return PLATFORM::OS_LINUX ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_BADA)
+    return PLATFORM::OS_BADA ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
+    return PLATFORM::OS_BLACKBERRY ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    return PLATFORM::OS_MAC ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_NACL)
+    return PLATFORM::OS_NACL ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
+    return PLATFORM::OS_EMSCRIPTEN ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
+    return PLATFORM::OS_TIZEN ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT5)
+    return PLATFORM::OS_QT5 ;
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    return PLATFORM::OS_WINRT ;
+#endif
+    
+    return PLATFORM::OS_UNKNOWN ;
+}

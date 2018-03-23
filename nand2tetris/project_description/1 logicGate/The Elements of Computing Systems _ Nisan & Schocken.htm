@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0029)http://nand2tetris.org/01.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>The Elements of Computing Systems / Nisan &amp; Schocken</title>
+		<link rel="stylesheet" type="text/css" href="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/style.css">
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/jquery-1.7.1.min.js"></script>		
+		<script type="text/javascript" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/popup.js"></script></head><body><div id="nand_popup" onmouseover="overPopup(true);" onmouseout="overPopup(false);" style="z-index: 200; top: 172px; left: 78px; display: none;">// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux4Way16.tst
+
+load Mux4Way16.hdl,
+output-file Mux4Way16.out,
+compare-to Mux4Way16.cmp,
+output-list a%B1.16.1 b%B1.16.1 c%B1.16.1 d%B1.16.1 sel%B2.2.2 out%B1.16.1;
+
+set a 0,
+set b 0,
+set c 0,
+set d 0,
+set sel 0,
+eval,
+output;
+
+set sel 1,
+eval,
+output;
+
+set sel 2,
+eval,
+output;
+
+set sel 3,
+eval,
+output;
+
+set a %B0001001000110100,
+set b %B1001100001110110,
+set c %B1010101010101010,
+set d %B0101010101010101,
+set sel 0,
+eval,
+output;
+
+set sel 1,
+eval,
+output;
+
+set sel 2,
+eval,
+output;
+
+set sel 3,
+eval,
+output;
+</div>		
+	
+	
+		<div class="box">
+					
+				<a name="top"></a>
+				<div class="topbar">
+<img class="banner" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/banner.png" height="100px" alt="Banner">
+<span class="titletext">From NAND to Tetris</span>
+<span class="subtitletext">Building a Modern Computer From First
+Principles</span>
+</div>
+				<div class="sidemenu">
+					<a href="http://nand2tetris.org/" class="menu">Home</a><a href="http://nand2tetris.org/course.php" class="menu_selected">Course</a><a href="http://nand2tetris.org/book.php" class="menu">Book</a><a href="http://nand2tetris.org/software.php" class="menu">Software</a><a href="http://nand2tetris.org/terms.php" class="menu">License</a><a href="http://nand2tetris.org/papers.php" class="menu">Papers</a><a href="http://nand2tetris.org/media.php" class="menu">Talks</a><a href="http://nand2tetris.org/coolstuff.php" class="menu">Cool Stuff</a><a href="http://nand2tetris.org/about.php" class="menu">About</a><a href="http://nand2tetris.org/team.php" class="menu">Team</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSeGtR3QyvmjMubq3ij3h7CBKvDSxd9nnHhkLVZR4YB5FVo8sA/viewform" target="_blank" "="" class="menu">Stay in Touch</a><a href="http://questions-and-answers-forum.32033.n3.nabble.com/" target="_blank" "="" class="menu">Q&amp;A</a>				</div>
+			<div class="content">
+			<h1>Project 1: Elementary Logic Gates</h1>
+<span class="project_desc">Background</span>
+<p class="project_text">
+A typical computer architecture is based on a set of elementary logic gates like <span class="code">And</span>, <span class="code">Or</span>, <span class="code">Mux</span>, etc., as well as their bit-wise versions <span class="code">And16</span>, <span class="code">Or16</span>, <span class="code">Mux16</span>, etc. (assuming a 16-bit machine). This project engages you in the construction of a typical set of basic logic gates. These gates form the elementary building blocks from which more complex chips will be later constructed.
+</p>
+
+<span class="project_desc">Objective</span>
+<p class="project_text">
+Build all the logic gates described in Chapter 1 (see list below), yielding a basic chip-set. The only building blocks that you can use in this project are primitive <span class="code">Nand</span> gates and the composite gates that you will gradually build on top of them.
+</p>
+
+<span class="project_desc">Chips</span>
+<table class="tests">
+<tbody><tr class="tblheader">
+	<td>Chip (HDL)</td>
+	<td>Description</td>
+	<td>Test Script</td>
+	<td>Compare File</td>
+</tr><tr>
+	<td>Nand</td>
+	<td>Nand gate (primitive)</td>
+	<td></td>
+	<td></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/Not.hdl&quot;,true);">Not</a></td>
+	<td>Not gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/Not.tst&quot;,true);">Not.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Not.cmp&quot;,true);">Not.cmp</a></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/And.hdl&quot;,true);">And</a></td>
+	<td>And gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/And.tst&quot;,true);">And.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/And.cmp&quot;,true);">And.cmp</a></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/Or.hdl&quot;,true);">Or</a></td>
+	<td>Or gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/Or.tst&quot;,true);">Or.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Or.cmp&quot;,true);">Or.cmp</a></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/Xor.hdl&quot;,true);">Xor</a></td>
+	<td>Xor gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/Xor.tst&quot;,true);">Xor.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Xor.cmp&quot;,true);">Xor.cmp</a></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/Mux.hdl&quot;,true);">Mux</a></td>
+	<td>Mux gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux.tst&quot;,true);">Mux.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux.cmp&quot;,true);">Mux.cmp</a></td>
+</tr><tr>
+	<td><a onmouseover="popup(&quot;projects/01/DMux.hdl&quot;,true);">DMux</a></td>
+	<td>DMux gate</td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux.tst&quot;,true);">DMux.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux.cmp&quot;,true);">DMux.cmp</a></td> 
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Not16.hdl&quot;,true);">Not16</a></td>
+	<td>16-bit Not</td>
+	<td><a onmouseover="popup(&quot;projects/01/Not16.tst&quot;,true);">Not16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Not16.cmp&quot;,true);">Not16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/And16.hdl&quot;,true);">And16</a></td>
+	<td>16-bit And</td>
+	<td><a onmouseover="popup(&quot;projects/01/And16.tst&quot;,true);">And16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/And16.cmp&quot;,true);">And16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Or16.hdl&quot;,true);">Or16</a></td>
+	<td>16-bit Or</td>
+	<td><a onmouseover="popup(&quot;projects/01/Or16.tst&quot;,true);">Or16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Or16.cmp&quot;,true);">Or16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Mux16.hdl&quot;,true);">Mux16</a></td>
+	<td>16-bit multiplexor</td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux16.tst&quot;,true);">Mux16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux16.cmp&quot;,true);">Mux16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Or8Way.hdl&quot;,true);">Or8Way</a></td>
+	<td>Or(in0,in1,...,in7)</td>
+	<td><a onmouseover="popup(&quot;projects/01/Or8Way.tst&quot;,true);">Or8Way.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Or8Way.cmp&quot;,true);">Or8Way.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Mux4Way16.hdl&quot;,true);">Mux4Way16</a></td>
+	<td>16-bit/4-way mux</td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux4Way16.tst&quot;,true);">Mux4Way16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux4Way16.cmp&quot;,true);">Mux4Way16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/Mux8Way16.hdl&quot;,true);">Mux8Way16</a></td>
+	<td>16-bit/8-way mux</td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux8Way16.tst&quot;,true);">Mux8Way16.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/Mux8Way16.cmp&quot;,true);">Mux8Way16.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/DMux4Way.hdl&quot;,true);">DMux4Way</a></td>
+	<td>4-way demultiplexor</td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux4Way.tst&quot;,true);">DMux4Way.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux4Way.cmp&quot;,true);">DMux4Way.cmp</a></td>
+</tr>
+<tr>
+	<td><a onmouseover="popup(&quot;projects/01/DMux8Way.hdl&quot;,true);">DMux8Way</a></td>
+	<td>8-way demultiplexor</td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux8Way.tst&quot;,true);">DMux8Way.tst</a></td>
+	<td><a onmouseover="popup(&quot;projects/01/DMux8Way.cmp&quot;,true);">DMux8Way.cmp</a></td>
+</tr>
+</tbody></table>
+
+<span class="project_desc">Contract</span>
+<p class="project_text">
+When loaded into the supplied <i>Hardware Simulator</i>, your chip design (modified <span class="code">.hdl</span>
+program), tested on the supplied <span class="code">.tst</span> script, should
+produce the outputs listed in the supplied <span class="code">.cmp</span> file. If that is not the case, the simulator will let you know.  
+</p>
+
+<span class="project_desc">Resources</span>
+<p class="project_text">
+The relevant reading for this project is <a target="_blank" href="http://nand2tetris.org/chapters/chapter%2001.pdf">Chapter 1</a> and <a target="_blank" href="http://nand2tetris.org/chapters/appendix%20A.pdf">Appendix A</a>. Specifically, all the chips described in Chapter 1 should be implemented in the <i>Hardware Description Language</i> (HDL) specified in Appendix A. Another resource that you will find handy in this and in all subsequent hardware projects is this <a href="http://nand2tetris.org/software/HDL%20Survival%20Guide.html" target="_blank">HDL Survival Guide</a>, written by Mark Armbrust.
+</p>
+
+<p class="project_text">
+For each chip, we supply a skeletal <span class="code">.hdl</span> file with a place holder for a missing implementation part. In addition, for each chip we supply a <span class="code">.tst</span> script that instructs the hardware simulator how to test it, and a <span class="code">.cmp</span> ("compare file") containing the correct output that this test should generate. Your job is to complete and test the supplied skeletal <span class="code">.hdl</span> files.
+</p>
+
+<p class="project_text">
+If you've downloaded the <a href="http://nand2tetris.org/software.php">Nand2Tetris Software Suite</a>, you will find the supplied <i>Hardware Simulator</i> and all the necessary project files in the <span class="code">tools</span> and in the <span class="code">projects/01</span> directories, respectively. To get acquainted with the <i>Hardware Siumlator</i>, go through parts I-II-III of the supplied <i>Hardware Simulator Tutorial</i> (<a href="http://nand2tetris.org/tutorials/PPT/Hardware%20Simulator%20Tutorial.ppt"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/powerpoint.gif" alt="PowerPoint Format" width="16" height="16"></a> <a href="http://nand2tetris.org/tutorials/PDF/Hardware%20Simulator%20Tutorial.pdf"><img align="ABSMIDDLE" src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/acrobat.gif" alt="Portable Document Format" width="16" height="16"></a> ) </p>
+
+<span class="project_desc">Tips</span>
+<p class="project_text">
+<b>Prerequisite:</b> If you haven't done it yet, download the <i>Nand2Tetris Software Suite</i> to your computer. Read Chapter 1 and Appendix A, and go through parts I-II-III of the <i>Hardware Simulator</i>, before starting to work on this project.
+</p>
+<p class="project_text">
+<b>Built-in chips:</b> The <span class="code">Nand</span> gate is considered primitive and thus there is no need to implement it: whenever a <span class="code">Nand</span> chip-part is encountered in your HDL code, the simulator automatically invokes the built-in <span class="code">tools/builtInChips/Nand.hdl</span> implementation. We recommend implementing the other gates in this project in the order in which they appear in Chapter 1. However, note that the simulator's environment includes a library with built-in versions of all these chips. Therefore, you can use any one of these chips before implementing it: the simulator will automatically invoke their built-in versions.</p>
+<p class="project_text">
+For example, consider the supplied skeletal <span class="code">Mux.hdl</span> program. Suppose that for one reason or another you did not complete the implementation of <span class="code">Mux</span>, but you still want to use <span class="code">Mux</span> chips as internal parts in other chip designs. You can easily do so, thanks to the following convention. If the simulator fails to find a <span class="code">Mux.hdl</span> file in the current directory, it automatically invokes a built-in <span class="code">Mux</span> implementation, which is part of the supplied simulator's environment. This built-in <span class="code">Mux</span> implementation has the same interface and functionality as those of the <span class="code">Mux</span> chip described in the book. Thus, if you want the simulator to ignore one or more of your chip implementations, simply rename the corresponding <span class="code">chiPname.hdl</span> file, or remove it from the directory. When you are ready to develop this chip in HDL, put the file chipName.hdl back in the directory, and proceed to edit it with your HDL code.
+</p>
+
+<span class="project_desc">Tools</span>
+<p class="project_text">
+All the chips mentioned projects 0-5 can be implemented and tested using the supplied <i>Hardware Simulator</i>. Here is a screen shot of testing a <span class="code">Xor.hdl</span> chip implementation on the Hardware Simulator: 
+</p>
+
+<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/HW simulator Xor.gif" width="733" height="550/">
+
+<br> <br>
+
+			</div>
+		</div>
+		<div class="small">
+			Best viewed with 
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_firefox.gif">
+							<img src="./The Elements of Computing Systems _ Nisan &amp; Schocken_files/compatible_chrome.gif"><br>
+			Designed and built by Tali Gutman ©
+		</div>
+	
+	
+</body></html>

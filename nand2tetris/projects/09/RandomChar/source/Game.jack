@@ -1,0 +1,79 @@
+class Game {
+    field Array movingChars ;    
+    field int nMaxChars ;
+    constructor Game new() {
+        let nMaxChars = 8  ;
+        return this;
+    }
+
+    /** Disposes this game. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void findAndReactiveAMovingChar () {
+        var int i ;
+        var MovingChar ch ;
+        let i = 0 ;
+        while ( i < nMaxChars ) {
+            let ch = movingChars[i] ;    
+            if ( ~ch.isActive() ) {
+                do ch.reActive() ;
+                return ;     
+            }
+            let i = i+1 ;
+        }
+        return ;    
+    }
+
+    method void update() {
+        var char key;  
+        var boolean exit;
+        var int i ;
+        var MovingChar ch ;
+
+        let exit = false;
+        
+        let movingChars = Array.new(nMaxChars) ;
+        let i = 0 ;
+        while ( i < nMaxChars ) {
+            let movingChars[i] = MovingChar.new() ;    
+            let i = i+1 ;
+        }
+         
+        do Screen.clearScreen();
+        while (~exit) {
+
+            // waits for a key to be pressed
+            let key = Keyboard.keyPressed();
+
+            if (key = 81)  { let exit = true; }     // q key
+            // if (key = 90)  {  // z key  , test random
+            //    do Output.moveCursor(0,0) ;
+            //    do Output.printInt(  Random.randn( 16 ) ) ;
+            //}
+
+            // char update
+            do findAndReactiveAMovingChar();
+
+            let i = 0 ;
+            while ( i < nMaxChars ) {
+                let ch = movingChars[i] ;
+                do ch.update(); 
+                let i = i+1 ;
+            }
+                
+            do Sys.wait( 16 );
+        } // while
+
+        let i = 0 ;
+        while ( i < nMaxChars ) {
+            let ch = movingChars[i] ;
+            do ch.dispose();
+            let i = i+1 ;
+        }
+        return;        
+    }
+    
+}
