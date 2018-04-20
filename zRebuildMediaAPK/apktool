@@ -53,7 +53,7 @@ javaOpts=""
 # line and adjust the value accordingly. Use "java -X" for a list of options
 # you can pass here.
 # 
-javaOpts="-Xmx512M"
+javaOpts="-Xmx512M -Dfile.encoding=utf-8"
 
 # Alternatively, this will extract any parameter "-Jxxx" from the command line
 # and pass them to Java (instead of to dx). This makes it possible for you to
@@ -75,5 +75,3 @@ fi
 PATH=$PATH:`pwd`;
 export PATH;
 exec java $javaOpts -Djava.awt.headless=true -jar "$jarpath" "$@"
-
-
