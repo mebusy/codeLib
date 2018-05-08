@@ -11,7 +11,7 @@ endasm
 //the program starts here on NES boot (see footer)
 goto start
 myname:
-	data "YOUR NAME HERE",0
+	data "Hello World! NES",0
 
 start:
 	gosub vwait
