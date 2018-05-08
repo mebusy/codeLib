@@ -3,6 +3,8 @@ TARGET = bin/nbasic
 
 default: $(OBJECTS)
 	g++ $(OBJECTS) -o $(TARGET)
+	mv $(TARGET) ../../bin_osx
+	rm -rf bin
 
 bin/main.o: main.cpp nbasic.h
 	g++ -c main.cpp -o bin/main.o
