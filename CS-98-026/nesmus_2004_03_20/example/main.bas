@@ -7,10 +7,14 @@ music_pointers:
 	asm
 	.db low(music_data1),high(music_data1) ;//start of song 1
 	.db low(music_data2),high(music_data2) ;//end of song 1
+	.db low(music_data2),high(music_data2) ;//start of song 2
+	.db low(music_data3),high(music_data3) ;//end of song 2
 
 music_data1:
-	.incbin "music/music.dat"
+	.incbin "music/tomley.dat"
 music_data2:
+	.incbin "music/scale.dat"
+music_data3:
 	endasm
 
 
@@ -29,8 +33,8 @@ start:
 mainloop:
 	gosub joy_handler
 	gosub vwait
-	//if nesmus_song_over = 1
-	//	gosub swap_songs
+	if nesmus_song_over = 1
+		gosub swap_songs
 	gosub nesmus_loop //called each frame to update music
 	gosub drawstuff
 	goto mainloop
