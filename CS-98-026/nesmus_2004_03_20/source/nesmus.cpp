@@ -350,7 +350,7 @@ int main(int argn, char **argv)
 	char buf[BUFSIZE];
 	currentframe[0]=currentframe[1]=currentframe[2]=currentframe[3]=0.0;
 	int line=0;
-	while(fgets(buf,BUFSIZE,fp)>0)
+	while(fgets(buf,BUFSIZE,fp)!=0)
 	{
 		if (buf[0]==';') {/*comment -- do nothing*/}
 		else if (isloop(buf,fout,line)){/*action handled by isloop()*/}
