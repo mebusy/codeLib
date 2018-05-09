@@ -233,7 +233,7 @@ void parse(FILE *fp, char* input_line, int line)
 				while(buf[i]=='.'){current_notelength*=1.5;i++;}
 				break;
 			default:
-				bitch("invalid syntax",line,i);
+				bitch("invalid syntax (see ascii)",line, int(lcase(buf[i])));
 				break;
 		}
 	if(note_ready) output_note(line,i);
@@ -342,7 +342,7 @@ int main(int argn, char **argv)
 {
 	if(argn!=3)
 	{
-		printf("bitch needs input and output files\n");
+		printf("bitch needs input and output files , argn: %d \n" , argn  );
 		exit(0);
 	}
 	FILE *fp=fopen(argv[1],"r");
