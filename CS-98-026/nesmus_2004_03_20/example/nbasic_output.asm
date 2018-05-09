@@ -38,10 +38,14 @@ joy1right = 32
 music_pointers:
 	.db low(music_data1),high(music_data1) ;//start of song 1
 	.db low(music_data2),high(music_data2) ;//end of song 1
+	.db low(music_data2),high(music_data2) ;//start of song 2
+	.db low(music_data3),high(music_data3) ;//end of song 2
 
 music_data1:
-	.incbin "music/music.dat"
+	.incbin "music/tomley.dat"
 music_data2:
+	.incbin "music/scale.dat"
+music_data3:
 
 start:
  jsr vwait
@@ -61,6 +65,12 @@ start:
 mainloop:
  jsr joy_handler
  jsr vwait
+ lda #1
+ cmp nesmus_song_over
+ bne nbasic_autolabel_1
+ jsr swap_songs
+
+nbasic_autolabel_1:
  jsr nesmus_loop
  jsr drawstuff
  jmp mainloop
@@ -244,13 +254,13 @@ joy_handler:
  sta spritenum
  lda #1
  cmp joy1start
- bne nbasic_autolabel_1
+ bne nbasic_autolabel_2
  lda #128
  sta spritex
  lda #120
  sta spritey
 
-nbasic_autolabel_1:
+nbasic_autolabel_2:
  rts
 
 incrementer:
@@ -258,59 +268,59 @@ incrementer:
  sta a_inc
  lda #0
  cmp joy1a
- bne nbasic_autolabel_2
+ bne nbasic_autolabel_3
  lda #0
  sta a_pressed
 
-nbasic_autolabel_2:
+nbasic_autolabel_3:
  lda #1
  cmp joy1a
- bne nbasic_autolabel_3
+ bne nbasic_autolabel_4
  lda #0
  cmp a_pressed
- bne nbasic_autolabel_4
+ bne nbasic_autolabel_5
  lda #1
  sta a_pressed
  lda #89
  cmp spritenum
- bcc nbasic_autolabel_5
- beq nbasic_autolabel_5
+ bcc nbasic_autolabel_6
+ beq nbasic_autolabel_6
  lda #1
  sta a_inc
+
+nbasic_autolabel_6:
 
 nbasic_autolabel_5:
 
 nbasic_autolabel_4:
-
-nbasic_autolabel_3:
  lda #0
  sta b_inc
  lda #0
  cmp joy1b
- bne nbasic_autolabel_6
+ bne nbasic_autolabel_7
  lda #0
  sta b_pressed
 
-nbasic_autolabel_6:
+nbasic_autolabel_7:
  lda #1
  cmp joy1b
- bne nbasic_autolabel_7
+ bne nbasic_autolabel_8
  lda #0
  cmp b_pressed
- bne nbasic_autolabel_8
+ bne nbasic_autolabel_9
  lda #1
  sta b_pressed
  lda #65
  cmp spritenum
- bcs nbasic_autolabel_9
+ bcs nbasic_autolabel_10
  lda #1
  sta b_inc
+
+nbasic_autolabel_10:
 
 nbasic_autolabel_9:
 
 nbasic_autolabel_8:
-
-nbasic_autolabel_7:
  rts
 
 load_palette:
@@ -371,60 +381,60 @@ nesmus_load:
 nesmus_loop:
  lda #0
  cmp nesmus_wait
- beq nbasic_autolabel_10
+ beq nbasic_autolabel_11
  dec nesmus_wait
  rts
 
-nbasic_autolabel_10:
+nbasic_autolabel_11:
  ldx #1
  lda nesmus_start,x
  sta nesmus_temp
  lda nesmus_start
  cmp nesmus_pos
- bne nbasic_autolabel_11
+ bne nbasic_autolabel_12
  ldx #1
  lda nesmus_pos,x
  cmp nesmus_temp
- bne nbasic_autolabel_12
+ bne nbasic_autolabel_13
  jsr nesmus_shut_up
 
-nbasic_autolabel_12:
+nbasic_autolabel_13:
 
-nbasic_autolabel_11:
+nbasic_autolabel_12:
  ldx #1
  lda nesmus_end,x
  sta nesmus_temp
  lda nesmus_end
  cmp nesmus_pos
- bne nbasic_autolabel_13
+ bne nbasic_autolabel_14
  ldx #1
  lda nesmus_pos,x
  cmp nesmus_temp
- bne nbasic_autolabel_14
+ bne nbasic_autolabel_15
  jsr nesmus_restart_song
  rts
 
-nbasic_autolabel_14:
+nbasic_autolabel_15:
 
-nbasic_autolabel_13:
+nbasic_autolabel_14:
  ldy #0
  lda [nesmus_pos],y ;//get command byte
  sta nesmus_command
  iny
  lda #255
  cmp nesmus_command
- bne nbasic_autolabel_15
+ bne nbasic_autolabel_16
  jsr nesmus_startloop
  jmp nesmus_loop
 
-nbasic_autolabel_15:
+nbasic_autolabel_16:
  lda #254
  cmp nesmus_command
- bne nbasic_autolabel_16
+ bne nbasic_autolabel_17
  jsr nesmus_endloop
  jmp nesmus_loop
 
-nbasic_autolabel_16:
+nbasic_autolabel_17:
  jsr nesmus_playnote
  rts
 
@@ -480,11 +490,11 @@ nesmus_endloop:
  dec nesmus_loop_count
  lda #0
  cmp nesmus_loop_count
- bne nbasic_autolabel_17
+ bne nbasic_autolabel_18
  jsr nesmus_inc_pointer
  rts
 
-nbasic_autolabel_17:
+nbasic_autolabel_18:
  lda nesmus_stack
  sta nesmus_pos
  ldx #1
@@ -513,31 +523,31 @@ nesmus_playnote:
  lda #3
  and nesmus_bitmask
  cmp #0
- beq nbasic_autolabel_18
+ beq nbasic_autolabel_19
  jsr nesmus_channel_0
 
-nbasic_autolabel_18:
+nbasic_autolabel_19:
  lda #12
  and nesmus_bitmask
  cmp #0
- beq nbasic_autolabel_19
+ beq nbasic_autolabel_20
  jsr nesmus_channel_1
 
-nbasic_autolabel_19:
+nbasic_autolabel_20:
  lda #48
  and nesmus_bitmask
  cmp #0
- beq nbasic_autolabel_20
+ beq nbasic_autolabel_21
  jsr nesmus_channel_2
 
-nbasic_autolabel_20:
+nbasic_autolabel_21:
  lda #192
  and nesmus_bitmask
  cmp #0
- beq nbasic_autolabel_21
+ beq nbasic_autolabel_22
  jsr nesmus_channel_3
 
-nbasic_autolabel_21:
+nbasic_autolabel_22:
  jsr nesmus_inc_pointer
  rts
 
