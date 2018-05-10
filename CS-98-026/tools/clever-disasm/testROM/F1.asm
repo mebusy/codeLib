@@ -116,13 +116,13 @@ _inject_code_to_$600~$065E
 -	$C053  8A:          txa 
 	$C054  99 00 01:    sta $0100,y
 	$C057  C8:          iny 
-	$C058  F0 09:       beq +		; $C063 -> _loc_260A
+	$C058  F0 09:       beq +		; $C063 -> _main_reset_code
 	$C05A  98:          tya 
 	$C05B  DD FE FC:    cmp _data_3CFE_indexed,x
 	$C05E  90 F3:       bcc -		; $C053
 	$C060  CA:          dex 
 	$C061  10 F0:       bpl -		; $C053
-+	$C063  4C 0A E6:    jmp _loc_260A
++	$C063  4C 0A E6:    jmp _main_reset_code
 ;------------------------------------------
 _NMI	$C066  48:          pha 
 	$C067  8A:           txa 
@@ -1107,7 +1107,7 @@ _func_091B
 	$C92B  F0 06:       beq +		; $C933
 	$C92D  A2 FF:       ldx #$FF
 	$C92F  9A:          txs 		; set Stack Pointer at $1FF
-	$C930  4C 0A E6:    jmp _loc_260A
+	$C930  4C 0A E6:    jmp _main_reset_code
 
 +	$C933  A5 6C:       lda $6C
 	$C935  F0 0B:       beq ++		; $C942
@@ -1831,11 +1831,11 @@ _loc_0E47
 	$CF4B  10 ED:       bpl -		; $CF3A
 	$CF4D  A9 14:       lda #$14
 	$CF4F  20 D4 D0:    jsr _func_10D4
-	$CF52  4C 0A E6:    jmp _loc_260A
+	$CF52  4C 0A E6:    jmp _main_reset_code
 
 +	$CF55  A9 3C:       lda #$3C
 	$CF57  20 D4 D0:    jsr _func_10D4
-	$CF5A  4C 0A E6:    jmp _loc_260A
+	$CF5A  4C 0A E6:    jmp _main_reset_code
 ;------------------------------------------
 _data_0F5D_indexed
 	$CF5D               .byte $2D,$1B,$0E,$1F,$18,$2D,$2D,$0E,$16,$0A,$10,$2D
@@ -3961,7 +3961,7 @@ _data_2569_indexed
 	$E5E9               .byte $D1,$D3,$D4,$D6,$D7,$D9,$DA,$DC,$DD,$DF,$E0,$E2,$E3,$E5,$E6,$E8
 	$E5F9               .byte $E9,$EB,$EC,$EE,$EF,$F1,$F2,$F4,$F5,$F7,$F8,$FA,$FB,$FD,$FE,$FF
 	$E609               .byte $FF
-_loc_260A
+_main_reset_code
 	$E60A  A9 01:       lda #$01
 	$E60C  85 2A:       sta $2A
 	$E60E  20 6E F3:    jsr _func_336E
