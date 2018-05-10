@@ -3632,7 +3632,9 @@ int main(int argc, const char*const *argv)
     {
         if(argc > 1) perror(argv[1]);
     Usage:
-        printf("Usage: clever_disasm <nesfile> [<inifile>]\n");
+        printf("Usage: clever_disasm [--asm] <nesfile> [<inifile>]\n");
+        printf("when --asm is provide, only asm code,no dump data.\n" );
+        printf("which means '$C005 78: sei' will just show ' sei' instead. \n") ;
         return -1;
     }
 
