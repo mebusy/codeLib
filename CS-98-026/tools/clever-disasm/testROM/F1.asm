@@ -8,11 +8,11 @@ ROM is 16384 bytes, 2 8k-pages, mapper 0
 ; NMI:   C066
 ; Reset: C000
 ; IRQ:   C0D2
-; UNRESOLVED direct JSR at $3F70 to $0600!
-; UNRESOLVED direct JSR at $3F7C to $0600!
-; UNRESOLVED direct JSR at $3F7F to $0600!
-; UNRESOLVED direct JSR at $3F8B to $0600!
-; UNRESOLVED direct JSR at $3F8E to $0600!
+; UNRESOLVED direct JSR at romprt: $3F70 to $0600!
+; UNRESOLVED direct JSR at romprt: $3F7C to $0600!
+; UNRESOLVED direct JSR at romprt: $3F7F to $0600!
+; UNRESOLVED direct JSR at romprt: $3F8B to $0600!
+; UNRESOLVED direct JSR at romprt: $3F8E to $0600!
 ; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
 ; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
 ; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
@@ -81,7 +81,7 @@ _Reset	$C000  AD 02 20:    lda $2002
 -	$C00E  95 00:       sta $00,x
 	$C010  E8:          inx 
 	$C011  D0 FB:       bne -		; $C00E
-	$C013  8D 01 20:    sta $2001
+	$C013  8D 01 20:    sta $2001		; close display
 	$C016  A9 1E:       lda #$1E
 	$C018  85 15:       sta $15
 	$C01A  A9 90:       lda #$90
@@ -5049,7 +5049,7 @@ _func_336E
 	$F36E  20 1B C9:    jsr _func_091B
 	$F371  A9 00:       lda #$00
 	$F373  85 15:       sta $15
-	$F375  8D 01 20:    sta $2001
+	$F375  8D 01 20:    sta $2001		; close display
 	$F378  A5 14:       lda $14
 	$F37A  8D 00 20:    sta $2000
 	$F37D  A9 20:       lda #$20

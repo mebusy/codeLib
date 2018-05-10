@@ -398,7 +398,10 @@ public:
     const SimulReg& GetRef() const { return *this; }
 
 public:
-    void Dump() const
+    bool IsValueDefined() const {
+        return known!=2 ;
+    }
+    void Dump( bool noShowDef = false  ) const
     {
         switch(known)
         {
@@ -409,7 +412,7 @@ public:
             case 4: printf("$%04X,y", romaddr); break;
             case 5: printf("[%02X]", value); break;
         }
-        if(defined_at != -1) printf("<%X>", defined_at);
+        if( !noShowDef && defined_at != -1) printf("<%X>", defined_at);
     }
 };
 struct SimulFlag
@@ -642,6 +645,22 @@ struct SimulCPU
         printf("Z"); Zflag.Dump();
         printf("S"); Sflag.Dump();
         printf("*/");
+    }
+    
+    void DumpAXY() const
+    {
+        if (A.IsValueDefined() || X.IsValueDefined() || Y.IsValueDefined() )
+            printf("\t\t\t\t\t\t\t\t; -- ");
+        if (A.IsValueDefined()) {
+            printf("A"); A.Dump(true);printf(", ");
+        }
+        if (X.IsValueDefined()) {
+            printf("X"); X.Dump(true);printf(", ");
+        }
+        if (Y.IsValueDefined()) {
+            printf("Y"); Y.Dump(true);printf(", ");
+        }
+
     }
 
     SimulCPU()
@@ -1714,6 +1733,10 @@ public:
             case 0x9A : // txs
                 printf( "%s; set Stack Pointer at $1%02X" , indent , state.cpu.X.Value() );
                 break;
+            case 0x8D :
+                if ( code.Param == 0x2001 && state.cpu.A.Value()==0 )
+                    printf( "%s; close display" , indent   );
+                break ;
                 
         }
     }
@@ -2104,6 +2127,8 @@ public:
                 state.cpu.LoadMap();
 
                 DumpCode(romptr, state, code_indent);
+                // qibinyi
+                //if(ShowDumpData) state.cpu.DumpAXY();
                 //state.cpu.Dump();
                 //if(state.barrier) printf("(barrier)");
 
@@ -2794,7 +2819,7 @@ private:
                 else
                 {
                 failed_jsr:
-                    printf("; UNRESOLVED direct JSR at $%X to $%04X!\n", romptr, code.Param);
+                    printf("; UNRESOLVED direct JSR at romprt: $%X to $%04X!\n", romptr, code.Param);
                 }
 
                 Mark(Next, MaybeCode); // there's no guarantee that the jsr will return
