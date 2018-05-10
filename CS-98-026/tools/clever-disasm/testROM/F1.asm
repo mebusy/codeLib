@@ -78,9 +78,10 @@ _Reset	$C000  AD 02 20:    lda PPUSTATUS
 	$C009  9A:          txs 		; set Stack Pointer at $1FF
 	$C00A  A9 00:       lda #$00
 	$C00C  A2 14:       ldx #$14
--	$C00E  95 00:       sta $00,x
+_init_$14~$FF
+	$C00E  95 00:       sta $00,x
 	$C010  E8:          inx 
-	$C011  D0 FB:       bne -		; $C00E
+	$C011  D0 FB:       bne _init_$14~$FF
 	$C013  8D 01 20:    sta PPUMASK		; close display
 	$C016  A9 1E:       lda #$1E
 	$C018  85 15:       sta $15
@@ -103,12 +104,13 @@ _Reset	$C000  AD 02 20:    lda PPUSTATUS
 	$C03B  85 03:       sta $03
 	$C03D  85 08:       sta $08
 	$C03F  85 0D:       sta $0D
-++	$C041  20 6E F4:    jsr _func_346E
+++	$C041  20 6E F4:    jsr _soundPrepare
 	$C044  A2 5E:       ldx #$5E
--	$C046  BD 9B FF:    lda _data_3F9B_indexed,x
+_inject_code_to_$600~$065E
+	$C046  BD 9B FF:    lda _data_3F9B_indexed,x
 	$C049  9D 00 06:    sta $0600,x
 	$C04C  CA:          dex 
-	$C04D  10 F7:       bpl -		; $C046
+	$C04D  10 F7:       bpl _inject_code_to_$600~$065E
 	$C04F  A2 07:       ldx #$07
 	$C051  A0 00:       ldy #$00
 -	$C053  8A:          txa 
@@ -1995,7 +1997,7 @@ _loc_1005
 	$D0B6  A5 B3:       lda $B3
 	$D0B8  8D 07 20:    sta PPUDATA
 	$D0BB  20 06 C9:    jsr _func_0906
-	$D0BE  20 6E F4:    jsr _func_346E
+	$D0BE  20 6E F4:    jsr _soundPrepare
 	$D0C1  A9 01:       lda #$01
 	$D0C3  20 8E F4:    jsr _func_348E
 	$D0C6  20 05 F5:    jsr _func_3505
@@ -3963,7 +3965,7 @@ _loc_260A
 	$E60A  A9 01:       lda #$01
 	$E60C  85 2A:       sta $2A
 	$E60E  20 6E F3:    jsr _func_336E
-	$E611  20 6E F4:    jsr _func_346E
+	$E611  20 6E F4:    jsr _soundPrepare
 	$E614  A0 00:       ldy #$00
 	$E616  84 4F:       sty $4F
 	$E618  C8:          iny 
@@ -4442,7 +4444,7 @@ _func_29BA
 	$EA92  8D AB 03:    sta $03AB
 	$EA95  A9 88:       lda #$88
 	$EA97  8D AF 03:    sta $03AF
-	$EA9A  20 6E F4:    jsr _func_346E
+	$EA9A  20 6E F4:    jsr _soundPrepare
 	$EA9D  A9 00:       lda #$00
 	$EA9F  20 8E F4:    jsr _func_348E
 	$EAA2  A0 00:       ldy #$00
@@ -5179,7 +5181,7 @@ _loc_33B5
 ++	$F469  A2 08:       ldx #$08
 	$F46B  4C FF D3:    jmp ----		; $D3FF
 ;------------------------------------------
-_func_346E
+_soundPrepare
 	$F46E  A2 00:       ldx #$00
 	$F470  8E 11 40:    stx $4011
 	$F473  86 BC:       stx $BC
