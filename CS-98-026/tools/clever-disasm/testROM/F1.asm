@@ -70,7 +70,7 @@ ROM is 16384 bytes, 2 8k-pages, mapper 0
 ; Discovered a data table at 1D17,1D87 (stepping 1, extent 112)
 ; Discovered a data table at 1D17,1D87 (stepping 1, extent 112)
 ; Discovered a data table at 1D17,1D87 (stepping 1, extent 112)
-_Reset	$C000  AD 02 20:    lda $2002
+_Reset	$C000  AD 02 20:    lda PPUSTATUS
 	$C003  10 FB:       bpl _Reset
 	$C005  78:          sei 		; ignore IRQs
 	$C006  D8:          cld 		; disable decimal mode
@@ -81,11 +81,11 @@ _Reset	$C000  AD 02 20:    lda $2002
 -	$C00E  95 00:       sta $00,x
 	$C010  E8:          inx 
 	$C011  D0 FB:       bne -		; $C00E
-	$C013  8D 01 20:    sta $2001		; close display
+	$C013  8D 01 20:    sta PPUMASK		; close display
 	$C016  A9 1E:       lda #$1E
 	$C018  85 15:       sta $15
 	$C01A  A9 90:       lda #$90
-	$C01C  8D 00 20:    sta $2000
+	$C01C  8D 00 20:    sta PPUCTRL
 	$C01F  85 14:       sta $14
 	$C021  A2 0F:       ldx #$0F
 -	$C023  BD 00 06:    lda $0600,x
@@ -128,7 +128,7 @@ _NMI	$C066  48:          pha
 	$C069  98:            tya 
 	$C06A  48:            pha 
 	$C06B  A9 00:          lda #$00
-	$C06D  8D 03 20:       sta $2003
+	$C06D  8D 03 20:       sta OAMADDR
 	$C070  A5 4F:          lda $4F
 	$C072  29 01:          and #$01
 	$C074  09 02:          ora #$02
@@ -345,11 +345,11 @@ _func_0208
 	$C20A  0A:          asl a
 	$C20B  A5 4A:       lda $4A
 	$C20D  2A:          rol a
-	$C20E  8D 05 20:    sta $2005
+	$C20E  8D 05 20:    sta PPUSCROLL
 	$C211  A9 00:       lda #$00
-	$C213  8D 05 20:    sta $2005
+	$C213  8D 05 20:    sta PPUSCROLL
 	$C216  65 14:       adc $14
-	$C218  8D 00 20:    sta $2000
+	$C218  8D 00 20:    sta PPUCTRL
 	$C21B  A5 34:       lda $34
 	$C21D  D0 01:       bne +		; $C220
 	$C21F  60:          rts 
@@ -640,7 +640,7 @@ _data_047D_indexed
 	$C49D               .byte $20,$40,$80,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$80,$40,$00
 	$C4AD               .byte $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 _DataPointerTableLo_04BD
-	$C4BD  01:          .byte < ($2001)
+	$C4BD  01:          .byte < (PPUMASK)
 	$C4BE  01:          .byte < ($3001)
 	$C4BF  01:          .byte < ($4001)
 	$C4C0  01:          .byte < ($5001)
@@ -657,13 +657,13 @@ _DataPointerTableLo_04BD
 	$C4CB  02:          .byte < ($5002)
 	$C4CC  02:          .byte < ($7002)
 	$C4CD  02:          .byte < ($4002)
-	$C4CE  02:          .byte < ($2002)
+	$C4CE  02:          .byte < (PPUSTATUS)
 	$C4CF  02:          .byte < (DataTableEntry_3002)
 	$C4D0  01:          .byte < (DataTableEntry_0001)
 	$C4D1  01:          .byte < (DataTableEntry_1001)
 	$C4D2  01:          .byte < ($6801)
 	$C4D3  01:          .byte < ($4001)
-	$C4D4  01:          .byte < ($2001)
+	$C4D4  01:          .byte < (PPUMASK)
 	$C4D5  01:          .byte < ($1801)
 	$C4D6  01:          .byte < ($1001)
 	$C4D7  01:          .byte < ($4001)
@@ -675,7 +675,7 @@ _DataPointerTableLo_04BD
 	$C4DD               .byte $02,$02,$02,$02,$02,$02,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03
 	$C4ED               .byte $03,$03,$03,$03,$03,$03,$03,$02,$03,$03,$03,$03,$03,$03,$03,$00
 _DataPointerTableHi_04BD
-	$C4FD  20:          .byte > ($2001)
+	$C4FD  20:          .byte > (PPUMASK)
 	$C4FE  30:          .byte > ($3001)
 	$C4FF  40:          .byte > ($4001)
 	$C500  50:          .byte > ($5001)
@@ -692,13 +692,13 @@ _DataPointerTableHi_04BD
 	$C50B  50:          .byte > ($5002)
 	$C50C  70:          .byte > ($7002)
 	$C50D  40:          .byte > ($4002)
-	$C50E  20:          .byte > ($2002)
+	$C50E  20:          .byte > (PPUSTATUS)
 	$C50F  F0:          .byte > (DataTableEntry_3002)
 	$C510  C0:          .byte > (DataTableEntry_0001)
 	$C511  90:          .byte > (DataTableEntry_1001)
 	$C512  68:          .byte > ($6801)
 	$C513  40:          .byte > ($4001)
-	$C514  20:          .byte > ($2001)
+	$C514  20:          .byte > (PPUMASK)
 	$C515  18:          .byte > ($1801)
 	$C516  10:          .byte > ($1001)
 	$C517  40:          .byte > ($4001)
@@ -717,7 +717,7 @@ _func_0543
 	$C543  20 1B C9:    jsr _func_091B
 	$C546  A2 00:       ldx #$00
 	$C548  86 15:       stx $15
-	$C54A  8E 01 20:    stx $2001
+	$C54A  8E 01 20:    stx PPUMASK
 	$C54D  A9 20:       lda #$20
 	$C54F  85 22:       sta $22
 	$C551  86 23:       stx $23
@@ -752,13 +752,13 @@ _func_0543
 	$C589  AA:          tax 
 	$C58A  A0 07:       ldy #$07
 -	$C58C  BD C6 C8:    lda _data_08C6_indexed,x
-	$C58F  8D 07 20:    sta $2007
+	$C58F  8D 07 20:    sta PPUDATA
 	$C592  E8:          inx 
 	$C593  88:          dey 
 	$C594  10 F6:       bpl -		; $C58C
 	$C596  A0 00:       ldy #$00
 -	$C598  B9 AE C8:    lda _data_08AE_indexed,y
-	$C59B  8D 07 20:    sta $2007
+	$C59B  8D 07 20:    sta PPUDATA
 	$C59E  C8:          iny 
 	$C59F  C0 18:       cpy #$18
 	$C5A1  90 F5:       bcc -		; $C598
@@ -782,7 +782,7 @@ _func_0543
 	$C5C7  C0 10:       cpy #$10
 	$C5C9  B0 03:       bcs +		; $C5CE
 	$C5CB  B9 F6 C8:    lda _data_08F6_indexed,y
-+	$C5CE  8D 07 20:    sta $2007
++	$C5CE  8D 07 20:    sta PPUDATA
 	$C5D1  C8:          iny 
 	$C5D2  C0 40:       cpy #$40
 	$C5D4  90 E3:       bcc -		; $C5B9
@@ -791,7 +791,7 @@ _func_0543
 	$C5DA  20 64 E9:    jsr _func_2964
 	$C5DD  A9 55:       lda #$55
 	$C5DF  A0 00:       ldy #$00
--	$C5E1  8D 07 20:    sta $2007
+-	$C5E1  8D 07 20:    sta PPUDATA
 	$C5E4  C0 17:       cpy #$17
 	$C5E6  D0 02:       bne +		; $C5EA
 	$C5E8  A9 05:       lda #$05
@@ -808,29 +808,29 @@ _func_0543
 	$C5FD  A0 89:       ldy #$89
 	$C5FF  20 64 E9:    jsr _func_2964
 	$C602  A0 3D:       ldy #$3D
-	$C604  8C 07 20:    sty $2007
+	$C604  8C 07 20:    sty PPUDATA
 	$C607  C8:          iny 
-	$C608  8C 07 20:    sty $2007
+	$C608  8C 07 20:    sty PPUDATA
 	$C60B  A9 20:       lda #$20
 	$C60D  A0 A9:       ldy #$A9
 	$C60F  20 64 E9:    jsr _func_2964
 	$C612  A0 3F:       ldy #$3F
-	$C614  8C 07 20:    sty $2007
+	$C614  8C 07 20:    sty PPUDATA
 	$C617  C8:          iny 
-	$C618  8C 07 20:    sty $2007
+	$C618  8C 07 20:    sty PPUDATA
 	$C61B  A9 20:       lda #$20
 	$C61D  A0 AC:       ldy #$AC
 	$C61F  20 64 E9:    jsr _func_2964
 	$C622  A0 11:       ldy #$11
-	$C624  8C 07 20:    sty $2007
+	$C624  8C 07 20:    sty PPUDATA
 	$C627  C8:          iny 
-	$C628  8C 07 20:    sty $2007
+	$C628  8C 07 20:    sty PPUDATA
 	$C62B  A9 20:       lda #$20
 	$C62D  A0 4C:       ldy #$4C
 	$C62F  20 64 E9:    jsr _func_2964
 	$C632  A0 07:       ldy #$07
 -	$C634  B9 FF C7:    lda _data_07FF_indexed,y
-	$C637  8D 07 20:    sta $2007
+	$C637  8D 07 20:    sta PPUDATA
 	$C63A  88:          dey 
 	$C63B  10 F7:       bpl -		; $C634
 	$C63D  A9 20:       lda #$20
@@ -838,7 +838,7 @@ _func_0543
 	$C641  20 64 E9:    jsr _func_2964
 	$C644  A0 04:       ldy #$04
 -	$C646  B9 07 C8:    lda _data_0807_indexed,y
-	$C649  8D 07 20:    sta $2007
+	$C649  8D 07 20:    sta PPUDATA
 	$C64C  88:          dey 
 	$C64D  10 F7:       bpl -		; $C646
 	$C64F  20 1B C9:    jsr _func_091B
@@ -847,7 +847,7 @@ _func_0543
 	$C656  20 64 E9:    jsr _func_2964
 	$C659  A0 1F:       ldy #$1F
 	$C65B  A9 2B:       lda #$2B
--	$C65D  8D 07 20:    sta $2007
+-	$C65D  8D 07 20:    sta PPUDATA
 	$C660  88:          dey 
 	$C661  10 FA:       bpl -		; $C65D
 	$C663  A9 25:       lda #$25
@@ -855,7 +855,7 @@ _func_0543
 	$C667  20 64 E9:    jsr _func_2964
 	$C66A  A0 1F:       ldy #$1F
 	$C66C  A9 2B:       lda #$2B
--	$C66E  8D 07 20:    sta $2007
+-	$C66E  8D 07 20:    sta PPUDATA
 	$C671  88:          dey 
 	$C672  10 FA:       bpl -		; $C66E
 	$C674  20 1B C9:    jsr _func_091B
@@ -870,7 +870,7 @@ _func_0543
 	$C688  8A:          txa 
 	$C689  A8:          tay 
 	$C68A  A9 2C:       lda #$2C
--	$C68C  8D 07 20:    sta $2007
+-	$C68C  8D 07 20:    sta PPUDATA
 	$C68F  88:          dey 
 	$C690  10 FA:       bpl -		; $C68C
 	$C692  A5 23:       lda $23
@@ -892,7 +892,7 @@ _func_0543
 	$C6B1  8A:          txa 
 	$C6B2  A8:          tay 
 	$C6B3  A9 2C:       lda #$2C
--	$C6B5  8D 07 20:    sta $2007
+-	$C6B5  8D 07 20:    sta PPUDATA
 	$C6B8  88:          dey 
 	$C6B9  10 FA:       bpl -		; $C6B5
 	$C6BB  A5 23:       lda $23
@@ -905,7 +905,7 @@ _func_0543
 	$C6C7  10 E1:       bpl --		; $C6AA
 	$C6C9  A5 14:       lda $14
 	$C6CB  09 04:       ora #$04
-	$C6CD  8D 00 20:    sta $2000
+	$C6CD  8D 00 20:    sta PPUCTRL
 	$C6D0  A9 21:       lda #<_data_1E21_indexed
 	$C6D2  85 22:       sta $22
 	$C6D4  A9 DE:       lda #>_data_1E21_indexed
@@ -916,12 +916,12 @@ _func_0543
 	$C6DE  BD 0C C8:    lda _data_080C_indexed,x
 	$C6E1  85 17:       sta $17
 	$C6E3  A5 22:       lda $22
-	$C6E5  8D 06 20:    sta $2006
+	$C6E5  8D 06 20:    sta PPUADDR
 	$C6E8  A5 23:       lda $23
-	$C6EA  8D 06 20:    sta $2006
+	$C6EA  8D 06 20:    sta PPUADDR
 	$C6ED  A2 00:       ldx #$00
 -	$C6EF  B9 1C C8:    lda _data_081C_indexed,y
-	$C6F2  8D 07 20:    sta $2007
+	$C6F2  8D 07 20:    sta PPUDATA
 	$C6F5  C8:          iny 
 	$C6F6  E8:          inx 
 	$C6F7  E4 17:       cpx $17
@@ -946,15 +946,15 @@ _func_0543
 	$C71B  BD 0C C8:    lda _data_080C_indexed,x
 	$C71E  85 17:       sta $17
 	$C720  A5 22:       lda $22
-	$C722  8D 06 20:    sta $2006
+	$C722  8D 06 20:    sta PPUADDR
 	$C725  A5 23:       lda $23
-	$C727  8D 06 20:    sta $2006
+	$C727  8D 06 20:    sta PPUADDR
 	$C72A  A2 00:       ldx #$00
 -	$C72C  B9 1C C8:    lda _data_081C_indexed,y
 	$C72F  10 03:       bpl +		; $C734
 	$C731  18:          clc 
 	$C732  69 11:       adc #$11
-+	$C734  8D 07 20:    sta $2007
++	$C734  8D 07 20:    sta PPUDATA
 	$C737  C8:          iny 
 	$C738  E8:          inx 
 	$C739  E4 17:       cpx $17
@@ -973,9 +973,9 @@ _func_0543
 	$C751  A0 DF:       ldy #$DF
 	$C753  20 64 E9:    jsr _func_2964
 	$C756  A9 60:       lda #$60
-	$C758  8D 07 20:    sta $2007
+	$C758  8D 07 20:    sta PPUDATA
 	$C75B  A5 14:       lda $14
-	$C75D  8D 00 20:    sta $2000
+	$C75D  8D 00 20:    sta PPUCTRL
 	$C760  20 1B C9:    jsr _func_091B
 	$C763  A9 21:       lda #$21
 	$C765  A0 40:       ldy #$40
@@ -1040,11 +1040,11 @@ _func_07DF
 	$C7EE  D0 02:       bne ++		; $C7F2
 
 +	$C7F0  A9 2F:       lda #$2F
-++ -	$C7F2  8D 07 20:    sta $2007
+++ -	$C7F2  8D 07 20:    sta PPUDATA
 	$C7F5  CA:          dex 
 	$C7F6  10 FA:       bpl -		; $C7F2
 	$C7F8  30 03:       bmi ++++		; $C7FD
-+++	$C7FA  8D 07 20:    sta $2007
++++	$C7FA  8D 07 20:    sta PPUDATA
 ++++	$C7FD  C8:          iny 
 	$C7FE  60:          rts 
 ;------------------------------------------
@@ -1086,11 +1086,11 @@ _func_0906
 	$C906  A9 20:       lda #$20
 	$C908  A0 00:       ldy #$00
 	$C90A  20 64 E9:    jsr _func_2964
-	$C90D  8C 05 20:    sty $2005
-	$C910  8C 05 20:    sty $2005
+	$C90D  8C 05 20:    sty PPUSCROLL
+	$C910  8C 05 20:    sty PPUSCROLL
 	$C913  A9 1E:       lda #$1E
 	$C915  85 15:       sta $15
-	$C917  8D 01 20:    sta $2001
+	$C917  8D 01 20:    sta PPUMASK
 	$C91A  60:          rts 
 ;------------------------------------------
 _func_091B
@@ -1153,7 +1153,7 @@ _func_091B
 	$C97C  20 64 E9:      jsr _func_2964
 	$C97F  A0 08:         ldy #$08
 -	$C981  A9 2D:         lda #$2D
-	$C983  8D 07 20:      sta $2007
+	$C983  8D 07 20:      sta PPUDATA
 	$C986  88:            dey 
 	$C987  10 F8:         bpl -		; $C981
 	$C989  A5 A9:         lda $A9
@@ -1167,7 +1167,7 @@ _func_091B
 	$C997  20 64 E9:      jsr _func_2964
 	$C99A  A0 04:         ldy #$04
 -	$C99C  B9 F2 C9:      lda _data_09F2_indexed,y
-	$C99F  8D 07 20:      sta $2007
+	$C99F  8D 07 20:      sta PPUDATA
 	$C9A2  88:            dey 
 	$C9A3  10 F7:         bpl -		; $C99C
 	$C9A5  A9 08:         lda #$08
@@ -1234,11 +1234,11 @@ _func_0A04
 	$CA24  0A:          asl a
 	$CA25  A5 4A:       lda $4A
 	$CA27  2A:          rol a
-	$CA28  8D 05 20:    sta $2005
+	$CA28  8D 05 20:    sta PPUSCROLL
 	$CA2B  A9 00:       lda #$00
-	$CA2D  8D 05 20:    sta $2005
+	$CA2D  8D 05 20:    sta PPUSCROLL
 	$CA30  65 14:       adc $14
-	$CA32  8D 00 20:    sta $2000
+	$CA32  8D 00 20:    sta PPUCTRL
 	$CA35  4C 14 FF:    jmp _func_3F14
 ;------------------------------------------
 _func_0A38
@@ -1246,16 +1246,16 @@ _func_0A38
 	$CA3A  29 01:       and #$01
 	$CA3C  D0 68:       bne +++		; $CAA6
 	$CA3E  A5 14:       lda $14
-	$CA40  8D 00 20:    sta $2000
+	$CA40  8D 00 20:    sta PPUCTRL
 	$CA43  A9 20:       lda #$20
 	$CA45  A0 71:       ldy #$71
 	$CA47  20 64 E9:    jsr _func_2964
 	$CA4A  A5 78:       lda $78
 	$CA4C  D0 02:       bne +		; $CA50
 	$CA4E  A9 2D:       lda #$2D
-+	$CA50  8D 07 20:    sta $2007
++	$CA50  8D 07 20:    sta PPUDATA
 	$CA53  A5 77:       lda $77
-	$CA55  8D 07 20:    sta $2007
+	$CA55  8D 07 20:    sta PPUDATA
 	$CA58  A9 00:       lda #$00
 	$CA5A  85 38:       sta $38
 	$CA5C  A9 20:       lda #$20
@@ -1270,14 +1270,14 @@ _func_0A38
 	$CA70  D0 02:       bne ++		; $CA74
 
 +	$CA72  85 38:       sta $38
-++	$CA74  8D 07 20:    sta $2007
+++	$CA74  8D 07 20:    sta PPUDATA
 	$CA77  88:          dey 
 	$CA78  10 EB:       bpl -		; $CA65
 	$CA7A  A9 00:       lda #$00
-	$CA7C  8D 07 20:    sta $2007
+	$CA7C  8D 07 20:    sta PPUDATA
 	$CA7F  A5 14:       lda $14
 	$CA81  09 04:       ora #$04
-	$CA83  8D 00 20:    sta $2000
+	$CA83  8D 00 20:    sta PPUCTRL
 	$CA86  A4 48:       ldy $48
 	$CA88  B9 A9 CB:    lda _DataPointerTableLo_0BA9,y
 	$CA8B  85 22:       sta $22
@@ -1288,14 +1288,14 @@ _func_0A38
 	$CA96  20 64 E9:    jsr _func_2964
 	$CA99  A0 00:       ldy #$00
 -	$CA9B  B1 22:       lda ($22),y
-	$CA9D  8D 07 20:    sta $2007
+	$CA9D  8D 07 20:    sta PPUDATA
 	$CAA0  C8:          iny 
 	$CAA1  C0 0F:       cpy #$0F
 	$CAA3  90 F6:       bcc -		; $CA9B
 	$CAA5  60:          rts 
 
 +++	$CAA6  A5 14:       lda $14
-	$CAA8  8D 00 20:    sta $2000
+	$CAA8  8D 00 20:    sta PPUCTRL
 	$CAAB  A5 53:       lda $53
 	$CAAD  4A:          lsr a
 	$CAAE  4A:          lsr a
@@ -1313,32 +1313,32 @@ _func_0A38
 	$CAC5  48:          pha 
 	$CAC6  18:           clc 
 	$CAC7  69 42:        adc #$42
-	$CAC9  8D 07 20:     sta $2007
+	$CAC9  8D 07 20:     sta PPUDATA
 	$CACC  A9 20:        lda #$20
 	$CACE  A0 83:        ldy #$83
 	$CAD0  20 64 E9:     jsr _func_2964
 	$CAD3  68:          pla 
 	$CAD4  18:          clc 
 	$CAD5  69 41:       adc #$41
-	$CAD7  8D 07 20:    sta $2007
+	$CAD7  8D 07 20:    sta PPUDATA
 	$CADA  20 59 CB:    jsr _func_0B59
 	$CADD  0A:          asl a
 	$CADE  48:          pha 
 	$CADF  18:           clc 
 	$CAE0  69 42:        adc #$42
-	$CAE2  8D 07 20:     sta $2007
+	$CAE2  8D 07 20:     sta PPUDATA
 	$CAE5  A9 20:        lda #$20
 	$CAE7  A0 64:        ldy #$64
 	$CAE9  20 64 E9:     jsr _func_2964
 	$CAEC  68:          pla 
 	$CAED  18:          clc 
 	$CAEE  69 41:       adc #$41
-	$CAF0  8D 07 20:    sta $2007
+	$CAF0  8D 07 20:    sta PPUDATA
 	$CAF3  A0 02:       ldy #$02
 -	$CAF5  20 59 CB:    jsr _func_0B59
 	$CAF8  18:          clc 
 	$CAF9  69 47:       adc #$47
-	$CAFB  8D 07 20:    sta $2007
+	$CAFB  8D 07 20:    sta PPUDATA
 	$CAFE  88:          dey 
 	$CAFF  10 F4:       bpl -		; $CAF5
 	$CB01  A0 02:       ldy #$02
@@ -1348,12 +1348,12 @@ _func_0A38
 	$CB09  C9 49:       cmp #$49
 	$CB0B  D0 02:       bne +		; $CB0F
 	$CB0D  A9 47:       lda #$47
-+	$CB0F  8D 07 20:    sta $2007
++	$CB0F  8D 07 20:    sta PPUDATA
 	$CB12  88:          dey 
 	$CB13  10 EE:       bpl -		; $CB03
 	$CB15  A5 14:       lda $14
 	$CB17  09 04:       ora #$04
-	$CB19  8D 00 20:    sta $2000
+	$CB19  8D 00 20:    sta PPUCTRL
 	$CB1C  A9 00:       lda #$00
 	$CB1E  85 39:       sta $39
 	$CB20  AA:          tax 
@@ -1364,7 +1364,7 @@ _func_0A38
 	$CB2A  E8:          inx 
 	$CB2B  20 6B CB:    jsr _func_0B6B
 	$CB2E  A5 14:       lda $14
-	$CB30  8D 00 20:    sta $2000
+	$CB30  8D 00 20:    sta PPUCTRL
 	$CB33  A5 47:       lda $47
 	$CB35  0A:          asl a
 	$CB36  0A:          asl a
@@ -1374,16 +1374,16 @@ _func_0A38
 	$CB3B  A9 20:       lda #$20
 	$CB3D  A0 6C:       ldy #$6C
 	$CB3F  20 64 E9:    jsr _func_2964
-	$CB42  8E 07 20:    stx $2007
+	$CB42  8E 07 20:    stx PPUDATA
 	$CB45  E8:          inx 
-	$CB46  8E 07 20:    stx $2007
+	$CB46  8E 07 20:    stx PPUDATA
 	$CB49  A9 20:       lda #$20
 	$CB4B  A0 8C:       ldy #$8C
 	$CB4D  20 64 E9:    jsr _func_2964
 	$CB50  E8:          inx 
-	$CB51  8E 07 20:    stx $2007
+	$CB51  8E 07 20:    stx PPUDATA
 	$CB54  E8:          inx 
-	$CB55  8E 07 20:    stx $2007
+	$CB55  8E 07 20:    stx PPUDATA
 	$CB58  60:          rts 
 ;------------------------------------------
 _func_0B59
@@ -1401,11 +1401,11 @@ _func_0B64
 ;------------------------------------------
 _func_0B6B
 	$CB6B  A9 20:       lda #$20
-	$CB6D  8D 06 20:    sta $2006
+	$CB6D  8D 06 20:    sta PPUADDR
 	$CB70  8A:          txa 
 	$CB71  18:          clc 
 	$CB72  69 86:       adc #$86
-	$CB74  8D 06 20:    sta $2006
+	$CB74  8D 06 20:    sta PPUADDR
 	$CB77  B5 61:       lda $61,x
 	$CB79  D0 08:       bne +		; $CB83
 	$CB7B  A4 39:       ldy $39
@@ -1416,9 +1416,9 @@ _func_0B6B
 +	$CB83  85 39:       sta $39
 ++	$CB85  A8:          tay 
 	$CB86  B9 93 CB:    lda _data_0B93_indexed,y
-	$CB89  8D 07 20:    sta $2007
+	$CB89  8D 07 20:    sta PPUDATA
 	$CB8C  B9 9E CB:    lda _data_0B9E_indexed,y
-	$CB8F  8D 07 20:    sta $2007
+	$CB8F  8D 07 20:    sta PPUDATA
 	$CB92  60:          rts 
 ;------------------------------------------
 _data_0B93_indexed
@@ -1778,7 +1778,7 @@ _loc_0E47
 	$CED0  20 64 E9:    jsr _func_2964
 	$CED3  A0 0B:       ldy #$0B
 -	$CED5  B9 5D CF:    lda _data_0F5D_indexed,y
-	$CED8  8D 07 20:    sta $2007
+	$CED8  8D 07 20:    sta PPUDATA
 	$CEDB  88:          dey 
 	$CEDC  10 F7:       bpl -		; $CED5
 	$CEDE  A9 21:       lda #$21
@@ -1786,7 +1786,7 @@ _loc_0E47
 	$CEE2  20 64 E9:    jsr _func_2964
 	$CEE5  A9 2D:       lda #$2D
 	$CEE7  A0 0E:       ldy #$0E
--	$CEE9  8D 07 20:    sta $2007
+-	$CEE9  8D 07 20:    sta PPUDATA
 	$CEEC  88:          dey 
 	$CEED  10 FA:       bpl -		; $CEE9
 	$CEEF  A9 21:       lda #$21
@@ -1794,7 +1794,7 @@ _loc_0E47
 	$CEF3  20 64 E9:    jsr _func_2964
 	$CEF6  A0 0F:       ldy #$0F
 	$CEF8  A9 2D:       lda #$2D
--	$CEFA  8D 07 20:    sta $2007
+-	$CEFA  8D 07 20:    sta PPUDATA
 	$CEFD  88:          dey 
 	$CEFE  10 FA:       bpl -		; $CEFA
 	$CF00  20 06 C9:    jsr _func_0906
@@ -1897,12 +1897,12 @@ _func_0FD2
 	$CFE2  85 23:       sta $23
 	$CFE4  A2 0D:       ldx #$0D
 --	$CFE6  A5 22:       lda $22
-	$CFE8  8D 06 20:    sta $2006
+	$CFE8  8D 06 20:    sta PPUADDR
 	$CFEB  A5 23:       lda $23
-	$CFED  8D 06 20:    sta $2006
+	$CFED  8D 06 20:    sta PPUADDR
 	$CFF0  A9 9F:       lda #$9F
 	$CFF2  A0 13:       ldy #$13
--	$CFF4  8D 07 20:    sta $2007
+-	$CFF4  8D 07 20:    sta PPUDATA
 	$CFF7  88:          dey 
 	$CFF8  10 FA:       bpl -		; $CFF4
 	$CFFA  A5 23:       lda $23
@@ -1921,12 +1921,12 @@ _loc_1005
 	$D00E  85 23:       sta $23
 	$D010  A2 07:       ldx #$07
 --	$D012  A5 22:       lda $22
-	$D014  8D 06 20:    sta $2006
+	$D014  8D 06 20:    sta PPUADDR
 	$D017  A5 23:       lda $23
-	$D019  8D 06 20:    sta $2006
+	$D019  8D 06 20:    sta PPUADDR
 	$D01C  A9 2D:       lda #$2D
 	$D01E  A0 0D:       ldy #$0D
--	$D020  8D 07 20:    sta $2007
+-	$D020  8D 07 20:    sta PPUDATA
 	$D023  88:          dey 
 	$D024  10 FA:       bpl -		; $D020
 	$D026  A5 23:       lda $23
@@ -1948,13 +1948,13 @@ _loc_1005
 	$D048  A9 0F:       lda #$0F
 	$D04A  20 FE D0:    jsr _func_10FE
 	$D04D  A9 30:       lda #$30
-	$D04F  8D 07 20:    sta $2007
+	$D04F  8D 07 20:    sta PPUDATA
 	$D052  A9 0F:       lda #$0F
 	$D054  20 01 D1:    jsr _func_1101
 	$D057  A9 26:       lda #$26
-	$D059  8D 07 20:    sta $2007
+	$D059  8D 07 20:    sta PPUDATA
 	$D05C  A9 2C:       lda #$2C
-	$D05E  8D 07 20:    sta $2007
+	$D05E  8D 07 20:    sta PPUDATA
 	$D061  A9 21:       lda #<_data_0C21
 	$D063  85 17:       sta $17
 	$D065  A9 8C:       lda #>_data_0C21
@@ -1965,7 +1965,7 @@ _loc_1005
 	$D070  20 64 E9:    jsr _func_2964
 	$D073  A0 3F:       ldy #$3F
 	$D075  A9 55:       lda #$55
--	$D077  8D 07 20:    sta $2007
+-	$D077  8D 07 20:    sta PPUDATA
 	$D07A  88:          dey 
 	$D07B  10 FA:       bpl -		; $D077
 	$D07D  A9 23:       lda #$23
@@ -1974,26 +1974,26 @@ _loc_1005
 	$D084  A9 AA:       lda #$AA
 	$D086  20 01 D1:    jsr _func_1101
 	$D089  A9 EE:       lda #$EE
-	$D08B  8D 07 20:    sta $2007
+	$D08B  8D 07 20:    sta PPUDATA
 	$D08E  A9 23:       lda #$23
 	$D090  A0 E2:       ldy #$E2
 	$D092  20 64 E9:    jsr _func_2964
 	$D095  A9 53:       lda #$53
-	$D097  8D 07 20:    sta $2007
+	$D097  8D 07 20:    sta PPUDATA
 	$D09A  A9 50:       lda #$50
 	$D09C  20 01 D1:    jsr _func_1101
 	$D09F  A9 5C:       lda #$5C
-	$D0A1  8D 07 20:    sta $2007
+	$D0A1  8D 07 20:    sta PPUDATA
 	$D0A4  A9 22:       lda #$22
 	$D0A6  A0 2A:       ldy #$2A
 	$D0A8  20 64 E9:    jsr _func_2964
 	$D0AB  A0 0A:       ldy #$0A
 -	$D0AD  B9 EA D0:    lda _data_10EA_indexed,y
-	$D0B0  8D 07 20:    sta $2007
+	$D0B0  8D 07 20:    sta PPUDATA
 	$D0B3  88:          dey 
 	$D0B4  10 F7:       bpl -		; $D0AD
 	$D0B6  A5 B3:       lda $B3
-	$D0B8  8D 07 20:    sta $2007
+	$D0B8  8D 07 20:    sta PPUDATA
 	$D0BB  20 06 C9:    jsr _func_0906
 	$D0BE  20 6E F4:    jsr _func_346E
 	$D0C1  A9 01:       lda #$01
@@ -2019,15 +2019,15 @@ _func_10D4
 _data_10EA_indexed
 	$D0EA               .byte $27,$3C,$17,$2D,$1D,$12,$1E,$0C,$1B,$12,$0C
 _func_10F5
-	$D0F5  8D 07 20:    sta $2007
-	$D0F8  8D 07 20:    sta $2007
+	$D0F5  8D 07 20:    sta PPUDATA
+	$D0F8  8D 07 20:    sta PPUDATA
 _func_10FB
-	$D0FB  8D 07 20:    sta $2007
+	$D0FB  8D 07 20:    sta PPUDATA
 _func_10FE
-	$D0FE  8D 07 20:    sta $2007
+	$D0FE  8D 07 20:    sta PPUDATA
 _func_1101
-	$D101  8D 07 20:    sta $2007
-	$D104  8D 07 20:    sta $2007
+	$D101  8D 07 20:    sta PPUDATA
+	$D104  8D 07 20:    sta PPUDATA
 	$D107  60:          rts 
 ;------------------------------------------
 _func_1108
@@ -3973,7 +3973,7 @@ _loc_260A
 	$E620  20 05 F5:    jsr _func_3505
 	$E623  20 1B C9:    jsr _func_091B
 	$E626  A5 14:       lda $14
-	$E628  8D 00 20:    sta $2000
+	$E628  8D 00 20:    sta PPUCTRL
 	$E62B  A9 20:       lda #$20
 	$E62D  A0 40:       ldy #$40
 	$E62F  20 64 E9:    jsr _func_2964
@@ -3991,11 +3991,11 @@ _loc_260A
 	$E649  D0 02:       bne ++		; $E64D
 
 +	$E64B  A9 2E:       lda #$2E
-++ -	$E64D  8D 07 20:    sta $2007
+++ -	$E64D  8D 07 20:    sta PPUDATA
 	$E650  CA:          dex 
 	$E651  10 FA:       bpl -		; $E64D
 	$E653  30 03:       bmi ++++		; $E658
-+++	$E655  8D 07 20:    sta $2007
++++	$E655  8D 07 20:    sta PPUDATA
 ++++	$E658  C8:          iny 
 	$E659  D0 D9:       bne --		; $E634
 _loc_265B
@@ -4023,7 +4023,7 @@ _loc_265B
 	$E688  85 17:       sta $17
 	$E68A  0A:          asl a
 	$E68B  69 2D:       adc #$2D
-	$E68D  8D 07 20:    sta $2007
+	$E68D  8D 07 20:    sta PPUDATA
 	$E690  98:          tya 
 	$E691  29 1F:       and #$1F
 	$E693  D0 02:       bne +		; $E697
@@ -4036,7 +4036,7 @@ _loc_265B
 	$E6A1  A0 00:       ldy #$00
 --	$E6A3  B9 0E E9:    lda _data_290E_indexed,y
 	$E6A6  A2 07:       ldx #$07
--	$E6A8  8D 07 20:    sta $2007
+-	$E6A8  8D 07 20:    sta PPUDATA
 	$E6AB  CA:          dex 
 	$E6AC  10 FA:       bpl -		; $E6A8
 	$E6AE  C8:          iny 
@@ -4047,7 +4047,7 @@ _loc_265B
 	$E6B7  20 64 E9:    jsr _func_2964
 	$E6BA  A0 00:       ldy #$00
 	$E6BC  98:          tya 
--	$E6BD  8D 07 20:    sta $2007
+-	$E6BD  8D 07 20:    sta PPUDATA
 	$E6C0  C8:          iny 
 	$E6C1  C0 40:       cpy #$40
 	$E6C3  90 F8:       bcc -		; $E6BD
@@ -4056,7 +4056,7 @@ _loc_265B
 	$E6CA  A0 00:       ldy #$00
 	$E6CC  20 64 E9:    jsr _func_2964
 -	$E6CF  B9 16 E9:    lda _data_2916_indexed,y
-	$E6D2  8D 07 20:    sta $2007
+	$E6D2  8D 07 20:    sta PPUDATA
 	$E6D5  C8:          iny 
 	$E6D6  C0 20:       cpy #$20
 	$E6D8  90 F5:       bcc -		; $E6CF
@@ -4070,7 +4070,7 @@ _loc_265B
 	$E6E9  20 64 E9:    jsr _func_2964
 	$E6EC  A0 0D:       ldy #$0D
 -	$E6EE  B9 36 E9:    lda _data_2936_indexed,y
-	$E6F1  8D 07 20:    sta $2007
+	$E6F1  8D 07 20:    sta PPUDATA
 	$E6F4  88:          dey 
 	$E6F5  10 F7:       bpl -		; $E6EE
 	$E6F7  A9 22:       lda #$22
@@ -4078,7 +4078,7 @@ _loc_265B
 	$E6FB  20 64 E9:    jsr _func_2964
 	$E6FE  A0 03:       ldy #$03
 -	$E700  B9 50 E9:    lda _data_2950_indexed,y
-	$E703  8D 07 20:    sta $2007
+	$E703  8D 07 20:    sta PPUDATA
 	$E706  88:          dey 
 	$E707  10 F7:       bpl -		; $E700
 	$E709  20 24 E8:    jsr _func_2824
@@ -4100,40 +4100,40 @@ _loc_265B
 	$E72A  A9 20:       lda #$20
 	$E72C  A0 00:       ldy #$00
 	$E72E  20 64 E9:    jsr _func_2964
-	$E731  8C 05 20:    sty $2005
-	$E734  8C 05 20:    sty $2005
+	$E731  8C 05 20:    sty PPUSCROLL
+	$E734  8C 05 20:    sty PPUSCROLL
 	$E737  A9 91:       lda #$91
-	$E739  8D 00 20:    sta $2000
+	$E739  8D 00 20:    sta PPUCTRL
 	$E73C  A9 1E:       lda #$1E
-	$E73E  8D 01 20:    sta $2001
+	$E73E  8D 01 20:    sta PPUMASK
 	$E741  A0 00:       ldy #$00
 	$E743  84 17:       sty $17
 	$E745  88:          dey 
 	$E746  84 18:       sty $18
 --	$E748  20 1B C9:    jsr _func_091B
 	$E74B  A5 17:       lda $17
-	$E74D  8D 05 20:    sta $2005
+	$E74D  8D 05 20:    sta PPUSCROLL
 	$E750  A9 00:       lda #$00
-	$E752  8D 05 20:    sta $2005
+	$E752  8D 05 20:    sta PPUSCROLL
 	$E755  A8:          tay 
 	$E756  A9 91:       lda #$91
-	$E758  8D 00 20:    sta $2000
+	$E758  8D 00 20:    sta PPUCTRL
 	$E75B  A2 06:       ldx #$06
 -	$E75D  20 08 FF:    jsr _func_3F08
 	$E760  CA:          dex 
 	$E761  10 FA:       bpl -		; $E75D
 	$E763  A5 18:       lda $18
-	$E765  8D 05 20:    sta $2005
-	$E768  8D 05 20:    sta $2005
+	$E765  8D 05 20:    sta PPUSCROLL
+	$E768  8D 05 20:    sta PPUSCROLL
 	$E76B  A5 14:       lda $14
-	$E76D  8D 00 20:    sta $2000
+	$E76D  8D 00 20:    sta PPUCTRL
 	$E770  A2 04:       ldx #$04
 -	$E772  20 08 FF:    jsr _func_3F08
 	$E775  CA:          dex 
 	$E776  10 FA:       bpl -		; $E772
 	$E778  A9 00:       lda #$00
-	$E77A  8D 05 20:    sta $2005
-	$E77D  8D 05 20:    sta $2005
+	$E77A  8D 05 20:    sta PPUSCROLL
+	$E77D  8D 05 20:    sta PPUSCROLL
 	$E780  A5 17:       lda $17
 	$E782  18:          clc 
 	$E783  69 04:       adc #$04
@@ -4149,10 +4149,10 @@ _loc_265B
 
 +	$E797  20 1B C9:    jsr _func_091B
 	$E79A  A5 14:       lda $14
-	$E79C  8D 00 20:    sta $2000
+	$E79C  8D 00 20:    sta PPUCTRL
 	$E79F  A9 00:       lda #$00
-	$E7A1  8D 05 20:    sta $2005
-	$E7A4  8D 05 20:    sta $2005
+	$E7A1  8D 05 20:    sta PPUSCROLL
+	$E7A4  8D 05 20:    sta PPUSCROLL
 	$E7A7  C6 37:       dec $37
 	$E7A9  10 09:       bpl +		; $E7B4
 	$E7AB  A9 03:       lda #$03
@@ -4210,10 +4210,10 @@ _func_2812
 	$E812  20 64 E9:    jsr _func_2964
 	$E815  A0 0B:       ldy #$0B
 -	$E817  B9 44 E9:    lda _data_2944_indexed,y
-	$E81A  8D 07 20:    sta $2007
+	$E81A  8D 07 20:    sta PPUDATA
 	$E81D  88:          dey 
 	$E81E  10 F7:       bpl -		; $E817
-	$E820  8E 07 20:    stx $2007
+	$E820  8E 07 20:    stx PPUDATA
 	$E823  60:          rts 
 ;------------------------------------------
 _func_2824
@@ -4237,13 +4237,13 @@ _func_2824
 	$E846  D0 02:       bne ++		; $E84A
 
 +	$E848  85 38:       sta $38
-++	$E84A  8D 07 20:    sta $2007
+++	$E84A  8D 07 20:    sta PPUDATA
 	$E84D  A6 1A:       ldx $1A
 	$E84F  CA:          dex 
 	$E850  88:          dey 
 	$E851  10 E7:       bpl -		; $E83A
 	$E853  A9 00:       lda #$00
-	$E855  8D 07 20:    sta $2007
+	$E855  8D 07 20:    sta PPUDATA
 	$E858  A9 3F:       lda #$3F
 	$E85A  A0 08:       ldy #$08
 	$E85C  20 64 E9:    jsr _func_2964
@@ -4289,8 +4289,8 @@ _func_2957
 	$E963  60:          rts 
 ;------------------------------------------
 _func_2964
-	$E964  8D 06 20:    sta $2006
-	$E967  8C 06 20:    sty $2006
+	$E964  8D 06 20:    sta PPUADDR
+	$E967  8C 06 20:    sty PPUADDR
 	$E96A  60:          rts 
 ;------------------------------------------
 _func_296B
@@ -4401,12 +4401,12 @@ _func_29BA
 	$EA37  85 23:       sta $23
 	$EA39  A0 03:       ldy #$03
 --	$EA3B  A5 22:       lda $22
-	$EA3D  8D 06 20:    sta $2006
+	$EA3D  8D 06 20:    sta PPUADDR
 	$EA40  A5 23:       lda $23
-	$EA42  8D 06 20:    sta $2006
+	$EA42  8D 06 20:    sta PPUADDR
 	$EA45  A2 03:       ldx #$03
 -	$EA47  BD 58 EB:    lda _data_2B58_indexed,x
-	$EA4A  8D 07 20:    sta $2007
+	$EA4A  8D 07 20:    sta PPUDATA
 	$EA4D  CA:          dex 
 	$EA4E  10 F7:       bpl -		; $EA47
 	$EA50  A5 23:       lda $23
@@ -4419,7 +4419,7 @@ _func_29BA
 	$EA5C  A0 4C:       ldy #$4C
 	$EA5E  20 64 E9:    jsr _func_2964
 	$EA61  A9 2D:       lda #$2D
-	$EA63  8D 07 20:    sta $2007
+	$EA63  8D 07 20:    sta PPUDATA
 	$EA66  A9 23:       lda #$23
 	$EA68  A0 D3:       ldy #$D3
 	$EA6A  20 64 E9:    jsr _func_2964
@@ -4484,19 +4484,19 @@ _func_29BA
 	$EAF8  85 7A:       sta $7A
 	$EAFA  20 1B C9:    jsr _func_091B
 	$EAFD  A5 14:       lda $14
-	$EAFF  8D 00 20:    sta $2000
+	$EAFF  8D 00 20:    sta PPUCTRL
 	$EB02  A9 21:       lda #$21
 	$EB04  85 22:       sta $22
 	$EB06  A9 0E:       lda #$0E
 	$EB08  85 23:       sta $23
 	$EB0A  A0 03:       ldy #$03
 --	$EB0C  A5 22:       lda $22
-	$EB0E  8D 06 20:    sta $2006
+	$EB0E  8D 06 20:    sta PPUADDR
 	$EB11  A5 23:       lda $23
-	$EB13  8D 06 20:    sta $2006
+	$EB13  8D 06 20:    sta PPUADDR
 	$EB16  A2 03:       ldx #$03
 	$EB18  A9 2D:       lda #$2D
--	$EB1A  8D 07 20:    sta $2007
+-	$EB1A  8D 07 20:    sta PPUDATA
 	$EB1D  CA:          dex 
 	$EB1E  10 FA:       bpl -		; $EB1A
 	$EB20  A5 23:       lda $23
@@ -4509,10 +4509,10 @@ _func_29BA
 	$EB2C  A0 4C:       ldy #$4C
 	$EB2E  20 64 E9:    jsr _func_2964
 	$EB31  A9 5F:       lda #$5F
-	$EB33  8D 07 20:    sta $2007
+	$EB33  8D 07 20:    sta PPUDATA
 	$EB36  A0 06:       ldy #$06
 -	$EB38  A9 2D:       lda #$2D
-	$EB3A  8D 07 20:    sta $2007
+	$EB3A  8D 07 20:    sta PPUDATA
 	$EB3D  88:          dey 
 	$EB3E  10 F8:       bpl -		; $EB38
 	$EB40  A9 23:       lda #$23
@@ -4910,7 +4910,7 @@ _func_309D
 	$F0AF  20 64 E9:    jsr _func_2964
 	$F0B2  A0 00:       ldy #$00
 -	$F0B4  B1 22:       lda ($22),y
-	$F0B6  8D 07 20:    sta $2007
+	$F0B6  8D 07 20:    sta PPUDATA
 	$F0B9  C8:          iny 
 	$F0BA  C0 09:       cpy #$09
 	$F0BC  90 F6:       bcc -		; $F0B4
@@ -5049,9 +5049,9 @@ _func_336E
 	$F36E  20 1B C9:    jsr _func_091B
 	$F371  A9 00:       lda #$00
 	$F373  85 15:       sta $15
-	$F375  8D 01 20:    sta $2001		; close display
+	$F375  8D 01 20:    sta PPUMASK		; close display
 	$F378  A5 14:       lda $14
-	$F37A  8D 00 20:    sta $2000
+	$F37A  8D 00 20:    sta PPUCTRL
 	$F37D  A9 20:       lda #$20
 	$F37F  A0 00:       ldy #$00
 	$F381  20 64 E9:    jsr _func_2964
@@ -5866,7 +5866,7 @@ _func_3F14
 	$FF5C  85 19:       sta $19
 	$FF5E  A5 15:       lda $15
 	$FF60  F0 0C:       beq +		; $FF6E
--	$FF62  AD 02 20:    lda $2002
+-	$FF62  AD 02 20:    lda PPUSTATUS
 	$FF65  29 40:       and #$40
 	$FF67  F0 F9:       beq -		; $FF62
 	$FF69  A0 16:       ldy #$16

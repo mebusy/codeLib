@@ -119,7 +119,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TARGET_PATH=$TARGET_BUILD_DIR/$TARGET_NAME\ncp -f $TARGET_PATH  $PROJECT_DIR/../clever-disasm\n$PROJECT_DIR/../clever-disasm $PROJECT_DIR/../testROM/F1.nes > $PROJECT_DIR/../testROM/F1.asm\n\n";
+			shellScript = "TARGET_PATH=$TARGET_BUILD_DIR/$TARGET_NAME\ncp -f $TARGET_PATH  $PROJECT_DIR/../clever-disasm\n$PROJECT_DIR/../clever-disasm $PROJECT_DIR/../testROM/F1.nes $PROJECT_DIR/../clever/f1.ini > $PROJECT_DIR/../testROM/F1.asm \n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
