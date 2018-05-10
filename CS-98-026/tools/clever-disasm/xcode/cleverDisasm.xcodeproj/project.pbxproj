@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F329C2A420A4114F000361F7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F329C2A320A4114F000361F7 /* main.cpp */; };
+		F329C2AB20A41209000361F7 /* clever.cc in Sources */ = {isa = PBXBuildFile; fileRef = F329C2AA20A41209000361F7 /* clever.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		F329C2A020A4114F000361F7 /* cleverDisasm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cleverDisasm; sourceTree = BUILT_PRODUCTS_DIR; };
-		F329C2A320A4114F000361F7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F329C2AA20A41209000361F7 /* clever.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = clever.cc; path = ../../clever.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		F329C2A220A4114F000361F7 /* cleverDisasm */ = {
 			isa = PBXGroup;
 			children = (
-				F329C2A320A4114F000361F7 /* main.cpp */,
+				F329C2AA20A41209000361F7 /* clever.cc */,
 			);
 			path = cleverDisasm;
 			sourceTree = "<group>";
@@ -72,6 +72,7 @@
 				F329C29C20A4114F000361F7 /* Sources */,
 				F329C29D20A4114F000361F7 /* Frameworks */,
 				F329C29E20A4114F000361F7 /* CopyFiles */,
+				F329C2AC20A41263000361F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -114,12 +115,28 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F329C2AC20A41263000361F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TARGET_PATH=$TARGET_BUILD_DIR/$TARGET_NAME\ncp -f $TARGET_PATH  $PROJECT_DIR/../clever-disasm\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F329C29C20A4114F000361F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F329C2A420A4114F000361F7 /* main.cpp in Sources */,
+				F329C2AB20A41209000361F7 /* clever.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
