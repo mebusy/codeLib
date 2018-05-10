@@ -8,6 +8,7 @@
 #include <set>
 #include <map>
 #include <stdint.h>
+#include <assert.h>
 
 //#define TRACK_RAM_SIZE 0x800
 #define TRACK_RAM_SIZE 0x100
@@ -16,12 +17,18 @@ struct BadAddressException { };
 
 static unsigned LastPage;   // ROM page size -1 
 static unsigned char* ROM;  // PRG ROM , array
-static unsigned char* Pages[8] = {0,0,0,0, 0,0,0,0};  // page start address in ROM array
+
+// 记录 每个page 实际的地址， 可能超64k
+static unsigned char* Pages[8] = {0,0,0,0, 0,0,0,0};  // page start address in ROM array , abs address
 
 static int MapperNum = 0;
 
 static bool ShowDumpData = true;
 
+/*
+ * in : 6502 abs addr
+ * out : value
+ */
 inline unsigned char& Rd6502(unsigned addr)
 {
     unsigned char page = addr >> 13;  // which page address in
@@ -44,7 +51,11 @@ static void SetPage(unsigned addrpage, unsigned rompage)
     Pages[addrpage] = ptr;
 }
 
-/* addr_to_rom: Convert a 6502 address into a ROM address under current knowledge of mapping */
+/* addr_to_rom: Convert a 6502 address into a ROM relative address under current knowledge of mapping */
+/*
+ * in : 6502 abs addr
+ * out : relative PRG ROM addr
+ */
 static unsigned addr_to_rom(unsigned addrptr)
 {
     if(addrptr < 0x8000)
@@ -61,15 +72,18 @@ static unsigned addr_to_rom(unsigned addrptr)
 
 static unsigned rom_to_addr(unsigned romptr, bool use_mappings, bool set_mappings)
 {
-    unsigned rompage = romptr >> 13;
+    unsigned rompage = romptr >> 13;  // rompage 有可能很大 ？ i.e. 0x0A
     unsigned romaddr = romptr & 0x1FFF;
 
     if(use_mappings)
     {
+        // e000 c000 a000 8000
         for(unsigned c=0x10000; (c-=0x2000)>=0x8000; )
             if(rompage*0x2000 == addr_to_rom(c))
                 return c + romaddr;
+        
     }
+    
 
 #if 1 /* Akumajou Densetsu */
     if(MapperNum == 24)
@@ -117,6 +131,7 @@ static unsigned rom_to_addr(unsigned romptr, bool use_mappings, bool set_mapping
       */
     }
 
+    // other mapper
     if(rompage == LastPage
     || rompage == LastPage-1)
     {
