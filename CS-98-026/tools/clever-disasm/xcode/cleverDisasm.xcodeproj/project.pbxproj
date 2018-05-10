@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F329C2AB20A41209000361F7 /* clever.cc in Sources */ = {isa = PBXBuildFile; fileRef = F329C2AA20A41209000361F7 /* clever.cc */; };
+		F3B3FCB720A47467009618F4 /* clever.cc in Sources */ = {isa = PBXBuildFile; fileRef = F3B3FCB620A47467009618F4 /* clever.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		F329C2A020A4114F000361F7 /* cleverDisasm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cleverDisasm; sourceTree = BUILT_PRODUCTS_DIR; };
-		F329C2AA20A41209000361F7 /* clever.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = clever.cc; path = ../../clever.cc; sourceTree = "<group>"; };
+		F3B3FCB620A47467009618F4 /* clever.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = clever.cc; path = ../clever.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,7 @@
 		F329C29720A4114F000361F7 = {
 			isa = PBXGroup;
 			children = (
-				F329C2A220A4114F000361F7 /* cleverDisasm */,
+				F3B3FCB620A47467009618F4 /* clever.cc */,
 				F329C2A120A4114F000361F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,14 +52,6 @@
 				F329C2A020A4114F000361F7 /* cleverDisasm */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F329C2A220A4114F000361F7 /* cleverDisasm */ = {
-			isa = PBXGroup;
-			children = (
-				F329C2AA20A41209000361F7 /* clever.cc */,
-			);
-			path = cleverDisasm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F329C2AB20A41209000361F7 /* clever.cc in Sources */,
+				F3B3FCB720A47467009618F4 /* clever.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
