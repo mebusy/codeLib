@@ -14,9 +14,9 @@
 
 struct BadAddressException { };
 
-static unsigned LastPage;
-static unsigned char* ROM;
-static unsigned char* Pages[8] = {0,0,0,0, 0,0,0,0};
+static unsigned LastPage;   // ROM page size -1 
+static unsigned char* ROM;  // PRG ROM , array
+static unsigned char* Pages[8] = {0,0,0,0, 0,0,0,0};  // page start address in ROM array
 
 static int MapperNum = 0;
 
@@ -24,8 +24,8 @@ static bool ShowDumpData = true;
 
 inline unsigned char& Rd6502(unsigned addr)
 {
-    unsigned char page = addr >> 13;
-    unsigned pageaddr  = addr & 0x1FFF;
+    unsigned char page = addr >> 13;  // which page address in
+    unsigned pageaddr  = addr & 0x1FFF;  // relative address in this page
 
     //printf("%X = page %u, addr %X\n", addr, page, pageaddr);
 
@@ -3591,6 +3591,7 @@ static void DisAsm(unsigned size, FILE* inifile = 0)
 
     LastPage = NPages-1;
 
+    // 32k Pages
     SetPage(4, 0);
     SetPage(5, 1);
     SetPage(6, LastPage-1);
@@ -3634,7 +3635,7 @@ int main(int argc, const char*const *argv)
     Usage:
         printf("Usage: clever_disasm [--asm] <nesfile> [<inifile>]\n");
         printf("when --asm is provide, only asm code,no dump data.\n" );
-        printf("which means '$C005 78: sei' will just show ' sei' instead. \n") ;
+        printf("which means '$C005 78: sei' will only show ' sei' instead. \n") ;
         return -1;
     }
 
