@@ -18,25 +18,24 @@ struct BadAddressException { };
 static unsigned LastPage;   // ROM page size -1 
 static unsigned char* ROM;  // PRG ROM , array
 
-// 记录 每个page 实际的地址， 可能超64k
-static unsigned char* Pages[8] = {0,0,0,0, 0,0,0,0};  // page start address in ROM array , abs address
+// 记录 当前 mapp 下, cpu 4个page 映射的 实际的 rom地址， 4个page 映射可能随时会变
+static unsigned char* Pages_romAddr[8] = {0,0,0,0, 0,0,0,0};  // page start address in ROM array , abs address
 
 static int MapperNum = 0;
 
 static bool ShowDumpData = true;
 
 /*
- * in : 6502 abs addr
- * out : value
+ * in : 6502 addr
  */
 inline unsigned char& Rd6502(unsigned addr)
 {
-    unsigned char page = addr >> 13;  // which page address in
+    unsigned char page = addr >> 13;  // which page in
     unsigned pageaddr  = addr & 0x1FFF;  // relative address in this page
 
     //printf("%X = page %u, addr %X\n", addr, page, pageaddr);
 
-    return Pages[page][pageaddr];
+    return Pages_romAddr[page][pageaddr];
 }
 static void SetPage(unsigned addrpage, unsigned rompage)
 {
@@ -48,13 +47,13 @@ static void SetPage(unsigned addrpage, unsigned rompage)
 
     unsigned char* ptr = ROM + (rompage << 13);
     //printf("SetPage(%u,%p)\n", addrpage,ptr);
-    Pages[addrpage] = ptr;
+    Pages_romAddr[addrpage] = ptr;
 }
 
 /* addr_to_rom: Convert a 6502 address into a ROM relative address under current knowledge of mapping */
 /*
- * in : 6502 abs addr
- * out : relative PRG ROM addr
+ * in : 6502 addr
+ * out : ROM addr
  */
 static unsigned addr_to_rom(unsigned addrptr)
 {
@@ -523,6 +522,9 @@ struct SimulCPU
         }
         pagereg[page].Assign(v);
     }
+    /*
+     * <cpu page, rom page>
+     */
     void SetPageReg(unsigned page, int v, bool weak = false)
     {
         if(weak)
@@ -653,6 +655,8 @@ struct SimulCPU
         ImportMap(2, weak);
         ImportMap(3, weak);
     }
+    
+
     void ImportMap(unsigned page, bool weak)
     {
         //printf("Import map. Orig: "); Dump(); printf("\n");
@@ -2415,14 +2419,17 @@ private:
         return result;
     }
 
+    // 可能是代码， 试着 处理一下
     void ProcessCode(const unsigned romptr) __attribute__((noinline))
     {
         if(romptr >= results.size()) throw false;
 
         State& state = results[romptr];
 
+        // rom addr -> cpu addr
         unsigned addrptr = rom_to_addr(romptr, false, false);
 
+        // record page map <cpu page , rom page>
         state.cpu.ImportMap(((addrptr >> 13)&3)  , true);
         state.cpu.ImportMap(((addrptr >> 13)&3)^1, true);
 
@@ -3615,7 +3622,7 @@ static void DisAsm(unsigned size, FILE* inifile = 0)
     DumpMappings();
     DumpVectors();
 
-    Disassembler dasm(size);
+    Disassembler dasm(size);  // State vector
 
     if(inifile)
         ParseINIfile(inifile, dasm);
@@ -3648,7 +3655,7 @@ int main(int argc, const char*const *argv)
     {
         if(argc > 1) perror(argv[1]);
     Usage:
-        printf("Usage: clever_disasm [--asm] <nesfile> [<inifile>]\n");
+        printf("Usage: clever-disasm [--asm] <nesfile> [<inifile>]\n");
         printf("when --asm is provide, only asm code,no dump data.\n" );
         printf("which means '$C005 78: sei' will only show ' sei' instead. \n") ;
         return -1;
