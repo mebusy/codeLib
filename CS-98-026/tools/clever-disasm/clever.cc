@@ -209,6 +209,7 @@ struct Disassembly
 
 /* DAsm: Disassemble at given 6502 address.
  *       Note: Requires proper memory mapping for opaddr!
+ * in :  < cpuaddr , romaddr >
  */
 static Disassembly DAsm(const unsigned opaddr, unsigned romaddr)
 {
@@ -1695,6 +1696,26 @@ public:
         if(state.LastJumpFrom >= 0)
             printf("; LastJump=$%X", state.LastJumpFrom);
         */
+        
+        // qibinyi , add comments
+        /*
+        if ( strcmp("sei",  code.Code ) == 0 ) {
+            printf( "\t\t; ignore IRQs %x" , code.OpCodeId );
+        }
+        //*/
+        const char * indent = "\t\t" ;
+        switch( ROM[romptr] ) {
+            case 0x78 : // sei
+                printf( "%s; ignore IRQs" , indent  );
+                break;
+            case 0xD8 : // cld
+                printf( "%s; disable decimal mode" , indent );
+                break;
+            case 0x9A : // txs
+                printf( "%s; set Stack Pointer at $1%02X" , indent , state.cpu.X.Value() );
+                break;
+                
+        }
     }
 
     void DumpNonCodeRanges() const
@@ -2010,7 +2031,7 @@ public:
         }
     }
 
-    void Dump() const
+    void Dump() // const
     {
         unsigned code_indent = 0;
 
@@ -2047,7 +2068,7 @@ public:
                     need_nl = 0;
                 }
             }
-
+            
             if(type == PartialCode)
             {
                 /* PartialCode happens when the same blob of code is disassembled

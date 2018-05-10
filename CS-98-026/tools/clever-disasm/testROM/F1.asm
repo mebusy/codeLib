@@ -72,10 +72,10 @@ ROM is 16384 bytes, 2 8k-pages, mapper 0
 ; Discovered a data table at 1D17,1D87 (stepping 1, extent 112)
 _Reset	$C000  AD 02 20:    lda $2002
 	$C003  10 FB:       bpl _Reset
-	$C005  78:          sei 
-	$C006  D8:          cld 
+	$C005  78:          sei 		; ignore IRQs
+	$C006  D8:          cld 		; disable decimal mode
 	$C007  A2 FF:       ldx #$FF
-	$C009  9A:          txs 
+	$C009  9A:          txs 		; set Stack Pointer at $1FF
 	$C00A  A9 00:       lda #$00
 	$C00C  A2 14:       ldx #$14
 -	$C00E  95 00:       sta $00,x
@@ -1104,13 +1104,13 @@ _func_091B
 	$C929  A5 6B:       lda $6B
 	$C92B  F0 06:       beq +		; $C933
 	$C92D  A2 FF:       ldx #$FF
-	$C92F  9A:          txs 
+	$C92F  9A:          txs 		; set Stack Pointer at $1FF
 	$C930  4C 0A E6:    jmp _loc_260A
 
 +	$C933  A5 6C:       lda $6C
 	$C935  F0 0B:       beq ++		; $C942
 	$C937  A2 FF:       ldx #$FF
-	$C939  9A:          txs 
+	$C939  9A:          txs 		; set Stack Pointer at $1FF
 	$C93A  E8:          inx 
 	$C93B  86 71:       stx $71
 	$C93D  86 2A:       stx $2A
