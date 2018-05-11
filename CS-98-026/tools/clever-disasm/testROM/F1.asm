@@ -8,18 +8,18 @@ ROM is 16384 bytes, 2 8k-pages, mapper 0
 ; NMI:   C066
 ; Reset: C000
 ; IRQ:   C0D2
+; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
+; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
+; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
+; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
+; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
+; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
+; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
 ; UNRESOLVED direct JSR at romprt: $3F70 to $0600!
 ; UNRESOLVED direct JSR at romprt: $3F7C to $0600!
 ; UNRESOLVED direct JSR at romprt: $3F7F to $0600!
 ; UNRESOLVED direct JSR at romprt: $3F8B to $0600!
 ; UNRESOLVED direct JSR at romprt: $3F8E to $0600!
-; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
-; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
-; Discovered a data table at 2E66,2E70 (stepping 1, extent 10)
-; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
-; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
-; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
-; Discovered a data table at 2CC8,2CD2 (stepping 1, extent 10)
 ; Discovered a data table at 1A13,1A1D (stepping 1, extent 10)
 ; Discovered a data table at 1A13,1A1D (stepping 1, extent 10)
 ; Discovered a data table at 1A13,1A1D (stepping 1, extent 10)
@@ -78,39 +78,44 @@ _Reset	$C000  AD 02 20:    lda PPUSTATUS
 	$C009  9A:          txs 		; set Stack Pointer at $1FF
 	$C00A  A9 00:       lda #$00
 	$C00C  A2 14:       ldx #$14
-_init_$14~$FF
+_init_[14:FF]
 	$C00E  95 00:       sta $00,x
 	$C010  E8:          inx 
-	$C011  D0 FB:       bne _init_$14~$FF
+	$C011  D0 FB:       bne _init_[14:FF]
 	$C013  8D 01 20:    sta PPUMASK		; close display
 	$C016  A9 1E:       lda #$1E
-	$C018  85 15:       sta $15
+	$C018  85 15:       sta ppumask_state
 	$C01A  A9 90:       lda #$90
 	$C01C  8D 00 20:    sta PPUCTRL
-	$C01F  85 14:       sta $14
+	$C01F  85 14:       sta ppuctrl_state
 	$C021  A2 0F:       ldx #$0F
 -	$C023  BD 00 06:    lda $0600,x
 	$C026  DD 9B FF:    cmp _data_3F9B_indexed,x
-	$C029  D0 05:       bne +		; $C030
+	$C029  D0 05:       bne _clear[00:13]_init
 	$C02B  CA:          dex 
 	$C02C  10 F5:       bpl -		; $C023
-	$C02E  30 11:       bmi ++		; $C041
-+	$C030  A2 13:       ldx #$13
+	$C02E  30 11:       bmi _loc_0041
+_clear[00:13]_init
+	$C030  A2 13:       ldx #$13
 	$C032  A9 00:       lda #$00
--	$C034  95 00:       sta $00,x
+_clear[00:13]_loop
+	$C034  95 00:       sta $00,x
 	$C036  CA:          dex 
-	$C037  10 FB:       bpl -		; $C034
+	$C037  10 FB:       bpl _clear[00:13]_loop
+_setHighScore
 	$C039  A9 01:       lda #$01
 	$C03B  85 03:       sta $03
 	$C03D  85 08:       sta $08
 	$C03F  85 0D:       sta $0D
-++	$C041  20 6E F4:    jsr _soundPrepare
+_loc_0041
+	$C041  20 6E F4:    jsr _soundPrepare
+_inject_code_to_[600:65E]
 	$C044  A2 5E:       ldx #$5E
-_inject_code_to_$600~$065E
+_inject_code_loop
 	$C046  BD 9B FF:    lda _data_3F9B_indexed,x
 	$C049  9D 00 06:    sta $0600,x
 	$C04C  CA:          dex 
-	$C04D  10 F7:       bpl _inject_code_to_$600~$065E
+	$C04D  10 F7:       bpl _inject_code_loop
 	$C04F  A2 07:       ldx #$07
 	$C051  A0 00:       ldy #$00
 -	$C053  8A:          txa 
@@ -131,7 +136,7 @@ _NMI	$C066  48:          pha
 	$C06A  48:            pha 
 	$C06B  A9 00:          lda #$00
 	$C06D  8D 03 20:       sta OAMADDR
-	$C070  A5 4F:          lda $4F
+	$C070  A5 4F:          lda 程序及卡通定义页选择控制器
 	$C072  29 01:          and #$01
 	$C074  09 02:          ora #$02
 	$C076  8D 14 40:       sta $4014
@@ -165,7 +170,7 @@ _NMI	$C066  48:          pha
 	$C0B5  88:             dey 
 	$C0B6  10 F6:          bpl -		; $C0AE
 +	$C0B8  84 70:          sty $70
-	$C0BA  A4 71:          ldy $71
+	$C0BA  A4 71:          ldy 游戏演示标志
 	$C0BC  F0 0A:          beq +		; $C0C8
 	$C0BE  84 6D:          sty $6D
 	$C0C0  88:             dey 
@@ -194,18 +199,18 @@ _loc_00D5
 	$C0E3  85 2D:       sta $2D
 	$C0E5  A2 0A:       ldx #$0A
 	$C0E7  A9 00:       lda #$00
--	$C0E9  95 71:       sta $71,x
+-	$C0E9  95 71:       sta 游戏演示标志,x
 	$C0EB  CA:          dex 
 	$C0EC  D0 FB:       bne -		; $C0E9
 	$C0EE  85 7D:       sta $7D
 	$C0F0  85 80:       sta $80
-	$C0F2  A4 71:       ldy $71
+	$C0F2  A4 71:       ldy 游戏演示标志
 	$C0F4  D0 07:       bne +		; $C0FD
 	$C0F6  A2 04:       ldx #$04
 -	$C0F8  95 0F:       sta $0F,x
 	$C0FA  CA:          dex 
 	$C0FB  10 FB:       bpl -		; $C0F8
-+	$C0FD  A5 71:       lda $71
++	$C0FD  A5 71:       lda 游戏演示标志
 	$C0FF  F0 0D:       beq ++		; $C10E
 	$C101  A4 36:       ldy $36
 	$C103  84 2D:       sty $2D
@@ -214,7 +219,7 @@ _loc_00D5
 	$C108  90 02:       bcc +		; $C10C
 	$C10A  A0 00:       ldy #$00
 +	$C10C  84 36:       sty $36
-++	$C10E  A5 71:       lda $71
+++	$C10E  A5 71:       lda 游戏演示标志
 	$C110  D0 0B:       bne +		; $C11D
 	$C112  A5 33:       lda $33
 	$C114  F0 07:       beq +		; $C11D
@@ -230,7 +235,7 @@ _loc_00D5
 	$C125  85 B1:       sta $B1
 	$C127  86 B2:       stx $B2
 	$C129  A9 FF:       lda #$FF
-	$C12B  20 8E F4:    jsr _func_348E
+	$C12B  20 8E F4:    jsr _setLevelSoundData
 	$C12E  A9 F8:       lda #$F8
 	$C130  85 8F:       sta $8F
 	$C132  85 90:       sta $90
@@ -263,7 +268,7 @@ _loc_013A
 	$C167  A9 00:       lda #$00
 	$C169  85 A7:       sta $A7
 	$C16B  85 B5:       sta $B5
-	$C16D  20 8E F4:    jsr _func_348E
+	$C16D  20 8E F4:    jsr _setLevelSoundData
 	$C170  A9 0B:       lda #$0B
 	$C172  85 A6:       sta $A6
 	$C174  85 7C:       sta $7C
@@ -272,10 +277,10 @@ _loc_013A
 	$C17A  A9 D0:       lda #$D0
 	$C17C  85 B4:       sta $B4
 _loc_017E
-	$C17E  20 1B C9:    jsr _func_091B
+	$C17E  20 1B C9:    jsr _queryKeyInput
 	$C181  20 38 CA:    jsr _func_0A38
 	$C184  20 06 C9:    jsr _func_0906
-	$C187  A5 71:       lda $71
+	$C187  A5 71:       lda 游戏演示标志
 	$C189  F0 3B:       beq ++++		; $C1C6
 	$C18B  A5 72:       lda $72
 	$C18D  F0 09:       beq +		; $C198
@@ -311,17 +316,17 @@ _loc_017E
 ++++	$C1C6  20 75 CC:    jsr _func_0C75
 	$C1C9  20 1B D1:    jsr _func_111B
 	$C1CC  20 14 FF:    jsr _func_3F14
-	$C1CF  E6 4F:       inc $4F
+	$C1CF  E6 4F:       inc 程序及卡通定义页选择控制器
 	$C1D1  A5 56:       lda $56
 	$C1D3  C9 60:       cmp #$60
 	$C1D5  90 14:       bcc +		; $C1EB
 	$C1D7  20 FC C1:    jsr _func_01FC
-	$C1DA  20 8E F4:    jsr _func_348E
+	$C1DA  20 8E F4:    jsr _setLevelSoundData
 	$C1DD  A9 0B:       lda #$0B
 	$C1DF  85 7C:       sta $7C
 	$C1E1  A9 FA:       lda #$FA
 	$C1E3  85 9E:       sta $9E
-	$C1E5  A5 71:       lda $71
+	$C1E5  A5 71:       lda 游戏演示标志
 	$C1E7  F0 02:       beq +		; $C1EB
 	$C1E9  85 74:       sta $74
 +	$C1EB  A5 74:       lda $74
@@ -350,8 +355,8 @@ _func_0208
 	$C20E  8D 05 20:    sta PPUSCROLL
 	$C211  A9 00:       lda #$00
 	$C213  8D 05 20:    sta PPUSCROLL
-	$C216  65 14:       adc $14
-	$C218  8D 00 20:    sta PPUCTRL
+	$C216  65 14:       adc ppuctrl_state
+	$C218  8D 00 20:    sta PPUCTRL		; disable NMI
 	$C21B  A5 34:       lda $34
 	$C21D  D0 01:       bne +		; $C220
 	$C21F  60:          rts 
@@ -474,7 +479,7 @@ _func_0208
 	$C2FC  85 19:       sta $19
 	$C2FE  85 1A:       sta $1A
 +	$C300  A0 00:       ldy #$00
-	$C302  A5 71:       lda $71
+	$C302  A5 71:       lda 游戏演示标志
 	$C304  D0 02:       bne +		; $C308
 	$C306  A4 33:       ldy $33
 +	$C308  B9 3D C5:    lda _data_053D_indexed,y
@@ -509,7 +514,7 @@ _func_0208
 	$C341  C9 36:       cmp #$36
 	$C343  90 08:       bcc ++++		; $C34D
 +++	$C345  A9 04:       lda #$04
-	$C347  20 8E F4:    jsr _func_348E
+	$C347  20 8E F4:    jsr _setLevelSoundData
 	$C34A  4C 7A C3:    jmp _loc_037A
 
 ++++	$C34D  A5 70:       lda $70
@@ -716,9 +721,9 @@ _data_053D_indexed
 _data_0540_indexed
 	$C540               .byte $00,$02,$05
 _func_0543
-	$C543  20 1B C9:    jsr _func_091B
+	$C543  20 1B C9:    jsr _queryKeyInput
 	$C546  A2 00:       ldx #$00
-	$C548  86 15:       stx $15
+	$C548  86 15:       stx ppumask_state
 	$C54A  8E 01 20:    stx PPUMASK
 	$C54D  A9 20:       lda #$20
 	$C54F  85 22:       sta $22
@@ -732,7 +737,7 @@ _func_0543
 -	$C55F  20 FB D0:    jsr _func_10FB
 	$C562  C8:          iny 
 	$C563  D0 FA:       bne -		; $C55F
-	$C565  20 1B C9:    jsr _func_091B
+	$C565  20 1B C9:    jsr _queryKeyInput
 	$C568  A5 22:       lda $22
 	$C56A  18:          clc 
 	$C56B  69 04:       adc #$04
@@ -805,7 +810,7 @@ _func_0543
 	$C5F3  90 EC:       bcc -		; $C5E1
 	$C5F5  CA:          dex 
 	$C5F6  10 B8:       bpl --		; $C5B0
-	$C5F8  20 1B C9:    jsr _func_091B
+	$C5F8  20 1B C9:    jsr _queryKeyInput
 	$C5FB  A9 20:       lda #$20
 	$C5FD  A0 89:       ldy #$89
 	$C5FF  20 64 E9:    jsr _func_2964
@@ -843,7 +848,7 @@ _func_0543
 	$C649  8D 07 20:    sta PPUDATA
 	$C64C  88:          dey 
 	$C64D  10 F7:       bpl -		; $C646
-	$C64F  20 1B C9:    jsr _func_091B
+	$C64F  20 1B C9:    jsr _queryKeyInput
 	$C652  A9 21:       lda #$21
 	$C654  A0 C0:       ldy #$C0
 	$C656  20 64 E9:    jsr _func_2964
@@ -860,7 +865,7 @@ _func_0543
 -	$C66E  8D 07 20:    sta PPUDATA
 	$C671  88:          dey 
 	$C672  10 FA:       bpl -		; $C66E
-	$C674  20 1B C9:    jsr _func_091B
+	$C674  20 1B C9:    jsr _queryKeyInput
 	$C677  A9 23:       lda #<_data_3023
 	$C679  85 22:       sta $22
 	$C67B  A9 B0:       lda #>_data_3023
@@ -905,7 +910,7 @@ _func_0543
 	$C6C4  C6 22:       dec $22
 +	$C6C6  CA:          dex 
 	$C6C7  10 E1:       bpl --		; $C6AA
-	$C6C9  A5 14:       lda $14
+	$C6C9  A5 14:       lda ppuctrl_state
 	$C6CB  09 04:       ora #$04
 	$C6CD  8D 00 20:    sta PPUCTRL
 	$C6D0  A9 21:       lda #<_data_1E21_indexed
@@ -976,9 +981,9 @@ _func_0543
 	$C753  20 64 E9:    jsr _func_2964
 	$C756  A9 60:       lda #$60
 	$C758  8D 07 20:    sta PPUDATA
-	$C75B  A5 14:       lda $14
+	$C75B  A5 14:       lda ppuctrl_state
 	$C75D  8D 00 20:    sta PPUCTRL
-	$C760  20 1B C9:    jsr _func_091B
+	$C760  20 1B C9:    jsr _queryKeyInput
 	$C763  A9 21:       lda #$21
 	$C765  A0 40:       ldy #$40
 	$C767  20 64 E9:    jsr _func_2964
@@ -1009,7 +1014,7 @@ _func_0543
 	$C7A3  A9 FB:       lda #$FB
 	$C7A5  8D 01 02:    sta $0201
 	$C7A8  8D 01 03:    sta $0301
-	$C7AB  20 1B C9:    jsr _func_091B
+	$C7AB  20 1B C9:    jsr _queryKeyInput
 	$C7AE  20 95 F0:    jsr _func_3095
 	$C7B1  20 38 CA:    jsr _func_0A38
 _func_07B4
@@ -1091,15 +1096,15 @@ _func_0906
 	$C90D  8C 05 20:    sty PPUSCROLL
 	$C910  8C 05 20:    sty PPUSCROLL
 	$C913  A9 1E:       lda #$1E
-	$C915  85 15:       sta $15
+	$C915  85 15:       sta ppumask_state
 	$C917  8D 01 20:    sta PPUMASK
 	$C91A  60:          rts 
 ;------------------------------------------
-_func_091B
+_queryKeyInput
 	$C91B  A0 01:       ldy #$01
 ----	$C91D  A9 00:       lda #$00
 	$C91F  85 16:       sta $16
-	$C921  A5 71:       lda $71
+	$C921  A5 71:       lda 游戏演示标志
 	$C923  F0 1D:       beq ++		; $C942
 	$C925  A5 2A:       lda $2A
 	$C927  D0 0A:       bne +		; $C933
@@ -1114,7 +1119,7 @@ _func_091B
 	$C937  A2 FF:       ldx #$FF
 	$C939  9A:          txs 		; set Stack Pointer at $1FF
 	$C93A  E8:          inx 
-	$C93B  86 71:       stx $71
+	$C93B  86 71:       stx 游戏演示标志
 	$C93D  86 2A:       stx $2A
 	$C93F  4C D5 C0:    jmp _loc_00D5
 
@@ -1124,7 +1129,7 @@ _func_091B
 	$C948  D0 08:       bne +		; $C952
 	$C94A  A5 A6:       lda $A6
 	$C94C  D0 08:       bne ++		; $C956
-	$C94E  A5 71:       lda $71
+	$C94E  A5 71:       lda 游戏演示标志
 	$C950  F0 0B:       beq +++		; $C95D
 + ---	$C952  88:          dey 
 	$C953  D0 C8:       bne ----		; $C91D
@@ -1173,7 +1178,7 @@ _func_091B
 	$C9A2  88:            dey 
 	$C9A3  10 F7:         bpl -		; $C99C
 	$C9A5  A9 08:         lda #$08
-	$C9A7  20 8E F4:      jsr _func_348E
+	$C9A7  20 8E F4:      jsr _setLevelSoundData
 	$C9AA  20 04 CA:      jsr _func_0A04
 	$C9AD  A9 1E:         lda #$1E
 	$C9AF  20 F7 C9:      jsr _func_09F7
@@ -1188,18 +1193,18 @@ _func_091B
 	$C9C2  20 01 CA:      jsr _func_0A01
 	$C9C5  4C B6 C9:      jmp -		; $C9B6
 
-++	$C9C8  20 1B C9:      jsr _func_091B
+++	$C9C8  20 1B C9:      jsr _queryKeyInput
 	$C9CB  20 95 F0:      jsr _func_3095
 	$C9CE  20 04 CA:      jsr _func_0A04
 	$C9D1  A9 08:         lda #$08
-	$C9D3  20 8E F4:      jsr _func_348E
+	$C9D3  20 8E F4:      jsr _setLevelSoundData
 	$C9D6  A9 1E:         lda #$1E
 	$C9D8  20 F7 C9:      jsr _func_09F7
-	$C9DB  20 1B C9:      jsr _func_091B
+	$C9DB  20 1B C9:      jsr _queryKeyInput
 	$C9DE  A9 00:         lda #$00
 	$C9E0  85 A7:         sta $A7
 	$C9E2  85 32:         sta $32
-	$C9E4  20 8E F4:      jsr _func_348E
+	$C9E4  20 8E F4:      jsr _setLevelSoundData
 	$C9E7  A9 01:         lda #$01
 	$C9E9  85 A6:         sta $A6
 	$C9EB  68:           pla 
@@ -1218,10 +1223,10 @@ _func_09F7
 	$CA00  60:          rts 
 ;------------------------------------------
 _func_0A01
-	$CA01  20 1B C9:    jsr _func_091B
+	$CA01  20 1B C9:    jsr _queryKeyInput
 _func_0A04
 	$CA04  20 06 C9:    jsr _func_0906
-	$CA07  20 05 F5:    jsr _func_3505
+	$CA07  20 05 F5:    jsr _LevelSoundPlay
 	$CA0A  A0 04:       ldy #$04
 	$CA0C  A9 F0:       lda #$F0
 -	$CA0E  99 00 02:    sta $0200,y
@@ -1239,15 +1244,15 @@ _func_0A04
 	$CA28  8D 05 20:    sta PPUSCROLL
 	$CA2B  A9 00:       lda #$00
 	$CA2D  8D 05 20:    sta PPUSCROLL
-	$CA30  65 14:       adc $14
-	$CA32  8D 00 20:    sta PPUCTRL
+	$CA30  65 14:       adc ppuctrl_state
+	$CA32  8D 00 20:    sta PPUCTRL		; disable NMI
 	$CA35  4C 14 FF:    jmp _func_3F14
 ;------------------------------------------
 _func_0A38
-	$CA38  A5 4F:       lda $4F
+	$CA38  A5 4F:       lda 程序及卡通定义页选择控制器
 	$CA3A  29 01:       and #$01
 	$CA3C  D0 68:       bne +++		; $CAA6
-	$CA3E  A5 14:       lda $14
+	$CA3E  A5 14:       lda ppuctrl_state
 	$CA40  8D 00 20:    sta PPUCTRL
 	$CA43  A9 20:       lda #$20
 	$CA45  A0 71:       ldy #$71
@@ -1277,9 +1282,9 @@ _func_0A38
 	$CA78  10 EB:       bpl -		; $CA65
 	$CA7A  A9 00:       lda #$00
 	$CA7C  8D 07 20:    sta PPUDATA
-	$CA7F  A5 14:       lda $14
+	$CA7F  A5 14:       lda ppuctrl_state
 	$CA81  09 04:       ora #$04
-	$CA83  8D 00 20:    sta PPUCTRL
+	$CA83  8D 00 20:    sta PPUCTRL		; disable NMI
 	$CA86  A4 48:       ldy $48
 	$CA88  B9 A9 CB:    lda _DataPointerTableLo_0BA9,y
 	$CA8B  85 22:       sta $22
@@ -1296,7 +1301,7 @@ _func_0A38
 	$CAA3  90 F6:       bcc -		; $CA9B
 	$CAA5  60:          rts 
 
-+++	$CAA6  A5 14:       lda $14
++++	$CAA6  A5 14:       lda ppuctrl_state
 	$CAA8  8D 00 20:    sta PPUCTRL
 	$CAAB  A5 53:       lda $53
 	$CAAD  4A:          lsr a
@@ -1353,7 +1358,7 @@ _func_0A38
 +	$CB0F  8D 07 20:    sta PPUDATA
 	$CB12  88:          dey 
 	$CB13  10 EE:       bpl -		; $CB03
-	$CB15  A5 14:       lda $14
+	$CB15  A5 14:       lda ppuctrl_state
 	$CB17  09 04:       ora #$04
 	$CB19  8D 00 20:    sta PPUCTRL
 	$CB1C  A9 00:       lda #$00
@@ -1365,8 +1370,8 @@ _func_0A38
 	$CB28  E6 39:       inc $39
 	$CB2A  E8:          inx 
 	$CB2B  20 6B CB:    jsr _func_0B6B
-	$CB2E  A5 14:       lda $14
-	$CB30  8D 00 20:    sta PPUCTRL
+	$CB2E  A5 14:       lda ppuctrl_state
+	$CB30  8D 00 20:    sta PPUCTRL		; disable NMI
 	$CB33  A5 47:       lda $47
 	$CB35  0A:          asl a
 	$CB36  0A:          asl a
@@ -1464,7 +1469,7 @@ _data_0C21
 	$CC61               .byte $2C,$2C,$9B,$92,$92,$61,$63,$70,$69,$74,$83,$2C,$8E,$8F,$93,$2C
 	$CC71               .byte $2C,$98,$92,$92
 _func_0C75
-	$CC75  A5 4F:       lda $4F
+	$CC75  A5 4F:       lda 程序及卡通定义页选择控制器
 	$CC77  29 01:       and #$01
 	$CC79  F0 01:       beq +		; $CC7C
 	$CC7B  60:          rts 
@@ -1715,7 +1720,7 @@ _func_0C82
 _loc_0E47
 	$CE47  A9 08:       lda #$08
 	$CE49  85 A4:       sta $A4
--	$CE4B  20 1B C9:    jsr _func_091B
+-	$CE4B  20 1B C9:    jsr _queryKeyInput
 	$CE4E  20 38 CA:    jsr _func_0A38
 	$CE51  20 06 C9:    jsr _func_0906
 	$CE54  84 6D:       sty $6D
@@ -1723,7 +1728,7 @@ _loc_0E47
 	$CE57  84 6E:       sty $6E
 	$CE59  A0 40:       ldy #$40
 	$CE5B  20 08 FF:    jsr _func_3F08
-	$CE5E  E6 4F:       inc $4F
+	$CE5E  E6 4F:       inc 程序及卡通定义页选择控制器
 	$CE60  20 75 CC:    jsr _func_0C75
 	$CE63  20 1B D1:    jsr _func_111B
 	$CE66  20 14 FF:    jsr _func_3F14
@@ -1769,7 +1774,7 @@ _loc_0E47
 	$CEB7  85 63:       sta $63
 	$CEB9  A9 01:       lda #$01
 	$CEBB  85 A7:       sta $A7
-	$CEBD  20 1B C9:    jsr _func_091B
+	$CEBD  20 1B C9:    jsr _queryKeyInput
 	$CEC0  A9 23:       lda #$23
 	$CEC2  A0 D2:       ldy #$D2
 	$CEC4  20 64 E9:    jsr _func_2964
@@ -1802,7 +1807,7 @@ _loc_0E47
 	$CF00  20 06 C9:    jsr _func_0906
 	$CF03  20 08 FF:    jsr _func_3F08
 	$CF06  A9 02:       lda #$02
-	$CF08  20 8E F4:    jsr _func_348E
+	$CF08  20 8E F4:    jsr _setLevelSoundData
 	$CF0B  20 14 FF:    jsr _func_3F14
 	$CF0E  A5 C6:       lda $C6
 	$CF10  8D 04 02:    sta $0204
@@ -1816,13 +1821,13 @@ _loc_0E47
 	$CF26  A5 C4:       lda $C4
 	$CF28  8D 07 02:    sta $0207
 	$CF2B  8D 07 03:    sta $0307
-	$CF2E  A5 71:       lda $71
+	$CF2E  A5 71:       lda 游戏演示标志
 	$CF30  D0 23:       bne +		; $CF55
 	$CF32  85 36:       sta $36
 	$CF34  85 37:       sta $37
 	$CF36  A9 02:       lda #$02
-	$CF38  85 71:       sta $71
--	$CF3A  20 1B C9:    jsr _func_091B
+	$CF38  85 71:       sta 游戏演示标志
+-	$CF3A  20 1B C9:    jsr _queryKeyInput
 	$CF3D  20 38 CA:    jsr _func_0A38
 	$CF40  20 06 C9:    jsr _func_0906
 	$CF43  20 08 FF:    jsr _func_3F08
@@ -1853,15 +1858,15 @@ _loc_0F6C
 	$CF7D  A9 0A:       lda #$0A
 	$CF7F  85 5A:       sta $5A
 	$CF81  85 A4:       sta $A4
--	$CF83  20 1B C9:    jsr _func_091B
+-	$CF83  20 1B C9:    jsr _queryKeyInput
 	$CF86  20 38 CA:    jsr _func_0A38
 	$CF89  20 06 C9:    jsr _func_0906
 	$CF8C  20 57 E9:    jsr _func_2957
 	$CF8F  20 75 CC:    jsr _func_0C75
 	$CF92  20 1B D1:    jsr _func_111B
-	$CF95  E6 4F:       inc $4F
+	$CF95  E6 4F:       inc 程序及卡通定义页选择控制器
 	$CF97  A9 FF:       lda #$FF
-	$CF99  20 8E F4:    jsr _func_348E
+	$CF99  20 8E F4:    jsr _setLevelSoundData
 	$CF9C  20 14 FF:    jsr _func_3F14
 	$CF9F  A5 B4:       lda $B4
 	$CFA1  C9 F0:       cmp #$F0
@@ -1879,9 +1884,9 @@ _loc_0F6C
 	$CFB9  D0 C8:       bne -		; $CF83
 	$CFBB  E6 34:       inc $34
 	$CFBD  A9 00:       lda #$00
-	$CFBF  85 4F:       sta $4F
+	$CFBF  85 4F:       sta 程序及卡通定义页选择控制器
 	$CFC1  A9 FF:       lda #$FF
-	$CFC3  20 8E F4:    jsr _func_348E
+	$CFC3  20 8E F4:    jsr _setLevelSoundData
 	$CFC6  A9 5A:       lda #$5A
 	$CFC8  20 D4 D0:    jsr _func_10D4
 	$CFCB  E6 2D:       inc $2D
@@ -1891,8 +1896,8 @@ _loc_0F6C
 _func_0FD2
 	$CFD2  A9 01:       lda #$01
 	$CFD4  85 A7:       sta $A7
-	$CFD6  20 6E F3:    jsr _func_336E
-	$CFD9  20 1B C9:    jsr _func_091B
+	$CFD6  20 6E F3:    jsr _cleanNT_OAM
+	$CFD9  20 1B C9:    jsr _queryKeyInput
 	$CFDC  A9 21:       lda #$21
 	$CFDE  85 22:       sta $22
 	$CFE0  A9 06:       lda #$06
@@ -1939,7 +1944,7 @@ _loc_1005
 	$D02F  E6 22:       inc $22
 +	$D031  CA:          dex 
 	$D032  10 DE:       bpl --		; $D012
-	$D034  20 1B C9:    jsr _func_091B
+	$D034  20 1B C9:    jsr _queryKeyInput
 	$D037  A9 3F:       lda #$3F
 	$D039  A0 00:       ldy #$00
 	$D03B  20 64 E9:    jsr _func_2964
@@ -1999,17 +2004,17 @@ _loc_1005
 	$D0BB  20 06 C9:    jsr _func_0906
 	$D0BE  20 6E F4:    jsr _soundPrepare
 	$D0C1  A9 01:       lda #$01
-	$D0C3  20 8E F4:    jsr _func_348E
-	$D0C6  20 05 F5:    jsr _func_3505
--	$D0C9  20 1B C9:    jsr _func_091B
-	$D0CC  20 05 F5:    jsr _func_3505
+	$D0C3  20 8E F4:    jsr _setLevelSoundData
+	$D0C6  20 05 F5:    jsr _LevelSoundPlay
+-	$D0C9  20 1B C9:    jsr _queryKeyInput
+	$D0CC  20 05 F5:    jsr _LevelSoundPlay
 	$D0CF  A5 B8:       lda $B8
 	$D0D1  10 F6:       bpl -		; $D0C9
 	$D0D3  60:          rts 
 ;------------------------------------------
 _func_10D4
 	$D0D4  85 A4:       sta $A4
--	$D0D6  20 1B C9:    jsr _func_091B
+-	$D0D6  20 1B C9:    jsr _queryKeyInput
 	$D0D9  20 38 CA:    jsr _func_0A38
 	$D0DC  20 06 C9:    jsr _func_0906
 	$D0DF  20 08 FF:    jsr _func_3F08
@@ -2044,12 +2049,12 @@ _data_1115_indexed
 _data_1118_indexed
 	$D118               .byte $00,$00,$00
 _func_111B
-	$D11B  A5 4F:       lda $4F
+	$D11B  A5 4F:       lda 程序及卡通定义页选择控制器
 	$D11D  29 01:       and #$01
 	$D11F  D0 01:       bne +		; $D122
 	$D121  60:          rts 
 
-+	$D122  A5 71:       lda $71
++	$D122  A5 71:       lda 游戏演示标志
 	$D124  D0 27:       bne +		; $D14D
 	$D126  A5 5A:       lda $5A
 	$D128  D0 23:       bne +		; $D14D
@@ -2142,7 +2147,7 @@ _func_111B
 	$D1CD  C6 7A:       dec $7A
 	$D1CF  A9 04:       lda #$04
 	$D1D1  85 5C:       sta $5C
-	$D1D3  20 8E F4:    jsr _func_348E
+	$D1D3  20 8E F4:    jsr _setLevelSoundData
 	$D1D6  A9 04:       lda #$04
 	$D1D8  A4 47:       ldy $47
 	$D1DA  F0 02:       beq +		; $D1DE
@@ -2164,7 +2169,7 @@ _func_111B
 ++	$D1F9  A5 79:       lda $79
 	$D1FB  49 07:       eor #$07
 	$D1FD  85 79:       sta $79
-	$D1FF  A5 71:       lda $71
+	$D1FF  A5 71:       lda 游戏演示标志
 	$D201  D0 42:       bne ++		; $D245
 	$D203  A5 5F:       lda $5F
 	$D205  F0 15:       beq +		; $D21C
@@ -3964,17 +3969,17 @@ _data_2569_indexed
 _main_reset_code
 	$E60A  A9 01:       lda #$01
 	$E60C  85 2A:       sta $2A
-	$E60E  20 6E F3:    jsr _func_336E
+	$E60E  20 6E F3:    jsr _cleanNT_OAM
 	$E611  20 6E F4:    jsr _soundPrepare
 	$E614  A0 00:       ldy #$00
-	$E616  84 4F:       sty $4F
+	$E616  84 4F:       sty 程序及卡通定义页选择控制器
 	$E618  C8:          iny 
-	$E619  84 71:       sty $71
+	$E619  84 71:       sty 游戏演示标志
 	$E61B  A9 FF:       lda #$FF
-	$E61D  20 8E F4:    jsr _func_348E
-	$E620  20 05 F5:    jsr _func_3505
-	$E623  20 1B C9:    jsr _func_091B
-	$E626  A5 14:       lda $14
+	$E61D  20 8E F4:    jsr _setLevelSoundData
+	$E620  20 05 F5:    jsr _LevelSoundPlay
+	$E623  20 1B C9:    jsr _queryKeyInput
+	$E626  A5 14:       lda ppuctrl_state
 	$E628  8D 00 20:    sta PPUCTRL
 	$E62B  A9 20:       lda #$20
 	$E62D  A0 40:       ldy #$40
@@ -4001,7 +4006,7 @@ _main_reset_code
 ++++	$E658  C8:          iny 
 	$E659  D0 D9:       bne --		; $E634
 _loc_265B
-	$E65B  20 1B C9:    jsr _func_091B
+	$E65B  20 1B C9:    jsr _queryKeyInput
 	$E65E  A9 22:       lda #$22
 	$E660  A0 0A:       ldy #$0A
 	$E662  A2 01:       ldx #$01
@@ -4053,7 +4058,7 @@ _loc_265B
 	$E6C0  C8:          iny 
 	$E6C1  C0 40:       cpy #$40
 	$E6C3  90 F8:       bcc -		; $E6BD
-	$E6C5  20 1B C9:    jsr _func_091B
+	$E6C5  20 1B C9:    jsr _queryKeyInput
 	$E6C8  A9 3F:       lda #$3F
 	$E6CA  A0 00:       ldy #$00
 	$E6CC  20 64 E9:    jsr _func_2964
@@ -4098,7 +4103,7 @@ _loc_265B
 	$E71F  8D 02 02:    sta $0202
 	$E722  A9 40:       lda #$40
 	$E724  8D 03 02:    sta $0203
-	$E727  20 1B C9:    jsr _func_091B
+	$E727  20 1B C9:    jsr _queryKeyInput
 	$E72A  A9 20:       lda #$20
 	$E72C  A0 00:       ldy #$00
 	$E72E  20 64 E9:    jsr _func_2964
@@ -4112,7 +4117,7 @@ _loc_265B
 	$E743  84 17:       sty $17
 	$E745  88:          dey 
 	$E746  84 18:       sty $18
---	$E748  20 1B C9:    jsr _func_091B
+--	$E748  20 1B C9:    jsr _queryKeyInput
 	$E74B  A5 17:       lda $17
 	$E74D  8D 05 20:    sta PPUSCROLL
 	$E750  A9 00:       lda #$00
@@ -4127,7 +4132,7 @@ _loc_265B
 	$E763  A5 18:       lda $18
 	$E765  8D 05 20:    sta PPUSCROLL
 	$E768  8D 05 20:    sta PPUSCROLL
-	$E76B  A5 14:       lda $14
+	$E76B  A5 14:       lda ppuctrl_state
 	$E76D  8D 00 20:    sta PPUCTRL
 	$E770  A2 04:       ldx #$04
 -	$E772  20 08 FF:    jsr _func_3F08
@@ -4149,16 +4154,16 @@ _loc_265B
 	$E792  F0 03:       beq +		; $E797
 	$E794  4C 48 E7:    jmp --		; $E748
 
-+	$E797  20 1B C9:    jsr _func_091B
-	$E79A  A5 14:       lda $14
-	$E79C  8D 00 20:    sta PPUCTRL
++	$E797  20 1B C9:    jsr _queryKeyInput
+	$E79A  A5 14:       lda ppuctrl_state
+	$E79C  8D 00 20:    sta PPUCTRL		; disable NMI
 	$E79F  A9 00:       lda #$00
 	$E7A1  8D 05 20:    sta PPUSCROLL
 	$E7A4  8D 05 20:    sta PPUSCROLL
 	$E7A7  C6 37:       dec $37
 	$E7A9  10 09:       bpl +		; $E7B4
 	$E7AB  A9 03:       lda #$03
-	$E7AD  20 8E F4:    jsr _func_348E
+	$E7AD  20 8E F4:    jsr _setLevelSoundData
 	$E7B0  A9 02:       lda #$02
 	$E7B2  85 37:       sta $37
 + --	$E7B4  A9 58:       lda #$58
@@ -4169,10 +4174,10 @@ _loc_265B
 -	$E7BE  20 6B E9:    jsr _func_296B
 	$E7C1  20 81 E9:    jsr _func_2981
 	$E7C4  20 81 E9:    jsr _func_2981
-	$E7C7  20 1B C9:    jsr _func_091B
+	$E7C7  20 1B C9:    jsr _queryKeyInput
 	$E7CA  20 24 E8:    jsr _func_2824
 	$E7CD  20 06 C9:    jsr _func_0906
-	$E7D0  20 05 F5:    jsr _func_3505
+	$E7D0  20 05 F5:    jsr _LevelSoundPlay
 	$E7D3  A5 33:       lda $33
 	$E7D5  0A:          asl a
 	$E7D6  0A:          asl a
@@ -4351,36 +4356,36 @@ _func_2999
 ;------------------------------------------
 _func_29BA
 	$E9BA  E6 34:       inc $34
-	$E9BC  A5 71:       lda $71
+	$E9BC  A5 71:       lda 游戏演示标志
 	$E9BE  D0 03:       bne +		; $E9C3
 	$E9C0  20 D2 CF:    jsr _func_0FD2
 +	$E9C3  20 43 C5:    jsr _func_0543
 	$E9C6  A9 00:       lda #$00
-	$E9C8  85 4F:       sta $4F
+	$E9C8  85 4F:       sta 程序及卡通定义页选择控制器
 	$E9CA  20 38 CA:    jsr _func_0A38
 	$E9CD  20 57 E9:    jsr _func_2957
 	$E9D0  20 75 CC:    jsr _func_0C75
 	$E9D3  20 14 FF:    jsr _func_3F14
-	$E9D6  20 1B C9:    jsr _func_091B
+	$E9D6  20 1B C9:    jsr _queryKeyInput
 	$E9D9  20 1B D1:    jsr _func_111B
 	$E9DC  20 14 FF:    jsr _func_3F14
-	$E9DF  20 1B C9:    jsr _func_091B
+	$E9DF  20 1B C9:    jsr _queryKeyInput
 	$E9E2  20 57 E9:    jsr _func_2957
 	$E9E5  20 75 CC:    jsr _func_0C75
 	$E9E8  20 14 FF:    jsr _func_3F14
-	$E9EB  20 1B C9:    jsr _func_091B
+	$E9EB  20 1B C9:    jsr _queryKeyInput
 	$E9EE  20 1B D1:    jsr _func_111B
 	$E9F1  20 14 FF:    jsr _func_3F14
-	$E9F4  20 1B C9:    jsr _func_091B
+	$E9F4  20 1B C9:    jsr _queryKeyInput
 	$E9F7  20 57 E9:    jsr _func_2957
 	$E9FA  20 75 CC:    jsr _func_0C75
 	$E9FD  20 14 FF:    jsr _func_3F14
-	$EA00  20 1B C9:    jsr _func_091B
-	$EA03  E6 4F:       inc $4F
+	$EA00  20 1B C9:    jsr _queryKeyInput
+	$EA03  E6 4F:       inc 程序及卡通定义页选择控制器
 	$EA05  20 38 CA:    jsr _func_0A38
 	$EA08  20 1B D1:    jsr _func_111B
 	$EA0B  20 14 FF:    jsr _func_3F14
-	$EA0E  C6 4F:       dec $4F
+	$EA0E  C6 4F:       dec 程序及卡通定义页选择控制器
 	$EA10  A9 F8:       lda #$F8
 	$EA12  85 8F:       sta $8F
 	$EA14  85 90:       sta $90
@@ -4391,7 +4396,7 @@ _func_29BA
 	$EA1E  84 63:       sty $63
 	$EA20  C8:          iny 
 	$EA21  84 53:       sty $53
-	$EA23  20 1B C9:    jsr _func_091B
+	$EA23  20 1B C9:    jsr _queryKeyInput
 	$EA26  A9 21:       lda #$21
 	$EA28  A0 2D:       ldy #$2D
 	$EA2A  20 64 E9:    jsr _func_2964
@@ -4446,19 +4451,19 @@ _func_29BA
 	$EA97  8D AF 03:    sta $03AF
 	$EA9A  20 6E F4:    jsr _soundPrepare
 	$EA9D  A9 00:       lda #$00
-	$EA9F  20 8E F4:    jsr _func_348E
+	$EA9F  20 8E F4:    jsr _setLevelSoundData
 	$EAA2  A0 00:       ldy #$00
 	$EAA4  20 08 FF:    jsr _func_3F08
 	$EAA7  20 14 FF:    jsr _func_3F14
 	$EAAA  A9 01:       lda #$01
-	$EAAC  85 4F:       sta $4F
+	$EAAC  85 4F:       sta 程序及卡通定义页选择控制器
 	$EAAE  A9 1E:       lda #$1E
 	$EAB0  20 5C EB:    jsr _func_2B5C
 	$EAB3  A9 58:       lda #$58
 	$EAB5  A0 00:       ldy #$00
 	$EAB7  20 88 F0:    jsr _func_3088
 	$EABA  A9 06:       lda #$06
-	$EABC  20 8E F4:    jsr _func_348E
+	$EABC  20 8E F4:    jsr _setLevelSoundData
 	$EABF  A9 3C:       lda #$3C
 	$EAC1  20 5C EB:    jsr _func_2B5C
 	$EAC4  A9 50:       lda #$50
@@ -4484,8 +4489,8 @@ _func_29BA
 	$EAF3  20 5C EB:    jsr _func_2B5C
 	$EAF6  A5 53:       lda $53
 	$EAF8  85 7A:       sta $7A
-	$EAFA  20 1B C9:    jsr _func_091B
-	$EAFD  A5 14:       lda $14
+	$EAFA  20 1B C9:    jsr _queryKeyInput
+	$EAFD  A5 14:       lda ppuctrl_state
 	$EAFF  8D 00 20:    sta PPUCTRL
 	$EB02  A9 21:       lda #$21
 	$EB04  85 22:       sta $22
@@ -4532,11 +4537,11 @@ _data_2B58_indexed
 	$EB58               .byte $9E,$9D,$9D,$9C
 _func_2B5C
 	$EB5C  85 A4:       sta $A4
--	$EB5E  20 1B C9:    jsr _func_091B
+-	$EB5E  20 1B C9:    jsr _queryKeyInput
 	$EB61  20 38 CA:    jsr _func_0A38
 	$EB64  20 06 C9:    jsr _func_0906
 	$EB67  A9 00:       lda #$00
-	$EB69  20 8E F4:    jsr _func_348E
+	$EB69  20 8E F4:    jsr _setLevelSoundData
 	$EB6C  A5 6D:       lda $6D
 	$EB6E  D0 0B:       bne +		; $EB7B
 	$EB70  A5 53:       lda $53
@@ -4567,7 +4572,7 @@ _func_2B5C
 ;------------------------------------------
 _func_2B9F
 	$EB9F  A4 2D:       ldy $2D
-	$EBA1  A5 71:       lda $71
+	$EBA1  A5 71:       lda 游戏演示标志
 	$EBA3  D0 0E:       bne +		; $EBB3
 	$EBA5  A9 00:       lda #$00
 	$EBA7  85 76:       sta $76
@@ -5047,13 +5052,13 @@ DataTableEntry_330E
 	$F33E               .byte $C8,$C5,$03,$68,$C8,$C6,$03,$70,$C8,$C7,$03,$78,$C8,$C8,$03,$80
 	$F34E               .byte $C8,$C9,$03,$88,$C8,$CA,$03,$90,$D0,$CB,$03,$68,$D0,$CC,$03,$70
 	$F35E               .byte $D0,$CD,$03,$78,$D0,$CE,$03,$80,$D0,$CF,$03,$88,$D0,$D0,$03,$90
-_func_336E
-	$F36E  20 1B C9:    jsr _func_091B
+_cleanNT_OAM
+	$F36E  20 1B C9:    jsr _queryKeyInput
 	$F371  A9 00:       lda #$00
-	$F373  85 15:       sta $15
+	$F373  85 15:       sta ppumask_state
 	$F375  8D 01 20:    sta PPUMASK		; close display
-	$F378  A5 14:       lda $14
-	$F37A  8D 00 20:    sta PPUCTRL
+	$F378  A5 14:       lda ppuctrl_state
+	$F37A  8D 00 20:    sta PPUCTRL		; disable NMI
 	$F37D  A9 20:       lda #$20
 	$F37F  A0 00:       ldy #$00
 	$F381  20 64 E9:    jsr _func_2964
@@ -5061,7 +5066,7 @@ _func_336E
 -	$F386  20 FB D0:    jsr _func_10FB
 	$F389  C8:          iny 
 	$F38A  D0 FA:       bne -		; $F386
-	$F38C  20 1B C9:    jsr _func_091B
+	$F38C  20 1B C9:    jsr _queryKeyInput
 	$F38F  A9 24:       lda #$24
 	$F391  A0 00:       ldy #$00
 	$F393  20 64 E9:    jsr _func_2964
@@ -5199,7 +5204,7 @@ _soundPrepare
 	$F48B  85 BE:       sta $BE
 	$F48D  60:          rts 
 ;------------------------------------------
-_func_348E
+_setLevelSoundData
 	$F48E  AA:          tax 
 	$F48F  30 30:       bmi ++		; $F4C1
 	$F491  A5 BD:       lda $BD
@@ -5250,7 +5255,7 @@ _data_34F3_indexed
 	$F4F3               .byte $00,$7F,$DB,$1E,$5A,$6C,$A4,$C0,$D1
 _data_34FC_indexed
 	$F4FC               .byte $00,$F6,$F6,$F8,$FA,$FA,$FA,$FA,$FA
-_func_3505
+_LevelSoundPlay
 	$F505  A9 C0:       lda #$C0
 	$F507  8D 17 40:    sta $4017
 	$F50A  A5 B8:       lda $B8
@@ -5667,7 +5672,7 @@ _func_3BE4
 	$FC0A  A9 88:       lda #>_data_080E
 	$FC0C  8D 0F 40:    sta $400F
 	$FC0F  A9 07:       lda #$07
-	$FC11  20 8E F4:    jsr _func_348E
+	$FC11  20 8E F4:    jsr _setLevelSoundData
 	$FC14  60:          rts 
 ;------------------------------------------
 _func_3C15
@@ -5849,13 +5854,13 @@ _func_3F14
 	$FF34  C9 01:       cmp #$01
 	$FF36  D0 05:       bne +		; $FF3D
 	$FF38  A9 05:       lda #$05
-	$FF3A  20 8E F4:    jsr _func_348E
-+	$FF3D  A5 71:       lda $71
+	$FF3A  20 8E F4:    jsr _setLevelSoundData
++	$FF3D  A5 71:       lda 游戏演示标志
 	$FF3F  C9 01:       cmp #$01
 	$FF41  F0 07:       beq +		; $FF4A
 	$FF43  A5 32:       lda $32
 	$FF45  D0 03:       bne +		; $FF4A
-	$FF47  20 05 F5:    jsr _func_3505
+	$FF47  20 05 F5:    jsr _LevelSoundPlay
 +	$FF4A  A9 00:       lda #$00
 	$FF4C  85 17:       sta $17
 	$FF4E  85 18:       sta $18
@@ -5866,7 +5871,7 @@ _func_3F14
 	$FF58  85 1A:       sta $1A
 	$FF5A  29 04:       and #$04
 	$FF5C  85 19:       sta $19
-	$FF5E  A5 15:       lda $15
+	$FF5E  A5 15:       lda ppumask_state
 	$FF60  F0 0C:       beq +		; $FF6E
 -	$FF62  AD 02 20:    lda PPUSTATUS
 	$FF65  29 40:       and #$40

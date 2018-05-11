@@ -1733,11 +1733,22 @@ public:
             case 0x9A : // txs
                 printf( "%s; set Stack Pointer at $1%02X" , indent , state.cpu.X.Value() );
                 break;
-            case 0x8D :
-                if ( code.Param == 0x2001 && state.cpu.A.Value()==0 )
-                    printf( "%s; close display" , indent   );
-                break ;
+
                 
+        }
+        
+        if( state.cpu.A.Value()==0 ) {
+            switch( ROM[romptr] ) {
+                case 0x8D :  //
+                    if ( code.Param == 0x2000  )
+                        printf( "%s; disable NMI" , indent   );
+                    if ( code.Param == 0x2001  )
+                        printf( "%s; close display" , indent   );
+                    if ( code.Param == 0x4010  )
+                        printf( "%s; disable DMC IRQs" , indent   );
+
+                    break ;
+            }
         }
     }
 
