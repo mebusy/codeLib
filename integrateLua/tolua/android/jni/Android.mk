@@ -88,4 +88,4 @@ LOCAL_STATIC_LIBRARIES += crypto
 # other lib
 LOCAL_LDLIBS := -landroid -llog -lz
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
