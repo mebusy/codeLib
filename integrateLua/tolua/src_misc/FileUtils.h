@@ -17,12 +17,13 @@
 #include <android/asset_manager.h>
 #endif
 
-
+#include <pthread.h>
 
 class FileUtils
 {
 public:
     static FileUtils* sharedFileUtils();
+    FileUtils();
     virtual ~FileUtils();
 
     // endswith "/"
@@ -35,12 +36,16 @@ public:
     unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
 protected:
     static FileUtils* s_sharedFileUtils;
+    static pthread_mutex_t instMutexlock;
+    pthread_mutex_t mutexlock;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 public:
-    static void  setassetmanager(AAssetManager* a) ;
+    void  setassetmanager(AAssetManager* a) ;
+    AAssetManager* getAssetmanager();
 private:
-    static AAssetManager* assetmanager  ;
+    AAssetManager* _assetmanager  ;
+    
 #endif
 
 } ;

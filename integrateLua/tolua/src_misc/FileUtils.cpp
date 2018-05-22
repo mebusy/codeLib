@@ -23,16 +23,33 @@
 
 using namespace std ;
 
+
+
+
 FileUtils* FileUtils::s_sharedFileUtils = 0;
+pthread_mutex_t FileUtils::instMutexlock ;
+
+FileUtils::FileUtils()
+{
+    // init lock here
+    pthread_mutex_init(&mutexlock, 0);
+    pthread_mutex_init(&FileUtils::instMutexlock, 0);
+
+}
 
 FileUtils::~FileUtils()
 {
-    // CC_SAFE_RELEASE(m_pFilenameLookupDict);
+    // deinit lock here
+    pthread_mutex_destroy(&mutexlock);
+    pthread_mutex_destroy(&FileUtils::instMutexlock);
 }
 
 FileUtils* FileUtils::sharedFileUtils()
 {
-    if (s_sharedFileUtils == /*NULL*/ 0 )
+    // lock
+    pthread_mutex_lock(&FileUtils::instMutexlock);
+    
+    if (s_sharedFileUtils ==  0 )
     {
         s_sharedFileUtils = new FileUtils();
         //s_sharedFileUtils->init();
@@ -40,6 +57,11 @@ FileUtils* FileUtils::sharedFileUtils()
         //test
         //StringUtils::format("test");
     }
+    //CCLog("FileUtils inst address: %p \n", &s_sharedFileUtils );
+
+    // unlock
+    pthread_mutex_unlock(&FileUtils::instMutexlock);
+
     return s_sharedFileUtils;
 }
 

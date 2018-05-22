@@ -54,7 +54,7 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetContext(JNIEnv*  env, jobject thiz, jobject context, jobject assetManager) {
         CCJniHelper::setClassLoaderFrom(context);
-        FileUtils::setassetmanager(AAssetManager_fromJava(env, assetManager));
+        FileUtils::sharedFileUtils()->setassetmanager(AAssetManager_fromJava(env, assetManager));
     }
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetEditTextDialogResult(JNIEnv * env, jobject obj, jbyteArray text) {

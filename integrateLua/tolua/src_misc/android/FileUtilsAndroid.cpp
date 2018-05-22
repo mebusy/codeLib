@@ -5,9 +5,10 @@
 #include "platform_header.h"
 #include "android/asset_manager_jni.h"
 
+
 using namespace std ; 
 
-AAssetManager* FileUtils::assetmanager = nullptr;
+
 
 void FileUtils::setassetmanager(AAssetManager* a) {
     if (nullptr == a) {
@@ -15,9 +16,26 @@ void FileUtils::setassetmanager(AAssetManager* a) {
         return;
     }
 
-    FileUtils::assetmanager = a;
+    // lock
+    pthread_mutex_lock(&mutexlock);
+    _assetmanager = a;
+    // unlock
+    pthread_mutex_unlock(&mutexlock);
+
+    pthread_t thisthread = pthread_self();
+    CCLog("setassetmanager : set , pthread_self() = %ld", thisthread);
+
 }
 
+AAssetManager* FileUtils::getAssetmanager() {
+    // lock
+    pthread_mutex_lock(&mutexlock);
+    AAssetManager* a = _assetmanager ;
+    // unlock
+    pthread_mutex_unlock(&mutexlock);
+
+    return a ;
+}
 
 std::string FileUtils::getResourcePath() {
     std::string resourcePath = getApkPath();
@@ -47,38 +65,50 @@ bool FileUtils::isFileExist(const std::string& strFilePath) {
     {
         return false;
     }
+
+    //pthread_t thisthread = pthread_self();
+    //CCLog("FileUtils::isFileExist : pthread_self() = %ld", thisthread);
     
     bool bFound = false;
+    int debug = 0 ;
     
     // Check whether file exists in apk.
     if (strFilePath[0] != '/')
     {
+        debug = 10 ;  //CCLog( "isFileExist  debug: %d \n" , debug);
         const char* s = strFilePath.c_str();
         
         // Found "assets/" at the beginning of the path and we don't want it
         if (strFilePath.find("assets/") == 0) s += strlen("assets/");
         
-        if (FileUtils::assetmanager) {
-            AAsset* aa = AAssetManager_open(FileUtils::assetmanager, s, AASSET_MODE_UNKNOWN);
+        if (getAssetmanager()) {
+            debug = 20 ;  //CCLog( "isFileExist  debug: %d \n" , debug);
+            AAsset* aa = AAssetManager_open(getAssetmanager(), s, AASSET_MODE_UNKNOWN);
             if (aa)
             {
+                debug = 30 ; //CCLog( "isFileExist  debug: %d \n" , debug); 
                 bFound = true;
                 AAsset_close(aa);
             } else {
+                debug = 40 ; //CCLog( "isFileExist  debug: %d \n" , debug);
                 // CCLOG("[AssetManager] ... in APK %s, found = false!", strFilePath.c_str());
             }
         }
     }
     else
     {
+        debug = 50 ;  //CCLog( "isFileExist  debug: %d \n" , debug);
+
         FILE *fp = fopen(strFilePath.c_str(), "r");
         if(fp)
         {
+            debug = 60 ; //CCLog( "isFileExist  debug: %d \n" , debug);
             bFound = true;
             fclose(fp);
         }
+
     }
-    // CCLog( "isFileExist %s : %d \n" , strFilePath.c_str(), bFound );
+    //CCLog( "isFileExist %s : %d , info: %d \n" , strFilePath.c_str(), bFound , debug  );
     return bFound;
 }
 
@@ -111,14 +141,14 @@ unsigned char* FileUtils::getFileData(const char* pszFileName, const char* mode,
         }
         // CCLog("relative path = %s\n", relativePath.c_str());
         
-        if (nullptr == FileUtils::assetmanager) {
-            CCLog("... FileUtils::assetmanager is nullptr\n");
+        if (nullptr == getAssetmanager()) {
+            CCLog("... getAssetmanager() is nullptr\n");
             return nullptr;
         }
         
         // read asset data
         AAsset* asset =
-        AAssetManager_open(FileUtils::assetmanager,
+        AAssetManager_open(getAssetmanager(),
                            relativePath.c_str(),
                            AASSET_MODE_UNKNOWN);
         if (nullptr == asset) {

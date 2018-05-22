@@ -108,6 +108,8 @@ extern "C"
         lua_pop(L, 1);
         size_t begin = 0;
         size_t next = searchpath.find_first_of(";", 0);
+        
+        int debug = 0 ;
         do
         {
             if (next == std::string::npos)
@@ -123,14 +125,17 @@ extern "C"
             chunkName = prefix.substr(0, pos) + filename + BYTECODE_FILE_EXT;
             if (utils->isFileExist(chunkName))
             {
+                debug = 10 ;
                 chunk = utils->getFileData(chunkName.c_str(), "rb", &chunkSize);
                 break;
             }
             else
             {
+                debug = 20 ;
                 chunkName = prefix.substr(0, pos) + filename + NOT_BYTECODE_FILE_EXT;
                 if (utils->isFileExist(chunkName))
                 {
+                    debug = 30 ;
                     chunk = utils->getFileData(chunkName.c_str(), "rb", &chunkSize);
                     break;
                 }
@@ -147,7 +152,7 @@ extern "C"
         }
         else
         {
-            CCLog("can not get file data of %s\n", filename.c_str());
+            CCLog("can not get file data of %s, info:%d\n", filename.c_str() , debug );
         }
         
         return 1;
