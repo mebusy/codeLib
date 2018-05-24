@@ -8,7 +8,7 @@
 
 using namespace std ; 
 
-
+AAssetManager* FileUtils::_assetmanager = 0 ;
 
 void FileUtils::setassetmanager(AAssetManager* a) {
     if (nullptr == a) {
@@ -18,7 +18,7 @@ void FileUtils::setassetmanager(AAssetManager* a) {
 
     // lock
     pthread_mutex_lock(&mutexlock);
-    _assetmanager = a;
+    FileUtils::_assetmanager = a;
     // unlock
     pthread_mutex_unlock(&mutexlock);
 
@@ -30,7 +30,7 @@ void FileUtils::setassetmanager(AAssetManager* a) {
 AAssetManager* FileUtils::getAssetmanager() {
     // lock
     pthread_mutex_lock(&mutexlock);
-    AAssetManager* a = _assetmanager ;
+    AAssetManager* a = FileUtils::_assetmanager ;
     // unlock
     pthread_mutex_unlock(&mutexlock);
 

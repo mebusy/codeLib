@@ -44,7 +44,7 @@ public:
     void  setassetmanager(AAssetManager* a) ;
     AAssetManager* getAssetmanager();
 private:
-    AAssetManager* _assetmanager  ;
+    static AAssetManager* _assetmanager  ;
     
 #endif
 
