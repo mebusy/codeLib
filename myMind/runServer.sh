@@ -1,5 +1,5 @@
 
-serverName=hdaserver
+serverName=mindserver       
 
 
 if [ "$(docker ps -aq -f name=${serverName})" ]; then
