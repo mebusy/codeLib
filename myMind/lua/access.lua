@@ -28,7 +28,7 @@ local Authorization = req_headers["Authorization"]
 -- print( "Authorization:" , Authorization )
 
 
-local needAuth = true
+local needAuth = false -- true
 
 -- for develop server 
 -- print( ngx.var.http_referer  )
