@@ -27,8 +27,6 @@ uuid.seed()
 
 require( "nginx/getReqBody" )
 
--- DEBUG 
-_G.MCARD_TEST = false 
 
 
 return _init 
