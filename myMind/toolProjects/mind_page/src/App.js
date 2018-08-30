@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 // ctrl C/V
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu,  Icon } from 'antd';
+
+import HelloPage from './HelloPage.js'
+import AddEntry from './AddEntry.js'
+
+
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
+// initially select menu index
+const initSelectedMenuIndex = 1
+// all pages 
+var pageComponents = [
+    null , AddEntry , HelloPage 
+] ;
+
 
 class App extends Component {
+    state = {
+        displayedComponent  : pageComponents[ initSelectedMenuIndex ],
+    };
+
+    switchPage(index){
+        this.setState({
+            displayedComponent: pageComponents[index],
+        })
+    }
+
   render() {
     return (
     
@@ -53,13 +75,7 @@ class App extends Component {
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              Bill is a cat.
-            </div>
+          <this.state.displayedComponent />
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             Apixel ©2018
