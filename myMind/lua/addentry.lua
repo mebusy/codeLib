@@ -17,6 +17,13 @@ if not t then
     return ngx.exit(ngx.HTTP_BAD_REQUEST)
 end
 
+local keys = { "key1", "key2" , "relation" }
+for _ , key in ipairs(keys) do
+    if t[key] == nil then
+        return ngx.exit(ngx.HTTP_BAD_REQUEST)
+    end
+end
+
 
 local sql_str = ndk.set_var.set_quote_sql_str
 
