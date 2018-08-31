@@ -21,7 +21,7 @@ function db_query( query )
     local ok, err, errcode, sqlstate = db:connect{
         host = _init.mysql_host ,
         port = 3306,
-        database = "hda",
+        database = _init.mysql_dbname  ,
         user = _init.mysql_user ,
         password = _init.mysql_pwd , 
         charset = "utf8",
