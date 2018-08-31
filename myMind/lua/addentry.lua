@@ -25,11 +25,12 @@ for _ , key in ipairs(keys) do
 end
 
 local sql_str = ndk.set_var.set_quote_sql_str
-local query = string.format( [[SELECT * FROM %s WHERE ( %s = '%s' AND  %s = '%s' ) OR  ( %s = '%s' AND  %s = '%s' ); ]] , 
+local query = string.format( [[SELECT * FROM %s WHERE ( %s = %s AND  %s = %s ) OR  ( %s = %s AND  %s = %s ); ]] , 
                             tbl_name , 
                             keys[1],sql_str(t[keys[1]]), keys[2],sql_str(t[keys[2]]),
                             keys[1],sql_str(t[keys[2]]), keys[2],sql_str(t[keys[1]]) 
                         )
+print(query)
 
 local res ,err = db_op.db_query( query )
 if not res then
