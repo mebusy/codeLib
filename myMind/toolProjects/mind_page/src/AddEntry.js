@@ -37,8 +37,12 @@ class AddEntryUnwrap extends Component{
           .then(res => res.json())
           .then(
             (result) => {
-                if (result.err) {
-                    alert( "有错误发生,提交失败!!" ); 
+                if( result.err && result.action === "forceupdate" ) {
+                    
+                    alert( result.action  )
+                }
+                else if (result.err) {
+                    alert( result.err ); 
                 } else {
                     alert( "编辑成功" );
                     // this.props.switchPage(7);

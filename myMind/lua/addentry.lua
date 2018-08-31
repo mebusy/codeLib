@@ -30,12 +30,32 @@ local query = string.format( [[SELECT * FROM %s WHERE ( %s = %s AND  %s = %s ) O
                             keys[1],sql_str(t[keys[1]]), keys[2],sql_str(t[keys[2]]),
                             keys[1],sql_str(t[keys[2]]), keys[2],sql_str(t[keys[1]]) 
                         )
-print(query)
+-- print(query)
 
 local res ,err = db_op.db_query( query )
 if not res then
-    return ngx.say( json.encode( { err= "编辑失败!!"} ) )
+    return ngx.say( json.encode( { err = err } ) )
+else
+    local t_res = json.decode( res ) 
+    if t_res == nil then
+        return ngx.say( json.encode( { err = "json decode error" } ) ) 
+    end
+    if #t_res > 1 then 
+        return ngx.say( json.encode( { err = "dup keys combination! please check it!" } ) ) 
+    end
+    if #t_res == 1 then 
+        return ngx.say( json.encode( { err = string.format("entry already exist: \n%s ", t_res[1][keys[3]]  ) , action = "forceupdate"} ) ) 
+    end
 end
 
+local query = string.format( [[INSERT INTO `%s` ( %s,%s,%s ) VALUES ( %s,%s,%s ); ]] , 
+                    tbl_name , keys[1],keys[2],keys[3],  
+                     sql_str(t[keys[1]]),sql_str(t[keys[2]]), sql_str(t[keys[3]])   
+                )
+local res ,err = db_op.db_query( query )
+if not res then
+    ngx.log( ngx.ERR , err  )
+    return ngx.say( json.encode( { err = err } ) )
+end
 
 ngx.say( json.encode( { data = "success" } ) )
