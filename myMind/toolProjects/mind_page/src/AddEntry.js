@@ -34,7 +34,7 @@ class AddEntryUnwrap extends Component{
           // console.log('OK');
             // submit form data to api
             info.relation = newRelation ; 
-            fetch( "http://" + BACKEND_IP +  ":9000/updateentry" ,  {
+            fetch( "http://" + BACKEND_IP +  ":7000/updateentry" ,  {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -75,7 +75,7 @@ class AddEntryUnwrap extends Component{
         // console.log('Received values of form: ', values);
 
         // submit form data to api
-        fetch( "http://" + BACKEND_IP +  ":9000/addentry" ,  {
+        fetch( "http://" + BACKEND_IP +  ":7000/addentry" ,  {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

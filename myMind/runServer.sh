@@ -18,7 +18,7 @@ chmod -R 777 staticRes
 
 NET_CONFIG="--net=host" 
 if [ `uname` == "Darwin" ] ; then
-    NET_CONFIG="-p 9000:9000 -p 9011:9011 -p 9012:9012"
+    NET_CONFIG="-p 7000:7000 -p 7011:7011 -p 7012:7012"
     echo ${NET_CONFIG}
 fi
 
