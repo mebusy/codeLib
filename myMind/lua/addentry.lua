@@ -44,7 +44,7 @@ else
         return ngx.say( json.encode( { err = "dup keys combination! please check it!" } ) ) 
     end
     if #t_res == 1 then 
-        return ngx.say( json.encode( { err = string.format("entry already exist: \n%s ", t_res[1][keys[3]]  ) , action = "forceupdate"} ) ) 
+        return ngx.say( json.encode( { err = string.format("entry already exist", t_res[1][keys[3]]  ) , action = "forceupdate", info=  t_res[1] } ) ) 
     end
 end
 

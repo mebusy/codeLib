@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, Modal } from 'antd';
 
 import {  BACKEND_IP } from './Config' ; 
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
+
+
+const confirm = Modal.confirm;
+
+
 
 const formItemLayout = {
   labelCol: { span: 4 },
@@ -17,7 +22,51 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 4 },
 };
 
+
 class AddEntryUnwrap extends Component{
+    forceUpdateConfirm = ( title, info ,newRelation, form ) => {
+
+      confirm({
+        title: title , 
+        content: JSON.stringify(info) ,
+        okText: '强制更新',
+        onOk() {
+          // console.log('OK');
+            // submit form data to api
+            info.relation = newRelation ; 
+            fetch( "http://" + BACKEND_IP +  ":9000/updateentry" ,  {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify( info)
+            })
+              .then(res => res.json())
+              .then(
+                (result) => {
+                    if (result.err) {
+                        alert( result.err ); 
+                    } else {
+                        alert( "编辑成功" );
+                        form.resetFields();
+                        // this.props.switchPage(7);
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    alert( error ) ;
+                }
+              )     
+        },
+        onCancel() {
+          // console.log('Cancel');
+        },
+      });
+    }
+
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -39,12 +88,14 @@ class AddEntryUnwrap extends Component{
             (result) => {
                 if( result.err && result.action === "forceupdate" ) {
                     
-                    alert( result.action  )
+                    // alert( result.action  );
+                    this.forceUpdateConfirm( result.err , result.info , values.relation  , this.props.form );
                 }
                 else if (result.err) {
                     alert( result.err ); 
                 } else {
                     alert( "编辑成功" );
+                    this.props.form.resetFields();
                     // this.props.switchPage(7);
                 }
             },
