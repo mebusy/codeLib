@@ -1,6 +1,7 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
+import json 
 
 G = nx.Graph()
 
@@ -22,9 +23,10 @@ def test():
     e = [( "R", "reduced form matrix",  {'relation':  "R matrix"}  ) ] 
     G.add_edges_from(e)
 
+    return  G.adjacency() 
     # for item in G.adjacency():
     #     print item
-    showGraph()
+    # showGraph()
     
 def test2():
     import random
@@ -41,6 +43,22 @@ def test2():
     H = G.subgraph(foundset) 
 
     showGraph( H )   
+
+def application(env, start_response):
+    print env
+    # print start_response 
+    REQUEST_URI = env['PATH_INFO'] 
+    if REQUEST_URI == '/' :
+        start_response('200 OK', [('Content-Type','text/html')])
+        return [b"Hello Mind"]
+    elif REQUEST_URI == '/test' :
+        adj = json.dumps( list(test()) )
+        start_response('200 OK', [('Content-Type','text/html')])
+        return [ adj ]
+    else:
+        start_response('404 Not Found', [('Content-Type','text/html')])
+        return [b"Invalid URL"]
+
 
 
 if __name__ == '__main__' :
