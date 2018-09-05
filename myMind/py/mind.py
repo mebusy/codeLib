@@ -68,6 +68,10 @@ def application(env, start_response):
     # print start_response 
     PATH_INFO = env['PATH_INFO'] 
     QUERY_STRING = env['QUERY_STRING']
+
+    from urlparse import parse_qsl 
+    parse_result = dict( parse_qsl( QUERY_STRING ) )
+    # print parse_result
     if PATH_INFO == '/' :
         start_response('200 OK', [('Content-Type','text/html')])
         return [b"Hello Mind"]
@@ -76,8 +80,16 @@ def application(env, start_response):
         start_response('200 OK', [('Content-Type','text/html')])
         return [ adj ]
     elif PATH_INFO == '/searchentry' :
-        savedfilename = "hahaha" # search( 'a', depth = 1 )
+        # test
+        # G.add_node( parse_result["key"]  )
+
+        # if node not exist, return empty string
         start_response('200 OK', [('Content-Type','text/html')])
+        if not G.has_node( parse_result["key"] ) :
+            return [ "" ]
+
+        # or return saved graph
+        savedfilename = search( parse_result["key"] , depth = parse_result["depth"]  )
         return [ savedfilename ]
     else:
         start_response('404 Not Found', [('Content-Type','text/html')])
