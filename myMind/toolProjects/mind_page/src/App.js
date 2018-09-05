@@ -7,6 +7,7 @@ import { Layout, Menu,  Icon } from 'antd';
 
 import HelloPage from './HelloPage.js'
 import AddEntry from './AddEntry.js'
+import SearchEntry from './SearchEntry.js'
 
 
 
@@ -17,7 +18,7 @@ const SubMenu = Menu.SubMenu;
 const initSelectedMenuIndex = 1
 // all pages 
 var pageComponents = [
-    null , AddEntry , HelloPage 
+    null , AddEntry , SearchEntry , HelloPage, HelloPage, HelloPage ,HelloPage, HelloPage ,HelloPage , HelloPage,HelloPage,HelloPage
 ] ;
 
 
@@ -42,7 +43,11 @@ class App extends Component {
           //onCollapse={this.onCollapse}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline"
+            onClick = {( menuitem) => this.setState({
+                      displayedComponent: pageComponents[ parseInt(menuitem.key, 10) ],
+                    })   }
+          >
             <Menu.Item key="1">
               <Icon type="pie-chart" />
               <span>插入条目</span>
