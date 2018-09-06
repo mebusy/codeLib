@@ -64,7 +64,10 @@ def search( key , depth = 1  ) :
     H = G.subgraph(foundset) 
     
     filename = getNameBykey( key ) + ".png"
-    showGraph( H , saveto = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes/{}".format( filename  ) )
+
+    #TODO
+    PATH = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes"
+    showGraph( H , saveto = "{}/{}".format( PATH, filename  ) )
 
     return filename
     
