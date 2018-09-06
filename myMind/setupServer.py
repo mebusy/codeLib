@@ -12,7 +12,6 @@ def modifyLua( IP , DB_IP  ):
     path = 'lua/_db.config' 
     with open( path , "r" ) as f:
         data = f.read()
-        assert len(  RE_IP.findall( data ) ) == 1
         print '\t',  RE_IP.findall( data ) , 'will be replaced to ' , DB_IP         
 
     mdata =  RE_IP.sub( r'\1="{}"'.format( DB_IP ) , data  ) 
