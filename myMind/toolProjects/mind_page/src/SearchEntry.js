@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Form, Input, Button, Checkbox, Modal } from 'antd';
+import { Form, Input, InputNumber,Button, Checkbox, Modal } from 'antd';
 
 import {  BACKEND_IP } from './Config' ; 
 
@@ -23,6 +23,9 @@ const formTailLayout = {
 
 
 class SearchEntryUnwrap extends Component{
+    state = {
+        graphPath : "" ,
+    };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -39,14 +42,20 @@ class SearchEntryUnwrap extends Component{
           },
           body: JSON.stringify( values)
         })
-          .then(res => res.json())
+          .then( res =>  res.json() )
           .then(
             (result) => {
                 if (result.err) {
                     alert( result.err ); 
                 } else {
-                    // this.props.form.resetFields();
+                    if (result.path === "") {
+                        alert( "没有这个记录: " + values.key  );
+                        this.props.form.resetFields();
+                    }
                     // this.props.switchPage(7);
+                    this.setState(  {
+                            graphPath : result.path 
+                            }) ;
                 }
             },
             // Note: it's important to handle errors here
@@ -66,6 +75,7 @@ class SearchEntryUnwrap extends Component{
       const { getFieldDecorator } = this.props.form;
       
       return (
+      <div>
         <Form onSubmit={this.handleSubmit}>
 
         <FormItem {...formItemLayout} label="key">
@@ -87,7 +97,7 @@ class SearchEntryUnwrap extends Component{
               message: 'Please input search depth  ',
             }],
           })(
-            <Input placeholder="Please input search depth"  />
+            <InputNumber placeholder="Please input search depth"  />
           )}
         </FormItem>
 
@@ -100,6 +110,9 @@ class SearchEntryUnwrap extends Component{
         </FormItem>
 
         </Form>
+
+        <img src={this.state.graphPath} alt="" />
+      </div>
       );
     }
 };

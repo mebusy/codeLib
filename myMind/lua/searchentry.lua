@@ -25,22 +25,32 @@ for _ , key in ipairs(keys) do
     end
 end
 
+-- TODO
+local HOST_IP = "10.192.81.82"
+
+local UWSGI = string.format( "%s:3031", HOST_IP  )
 
 local http = require "resty.http"
 local httpc = http.new()
 local res, err = httpc:request_uri(
-    string.format(  "http://10.192.81.82:3031/searchentry?%s" ,  ngx.encode_args(t)  ) , 
+    string.format(  "http://%s/searchentry?%s" , UWSGI ,  ngx.encode_args(t)  ) , 
     {
         method = "GET",
     }
 )
 
-if 200 ~= res.status then
-    ngx.exit(res.status)
+if res == nil or 200 ~= res.status then
+    -- ngx.exit(res.status)
+    return ngx.say( json.encode( { err = "uwsgi server down"  } ) )
+end
+
+local filename = res.body 
+if filename ~= "" then
+    filename = string.format( "http://%s:7011/%s" , HOST_IP , filename )
 end
 
 -- print(res.body)
 
-ngx.say( json.encode( { data = "success" , path  = res.body  } ) )
+ngx.say( json.encode( { data = "success" , path  = filename } ) )
 
 

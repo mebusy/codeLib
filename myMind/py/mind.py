@@ -91,6 +91,13 @@ def application(env, start_response):
         # or return saved graph
         savedfilename = search( parse_result["key"] , depth = parse_result["depth"]  )
         return [ savedfilename ]
+    elif PATH_INFO == '/clear' :
+        G.clear()
+        start_response('200 OK', [('Content-Type','text/html')])
+        return [ "graph is clean !" ]
+    elif PATH_INFO == '/addedges':
+        start_response('200 OK', [('Content-Type','text/html')])
+        return [ "node added !" ]
     else:
         start_response('404 Not Found', [('Content-Type','text/html')])
         return [b"Invalid URL"]
