@@ -1,6 +1,8 @@
 
 local db_op = require( "db_op" )
 local json = require('cjson')
+local _init = require( "_init" )
+
 
 local tbl_name = "tbl_keynote"
 
@@ -26,7 +28,8 @@ for _ , key in ipairs(keys) do
 end
 
 -- TODO
-local HOST_IP = "10.192.81.82"
+--[ [
+local HOST_IP = _init.uwsgi_host
 
 local UWSGI = string.format( "%s:3031", HOST_IP  )
 
@@ -48,9 +51,12 @@ local filename = res.body
 if filename ~= "" then
     filename = string.format( "http://%s:7011/%s" , HOST_IP , filename )
 end
+--]]
+
 
 -- print(res.body)
 
 ngx.say( json.encode( { data = "success" , path  = filename } ) )
+
 
 

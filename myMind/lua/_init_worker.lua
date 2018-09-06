@@ -1,8 +1,10 @@
-local delay = 3  -- in seconds
+local delay = 5  -- in seconds
 local new_timer = ngx.timer.at
 local log = ngx.log
 local ERR = ngx.ERR
 local check
+
+local addedges = require("addedges") 
 
 check = function(premature)
     if not premature then
@@ -12,7 +14,8 @@ check = function(premature)
             log(ERR, "failed to create timer: ", err)
             return
         else
-            print ( "timer" )
+            -- print ( "timer" )
+            addedges.func()  
         end
     end
 end

@@ -33,7 +33,7 @@ function db_query( query )
         return false , err
     end
 
-    print( "connected to mysql" )    
+    -- print( "connected to mysql" )    
 
 
     local res, err, errcode, sqlstate = db:query( query )

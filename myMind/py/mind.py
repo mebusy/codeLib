@@ -96,8 +96,24 @@ def application(env, start_response):
         start_response('200 OK', [('Content-Type','text/html')])
         return [ "graph is clean !" ]
     elif PATH_INFO == '/addedges':
+        # print env
+        # the environment variable CONTENT_LENGTH may be empty or missing
+        try:
+            request_body_size = int(env.get('CONTENT_LENGTH', 0))
+        except (ValueError):
+            request_body_size = 0
+
+        # When the method is POST the variable will be sent
+        # in the HTTP request body which is passed by the WSGI server
+        # in the file like wsgi.input environment variable.
+        request_body = env['wsgi.input'].read(request_body_size)
+        # print request_body
+        edges = json.loads( request_body )
+        G.add_edges_from( edges )
+
+
         start_response('200 OK', [('Content-Type','text/html')])
-        return [ "node added !" ]
+        return [ "success" ]
     else:
         start_response('404 Not Found', [('Content-Type','text/html')])
         return [b"Invalid URL"]
