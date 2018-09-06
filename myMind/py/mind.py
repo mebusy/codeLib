@@ -1,5 +1,11 @@
 
 import networkx as nx
+
+# following 2 line is for Centos7
+import matplotlib
+matplotlib.use('agg')
+# end 
+
 import matplotlib.pyplot as plt
 import json 
 

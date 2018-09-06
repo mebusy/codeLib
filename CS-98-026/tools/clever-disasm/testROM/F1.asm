@@ -82,7 +82,7 @@ _init_[14:FF]
 	$C00E  95 00:       sta $00,x
 	$C010  E8:          inx 
 	$C011  D0 FB:       bne _init_[14:FF]
-	$C013  8D 01 20:    sta PPUMASK		; close display
+	$C013  8D 01 20:    sta PPUMASK
 	$C016  A9 1E:       lda #$1E
 	$C018  85 15:       sta ppumask_state
 	$C01A  A9 90:       lda #$90
@@ -356,7 +356,7 @@ _func_0208
 	$C211  A9 00:       lda #$00
 	$C213  8D 05 20:    sta PPUSCROLL
 	$C216  65 14:       adc ppuctrl_state
-	$C218  8D 00 20:    sta PPUCTRL		; disable NMI
+	$C218  8D 00 20:    sta PPUCTRL
 	$C21B  A5 34:       lda $34
 	$C21D  D0 01:       bne +		; $C220
 	$C21F  60:          rts 
@@ -1245,7 +1245,7 @@ _func_0A04
 	$CA2B  A9 00:       lda #$00
 	$CA2D  8D 05 20:    sta PPUSCROLL
 	$CA30  65 14:       adc ppuctrl_state
-	$CA32  8D 00 20:    sta PPUCTRL		; disable NMI
+	$CA32  8D 00 20:    sta PPUCTRL
 	$CA35  4C 14 FF:    jmp _func_3F14
 ;------------------------------------------
 _func_0A38
@@ -1284,7 +1284,7 @@ _func_0A38
 	$CA7C  8D 07 20:    sta PPUDATA
 	$CA7F  A5 14:       lda ppuctrl_state
 	$CA81  09 04:       ora #$04
-	$CA83  8D 00 20:    sta PPUCTRL		; disable NMI
+	$CA83  8D 00 20:    sta PPUCTRL
 	$CA86  A4 48:       ldy $48
 	$CA88  B9 A9 CB:    lda _DataPointerTableLo_0BA9,y
 	$CA8B  85 22:       sta $22
@@ -1371,7 +1371,7 @@ _func_0A38
 	$CB2A  E8:          inx 
 	$CB2B  20 6B CB:    jsr _func_0B6B
 	$CB2E  A5 14:       lda ppuctrl_state
-	$CB30  8D 00 20:    sta PPUCTRL		; disable NMI
+	$CB30  8D 00 20:    sta PPUCTRL
 	$CB33  A5 47:       lda $47
 	$CB35  0A:          asl a
 	$CB36  0A:          asl a
@@ -4156,7 +4156,7 @@ _loc_265B
 
 +	$E797  20 1B C9:    jsr _queryKeyInput
 	$E79A  A5 14:       lda ppuctrl_state
-	$E79C  8D 00 20:    sta PPUCTRL		; disable NMI
+	$E79C  8D 00 20:    sta PPUCTRL
 	$E79F  A9 00:       lda #$00
 	$E7A1  8D 05 20:    sta PPUSCROLL
 	$E7A4  8D 05 20:    sta PPUSCROLL
@@ -5056,9 +5056,9 @@ _cleanNT_OAM
 	$F36E  20 1B C9:    jsr _queryKeyInput
 	$F371  A9 00:       lda #$00
 	$F373  85 15:       sta ppumask_state
-	$F375  8D 01 20:    sta PPUMASK		; close display
+	$F375  8D 01 20:    sta PPUMASK
 	$F378  A5 14:       lda ppuctrl_state
-	$F37A  8D 00 20:    sta PPUCTRL		; disable NMI
+	$F37A  8D 00 20:    sta PPUCTRL
 	$F37D  A9 20:       lda #$20
 	$F37F  A0 00:       ldy #$00
 	$F381  20 64 E9:    jsr _func_2964

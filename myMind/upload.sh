@@ -26,6 +26,7 @@ zip -r $DIST_NAME.zip \
     nginx.conf \
     runServer.sh \
     webTools/eventTool  \
+    *.py \
     -x conf/swaggerUI.conf  > /dev/null
 
 wait &&
