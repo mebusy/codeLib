@@ -16,7 +16,7 @@ local sql_str = ndk.set_var.set_quote_sql_str
 local cache_ngx = ngx.shared.global_shared_dict
 
 local KEY_OFFSET = "key_graph_edge_offset"
-local STEP = 2
+local STEP = 500 
 local key = KEY_OFFSET
 
 function newOffset( offset ) 
