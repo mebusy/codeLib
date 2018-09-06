@@ -73,6 +73,10 @@ class AddEntryUnwrap extends Component{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log('Received values of form: ', values);
+        if ( values.key1 == values.key2  ) {
+            alert( "key 不能相同" )
+            return ;     
+        }
 
         // submit form data to api
         fetch( "http://" + BACKEND_IP +  ":7000/addentry" ,  {

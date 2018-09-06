@@ -59,3 +59,30 @@ if not res then
 end
 
 ngx.say( json.encode( { data = "success" } ) )
+ngx.eof()
+
+-------------------------------------
+
+local _init = require( "_init" )
+local HOST_IP = _init.uwsgi_host
+
+local UWSGI = string.format( "%s:3031", HOST_IP  )
+
+local http = require "resty.http"
+local httpc = http.new()
+
+local body = { { t[keys[1]] , t[keys[2]] ,  {  relation = t[keys[3]] }  }  }
+local res, err = httpc:request_uri(
+    string.format(  "http://%s/addedges" , UWSGI ) , 
+    {
+        method = "POST",
+        body = json.encode( body ) 
+    }
+)
+
+if res == nil or 200 ~= res.status or res.body ~= "success" then
+    -- ngx.exit(res.status)
+    ngx.log( ngx.ERR, "query to uwsgi to add ENTRY failed " )
+    return
+end
+
