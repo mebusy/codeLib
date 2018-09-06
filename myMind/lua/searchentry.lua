@@ -30,6 +30,7 @@ end
 -- TODO
 --[ [
 local HOST_IP = _init.uwsgi_host
+local STATIC_IP = _init.static_host
 
 local UWSGI = string.format( "%s:3031", HOST_IP  )
 
@@ -49,7 +50,7 @@ end
 
 local filename = res.body 
 if filename ~= "" then
-    filename = string.format( "http://%s:7011/%s" , HOST_IP , filename )
+    filename = string.format( "http://%s:7011/%s" , STATIC_IP , filename )
 end
 --]]
 
