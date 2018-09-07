@@ -59,7 +59,7 @@ def getNameBykey(key, depth ):
     import md5 
     m = md5.new()
     m.update( key )
-    m.update( depth )
+    m.update( str(depth) )
     return m.hexdigest() 
 
 def search( key , depth = 1  ) :
