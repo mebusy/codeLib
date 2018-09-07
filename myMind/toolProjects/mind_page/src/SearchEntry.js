@@ -8,7 +8,7 @@ import {  BACKEND_IP } from './Config' ;
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-
+var moment = require('moment');
 
 
 
@@ -32,6 +32,9 @@ class SearchEntryUnwrap extends Component{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log('Received values of form: ', values);
+      this.setState(  {
+            graphPath : ""
+        }) ;
 
         // submit form data to api
         fetch( "http://" + BACKEND_IP +  ":7000/searchentry" ,  {
@@ -53,8 +56,9 @@ class SearchEntryUnwrap extends Component{
                         this.props.form.resetFields();
                     }
                     // this.props.switchPage(7);
+                    // to prevent image cache ... 
                     this.setState(  {
-                            graphPath : result.path 
+                            graphPath : result.path + "?" + (moment().valueOf() ) 
                             }) ;
                 }
             },
