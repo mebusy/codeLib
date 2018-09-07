@@ -38,10 +38,9 @@ def showGraph( H , saveto = None ):
 
     
 def test( key , depth ):
-    for i in xrange(3):
-        key1 = str(i)
-        key2 = str(i+1)
-        G.add_edges_from( [(key1, key2 , {'relation' : "{}-{}".format( key1,key2 )})] )   
+    testedges = r"""[["string","go",{"relation":"` `:raw\n' ' : rune"}],["string","lua",{"relation":"[[ ]]: raw & multi line"}],["string","python",{"relation":"r' ' :raw\n\"\"\" : multi line"}],["test1","test2",{"relation":"a"}],["test2","test3",{"relation":"test"}]]"""
+    edges = json.loads( testedges )
+    G.add_edges_from( edges )
 
     search( key , depth  , True  )
 
@@ -121,7 +120,7 @@ if __name__ == '__main__' :
     import sys
     args = sys.argv
     # print args
-    key = "0"
+    key = "go"
     depth = 1
     if len( args) > 1:
         key = args[1]
