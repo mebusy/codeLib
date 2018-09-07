@@ -1,18 +1,24 @@
 
 import networkx as nx
 
+import platform 
+
 # following 2 line is for Centos7
-import matplotlib
-matplotlib.use('agg')
-# end 
+if platform.system() == 'Linux' :
+    import matplotlib
+    matplotlib.use('agg')
 
 import matplotlib.pyplot as plt
 import json 
 
+
+#TODO
+STATIC_PATH = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes"
+
 G = nx.Graph()
 
 def showGraph( H , saveto = None ):
-    plt.figure(1,figsize=(12,12)) 
+    plt.figure(1,figsize=(8,8)) 
 
     _G = H or G 
     pos = nx.shell_layout(_G)
@@ -28,32 +34,14 @@ def showGraph( H , saveto = None ):
     #  just clear the figure instead of closing and reopening it 
     plt.gcf().clear()
 
-def test():
-    e = [( "rref", "reduced form matrix", {'relation': "rref() to calc R form"}  ) ] 
-    G.add_edges_from(e)
-    e = [( "R", "reduced form matrix",  {'relation':  "R matrix"}  ) ] 
-    G.add_edges_from(e)
-
-    return G.adjacency() 
-    # for item in G.adjacency():
-    #     print item
-    # showGraph()
     
-def test2():
-    import random
-    seq = [ i for i in xrange(100) ]
-    for i in xrange(1000):
-        random.shuffle(seq)
-        key1 = seq[0]
-        key2 = seq[1]
+def test( key , depth ):
+    for i in xrange(3):
+        key1 = str(i)
+        key2 = str(i+1)
         G.add_edges_from( [(key1, key2 , {'relation' : "{}-{}".format( key1,key2 )})] )   
 
-    base = [ 11] 
-    depth = 1
-    foundset = {key for source in base for key in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
-    H = G.subgraph(foundset) 
-
-    showGraph( H )   
+    search( key , depth  , True  )
 
 def getNameBykey(key, depth ):
     import md5 
@@ -62,16 +50,14 @@ def getNameBykey(key, depth ):
     m.update( str(depth) )
     return m.hexdigest() 
 
-def search( key , depth = 1  ) :
+def search( key , depth = 1  , bShow = False ) :
     base = [ key ]
-    foundset = {key for source in base for key in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
+    foundset = {k for source in base for k in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
+    print foundset
     H = G.subgraph(foundset) 
     
     filename = getNameBykey( key , depth ) + ".png"
-
-    #TODO
-    PATH = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes"
-    showGraph( H , saveto = "{}/{}".format( PATH, filename  ) )
+    showGraph( H ,  saveto = not bShow and "{}/{}".format( STATIC_PATH, filename  ) or None  )
 
     return filename
     
@@ -88,10 +74,6 @@ def application(env, start_response):
     if PATH_INFO == '/' :
         start_response('200 OK', [('Content-Type','text/html')])
         return [b"Hello Mind"]
-    elif PATH_INFO == '/test' :
-        adj = json.dumps( list(test()) )
-        start_response('200 OK', [('Content-Type','text/html')])
-        return [ adj ]
     elif PATH_INFO == '/searchentry' :
         # test
         # G.add_node( parse_result["key"]  )
@@ -134,5 +116,14 @@ def application(env, start_response):
 
 
 if __name__ == '__main__' :
-    test2()
+    import sys
+    args = sys.argv
+    # print args
+    key = "0"
+    depth = 1
+    if len( args) > 1:
+        key = args[1]
+    if len( args ) > 2:
+        depth = int(args[2])
+    test( key , depth  )
     print 'done'
