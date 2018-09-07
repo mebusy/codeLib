@@ -55,10 +55,11 @@ def test2():
 
     showGraph( H )   
 
-def getNameBykey(key):
+def getNameBykey(key, depth ):
     import md5 
     m = md5.new()
     m.update( key )
+    m.update( depth )
     return m.hexdigest() 
 
 def search( key , depth = 1  ) :
@@ -66,7 +67,7 @@ def search( key , depth = 1  ) :
     foundset = {key for source in base for key in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
     H = G.subgraph(foundset) 
     
-    filename = getNameBykey( key ) + ".png"
+    filename = getNameBykey( key , depth ) + ".png"
 
     #TODO
     PATH = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes"
