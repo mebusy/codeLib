@@ -25,6 +25,9 @@ def showGraph( H , saveto = None ):
     else:
         plt.show()
 
+    #  just clear the figure instead of closing and reopening it 
+    plt.gcf().clear()
+
 def test():
     e = [( "rref", "reduced form matrix", {'relation': "rref() to calc R form"}  ) ] 
     G.add_edges_from(e)
