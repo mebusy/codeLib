@@ -52,6 +52,7 @@ def getNameBykey(key, depth ):
     return m.hexdigest() 
 
 def search( key , depth = 1  , bShow = False ) :
+    assert isinstance( depth , int)
     base = [ key ]
     foundset = {k for source in base for k in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
     print foundset
@@ -85,7 +86,7 @@ def application(env, start_response):
             return [ "" ]
 
         # or return saved graph
-        savedfilename = search( parse_result["key"] , depth = parse_result["depth"]  )
+        savedfilename = search( parse_result["key"] , depth = int(parse_result["depth"])  )
         return [ savedfilename ]
     elif PATH_INFO == '/clear' :
         G.clear()
