@@ -14,6 +14,8 @@ import json
 
 #TODO
 STATIC_PATH = "/Volumes/WORK/WORK/mebusy_git_codeLib/myMind/staticRes"
+if platform.system() == 'Linux' :
+    STATIC_PATH = "/root/mindserver/staticRes"
 
 G = nx.Graph()
 
