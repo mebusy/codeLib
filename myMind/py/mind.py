@@ -53,6 +53,7 @@ def getNameBykey(key, depth ):
 
 def search( key , depth = 1  , bShow = False ) :
     assert isinstance( depth , int)
+    key = key.lower()
     base = [ key ]
     foundset = {k for source in base for k in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
     print foundset
@@ -106,6 +107,9 @@ def application(env, start_response):
         request_body = env['wsgi.input'].read(request_body_size)
         # print request_body
         edges = json.loads( request_body )
+        for edge in edges:
+            edge[0] = edge[0].lower()
+            edge[1] = edge[1].lower()
         G.add_edges_from( edges )
 
 
