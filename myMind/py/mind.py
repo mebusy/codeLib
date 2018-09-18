@@ -83,11 +83,12 @@ def application(env, start_response):
 
         # if node not exist, return empty string
         start_response('200 OK', [('Content-Type','text/html')])
-        if not G.has_node( parse_result["key"] ) :
+        key = parse_result["key"].lower()
+        if not G.has_node( key ) :
             return [ "" ]
 
         # or return saved graph
-        savedfilename = search( parse_result["key"] , depth = int(parse_result["depth"])  )
+        savedfilename = search( key , depth = int(parse_result["depth"])  )
         return [ savedfilename ]
     elif PATH_INFO == '/clear' :
         G.clear()
