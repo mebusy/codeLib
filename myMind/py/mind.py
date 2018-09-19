@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import networkx as nx
 
 import platform 
@@ -18,6 +18,7 @@ if platform.system() == 'Linux' :
     STATIC_PATH = "/root/mindserver/staticRes"
 
 G = nx.Graph()
+subG = nx.Graph()
 
 def showGraph( H , saveto = None ):
     plt.figure(1,figsize=(8,8)) 
@@ -26,7 +27,7 @@ def showGraph( H , saveto = None ):
     pos = nx.shell_layout(_G)
     nx.draw(_G,pos, with_labels=True, font_weight='bold' )
     edge_labels = nx.get_edge_attributes(_G,'relation')
-    nx.draw_networkx_edge_labels(_G, pos,  edge_labels)
+    nx.draw_networkx_edge_labels(_G, pos,  edge_labels, font_family="SimHei")
 
     if saveto :
         plt.savefig( saveto )
@@ -38,7 +39,7 @@ def showGraph( H , saveto = None ):
 
     
 def test( key , depth ):
-    testedges = r"""[["string","go",{"relation":"` `:raw\n' ' : rune"}],["string","lua",{"relation":"[[ ]]: raw & multi line"}],["string","python",{"relation":"r' ' :raw\n\"\"\" : multi line"}],["test1","test2",{"relation":"a"}],["test2","test3",{"relation":"test"}]]"""
+    testedges = r"""[["string","go",{"relation":"` `:raw\n' ' : rune"}],["string","lua",{"relation":"[[ ]]: raw & multi line"}],["string","python",{"relation":"r' ' :raw\n\"\"\" : multi line"}],["test1","test2",{"relation":"a"}],["test2","сукупність",{"relation":"我"}]]"""
     edges = json.loads( testedges )
     G.add_edges_from( edges )
 
@@ -54,13 +55,18 @@ def getNameBykey(key, depth ):
 def search( key , depth = 1  , bShow = False ) :
     assert isinstance( depth , int)
     key = key.lower()
-    base = [ key ]
-    foundset = {k for source in base for k in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
-    print foundset
-    H = G.subgraph(foundset) 
+    # base = [ key ]
+    # foundset = {k for source in base for k in nx.single_source_shortest_path(G,source,cutoff=depth).keys()}
+    # print foundset
+    # H = G.subgraph(foundset) 
+
+    subG.clear()
+    for k,v  in G[ key ].iteritems() :
+        # print k,v['relation']
+        subG.add_edges_from( [ ( key  , k, v ) ]   )
     
     filename = getNameBykey( key , depth ) + ".png"
-    showGraph( H ,  saveto = not bShow and "{}/{}".format( STATIC_PATH, filename  ) or None  )
+    showGraph( subG ,  saveto = not bShow and "{}/{}".format( STATIC_PATH, filename  ) or None  )
 
     return filename
     
