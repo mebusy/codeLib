@@ -52,6 +52,18 @@ def getNameBykey(key, depth ):
     m.update( str(depth) )
     return m.hexdigest() 
 
+def spanSubGraph(  key ,  maxDepth, curDepth ):
+    if curDepth > maxDepth :
+        return 
+
+    # print key 
+    for k,v  in G[ key ].iteritems() :
+        # print key, k, v 
+        # print k,v['relation']
+        subG.add_edges_from( [ ( key  , k, v ) ]   )
+        spanSubGraph( k , maxDepth , curDepth + 1 )
+    
+
 def search( key , depth = 1  , bShow = False ) :
     assert isinstance( depth , int)
     key = key.lower()
@@ -61,9 +73,7 @@ def search( key , depth = 1  , bShow = False ) :
     # H = G.subgraph(foundset) 
 
     subG.clear()
-    for k,v  in G[ key ].iteritems() :
-        # print k,v['relation']
-        subG.add_edges_from( [ ( key  , k, v ) ]   )
+    spanSubGraph(  key ,  depth , 1  )
     
     filename = getNameBykey( key , depth ) + ".png"
     showGraph( subG ,  saveto = not bShow and "{}/{}".format( STATIC_PATH, filename  ) or None  )
@@ -132,11 +142,12 @@ if __name__ == '__main__' :
     import sys
     args = sys.argv
     # print args
-    key = "go"
-    depth = 1
+    key = "test2"
+    depth = 2
     if len( args) > 1:
         key = args[1]
     if len( args ) > 2:
         depth = int(args[2])
+    print key, depth
     test( key , depth  )
     print 'done'
