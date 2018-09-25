@@ -56,7 +56,9 @@ def spanSubGraph(  key ,  maxDepth, curDepth ):
     if curDepth > maxDepth :
         return 
 
-    # print key 
+    if isinstance(key, str) :
+        key = key.decode("utf-8")
+    print key  ,type(key)
     for k,v  in G[ key ].iteritems() :
         # print key, k, v 
         # print k,v['relation']
@@ -142,7 +144,7 @@ if __name__ == '__main__' :
     import sys
     args = sys.argv
     # print args
-    key = "test2"
+    key = "сукупність"
     depth = 2
     if len( args) > 1:
         key = args[1]
