@@ -102,6 +102,8 @@ def application(env, start_response):
         # if node not exist, return empty string
         start_response('200 OK', [('Content-Type','text/html')])
         key = parse_result["key"].lower()
+        if isinstance(key, str) :
+            key = key.decode("utf-8")
         if not G.has_node( key ) :
             return [ "" ]
 
