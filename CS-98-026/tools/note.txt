@@ -1,6 +1,8 @@
+# nes-py
 
-https://pypi.org/project/nes-py/
+	https://pypi.org/project/nes-py/
 
+# nes disasm
 
 最近打算玩一下nes游戏，重拾一下6502汇编。
 
@@ -16,5 +18,11 @@ https://pypi.org/project/nes-py/
 
 
 disasm6 file.nes -cdl file.cdl
+
+
+# Automatic Mapping of NES Games with Mappy
+
+https://arxiv.org/pdf/1707.03908.pdf
+
 
 
