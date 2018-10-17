@@ -15,4 +15,6 @@ https://pypi.org/project/nes-py/
 使用hex编辑器把后面的数据拼进去，生成nes文件
 
 
+disasm6 file.nes -cdl file.cdl
+
 
