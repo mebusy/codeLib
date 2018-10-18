@@ -17,7 +17,20 @@
 使用hex编辑器把后面的数据拼进去，生成nes文件
 
 
-disasm6 file.nes -cdl file.cdl
+disasm6 file.nes -cdl file.cdl -r -l user.label
+
+
+# fceux
+
+D – B
+F – A
+Enter – Start
+S – Select
+Keypad up – Up
+Keypad left – Left
+Keypad down – Down
+Keypad right – Right
+
 
 
 # Automatic Mapping of NES Games with Mappy

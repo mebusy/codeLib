@@ -1,0 +1,8 @@
+set_page0_from_X_by_A = $c00e
+cmp_page6_ff9b_x = $c023
+set_page0_to_X_byA = $c034
+clear_page0_first_20byte = $c030
+inject_code_to_page6 = $c046
+select_PPU_addr_AAYY = $e964
+draw_SKILL_LEVEL_X = $e812
+
