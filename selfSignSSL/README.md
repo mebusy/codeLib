@@ -17,3 +17,6 @@ server {
     ssl_certificate_key /etc/nginx/ssl/www.test.com.key;
 }
 
+
+如果一切顺利，打开浏览器，就可以通过HTTPS访问网站。第一次访问时会出现警告（因为我们的自签名证书不被浏览器信任），把证书通过浏览器导入到系统（Windows使用IE导入，Mac使用Safari导入）并设置为“受信任”，以后该电脑访问网站就可以安全地连接Web服务器了：
+
