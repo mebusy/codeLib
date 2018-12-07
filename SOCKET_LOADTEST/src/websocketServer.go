@@ -8,7 +8,7 @@ import (
     "github.com/gorilla/websocket"
 )
 
-var addr = flag.String("addr", "localhost:5001", "http service address")
+var port = flag.String("port", "5001", "http service port")
 
 var upgrader = websocket.Upgrader{} // use default options
 
@@ -45,6 +45,6 @@ func main() {
     log.SetFlags(0)
     http.HandleFunc("/echo", echo)
     http.HandleFunc("/", handle)
-    log.Fatal(http.ListenAndServe(*addr, nil))
+    log.Fatal(http.ListenAndServe( fmt.Sprintf( "0.0.0.0:%s" , *port ) , nil))
 }
 
