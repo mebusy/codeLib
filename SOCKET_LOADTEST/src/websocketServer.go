@@ -13,6 +13,7 @@ var port = flag.String("port", "5001", "http service port")
 var upgrader = websocket.Upgrader{} // use default options
 
 func echo(w http.ResponseWriter, r *http.Request) {
+    log.Println( "echo route" )
     c, err := upgrader.Upgrade(w, r, nil)
     if err != nil {
         log.Print("upgrade:", err)
@@ -43,7 +44,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 func main() {
     flag.Parse()
     log.SetFlags(0)
-    http.HandleFunc("/echo", echo)
+    http.HandleFunc("/wss", echo)
     http.HandleFunc("/", handle)
     log.Fatal(http.ListenAndServe( fmt.Sprintf( "0.0.0.0:%s" , *port ) , nil))
 }
