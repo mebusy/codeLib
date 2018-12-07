@@ -12,6 +12,7 @@ import (
 )
 
 var addr = flag.String("addr", "localhost:5001", "http service address")
+var protocol = flag.String("protocol", "ws", "websocket protocal")
 
 func main() {
 	flag.Parse()
@@ -20,7 +21,7 @@ func main() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
-	u := url.URL{Scheme: "ws", Host: *addr, Path: "/echo"}
+	u := url.URL{Scheme: *protocol  , Host: *addr, Path: "/echo"}
 	log.Printf("connecting to %s", u.String())
 
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
