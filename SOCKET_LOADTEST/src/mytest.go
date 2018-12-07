@@ -27,9 +27,10 @@ func main() {
 
 func testRedis() {
     host := os.Getenv( "REDIS_HOST" )    
-    port := os.Getenv( "REDIS_PASSWORD" )    
-    log.Print( host, port  )
+    pwd := os.Getenv( "REDIS_PASSWORD" )    
+    log.Print( host, pwd  )
     client:= goredis.Client{}
+    client.Addr = fmt.Sprintf( "%s:6379" , host )
     result, err :=  client.Incr( "inc" )
     if err!=nil {
         log.Fatal( err  )
@@ -45,7 +46,7 @@ func testMysql() {
     mdb := os.Getenv( "MYSQL_DB" )
     
     url:= fmt.Sprintf( "%s:%s@tcp(%s:3306)/%s" , user, pwd,  host ,  mdb  ) 
-    log.Println( host, user, pwd, mdb , url  )
+    log.Println( "url:",  url  )
     db, err := sql.Open("mysql", url  )
     if err != nil {
         log.Fatal( err )
