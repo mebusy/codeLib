@@ -1,4 +1,5 @@
 import websocket
+import ssl
 try:
     import thread
 except ImportError:
@@ -27,10 +28,13 @@ def on_open(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://10.192.81.132:5001/wss",
+    ws = websocket.WebSocketApp(
+                # "ws://10.192.81.132:5001/wss",
+                # "wss://10.192.81.132/wss",
+                "wss://dev-ballrace.upaidui.com/wss",
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
     ws.on_open = on_open
-    ws.run_forever()
+    ws.run_forever( sslopt={"cert_reqs": ssl.CERT_NONE}  )
 
