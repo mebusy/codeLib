@@ -17,9 +17,12 @@ def on_close(ws):
 
 def on_open(ws):
     def run(*args):
-        for i in range(3):
-            time.sleep(1)
-            ws.send("Hello %d" % i)
+        # for i in range(3):
+        cnt = 0 
+        while True:
+            time.sleep(5)
+            ws.send("Hello {}".format( cnt ) )
+            cnt +=1
         time.sleep(1)
         ws.close()
         print("thread terminating...")
