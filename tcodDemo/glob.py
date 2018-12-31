@@ -4,3 +4,5 @@ SURFACE_MAIN = None
 GAME_MAP = None
 PLAYER = None
 
+GAME_OBJECTS = None
+
