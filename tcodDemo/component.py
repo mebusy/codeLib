@@ -34,12 +34,15 @@ class com_Creatures:
                     break
 
         if target:
-            print self.name_instance , 'attack', target.creature.name_instance, 'for 5 damage'
-            target.creature.take_damage(5)
+            self.attack(target, 5)
         
         if not tile_is_block and target is None:
             self.owner.x += dx
             self.owner.y += dy
+
+    def attack(self, target , damage ):
+        print self.name_instance , 'attack', target.creature.name_instance, 'for {} damage'.format(damage)
+        target.creature.take_damage( damage )
 
 
 # class com_Item:
