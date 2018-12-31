@@ -25,3 +25,5 @@
 github.com/
 golang.org/
 
+*.swp
+

@@ -1,28 +1,69 @@
 
 import sys
+import pygame
 # add parent folder as search path
 sys.path.append( '/Volumes/WORK/WORK/libtcod-1.10.2-x86.x86_64-macos/python')
-
-import pygame
 import libtcodpy as libtcod
 
 import constants
+from tile import struct_Tile
+from actor import obj_Actor
+import glob
+
+
+# .___  ___.      ___      .______   
+# |   \/   |     /   \     |   _  \  
+# |  \  /  |    /  ^  \    |  |_)  | 
+# |  |\/|  |   /  /_\  \   |   ___/  
+# |  |  |  |  /  _____  \  |  |      
+# |__|  |__| /__/     \__\ | _|      
+
+def map_create():
+    new_map = [[struct_Tile(False) for y in xrange(constants.MAP_HEIGHT)] for x in xrange(constants.MAP_WIDTH) ]
+    new_map[10][10].block_path = True 
+    new_map[10][15].block_path = True 
+
+    return new_map
+
+def draw_map(map_to_draw):
+    for x in xrange( len( map_to_draw ) ):
+        for y in xrange( len( map_to_draw[0] ) ):
+            if map_to_draw[x][y].block_path is True:
+                glob.SURFACE_MAIN.blit( constants.S_WALL , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+            else:
+                glob.SURFACE_MAIN.blit( constants.S_FLOOR , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+            
+
+clock = pygame.time.Clock()
+font = pygame.font.Font(None, 30)
+
 
 def draw_game():
-    global SURFACE_MAIN
-
     # clear the surface
-    SURFACE_MAIN.fill(constants.COLOR_DEFAULT_BG)
+    glob.SURFACE_MAIN.fill(constants.COLOR_DEFAULT_BG)
 
     # draw the map
+    draw_map( glob.GAME_MAP )
 
     # draw the character
-    SURFACE_MAIN.blit( constants.S_PLAYER , ( 200,200 ) )
+    glob.PLAYER.draw( )
+
+    fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
+    glob.SURFACE_MAIN.blit(fps, (0, 0))
 
     # update the display
     pygame.display.flip()
+    
+    clock.tick(60)
 
 
+
+KB_moving = {
+    pygame.K_UP: (0,-1),    
+    pygame.K_DOWN: (0,1),    
+    pygame.K_RIGHT: (1,0),    
+    pygame.K_LEFT: (-1,0),    
+}
 def game_main_loop():
     game_quit = False
     while not game_quit:
@@ -33,18 +74,24 @@ def game_main_loop():
         for event in event_list:
             if event.type == pygame.QUIT:
                 game_quit = True
+            if event.type == pygame.KEYDOWN:
+                if event.key in KB_moving:
+                    glob.PLAYER.move( *KB_moving[ event.key ] )
 
         # draw the game
         draw_game()
 
+
     # quit the game
     pygame.quit()
+    exit()
 
 
 def game_initialize():
-    global SURFACE_MAIN
     pygame.init()
-    SURFACE_MAIN = pygame.display.set_mode( ( constants.GAME_WIDTH,constants.GAME_HEIGHT ) )
+    glob.SURFACE_MAIN = pygame.display.set_mode( ( 800,600 ) )
+    glob.GAME_MAP = map_create()
+    glob.PLAYER = obj_Actor(0,0, constants.S_PLAYER)
 
 
 if __name__ == '__main__':
