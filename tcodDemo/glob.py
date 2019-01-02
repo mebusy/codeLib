@@ -1,12 +1,11 @@
 
 SURFACE_MAIN = None
-GAME_MAP = None
 PLAYER = None
 
-GAME_OBJECTS = None
 FOV_MAP = None
 
 FOV_CALCULATE = False
 
 CLOCK = None
-GAME_MESSAGES = None
+
+GAME = None 

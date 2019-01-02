@@ -12,6 +12,8 @@ import glob
 from component import *
 from map import *
 from helper import *
+from game import obj_Game 
+from spriteSheet import obj_Spritesheet
 
 
             
@@ -23,10 +25,10 @@ def draw_game():
     glob.SURFACE_MAIN.fill(constants.COLOR_DEFAULT_BG)
 
     # draw the map
-    draw_map( glob.GAME_MAP )
+    draw_map( glob.GAME.current_map )
 
     # draw the character
-    for obj in glob.GAME_OBJECTS:
+    for obj in glob.GAME.current_objects:
         obj.draw()
 
     draw_debug()
@@ -48,7 +50,7 @@ def game_main_loop():
         if player_action == "QUIT":
             game_quit = True
         elif player_action != "no-action":
-            for obj in glob.GAME_OBJECTS:
+            for obj in glob.GAME.current_objects:
                 if obj.ai:
                     obj.ai.take_turn()
 
@@ -93,22 +95,23 @@ def game_initialize():
 
     glob.SURFACE_MAIN = pygame.display.set_mode( ( constants.MAP_WIDTH*constants.CELL_WIDTH,
                                                    constants.MAP_HEIGHT*constants.CELL_HEIGHT ) )
-    glob.GAME_MAP = map_create()
-
-    glob.GAME_MESSAGES = []
-
-    # game_message( "test message", constants.COLOR_RED )
+    glob.GAME = obj_Game()
 
     glob.FOV_CALCULATE = True
 
+    tempspritesheet = obj_Spritesheet("data/s.png")
+    # S_PLAYER = tempspritesheet.get_image( 0,8, 16,16, (32,32) )
+    A_PLAYER = tempspritesheet.get_animation( 0,8, 32,32, 3 )
+
     creature_com = com_Creatures( "greg" )
-    glob.PLAYER = obj_Actor(2,2,"python", constants.S_PLAYER, creature= creature_com)
+    glob.PLAYER = obj_Actor(2,2,"python", A_PLAYER, animation_speed = 1, creature= creature_com)
 
     creature_com = com_Creatures( "jackie", death_function = death_monster )
     ai_com = com_AI()
-    glob.ENEMY = obj_Actor(15,15, "crab", constants.S_ENEMY, creature = creature_com, ai=ai_com)
+    S_ENEMY =  tempspritesheet.get_animation( 0,12, 32,32, 3 ) 
+    glob.ENEMY = obj_Actor(15,15, "crab", S_ENEMY,  creature = creature_com, ai=ai_com)
     
-    glob.GAME_OBJECTS = [glob.PLAYER, glob.ENEMY]
+    glob.GAME.current_objects = [glob.PLAYER, glob.ENEMY]
 
 
 if __name__ == '__main__':

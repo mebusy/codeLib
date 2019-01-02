@@ -57,7 +57,7 @@ def draw_messages():
     text_height  = helper_text_height( constants.FONT_MESSAGE_TEXT )
     start_y = constants.MAP_HEIGHT * constants.CELL_HEIGHT - constants.NUM_MESSAGES * text_height - 4
     i = 0
-    for message, color in glob.GAME_MESSAGES[-constants.NUM_MESSAGES:] :
+    for message, color in glob.GAME.message_history[-constants.NUM_MESSAGES:] :
         draw_text( glob.SURFACE_MAIN, message, ( 0, start_y + text_height*i ), color, constants.COLOR_BLACK )
         i += 1
 
@@ -93,4 +93,4 @@ def map_calculate_fov():
 
 
 def game_message( game_msg , msg_color ):
-    glob.GAME_MESSAGES.append( (game_msg , msg_color) )
+    glob.GAME.message_history.append( (game_msg , msg_color) )

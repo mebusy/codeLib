@@ -23,11 +23,11 @@ class com_Creatures:
                 self.death_function(self.owner)
 
     def move(self, dx, dy) :
-        tile_is_block = glob.GAME_MAP[self.owner.x + dx][self.owner.y+dy].block_path is True
+        tile_is_block = glob.GAME.current_map[self.owner.x + dx][self.owner.y+dy].block_path is True
         target = None
 
         if not tile_is_block:
-            for obj in glob.GAME_OBJECTS:
+            for obj in glob.GAME.current_objects:
                 if (obj is not self.owner and 
                         obj.x == self.owner.x + dx and 
                         obj.y == self.owner.y + dy and 
