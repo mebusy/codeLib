@@ -30,10 +30,10 @@ def draw_game():
         obj.draw()
 
     draw_debug()
+    draw_messages()
     # update the display
     pygame.display.flip()
     
-    glob.CLOCK.tick(60)
 
 
 
@@ -54,6 +54,7 @@ def game_main_loop():
 
         # draw the game
         draw_game()
+        glob.CLOCK.tick(60)
 
 
     # quit the game
@@ -83,6 +84,8 @@ def game_handle_keys():
                 return "player-moved"
     return "no-action"
 
+    
+
 def game_initialize():
     pygame.init()
 
@@ -91,6 +94,11 @@ def game_initialize():
     glob.SURFACE_MAIN = pygame.display.set_mode( ( constants.MAP_WIDTH*constants.CELL_WIDTH,
                                                    constants.MAP_HEIGHT*constants.CELL_HEIGHT ) )
     glob.GAME_MAP = map_create()
+
+    glob.GAME_MESSAGES = []
+
+    # game_message( "test message", constants.COLOR_RED )
+
     glob.FOV_CALCULATE = True
 
     creature_com = com_Creatures( "greg" )

@@ -180,12 +180,13 @@ func (u *User) Update( c *gosocketio.Client ) {
         case "st_toenterroom":
             u.EnterRoom( c )
         case "st_entered":
-            /*
+            //*
             if u.Id % 10 == 0 {
                 u.QueryRoom( c  )
             }
-            //*/
+            /*/
             u.QueryRoom2( c  )
+            //*/
         case "st_roomfull" :
             // only master will in 
             u.StartGame(c )

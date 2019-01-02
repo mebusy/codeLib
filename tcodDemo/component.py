@@ -1,5 +1,7 @@
 import libtcodpy as libtcod
 import glob
+from map import game_message
+import constants
 
 
 class com_Creatures:
@@ -14,7 +16,7 @@ class com_Creatures:
 
     def take_damage(self, damage):
         self.hp -= damage 
-        print "{} 's hp is {}/{}".format( self.name_instance,self.hp,self.max_hp )
+        game_message( "{} 's hp is {}/{}".format( self.name_instance,self.hp,self.max_hp ) , constants.COLOR_WHITE ) 
 
         if self.hp <= 0:
             if self.death_function :
@@ -41,7 +43,7 @@ class com_Creatures:
             self.owner.y += dy
 
     def attack(self, target , damage ):
-        print self.name_instance , 'attack', target.creature.name_instance, 'for {} damage'.format(damage)
+        game_message( '{} attack {} for {} damage'.format(self.name_instance , target.creature.name_instance,damage) , constants.COLOR_RED )
         target.creature.take_damage( damage )
 
 
@@ -61,7 +63,7 @@ class com_AI:
 
 def death_monster(monster):
     '''On death, most monsters stop moving '''
-    print monster.creature.name_instance , 'is dead!'
+    game_message(  monster.creature.name_instance + ' is dead!' , constants.COLOR_GREY ) 
     monster.creature = None
     monster.ai = None
 

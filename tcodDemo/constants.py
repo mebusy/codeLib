@@ -11,10 +11,10 @@ CELL_HEIGHT = 32
 # Color definitions
 COLOR_BLACK = (0,0,0)
 COLOR_WHITE = (255,255,255)
-COLOR_GRAY = (100,100,100)
+COLOR_GREY = (100,100,100)
 COLOR_RED = (255,0,0)
 
-COLOR_DEFAULT_BG = COLOR_GRAY
+COLOR_DEFAULT_BG = COLOR_GREY
 
 # SPRITES
 S_PLAYER = pygame.image.load( 'data/python.png' )
@@ -28,4 +28,7 @@ FOV_ALGO = libtcod.FOV_BASIC
 FOV_LIGHT_WALLS = True
 TORCH_RADIUS = 10
 
-FONT_DEBUG_MESSAGE = pygame.font.Font( None,30 )
+FONT_DEBUG_MESSAGE = pygame.font.Font( None,16 )
+FONT_MESSAGE_TEXT = pygame.font.Font( None,12 )
+
+NUM_MESSAGES = 4

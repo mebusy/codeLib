@@ -51,10 +51,18 @@ def draw_map(map_to_draw):
 
 
 def draw_debug():
-    draw_text( glob.SURFACE_MAIN , str(int(glob.CLOCK.get_fps())) , (0,0), constants.COLOR_RED )
+    draw_text( glob.SURFACE_MAIN , "FPS: {}".format(int(glob.CLOCK.get_fps())) , (0,0), constants.COLOR_WHITE , constants.COLOR_BLACK )
 
-def draw_text(display_surface, text_to_display, T_coords, text_color ):
-    text_surf, text_rect = helper_text_objects(text_to_display , text_color)
+def draw_messages():
+    text_height  = helper_text_height( constants.FONT_MESSAGE_TEXT )
+    start_y = constants.MAP_HEIGHT * constants.CELL_HEIGHT - constants.NUM_MESSAGES * text_height - 4
+    i = 0
+    for message, color in glob.GAME_MESSAGES[-constants.NUM_MESSAGES:] :
+        draw_text( glob.SURFACE_MAIN, message, ( 0, start_y + text_height*i ), color, constants.COLOR_BLACK )
+        i += 1
+
+def draw_text(display_surface, text_to_display, T_coords, text_color , back_color= None ):
+    text_surf, text_rect = helper_text_objects(text_to_display , text_color, back_color)
 
     text_rect.topleft = T_coords 
     display_surface.blit( text_surf, text_rect )
@@ -81,3 +89,8 @@ def map_calculate_fov():
         libtcod.map_compute_fov( 
             glob.FOV_MAP , glob.PLAYER.x , glob.PLAYER.y , constants.TORCH_RADIUS , constants.FOV_LIGHT_WALLS, 
             constants.FOV_ALGO )
+
+
+
+def game_message( game_msg , msg_color ):
+    glob.GAME_MESSAGES.append( (game_msg , msg_color) )
