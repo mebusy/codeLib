@@ -2,6 +2,7 @@
 from tile import struct_Tile
 import constants
 import glob
+import libtcodpy as libtcod
 
 # .___  ___.      ___      .______   
 # |   \/   |     /   \     |   _  \  
@@ -23,12 +24,49 @@ def map_create():
         new_map[0][y].block_path = True
         new_map[constants.MAP_WIDTH-1][y].block_path = True
 
+    map_make_fov(new_map)
+
     return new_map
 
 def draw_map(map_to_draw):
     for x in xrange( len( map_to_draw ) ):
         for y in xrange( len( map_to_draw[0] ) ):
-            if map_to_draw[x][y].block_path is True:
-                glob.SURFACE_MAIN.blit( constants.S_WALL , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+            # fov
+            is_visible = libtcod.map_is_in_fov( glob.FOV_MAP , x, y  )
+            if is_visible:
+                
+                map_to_draw[x][y].explored = True
+
+                if map_to_draw[x][y].block_path is True:
+                    glob.SURFACE_MAIN.blit( constants.S_WALL , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                else:
+                    glob.SURFACE_MAIN.blit( constants.S_FLOOR , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
             else:
-                glob.SURFACE_MAIN.blit( constants.S_FLOOR , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                if map_to_draw[x][y].explored :
+                    if map_to_draw[x][y].block_path is True:
+                        glob.SURFACE_MAIN.blit( constants.S_WALLEXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                    else:
+                        glob.SURFACE_MAIN.blit( constants.S_FLOOREXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+
+
+def map_make_fov( incoming_map ):
+    '''
+    actually create the map that we can use to calculate what the fov is 
+    '''
+    
+    glob.FOV_MAP = libtcod.map_new( constants.MAP_WIDTH, constants.MAP_HEIGHT )
+    for y in xrange(constants.MAP_HEIGHT):
+        for x in xrange(constants.MAP_WIDTH):
+            # (map,x,y, isTransparet, isWalkable)
+            libtcod.map_set_properties( 
+                glob.FOV_MAP, x, y , 
+                not incoming_map[x][y].block_path , not incoming_map[x][y].block_path )
+
+
+
+def map_calculate_fov():
+    if glob.FOV_CALCULATE:
+        glob.FOV_CALCULATE = False 
+        libtcod.map_compute_fov( 
+            glob.FOV_MAP , glob.PLAYER.x , glob.PLAYER.y , constants.TORCH_RADIUS , constants.FOV_LIGHT_WALLS, 
+            constants.FOV_ALGO )

@@ -10,7 +10,7 @@ from tile import struct_Tile
 from actor import obj_Actor
 import glob
 from component import *
-from map import map_create, draw_map
+from map import *
 
 
             
@@ -44,8 +44,9 @@ def draw_game():
 def game_main_loop():
     game_quit = False
     while not game_quit:
-        player_action = 'no-action'
         player_action = game_handle_keys()
+        
+        map_calculate_fov()
 
         if player_action == "QUIT":
             game_quit = True
@@ -81,6 +82,7 @@ def game_handle_keys():
         if event.type == pygame.KEYDOWN:
             if event.key in KB_moving:
                 glob.PLAYER.creature.move( *KB_moving[ event.key ] )
+                glob.FOV_CALCULATE = True 
                 return "player-moved"
     return "no-action"
 
@@ -89,6 +91,7 @@ def game_initialize():
     glob.SURFACE_MAIN = pygame.display.set_mode( ( constants.MAP_WIDTH*constants.CELL_WIDTH,
                                                    constants.MAP_HEIGHT*constants.CELL_HEIGHT ) )
     glob.GAME_MAP = map_create()
+    glob.FOV_CALCULATE = True
 
     creature_com = com_Creatures( "greg" )
     glob.PLAYER = obj_Actor(2,2,"python", constants.S_PLAYER, creature= creature_com)

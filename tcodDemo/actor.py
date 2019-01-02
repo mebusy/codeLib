@@ -1,5 +1,6 @@
 import constants
 import glob 
+import libtcodpy as libtcod
 
 class obj_Actor:
     def __init__(self,x,y, name_object, sprite, creature= None, ai = None):
@@ -16,5 +17,7 @@ class obj_Actor:
             self.ai.owner = self
 
     def draw(self):
-        glob.SURFACE_MAIN.blit( self.sprite, ( self.x*constants.CELL_WIDTH, self.y*constants.CELL_HEIGHT ) )
+        is_visible = libtcod.map_is_in_fov( glob.FOV_MAP , self.x, self.y  )
+        if is_visible:
+            glob.SURFACE_MAIN.blit( self.sprite, ( self.x*constants.CELL_WIDTH, self.y*constants.CELL_HEIGHT ) )
 
