@@ -11,12 +11,11 @@ from actor import obj_Actor
 import glob
 from component import *
 from map import *
+from helper import *
 
 
             
 
-clock = pygame.time.Clock()
-font = pygame.font.Font(None, 30)
 
 
 def draw_game():
@@ -30,13 +29,11 @@ def draw_game():
     for obj in glob.GAME_OBJECTS:
         obj.draw()
 
-    fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
-    glob.SURFACE_MAIN.blit(fps, (0, 0))
-
+    draw_debug()
     # update the display
     pygame.display.flip()
     
-    clock.tick(60)
+    glob.CLOCK.tick(60)
 
 
 
@@ -88,6 +85,9 @@ def game_handle_keys():
 
 def game_initialize():
     pygame.init()
+
+    glob.CLOCK = pygame.time.Clock()
+
     glob.SURFACE_MAIN = pygame.display.set_mode( ( constants.MAP_WIDTH*constants.CELL_WIDTH,
                                                    constants.MAP_HEIGHT*constants.CELL_HEIGHT ) )
     glob.GAME_MAP = map_create()

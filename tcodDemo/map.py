@@ -3,6 +3,7 @@ from tile import struct_Tile
 import constants
 import glob
 import libtcodpy as libtcod
+from helper import *
 
 # .___  ___.      ___      .______   
 # |   \/   |     /   \     |   _  \  
@@ -47,6 +48,16 @@ def draw_map(map_to_draw):
                         glob.SURFACE_MAIN.blit( constants.S_WALLEXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
                     else:
                         glob.SURFACE_MAIN.blit( constants.S_FLOOREXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+
+
+def draw_debug():
+    draw_text( glob.SURFACE_MAIN , str(int(glob.CLOCK.get_fps())) , (0,0), constants.COLOR_RED )
+
+def draw_text(display_surface, text_to_display, T_coords, text_color ):
+    text_surf, text_rect = helper_text_objects(text_to_display , text_color)
+
+    text_rect.topleft = T_coords 
+    display_surface.blit( text_surf, text_rect )
 
 
 def map_make_fov( incoming_map ):

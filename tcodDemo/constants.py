@@ -12,6 +12,7 @@ CELL_HEIGHT = 32
 COLOR_BLACK = (0,0,0)
 COLOR_WHITE = (255,255,255)
 COLOR_GRAY = (100,100,100)
+COLOR_RED = (255,0,0)
 
 COLOR_DEFAULT_BG = COLOR_GRAY
 
@@ -26,3 +27,5 @@ S_FLOOREXPLORED = pygame.image.load( 'data/floorunseen.png' )
 FOV_ALGO = libtcod.FOV_BASIC
 FOV_LIGHT_WALLS = True
 TORCH_RADIUS = 10
+
+FONT_DEBUG_MESSAGE = pygame.font.Font( None,30 )
