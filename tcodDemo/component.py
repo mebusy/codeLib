@@ -23,7 +23,7 @@ class com_Creatures:
                 self.death_function(self.owner)
 
     def heal( self, value ):
-        self.hp = max( self.hp + value , self.max_hp )
+        self.hp = min( self.hp + value , self.max_hp )
         
 
     def move(self, dx, dy) :
