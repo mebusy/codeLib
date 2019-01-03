@@ -3,9 +3,12 @@ import glob
 import libtcodpy as libtcod
 
 class obj_Actor:
-    def __init__(self,x,y, name_object, animation,animation_speed = .5 ,  creature= None, ai = None):
+    def __init__(
+            self,x,y, name_object, animation,animation_speed = .5 ,  
+            creature= None, ai = None, container =None, item = None):
         self.x = x 
         self.y = y
+        self.name_object = name_object
         # self.sprite  = sprite 
         self.animation = animation
         self.animation_speed = animation_speed * 1.0  # in seconds
@@ -19,6 +22,14 @@ class obj_Actor:
         self.ai = ai
         if ai:
             self.ai.owner = self
+
+        self.container = container 
+        if self.container:
+            self.container.owner = self
+
+        self.item = item 
+        if self.item :
+            self.item.owner = self 
 
     def draw(self):
         is_visible = libtcod.map_is_in_fov( glob.FOV_MAP , self.x, self.y  )

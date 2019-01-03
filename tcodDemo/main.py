@@ -15,6 +15,7 @@ from helper import *
 from game import obj_Game 
 from spriteSheet import obj_Spritesheet
 from assets import struct_Assets
+from menu import *
 
 
             
@@ -85,6 +86,21 @@ def game_handle_keys():
                 glob.PLAYER.creature.move( *KB_moving[ event.key ] )
                 glob.FOV_CALCULATE = True 
                 return "player-moved"
+            if event.key == pygame.K_g:
+                objects_at_player = map_objects_at_coords( glob.PLAYER.x , glob.PLAYER.y  )
+                for obj in objects_at_player:
+                    if obj.item:
+                        obj.item.pick_up(glob.PLAYER)
+            if event.key == pygame.K_d:
+                if len(glob.PLAYER.container.inventory) > 0:
+                    glob.PLAYER.container.inventory[-1].item.drop()
+            if event.key == pygame.K_p:
+                menu_pause()
+            if event.key == pygame.K_i:
+                menu_inventory()
+
+            
+
     return "no-action"
 
     
@@ -102,14 +118,21 @@ def game_initialize():
 
     glob.ASSETS = struct_Assets()
 
+    container_com = com_Container()
     creature_com = com_Creatures( "greg" )
-    glob.PLAYER = obj_Actor(2,2,"python", glob.ASSETS.A_PLAYER, animation_speed = 1, creature= creature_com)
+    glob.PLAYER = obj_Actor(2,2,"python", glob.ASSETS.A_PLAYER, animation_speed = 1, creature= creature_com,container = container_com)
 
+    item_com = com_Item() 
     creature_com = com_Creatures( "jackie", death_function = death_monster )
     ai_com = com_AI()
-    glob.ENEMY = obj_Actor(15,15, "crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com)
+    glob.ENEMY = obj_Actor(15,15, "smart crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
+
+    item_com = com_Item() 
+    creature_com = com_Creatures( "bob", death_function = death_monster )
+    ai_com = com_AI()
+    DUP_ENEMY = obj_Actor(14,15, "dup crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
     
-    glob.GAME.current_objects = [glob.PLAYER, glob.ENEMY]
+    glob.GAME.current_objects = [glob.PLAYER, glob.ENEMY, DUP_ENEMY]
 
 
 if __name__ == '__main__':

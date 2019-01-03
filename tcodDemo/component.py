@@ -67,4 +67,38 @@ def death_monster(monster):
     monster.creature = None
     monster.ai = None
 
+class com_Container():
+    def __init__(self, volume = 10.0, inventory = None):
+        self.inventory = inventory or []
+        self.max_volume = volume
+
+    @property
+    def volume(self):
+        return sum( [ actor.item.volume for actor in self.inventory ] )
+
+class com_Item:
+    def __init__(self, weight = 0.0, volume = 0.0):
+        self.weight = weight
+        self.volume = volume
+
+
+    def pick_up( self, actor ):
+        if actor.container:
+            if actor.container.volume + self.volume > actor.container.max_volume :
+                game_message( "Inventory is full" )
+            else:
+                game_message( "Picking up" )
+                actor.container.inventory.append(self.owner)
+                glob.GAME.current_objects.remove(self.owner)
+                self.current_container = actor.container
+        
+    def drop(self ):
+        glob.GAME.current_objects.append(self.owner)
+        self.current_container.inventory.remove( self.owner )
+        self.owner.x = self.current_container.owner.x 
+        self.owner.y = self.current_container.owner.y 
+        game_message("Item dropped")
+
+
+        
 

@@ -52,18 +52,16 @@ def draw_map(map_to_draw):
 
 
 def draw_debug():
-    draw_text( glob.SURFACE_MAIN , "FPS: {}".format(int(glob.CLOCK.get_fps())) , (0,0), constants.COLOR_WHITE , constants.COLOR_BLACK )
+    draw_text( glob.SURFACE_MAIN , "FPS: {}".format(int(glob.CLOCK.get_fps())) , glob.ASSETS.FONT_DEBUG_MESSAGE, (0,0), constants.COLOR_WHITE , constants.COLOR_BLACK )
 
 def draw_messages():
     text_height  = helper_text_height( glob.ASSETS.FONT_MESSAGE_TEXT )
     start_y = constants.MAP_HEIGHT * constants.CELL_HEIGHT - constants.NUM_MESSAGES * text_height - 4
-    i = 0
-    for message, color in glob.GAME.message_history[-constants.NUM_MESSAGES:] :
-        draw_text( glob.SURFACE_MAIN, message, ( 0, start_y + text_height*i ), color, constants.COLOR_BLACK )
-        i += 1
+    for i, (message, color) in enumerate(glob.GAME.message_history[-constants.NUM_MESSAGES:]) :
+        draw_text( glob.SURFACE_MAIN, message, glob.ASSETS.FONT_MESSAGE_TEXT, ( 0, start_y + text_height*i ), color, constants.COLOR_BLACK )
 
-def draw_text(display_surface, text_to_display, T_coords, text_color , back_color= None ):
-    text_surf, text_rect = helper_text_objects(text_to_display , text_color, back_color)
+def draw_text(display_surface, text_to_display, font , T_coords, text_color , back_color= None ):
+    text_surf, text_rect = helper_text_objects(text_to_display ,font , text_color, back_color)
 
     text_rect.topleft = T_coords 
     display_surface.blit( text_surf, text_rect )
@@ -91,7 +89,15 @@ def map_calculate_fov():
             glob.FOV_MAP , glob.PLAYER.x , glob.PLAYER.y , constants.TORCH_RADIUS , constants.FOV_LIGHT_WALLS, 
             constants.FOV_ALGO )
 
+def map_objects_at_coords(coords_x, coords_y):
+    object_options = [
+        obj for obj in glob.GAME.current_objects if obj.x == coords_x  and obj.y == coords_y ]
+
+    return object_options
 
 
-def game_message( game_msg , msg_color ):
+
+def game_message( game_msg , msg_color = constants.COLOR_GREY ):
     glob.GAME.message_history.append( (game_msg , msg_color) )
+
+
