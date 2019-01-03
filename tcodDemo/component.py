@@ -15,12 +15,16 @@ class com_Creatures:
         self.death_function = death_function
 
     def take_damage(self, damage):
-        self.hp -= damage 
+        self.hp = max( self.hp-damage , 0) 
         game_message( "{} 's hp is {}/{}".format( self.name_instance,self.hp,self.max_hp ) , constants.COLOR_WHITE ) 
 
         if self.hp <= 0:
             if self.death_function :
                 self.death_function(self.owner)
+
+    def heal( self, value ):
+        self.hp = max( self.hp + value , self.max_hp )
+        
 
     def move(self, dx, dy) :
         tile_is_block = glob.GAME.current_map[self.owner.x + dx][self.owner.y+dy].block_path is True
@@ -74,13 +78,14 @@ class com_Container():
 
     @property
     def volume(self):
-        return sum( [ actor.item.volume for actor in self.inventory ] )
+        return sum( [ obj.item.volume for obj in self.inventory ] )
 
 class com_Item:
-    def __init__(self, weight = 0.0, volume = 0.0):
+    def __init__(self, weight = 0.0, volume = 0.0, use_function = None, value = None):
         self.weight = weight
         self.volume = volume
-
+        self.use_function = use_function 
+        self.value = value 
 
     def pick_up( self, actor ):
         if actor.container:
@@ -100,5 +105,13 @@ class com_Item:
         game_message("Item dropped")
 
 
+    def use(self):
+        if self.use_function:
+            result = self.use_function(self.current_container.owner, self.value )
+            if result is None:
+                self.current_container.inventory.remove(self.owner)
+            else:
+                print "use_function failed"
+                    
         
 

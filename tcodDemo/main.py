@@ -16,6 +16,7 @@ from game import obj_Game
 from spriteSheet import obj_Spritesheet
 from assets import struct_Assets
 from menu import *
+from magic import *
 
 
             
@@ -58,7 +59,7 @@ def game_main_loop():
 
         # draw the game
         draw_game()
-        glob.CLOCK.tick(60)
+        glob.CLOCK.tick(constants.FPS)
 
 
     # quit the game
@@ -107,6 +108,7 @@ def game_handle_keys():
 
 def game_initialize():
     pygame.init()
+    pygame.key.set_repeat(200, 70)
 
     glob.CLOCK = pygame.time.Clock()
 
@@ -122,12 +124,12 @@ def game_initialize():
     creature_com = com_Creatures( "greg" )
     glob.PLAYER = obj_Actor(2,2,"python", glob.ASSETS.A_PLAYER, animation_speed = 1, creature= creature_com,container = container_com)
 
-    item_com = com_Item() 
+    item_com = com_Item( value =10 , use_function = cast_heal) 
     creature_com = com_Creatures( "jackie", death_function = death_monster )
     ai_com = com_AI()
     glob.ENEMY = obj_Actor(15,15, "smart crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
 
-    item_com = com_Item() 
+    item_com = com_Item(  value =10 , use_function = cast_heal ) 
     creature_com = com_Creatures( "bob", death_function = death_monster )
     ai_com = com_AI()
     DUP_ENEMY = obj_Actor(14,15, "dup crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
