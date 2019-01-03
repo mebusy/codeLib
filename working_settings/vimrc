@@ -129,7 +129,7 @@ let NERDTreeMinimalUI=1
 " " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.swp$']
 
 " 常用操作：
 " 回车，打开选中文件
