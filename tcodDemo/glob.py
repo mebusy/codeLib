@@ -9,3 +9,5 @@ FOV_CALCULATE = False
 CLOCK = None
 
 GAME = None 
+
+ASSETS = None

@@ -1,6 +1,4 @@
 import libtcodpy as libtcod
-import pygame
-pygame.init()
 
 # MAP
 MAP_WIDTH = 20
@@ -18,16 +16,10 @@ COLOR_DEFAULT_BG = COLOR_GREY
 
 # SPRITES
 # S_PLAYER = pygame.image.load( 'data/python.png' )
-S_WALL = pygame.image.load( 'data/wall.png' )
-S_WALLEXPLORED = pygame.image.load( 'data/wallunseen.png' )
-S_FLOOR = pygame.image.load( 'data/floor.png' )
-S_FLOOREXPLORED = pygame.image.load( 'data/floorunseen.png' )
 
 FOV_ALGO = libtcod.FOV_BASIC
 FOV_LIGHT_WALLS = True
 TORCH_RADIUS = 10
 
-FONT_DEBUG_MESSAGE = pygame.font.Font( None,16 )
-FONT_MESSAGE_TEXT = pygame.font.Font( None,12 )
 
 NUM_MESSAGES = 4

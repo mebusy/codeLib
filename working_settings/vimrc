@@ -129,6 +129,8 @@ let NERDTreeMinimalUI=1
 " " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 
+let NERDTreeIgnore = ['\.pyc$']
+
 " 常用操作：
 " 回车，打开选中文件
 " ；r，刷新工程目录文件列表

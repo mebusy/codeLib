@@ -5,6 +5,7 @@ import glob
 import libtcodpy as libtcod
 from helper import *
 
+
 # .___  ___.      ___      .______   
 # |   \/   |     /   \     |   _  \  
 # |  \  /  |    /  ^  \    |  |_)  | 
@@ -39,22 +40,22 @@ def draw_map(map_to_draw):
                 map_to_draw[x][y].explored = True
 
                 if map_to_draw[x][y].block_path is True:
-                    glob.SURFACE_MAIN.blit( constants.S_WALL , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                    glob.SURFACE_MAIN.blit( glob.ASSETS.S_WALL , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
                 else:
-                    glob.SURFACE_MAIN.blit( constants.S_FLOOR , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                    glob.SURFACE_MAIN.blit( glob.ASSETS.S_FLOOR , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
             else:
                 if map_to_draw[x][y].explored :
                     if map_to_draw[x][y].block_path is True:
-                        glob.SURFACE_MAIN.blit( constants.S_WALLEXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                        glob.SURFACE_MAIN.blit( glob.ASSETS.S_WALLEXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
                     else:
-                        glob.SURFACE_MAIN.blit( constants.S_FLOOREXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
+                        glob.SURFACE_MAIN.blit( glob.ASSETS.S_FLOOREXPLORED , ( x*constants.CELL_WIDTH, y*constants.CELL_HEIGHT ) )
 
 
 def draw_debug():
     draw_text( glob.SURFACE_MAIN , "FPS: {}".format(int(glob.CLOCK.get_fps())) , (0,0), constants.COLOR_WHITE , constants.COLOR_BLACK )
 
 def draw_messages():
-    text_height  = helper_text_height( constants.FONT_MESSAGE_TEXT )
+    text_height  = helper_text_height( glob.ASSETS.FONT_MESSAGE_TEXT )
     start_y = constants.MAP_HEIGHT * constants.CELL_HEIGHT - constants.NUM_MESSAGES * text_height - 4
     i = 0
     for message, color in glob.GAME.message_history[-constants.NUM_MESSAGES:] :

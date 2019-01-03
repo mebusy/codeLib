@@ -14,6 +14,7 @@ from map import *
 from helper import *
 from game import obj_Game 
 from spriteSheet import obj_Spritesheet
+from assets import struct_Assets
 
 
             
@@ -99,17 +100,14 @@ def game_initialize():
 
     glob.FOV_CALCULATE = True
 
-    tempspritesheet = obj_Spritesheet("data/s.png")
-    # S_PLAYER = tempspritesheet.get_image( 0,8, 16,16, (32,32) )
-    A_PLAYER = tempspritesheet.get_animation( 0,8, 32,32, 3 )
+    glob.ASSETS = struct_Assets()
 
     creature_com = com_Creatures( "greg" )
-    glob.PLAYER = obj_Actor(2,2,"python", A_PLAYER, animation_speed = 1, creature= creature_com)
+    glob.PLAYER = obj_Actor(2,2,"python", glob.ASSETS.A_PLAYER, animation_speed = 1, creature= creature_com)
 
     creature_com = com_Creatures( "jackie", death_function = death_monster )
     ai_com = com_AI()
-    S_ENEMY =  tempspritesheet.get_animation( 0,12, 32,32, 3 ) 
-    glob.ENEMY = obj_Actor(15,15, "crab", S_ENEMY,  creature = creature_com, ai=ai_com)
+    glob.ENEMY = obj_Actor(15,15, "crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com)
     
     glob.GAME.current_objects = [glob.PLAYER, glob.ENEMY]
 
