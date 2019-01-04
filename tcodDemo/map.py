@@ -66,8 +66,9 @@ def draw_text(display_surface, text_to_display, font , T_coords, text_color , ba
     display_surface.blit( text_surf, text_rect )
 
 
-def draw_tile_rect( new_surface, coords ):
-    new_surface.fill(constants.COLOR_WHITE)
+def draw_tile_rect( new_surface, coords , tile_color = None, tile_alpha = 128 ):
+    new_surface.fill( tile_color or constants.COLOR_WHITE)
+    new_surface.set_alpha( tile_alpha )
     glob.SURFACE_MAIN.blit( new_surface , ( coords[0]*constants.CELL_WIDTH, coords[1]*constants.CELL_HEIGHT) ) 
 
 
@@ -107,7 +108,11 @@ def map_check_for_creature(coords_x, coords_y):
 
     return len(object_options) > 0 and object_options[0] or None
 
-def map_find_line(coords1, coords2):
+
+def map_find_line(coords1, coords2, max_range , penetrate_walls , pierce_creature  ):
+    
+    assert max_range is None or isinstance(max_range,int) 
+
     x1,y1 = coords1
     x2,y2 = coords2
 
@@ -115,13 +120,29 @@ def map_find_line(coords1, coords2):
     calc_x, calc_y = libtcod.line_step()
     coord_list = []
     
-    if coords1 == coords2 :
-        return [ coords1 ]
+    cnt = 0
     while calc_x is not None :
+        if not penetrate_walls and glob.GAME.current_map[calc_x][calc_y].block_path  :
+            return coord_list
+        if not pierce_creature and map_check_for_creature( calc_x, calc_y ):
+            return coord_list
+
         coord_list.append( (calc_x, calc_y) )
-        if (calc_x, calc_y) == coords2 :
+        cnt += 1 
+        if (calc_x, calc_y) == coords2 or (max_range is not None and cnt >= max_range):
             return coord_list
         calc_x, calc_y = libtcod.line_step()
+    
+    return [ coords1 ]
+
+def map_find_radius( coords , radius):
+    center_x , center_y = coords 
+    tile_list = []
+    for x in xrange( center_x - radius, center_x + radius + 1 ):
+        for y in xrange( center_y - radius, center_y + radius + 1 ):
+            tile_list.append( ( x,y ) )
+    return tile_list 
+
 
 
 

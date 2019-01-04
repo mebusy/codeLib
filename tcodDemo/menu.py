@@ -75,11 +75,10 @@ def menu_inventory():
         glob.CLOCK.tick(constants.FPS)
 
 
-def menu_tile_select(coords_origin = None):
+def menu_tile_select(coords_origin = None, max_range= None, penetrate_walls = True, pierce_creature=True ,radius = None):
 
     menu_close = False 
     new_surface = pygame.Surface( (constants.CELL_WIDTH , constants.CELL_HEIGHT) )
-    new_surface.set_alpha( 150 )
 
     while not menu_close:
         # get mouse pos
@@ -88,7 +87,7 @@ def menu_tile_select(coords_origin = None):
         
         mouse_tile_x , mouse_tile_y = ( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT  )
         if coords_origin:
-            list_of_tiles = map_find_line( coords_origin , (mouse_tile_x , mouse_tile_y )  )
+            list_of_tiles = map_find_line( coords_origin , (mouse_tile_x , mouse_tile_y ) , max_range = max_range, penetrate_walls=penetrate_walls,pierce_creature=pierce_creature )
         else:
             list_of_tiles = [ ( mouse_tile_x , mouse_tile_y )  ]
 
@@ -99,7 +98,7 @@ def menu_tile_select(coords_origin = None):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     # game_message( "at : {}-{}".format( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT ) )
-                    return ( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT  )
+                    return list_of_tiles
 
 
         # get button clicks
@@ -110,8 +109,13 @@ def menu_tile_select(coords_origin = None):
         # Draw rectangle at mouse position
         for tile_x , tile_y in list_of_tiles:
             draw_tile_rect( new_surface, (tile_x , tile_y)  )
+        if radius:
+            area_effect = map_find_radius( list_of_tiles[-1] , radius )
+            for tile_x , tile_y in area_effect:
+                draw_tile_rect( new_surface, (tile_x , tile_y), constants.COLOR_RED , tile_alpha = 96)
+
 
         pygame.display.flip()
         glob.CLOCK.tick(constants.FPS)
-
-    
+    # return empty list when close menu
+    return []

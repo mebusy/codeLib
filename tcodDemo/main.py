@@ -102,8 +102,9 @@ def game_handle_keys():
             if event.key == pygame.K_i:
                 menu_inventory()
             if event.key == pygame.K_l:
-                # menu_target_select()
                 cast_lightning(10)
+            if event.key == pygame.K_f:
+                cast_fireball()
 
             
 
