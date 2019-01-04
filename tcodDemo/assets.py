@@ -7,9 +7,9 @@ class struct_Assets:
         self.A_PLAYER = tempspritesheet.get_animation( 0,8, 32,32, 3 )
         self.A_ENEMY =  tempspritesheet.get_animation( 0,12, 32,32, 3 ) 
 
-        self.S_WALL = pygame.image.load( 'data/wall.png' )
-        self.S_WALLEXPLORED = pygame.image.load( 'data/wallunseen.png' )
-        self.S_FLOOR = pygame.image.load( 'data/floor.png' )
+        self.S_WALL =  tempspritesheet.get_image( 8,0, 32,32 ) 
+        self.S_WALLEXPLORED = tempspritesheet.get_image( 12,0, 32,32 )
+        self.S_FLOOR = tempspritesheet.get_image( 11,4, 32,32 )
         self.S_FLOOREXPLORED = pygame.image.load( 'data/floorunseen.png' )
 
         self.FONT_DEBUG_MESSAGE = pygame.font.Font( None,16 )

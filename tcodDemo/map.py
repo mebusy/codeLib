@@ -1,4 +1,3 @@
-
 from tile import struct_Tile
 import constants
 import glob
@@ -67,6 +66,13 @@ def draw_text(display_surface, text_to_display, font , T_coords, text_color , ba
     display_surface.blit( text_surf, text_rect )
 
 
+def draw_tile_rect( new_surface, coords ):
+    new_surface.fill(constants.COLOR_WHITE)
+    glob.SURFACE_MAIN.blit( new_surface , ( coords[0]*constants.CELL_WIDTH, coords[1]*constants.CELL_HEIGHT) ) 
+
+
+
+
 def map_make_fov( incoming_map ):
     '''
     actually create the map that we can use to calculate what the fov is 
@@ -94,6 +100,28 @@ def map_objects_at_coords(coords_x, coords_y):
         obj for obj in glob.GAME.current_objects if obj.x == coords_x  and obj.y == coords_y ]
 
     return object_options
+
+def map_check_for_creature(coords_x, coords_y):
+    object_options = [
+        obj for obj in glob.GAME.current_objects  if obj.creature and obj.x == coords_x  and obj.y == coords_y ]
+
+    return len(object_options) > 0 and object_options[0] or None
+
+def map_find_line(coords1, coords2):
+    x1,y1 = coords1
+    x2,y2 = coords2
+
+    libtcod.line_init(x1,y1, x2,y2)
+    calc_x, calc_y = libtcod.line_step()
+    coord_list = []
+    
+    if coords1 == coords2 :
+        return [ coords1 ]
+    while calc_x is not None :
+        coord_list.append( (calc_x, calc_y) )
+        if (calc_x, calc_y) == coords2 :
+            return coord_list
+        calc_x, calc_y = libtcod.line_step()
 
 
 

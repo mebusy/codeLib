@@ -1,8 +1,10 @@
 import pygame
-from map import draw_text
+from map import draw_text, draw_tile_rect
 import constants
 import glob
 from helper import *
+from map import *
+
 
 def menu_pause():
     menu_close = False
@@ -69,5 +71,47 @@ def menu_inventory():
             local_inventory_surface , 
             (menu_x, menu_y)  )
 
-        pygame.display.update()
+        pygame.display.flip()
         glob.CLOCK.tick(constants.FPS)
+
+
+def menu_tile_select(coords_origin = None):
+
+    menu_close = False 
+    new_surface = pygame.Surface( (constants.CELL_WIDTH , constants.CELL_HEIGHT) )
+    new_surface.set_alpha( 150 )
+
+    while not menu_close:
+        # get mouse pos
+        event_list = pygame.event.get()
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        
+        mouse_tile_x , mouse_tile_y = ( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT  )
+        if coords_origin:
+            list_of_tiles = map_find_line( coords_origin , (mouse_tile_x , mouse_tile_y )  )
+        else:
+            list_of_tiles = [ ( mouse_tile_x , mouse_tile_y )  ]
+
+        for event in event_list:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_l:
+                    menu_close = True 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    # game_message( "at : {}-{}".format( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT ) )
+                    return ( mouse_x / constants.CELL_WIDTH , mouse_y / constants.CELL_HEIGHT  )
+
+
+        # get button clicks
+        
+        # draw game
+        glob.DRAW_GAME()
+
+        # Draw rectangle at mouse position
+        for tile_x , tile_y in list_of_tiles:
+            draw_tile_rect( new_surface, (tile_x , tile_y)  )
+
+        pygame.display.flip()
+        glob.CLOCK.tick(constants.FPS)
+
+    

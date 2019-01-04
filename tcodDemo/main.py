@@ -36,10 +36,9 @@ def draw_game():
 
     draw_debug()
     draw_messages()
-    # update the display
-    pygame.display.flip()
     
 
+glob.DRAW_GAME = draw_game
 
 
 
@@ -59,6 +58,9 @@ def game_main_loop():
 
         # draw the game
         draw_game()
+        # update the display
+        pygame.display.flip()
+
         glob.CLOCK.tick(constants.FPS)
 
 
@@ -99,6 +101,9 @@ def game_handle_keys():
                 menu_pause()
             if event.key == pygame.K_i:
                 menu_inventory()
+            if event.key == pygame.K_l:
+                # menu_target_select()
+                cast_lightning(10)
 
             
 
