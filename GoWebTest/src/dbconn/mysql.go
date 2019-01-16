@@ -1,0 +1,59 @@
+package dbconn 
+
+import (
+    "database/sql"
+    _ "github.com/go-sql-driver/mysql"
+    "log"
+    "fmt"
+    "time"
+)
+
+// Mysql:  The connection pool is managed by Go's database/sql package.
+// 1. sql.Open won't create a connection to db right now, but only initialize a sql.DB object.  It actually create connection on the 1st query op.
+// 2. sql.DB represents the abstract of database , not the connection!!! , if you want veriry the connection right now, use `Ping()` method.
+// 3. sql.DB object returned by sql.Open is coroutine-safe
+// 4. create a sql.DB object to every database 
+
+var db_mysql  *sql.DB 
+
+func getMysqlDB() *sql.DB  {
+    if db_mysql == nil {
+        // log.Println( mysql_user, mysql_password,  mysql_host ,  mysql_db )
+        url:= fmt.Sprintf( "%s:%s@tcp(%s:3306)/%s" , mysql_user, mysql_password,  mysql_host ,  mysql_db  ) 
+        // log.Println( "url:",  url  )    
+        if db, err := sql.Open("mysql", url  ) ; err !=nil {
+            log.Fatalln( err ) 
+        } else {
+            db.SetConnMaxLifetime(time.Minute*30);
+            db.SetMaxIdleConns(32);
+            db.SetMaxOpenConns(32);
+            db_mysql = db
+        }
+    }
+    // this function should NOT return nil
+    return db_mysql
+}
+
+// if the mysql server is down
+// db.Exec will return an error "invalid connection" , and pool will be clear
+// new connection will be created if the server is online again
+func MysqlTest() {
+    db := getMysqlDB() 
+
+    result , err := db.Exec( "show tables" ) ;
+    if err != nil {
+        log.Println( err )
+    }
+    log.Printf( "%+v\n", result)
+
+}
+
+// call `defer dbconn.Close()` 
+// in main()
+func Close() {
+    db := getMysqlDB() 
+    db.Close()    
+}
+
+
+
