@@ -6,6 +6,7 @@ import (
     "log"
     "fmt"
     "time"
+    "runtime"
 )
 
 // Mysql:  The connection pool is managed by Go's database/sql package.
@@ -13,6 +14,12 @@ import (
 // 2. sql.DB represents the abstract of database , not the connection!!! , if you want veriry the connection right now, use `Ping()` method.
 // 3. sql.DB object returned by sql.Open is coroutine-safe
 // 4. create a sql.DB object to every database 
+
+// then how to check wheher the connection is reused ?
+// 1 SET GLOBAL general_log = 'ON'
+// 2 SET GLOBAL log_output = 'TABLE'
+// now you can find the mysql operation log in `mysql.general_log` table
+// if the connection is reused, you should see the `connection` event only at the very beginning
 
 var _db_mysql  *sql.DB 
 
@@ -25,8 +32,8 @@ func getMysqlDB() *sql.DB  {
             log.Fatalln( err ) 
         } else {
             db.SetConnMaxLifetime(time.Minute*30);
-            db.SetMaxIdleConns(32);
-            db.SetMaxOpenConns(32);
+            db.SetMaxIdleConns( 10 * runtime.GOMAXPROCS(0) );
+            db.SetMaxOpenConns( 10 * runtime.GOMAXPROCS(0) );
             _db_mysql = db
         }
     }

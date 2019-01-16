@@ -15,7 +15,7 @@ import (
 )
 
 func monitorRuntime( m *runtime.MemStats ) {
-    log.Println("Number of CPUs:", runtime.NumCPU())
+    log.Println("Number of CPUs:", runtime.NumCPU(), "used:" , runtime.GOMAXPROCS(0)  )
     r := runtime.NumGoroutine()
     log.Println("Number of goroutines", r)
     runtime.ReadMemStats(m)

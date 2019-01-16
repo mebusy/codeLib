@@ -9,6 +9,8 @@ var mysql_host string
 var mysql_user string
 var mysql_password string 
 var mysql_db string 
+var redis_host  string 
+var redis_password  string 
 
 func init() {
 
@@ -27,5 +29,13 @@ func init() {
     _ = mysql_password
     _ = mysql_db 
     
+    redis_host = os.Getenv( "REDIS_HOST" )
+    redis_password = os.Getenv( "REDIS_PASSWORD" )
+
+    if redis_host == "" {
+        redis_host = "127.0.0.1"    
+    }
+    
+    _ = redis_password
 }
 
