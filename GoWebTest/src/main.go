@@ -30,7 +30,7 @@ func MysqltestHandler(w http.ResponseWriter, r *http.Request) {
 func main() {   
     log.Println( "test IP:" , tools.GetIP()  )
     tools.DumpGoroutines()
-    defer dbconn.Close()
+    defer dbconn.MysqlClose()
 
 	r := mux.NewRouter()
 	r.HandleFunc("/test", testHandler)

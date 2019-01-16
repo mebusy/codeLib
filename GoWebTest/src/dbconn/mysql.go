@@ -14,10 +14,10 @@ import (
 // 3. sql.DB object returned by sql.Open is coroutine-safe
 // 4. create a sql.DB object to every database 
 
-var db_mysql  *sql.DB 
+var _db_mysql  *sql.DB 
 
 func getMysqlDB() *sql.DB  {
-    if db_mysql == nil {
+    if _db_mysql == nil {
         // log.Println( mysql_user, mysql_password,  mysql_host ,  mysql_db )
         url:= fmt.Sprintf( "%s:%s@tcp(%s:3306)/%s" , mysql_user, mysql_password,  mysql_host ,  mysql_db  ) 
         // log.Println( "url:",  url  )    
@@ -27,11 +27,11 @@ func getMysqlDB() *sql.DB  {
             db.SetConnMaxLifetime(time.Minute*30);
             db.SetMaxIdleConns(32);
             db.SetMaxOpenConns(32);
-            db_mysql = db
+            _db_mysql = db
         }
     }
     // this function should NOT return nil
-    return db_mysql
+    return _db_mysql
 }
 
 // if the mysql server is down
@@ -40,17 +40,18 @@ func getMysqlDB() *sql.DB  {
 func MysqlTest() {
     db := getMysqlDB() 
 
-    result , err := db.Exec( "show tables" ) ;
-    if err != nil {
-        log.Println( err )
-    }
-    log.Printf( "%+v\n", result)
+    res, _ := db.Query("SHOW TABLES")
+    var table string
 
+    for res.Next() {
+        res.Scan(&table)
+        log.Println(table)
+    }
 }
 
-// call `defer dbconn.Close()` 
+// call `defer dbconn.MysqlClose()` 
 // in main()
-func Close() {
+func MysqlClose() {
     db := getMysqlDB() 
     db.Close()    
 }
