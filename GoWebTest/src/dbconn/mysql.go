@@ -31,7 +31,7 @@ func getMysqlDB() *sql.DB  {
         if db, err := sql.Open("mysql", url  ) ; err !=nil {
             log.Fatalln( err ) 
         } else {
-            db.SetConnMaxLifetime(time.Minute*30);
+            db.SetConnMaxLifetime(time.Minute*5);
             db.SetMaxIdleConns( 10 * runtime.GOMAXPROCS(0) );
             db.SetMaxOpenConns( 10 * runtime.GOMAXPROCS(0) );
             _db_mysql = db
