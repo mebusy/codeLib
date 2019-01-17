@@ -151,7 +151,7 @@ let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_key_invoke_completion = '<C-a>'
 
 let g:ycm_confirm_extra_conf=0 
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~./.ycm_extra_conf.py'
 
 " markdown chrome browse
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
