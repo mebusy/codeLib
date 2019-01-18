@@ -30,6 +30,11 @@ func RedistestHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "redis done")
 }
 
+func WcGameHandler(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    // w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "%v", vars )
+}
 
 
 func main() {   
@@ -43,6 +48,10 @@ func main() {
 	r.HandleFunc("/test", testHandler)
 	r.HandleFunc("/mysqltest", MysqltestHandler)
 	r.HandleFunc("/redistest", RedistestHandler)
+    r.HandleFunc("/{game}/{env}/v{version:\\d+}/{uid:[0-9a-zA-Z-]+}", WcGameHandler)
 	http.Handle("/", r)
 	http.ListenAndServe(":8080", nil)
 }
+
+
+
