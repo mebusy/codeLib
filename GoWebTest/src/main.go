@@ -13,12 +13,12 @@ import (
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	// w.WriteHeader(http.StatusOK)
-    data , err := httputil.DumpRequest( r, true )
-    if err == nil {
-        log.Println( "Request:" , string(data) )    
-    }
 	fmt.Fprintf(w, "test done")
 }
+func test2Handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "test2")
+}
+
 
 
 func MysqltestHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,21 +36,47 @@ func WcGameHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "%v", vars )
 }
 
+// type MiddlewareFunc func(http.Handler) http.Handler
+func loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        // Do stuff here
+        data , _ := httputil.DumpRequest( r, false )
+        // log.Println(r.RequestURI)
+        log.Println( string(data)  )
+
+        // Call the next handler, which can be another middleware in the chain, or the final handler.
+        next.ServeHTTP(w, r)
+    })
+}
+
+
 
 func main() {   
     runtime.GOMAXPROCS(1)
-    log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0) )
     tools.DumpGoroutines()
     defer dbconn.MysqlClose()
     defer dbconn.RedisClose()
 
 	r := mux.NewRouter()
+    // Routes are tested in the order they were added to the router. If two routes match, the first one wins:
+    r.HandleFunc("/{game}/{env}/v{version:\\d+}/{uid:[0-9a-zA-Z-]+}", WcGameHandler)
+
 	r.HandleFunc("/test", testHandler)
 	r.HandleFunc("/mysqltest", MysqltestHandler)
 	r.HandleFunc("/redistest", RedistestHandler)
-    r.HandleFunc("/{game}/{env}/v{version:\\d+}/{uid:[0-9a-zA-Z-]+}", WcGameHandler)
+
+    r.HandleFunc( "/test2", test2Handler ).Host("localhost:8001").Methods("GET") // .Schemes("http")
+
+    // r.PathPrefix("/").Handler(catchAllHandler)
+    r.Use(loggingMiddleware)
+
+    // s := r.PathPrefix("/products").Subrouter()
 	http.Handle("/", r)
-	http.ListenAndServe(":8080", nil)
+
+    listenOn := ":8001" 
+    log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0),"listen on ", listenOn )
+
+	http.ListenAndServe( listenOn , nil)
 }
 
 
