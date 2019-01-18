@@ -9,6 +9,8 @@ import (
     "log"
     "dbconn"
     "runtime"
+    "fs"
+    "os"
 )
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
@@ -56,6 +58,14 @@ func main() {
     tools.DumpGoroutines()
     defer dbconn.MysqlClose()
     defer dbconn.RedisClose()
+
+    pwd, err := os.Getwd()
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
+
+    fs.StartNewWatcher( pwd  ) 
 
 	r := mux.NewRouter()
     // Routes are tested in the order they were added to the router. If two routes match, the first one wins:
