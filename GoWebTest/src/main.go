@@ -76,7 +76,7 @@ func main() {
     listenOn := ":8001" 
     log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0),"listen on ", listenOn )
 
-	http.ListenAndServe( listenOn , nil)
+	log.Fatal( http.ListenAndServe( listenOn , nil) )
 }
 
 
