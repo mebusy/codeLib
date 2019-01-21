@@ -2,8 +2,8 @@ package tools
 
 // To mimic the Java behaviour of stack-dump on SIGQUIT but still leaving the program
 // On *NIX systems (including OSX) send a signal abort SIGQUIT:
-// pkill -SIGQUIT program_name
-// pkill -SIGQUIT  -P PID    // test on MacOSX
+// kill -l   to list all signal definition
+// kill <signal> processid
 
 import (
 	"github.com/Masterminds/cookoo/safely"

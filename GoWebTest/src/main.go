@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+    "time"
 	"github.com/gorilla/mux"
 	"net/http"
     "net/http/httputil"
@@ -9,6 +10,7 @@ import (
     "log"
     "dbconn"
     "runtime"
+    "github.com/facebookgo/pidfile"
 )
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
@@ -53,6 +55,10 @@ func loggingMiddleware(next http.Handler) http.Handler {
 
 func main() {   
     runtime.GOMAXPROCS(1)
+
+    pidfile.SetPidfilePath( "./pid" )
+    pidfile.Write()
+
     tools.DumpGoroutines()
     defer dbconn.MysqlClose()
     defer dbconn.RedisClose()
@@ -85,7 +91,20 @@ func main() {
     listenOn := ":8001" 
     log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0),"listen on ", listenOn )
 
-	log.Fatal( http.ListenAndServe( listenOn , nil) )
+    srv := &http.Server{
+        Addr:         listenOn , 
+        // Good practice to set timeouts to avoid Slowloris attacks.
+        WriteTimeout: time.Second * 15,
+        ReadTimeout:  time.Second * 15,
+        IdleTimeout:  time.Second * 60,
+        Handler: r, // Pass our instance of gorilla/mux in.
+    }
+
+    tools.EnableHostUpdate(srv)
+
+    if err := srv.ListenAndServe(); err != nil {
+        log.Fatal(err)
+    } 
 }
 
 
