@@ -58,11 +58,13 @@ func main() {
     defer dbconn.MysqlClose()
     defer dbconn.RedisClose()
 
+    /*
     pwd, err := os.Getwd()
     if err != nil {
         fmt.Println(err)
         os.Exit(1)
     }
+    //*/
 
 
 	r := mux.NewRouter()
