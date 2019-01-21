@@ -17,7 +17,7 @@ import (
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	// w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "test done v1.3")
+	fmt.Fprintf(w, "test done v1.2")
 }
 func test2Handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "test2")
