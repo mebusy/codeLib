@@ -9,7 +9,6 @@ import (
     "log"
     "dbconn"
     "runtime"
-    "os"
 )
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
