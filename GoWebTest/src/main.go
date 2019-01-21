@@ -9,7 +9,6 @@ import (
     "log"
     "dbconn"
     "runtime"
-    "fs"
     "os"
 )
 
@@ -65,7 +64,6 @@ func main() {
         os.Exit(1)
     }
 
-    fs.StartNewWatcher( pwd  ) 
 
 	r := mux.NewRouter()
     // Routes are tested in the order they were added to the router. If two routes match, the first one wins:
