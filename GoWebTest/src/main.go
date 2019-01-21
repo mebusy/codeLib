@@ -58,8 +58,6 @@ func loggingMiddleware(next http.Handler) http.Handler {
 func main() {   
     runtime.GOMAXPROCS(1)
 
-    pidfile.SetPidfilePath( "./pid" )
-    pidfile.Write()
 
     tools.DumpGoroutines()
     defer dbconn.MysqlClose()
@@ -92,7 +90,6 @@ func main() {
 
     listenOn := ":8001" 
     log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0),"listen on ", listenOn )
-    log.Printf( "\n" )
 
     srv := &http.Server{
         Addr:         listenOn , 
@@ -106,13 +103,12 @@ func main() {
     var listener net.Listener
     var err error
     if tools.LanuchForHotUpdate()  {
-        log.Println("main: Listening to existing file descriptor 3.")
+        log.Println("Listening to existing file descriptor 3.")
         // cmd.ExtraFiles: If non-nil, entry i becomes file descriptor 3+i.
         // when we put socket FD at the first entry, it will always be 3(0+3)
         f := os.NewFile(3, "")
         listener, err = net.FileListener(f)
     } else {
-        log.Println("main: Listening on a new file descriptor.")
         listener, err = net.Listen("tcp", srv.Addr)
     }
 
@@ -120,8 +116,11 @@ func main() {
         log.Fatalf("listener error: %v", err)
     }
 
-
-    tools.EnableHostUpdate(srv, listener )
+    if false {
+        pidfile.SetPidfilePath( "./pid" )
+        pidfile.Write()
+        tools.EnableHostUpdate(srv, listener )
+    }
     
     type tcpKeepAliveListener struct {
         *net.TCPListener
