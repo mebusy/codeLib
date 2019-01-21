@@ -11,11 +11,13 @@ import (
     "dbconn"
     "runtime"
     "github.com/facebookgo/pidfile"
+    "os"
+    "net"
 )
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	// w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "test done")
+	fmt.Fprintf(w, "test done v2")
 }
 func test2Handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "test2")
@@ -90,6 +92,7 @@ func main() {
 
     listenOn := ":8001" 
     log.Println( "test IP:" , tools.GetIP() , "will use CPU:", runtime.GOMAXPROCS(0),"listen on ", listenOn )
+    log.Printf( "\n" )
 
     srv := &http.Server{
         Addr:         listenOn , 
@@ -100,9 +103,30 @@ func main() {
         Handler: r, // Pass our instance of gorilla/mux in.
     }
 
-    tools.EnableHostUpdate(srv)
+    var listener net.Listener
+    var err error
+    if true {
+        log.Print("main: Listening to existing file descriptor 3.")
+        // cmd.ExtraFiles: If non-nil, entry i becomes file descriptor 3+i.
+        // when we put socket FD at the first entry, it will always be 3(0+3)
+        f := os.NewFile(3, "")
+        listener, err = net.FileListener(f)
+    } else {
+        log.Print("main: Listening on a new file descriptor.")
+        listener, err = net.Listen("tcp", srv.Addr)
+    }
 
-    if err := srv.ListenAndServe(); err != nil {
+    if err != nil {
+        log.Fatalf("listener error: %v", err)
+    }
+
+
+    tools.EnableHostUpdate(srv, listener )
+    
+    type tcpKeepAliveListener struct {
+        *net.TCPListener
+    }
+    if err := srv.Serve( tcpKeepAliveListener{listener.(*net.TCPListener)}  ); err != nil {
         log.Fatal(err)
     } 
 }
