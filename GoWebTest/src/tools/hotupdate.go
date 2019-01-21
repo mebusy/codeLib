@@ -12,7 +12,19 @@ import (
     "time"
     "os/exec"
     "net"
+    "flag"
 )
+
+
+var hot = flag.Bool("hot", false, "listen on fd open 3 (internal use only)")
+
+func init() {
+    flag.Parse()     
+}
+
+func LanuchForHotUpdate() bool {
+    return *hot
+}
 
 func reload( listener net.Listener ) error {
     tl, ok := listener.(*net.TCPListener)
@@ -25,7 +37,7 @@ func reload( listener net.Listener ) error {
         return err
     }
  
-    args := []string{}
+    args := []string{"-hot"}
     cmd := exec.Command(os.Args[0], args...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
@@ -39,7 +51,7 @@ func EnableHostUpdate( server *http.Server, listener net.Listener ) {
 	safely.Go(func() {
 		sigs := make(chan os.Signal, 1)
 		signal.Notify(sigs, syscall.SIGUSR2)
-        ctx, _ := context.WithTimeout(context.Background(), 1*time.Second)
+        ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 		for {
 			<-sigs
 

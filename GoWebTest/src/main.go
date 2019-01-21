@@ -105,14 +105,14 @@ func main() {
 
     var listener net.Listener
     var err error
-    if true {
-        log.Print("main: Listening to existing file descriptor 3.")
+    if tools.LanuchForHotUpdate()  {
+        log.Println("main: Listening to existing file descriptor 3.")
         // cmd.ExtraFiles: If non-nil, entry i becomes file descriptor 3+i.
         // when we put socket FD at the first entry, it will always be 3(0+3)
         f := os.NewFile(3, "")
         listener, err = net.FileListener(f)
     } else {
-        log.Print("main: Listening on a new file descriptor.")
+        log.Println("main: Listening on a new file descriptor.")
         listener, err = net.Listen("tcp", srv.Addr)
     }
 
