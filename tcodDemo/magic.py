@@ -1,5 +1,7 @@
 from map import *
 from menu import *
+from component import *
+import constants 
 
 def cast_heal(target, value):
     if target.creature.hp ==  target.creature.max_hp:
@@ -42,4 +44,17 @@ def cast_fireball():
         game_message( "The monster howls out in pain.", constants.COLOR_RED )
 
 
+def cast_confusion():
+    list_of_tiles = menu_tile_select()
 
+    if list_of_tiles and len(list_of_tiles) > 0 :
+        tile_x , tile_y =  list_of_tiles[0]
+        target = map_check_for_creature(tile_x, tile_y)
+    
+        # temporarily confuse the target
+        if target:
+            oldai = target.ai
+            target.ai = ai_Confuse( old_ai = oldai , num_turns = 5 )
+            target.ai.owner = target 
+
+            game_message( "The creature's eye glaze over" , constants.COLOR_GREEN) 

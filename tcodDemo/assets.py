@@ -1,5 +1,6 @@
 import pygame
 from spriteSheet import obj_Spritesheet 
+import constants
 
 class struct_Assets:
     def __init__(self):
@@ -14,4 +15,5 @@ class struct_Assets:
 
         self.FONT_DEBUG_MESSAGE = pygame.font.Font( None,16 )
         self.FONT_MESSAGE_TEXT = pygame.font.Font( None,16 )
+        self.FONT_CURSOR_TEXT = pygame.font.Font( None, constants.CELL_HEIGHT*2 )
         

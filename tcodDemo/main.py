@@ -86,7 +86,7 @@ def game_handle_keys():
             return "QUIT"
         if event.type == pygame.KEYDOWN:
             if event.key in KB_moving:
-                glob.PLAYER.creature.move( *KB_moving[ event.key ] )
+                glob.PLAYER.creature.move( *KB_moving[ event.key ] , moveManually = True )
                 glob.FOV_CALCULATE = True 
                 return "player-moved"
             if event.key == pygame.K_g:
@@ -105,6 +105,8 @@ def game_handle_keys():
                 cast_lightning(10)
             if event.key == pygame.K_f:
                 cast_fireball()
+            if event.key == pygame.K_c:
+                cast_confusion()
 
             
 
@@ -132,12 +134,12 @@ def game_initialize():
 
     item_com = com_Item( value =10 , use_function = cast_heal) 
     creature_com = com_Creatures( "jackie", death_function = death_monster )
-    ai_com = com_AI()
+    ai_com = ai_Chase()
     glob.ENEMY = obj_Actor(15,15, "smart crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
 
     item_com = com_Item(  value =10 , use_function = cast_heal ) 
     creature_com = com_Creatures( "bob", death_function = death_monster )
-    ai_com = com_AI()
+    ai_com = ai_Chase()
     DUP_ENEMY = obj_Actor(14,15, "dup crab", glob.ASSETS.A_ENEMY,  creature = creature_com, ai=ai_com,item = item_com)
     
     glob.GAME.current_objects = [glob.PLAYER, glob.ENEMY, DUP_ENEMY]

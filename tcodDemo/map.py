@@ -59,16 +59,25 @@ def draw_messages():
     for i, (message, color) in enumerate(glob.GAME.message_history[-constants.NUM_MESSAGES:]) :
         draw_text( glob.SURFACE_MAIN, message, glob.ASSETS.FONT_MESSAGE_TEXT, ( 0, start_y + text_height*i ), color, constants.COLOR_BLACK )
 
-def draw_text(display_surface, text_to_display, font , T_coords, text_color , back_color= None ):
+def draw_text(display_surface, text_to_display, font , coords, text_color , back_color= None , center = False ):
     text_surf, text_rect = helper_text_objects(text_to_display ,font , text_color, back_color)
 
-    text_rect.topleft = T_coords 
+    if not center:
+        text_rect.topleft = coords 
+    else:
+        text_rect.center = coords 
     display_surface.blit( text_surf, text_rect )
 
 
-def draw_tile_rect( new_surface, coords , tile_color = None, tile_alpha = 128 ):
+def draw_tile_rect( new_surface, coords , tile_color = None, tile_alpha = 128 , mark = None):
     new_surface.fill( tile_color or constants.COLOR_WHITE)
     new_surface.set_alpha( tile_alpha )
+
+    # added
+    if mark:
+        draw_text( 
+            new_surface , mark, font = glob.ASSETS.FONT_CURSOR_TEXT , 
+            coords = (constants.CELL_WIDTH/2, constants.CELL_HEIGHT/2), text_color = constants.COLOR_BLACK, center = True )
     glob.SURFACE_MAIN.blit( new_surface , ( coords[0]*constants.CELL_WIDTH, coords[1]*constants.CELL_HEIGHT) ) 
 
 

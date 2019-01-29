@@ -108,7 +108,10 @@ def menu_tile_select(coords_origin = None, max_range= None, penetrate_walls = Tr
 
         # Draw rectangle at mouse position
         for tile_x , tile_y in list_of_tiles:
-            draw_tile_rect( new_surface, (tile_x , tile_y)  )
+            if (tile_x, tile_y) == list_of_tiles[-1]:
+                draw_tile_rect( new_surface, (tile_x , tile_y) , mark = 'X')
+            else:
+                draw_tile_rect( new_surface, (tile_x , tile_y)  )
         if radius:
             area_effect = map_find_radius( list_of_tiles[-1] , radius )
             for tile_x , tile_y in area_effect:

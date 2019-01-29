@@ -1,6 +1,7 @@
 import constants
 import glob 
 import libtcodpy as libtcod
+import math
 
 class obj_Actor:
     def __init__(
@@ -44,7 +45,16 @@ class obj_Actor:
                 frame = int(self.flicker_timer/self.flicker) % len(self.animation) 
                 glob.SURFACE_MAIN.blit( self.animation[frame], ( self.x*constants.CELL_WIDTH, self.y*constants.CELL_HEIGHT ) )
 
-                
+    def distance_to(self,other):
+        dx = other.x - self.x 
+        dy = other.y - self.y
+        return math.sqrt( dx**2 + dy**2 )                
 
+    def move_towards(self, other):
+        dx = other.x - self.x 
+        dy = other.y - self.y
+        dist =  math.sqrt( dx**2 + dy**2 )                
 
+        self.creature.move( int(round( dx/dist )) , int(round( dy/dist ))  )
+        
 

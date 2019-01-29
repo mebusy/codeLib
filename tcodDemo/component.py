@@ -26,7 +26,10 @@ class com_Creatures:
         self.hp = min( self.hp + value , self.max_hp )
         
 
-    def move(self, dx, dy) :
+    def move(self, dx, dy , moveManually = False ) :
+        if moveManually and self.owner == glob.PLAYER and self.owner.ai is not None:
+            return  
+
         tile_is_block = glob.GAME.current_map[self.owner.x + dx][self.owner.y+dy].block_path is True
         target = None
 
@@ -63,6 +66,28 @@ class com_AI:
     """
     def take_turn(self):
         self.owner.creature.move( libtcod.random_get_int(0,-1,1), libtcod.random_get_int(0,-1,1))
+
+class ai_Confuse:
+    def __init__(self, old_ai, num_turns):
+        self.old_ai  = old_ai 
+        self.num_turns = num_turns
+
+    def take_turn(self):
+        if self.num_turns > 0:
+            self.owner.creature.move( libtcod.random_get_int(0,-1,1), libtcod.random_get_int(0,-1,1))
+            self.num_turns -= 1
+        else:
+            self.owner.ai = self.old_ai
+            game_message( "The creature has broken free!" , constants.COLOR_RED )
+
+class ai_Chase:
+    def take_turn(self):
+        monster = self.owner
+        if libtcod.map_is_in_fov( glob.FOV_MAP, monster.x, monster.y ):
+            monster.move_towards( glob.PLAYER )
+
+
+    
 
 
 def death_monster(monster):
