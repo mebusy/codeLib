@@ -13,7 +13,7 @@
         <script src="js/GLTFLoader.js"></script>
 		<script>
 
-			var scene = new THREE.Scene();
+			const scene = new THREE.Scene();
             /*
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
@@ -40,11 +40,11 @@
 			animate();
             /*/
 
-			var renderer = new THREE.WebGLRenderer();
+			const renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
             //*/
-            var loader = new THREE.GLTFLoader();
+            const loader = new THREE.GLTFLoader();
 
             function update () {
                 mixer.update( deltaSeconds );
@@ -64,32 +64,33 @@
                         scene.add( gltf.scene );
 
                         console.log(  gltf );
-                        for ( var obj of gltf.scene.children ) {
+
+                        // walk through all animations 
+                        // find which object they belong to 
+                        const dict_objname_anim = {}
+                        for (const anim of gltf.animations) {
+                            // console.log( anim.tracks[0].name.split('.')[0] );
+                            const obj_name = anim.tracks[0].name.split('.')[0];
+                            dict_objname_anim[ obj_name ] = anim ;
+                        }
+
+                        for ( const obj of gltf.scene.children ) {
                             if ( obj.type == "Mesh"  ) {
-                                var mesh = obj ;
-                                // mesh is a THREE.Group (THREE.Object3D)      
-                                if ( mesh.name == "Sphere"  ) {
-                                    var mixer = new THREE.AnimationMixer( mesh );
+                                // mesh is a THREE.Group (THREE.Object3D)   
+                                const mesh = obj ;
+                                // find anim by mesh name 
+                                const anim = dict_objname_anim[ mesh.name] ;   
+                                if ( anim ) {
+                                    const mixer = new THREE.AnimationMixer( mesh );
                                     objs.push( mixer ); 
-                                    // animations is a list of THREE.AnimationClip
-                                    for (const anim of gltf.animations) {
-                                        console.log( mixer.name,  anim); 
-                                        mixer.clipAction(anim).play();
-                                    }
+                                    mixer.clipAction(anim).play();
+                                    console.log( "add anim:" , anim.name , "to" , mesh.name  );
                                 }
 
                             }
                         }
                         
-                        var clock = new THREE.Clock();
-                        (function animate() {
-                            // animation with THREE.AnimationMixer.update(timedelta)                
-                            for ( const mixer of objs) {
-                                mixer.update(clock.getDelta());
-                            }
-                            renderer.render(scene, camera);
-                            requestAnimationFrame(animate);
-                        })();
+                        animate();
 
 
 
@@ -98,7 +99,15 @@
                         console.error( error );
 
                     } );
-        
+        var clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            // animation with THREE.AnimationMixer.update(timedelta)                
+            for ( const mixer of objs) {
+                mixer.update(clock.getDelta());
+            }
+            renderer.render(scene, camera);
+        }
 
 		</script>
 	</body>
