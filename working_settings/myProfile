@@ -14,8 +14,11 @@ export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 
 # ios Debug
-export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
-alias symbolicatecrash="/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash"
+if [ -L "/Applications/Xcode.app" ]
+then
+    export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
+    alias symbolicatecrash="/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash"
+fi 
 
 # python user
 export PATH=$PATH:~/Library/Python/2.7/bin/
