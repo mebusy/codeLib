@@ -8,13 +8,46 @@ import (
     "net/http/httputil"
     "fmt"
     "log"
+    "strings"
+    "os"
 )
 
-func webhookHandle  (w http.ResponseWriter, r *http.Request) {
+var mapEnvVars = map[string]string {}
+
+const (
+    KEY_GAME = "game"
+)
+
+func webhookHandleGET  (w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
-    // w.WriteHeader(http.StatusOK)
-    fmt.Fprintf(w, "%v", vars)
+    game:= vars[ KEY_GAME ]
+
+    envVarVerifyToken := "BOT_VERIFY_TOKEN_" + strings.ToUpper( game )
+    v,ok := mapEnvVars[ envVarVerifyToken ]
+    if !ok {
+        v = os.Getenv( envVarVerifyToken )      
+        if v == "" {
+            http.Error( w, "unvalid game: " + game   , http.StatusForbidden )
+            return 
+        }
+        mapEnvVars[ envVarVerifyToken ] = v 
+    }
+
+    // log.Println( r.URL.Query()  )
+    hub_mode := r.FormValue(  "hub.mode" )
+    hub_verify_token := r.FormValue( "hub.verify_token" )
+    hub_challenge := r.FormValue( "hub.challenge" )
+
+    if hub_mode ==  "subscribe"  && hub_verify_token == v  {
+        log.Println("Validating webhook");
+        fmt.Fprintf(w, hub_challenge )
+    } else {
+        http.Error( w, "Failed validation. Make sure the validation tokens match:" + game   , http.StatusForbidden  )
+    }
+    
+    // fmt.Fprintf(w, "hub.mode: %v", hub_mode  )
 }
+
 func catchAllHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "catch all")     
 }
@@ -23,7 +56,7 @@ func catchAllHandler(w http.ResponseWriter, r *http.Request) {
 func loggingMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         // Do stuff here
-        data, _ := httputil.DumpRequest(r, false)
+        data, _ := httputil.DumpRequest(r, true )
         // log.Println(r.RequestURI)
         log.Println(string(data))
 
@@ -41,7 +74,8 @@ func main() {
     // defer dbconn.RedisClose()
 
     r := mux.NewRouter()
-    r.HandleFunc("/{game}", webhookHandle)
+    r.HandleFunc(fmt.Sprintf("/{%s}" , KEY_GAME  ), webhookHandleGET ).Methods("GET")
+    r.HandleFunc(fmt.Sprintf("/{%s}" , KEY_GAME  ), webhookHandlePOST ).Methods("POST")
     r.Use(loggingMiddleware)
 
     r.HandleFunc( "/" , catchAllHandler  )
