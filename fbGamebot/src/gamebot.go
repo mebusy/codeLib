@@ -10,40 +10,34 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"os"
-	"strings"
+	// "strings"
 )
 
-var mapEnvVars = map[string]string{}
+var BOT_VERIFY_TOKEN string 
+var PAGE_ACCESS_TOKEN string 
 
-const (
-	KEY_GAME = "game"
-)
+func init() {
+    BOT_VERIFY_TOKEN = os.Getenv( "BOT_VERIFY_TOKEN" )
+    PAGE_ACCESS_TOKEN = os.Getenv( "PAGE_ACCESS_TOKEN" )
+    if BOT_VERIFY_TOKEN == "" || PAGE_ACCESS_TOKEN == "" {
+        log.Fatalln( "you must set env variable: `BOT_VERIFY_TOKEN` and `PAGE_ACCESS_TOKEN` " ) 
+    }    
+}
 
 func webhookHandleGET(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	game := vars[KEY_GAME]
-
-	envVarVerifyToken := "BOT_VERIFY_TOKEN_" + strings.ToUpper(game)
-	v, ok := mapEnvVars[envVarVerifyToken]
-	if !ok {
-		v = os.Getenv(envVarVerifyToken)
-		if v == "" {
-			http.Error(w, "unvalid game: "+game, http.StatusForbidden)
-			return
-		}
-		mapEnvVars[envVarVerifyToken] = v
-	}
+	// vars := mux.Vars(r)
+	// game := vars[KEY_GAME]
 
 	// log.Println( r.URL.Query()  )
 	hub_mode := r.FormValue("hub.mode")
 	hub_verify_token := r.FormValue("hub.verify_token")
 	hub_challenge := r.FormValue("hub.challenge")
 
-	if hub_mode == "subscribe" && hub_verify_token == v {
+	if hub_mode == "subscribe" && hub_verify_token == BOT_VERIFY_TOKEN  {
 		log.Println("Validating webhook")
 		fmt.Fprintf(w, hub_challenge)
 	} else {
-		http.Error(w, "Failed validation. Make sure the validation tokens match:"+game, http.StatusForbidden)
+		http.Error(w, "Failed validation. Make sure the validation tokens match:" , http.StatusForbidden)
 	}
 
 	// fmt.Fprintf(w, "hub.mode: %v", hub_mode  )
@@ -75,8 +69,8 @@ func main() {
 	flag.Parse()
 
 	r := mux.NewRouter()
-	r.HandleFunc(fmt.Sprintf("/{%s}", KEY_GAME), webhookHandleGET).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/{%s}", KEY_GAME), webhookHandlePOST).Methods("POST")
+	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
+	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
 	r.Use(loggingMiddleware)
 
 	r.HandleFunc("/", catchAllHandler)
