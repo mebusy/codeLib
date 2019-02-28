@@ -2,6 +2,7 @@ package main
 
 import (
     "bytes"
+    "dbconn"
     // "crypto/tls"
     "encoding/json"
     "fmt"
@@ -32,7 +33,8 @@ type eventMsg struct {
         Game_id    string
         Player_id  string
         Context_id string
-        Payload    string
+        // Context_type string 
+        Payload    string 
     }
     Recipient struct {
         Id string
@@ -43,9 +45,14 @@ type eventMsg struct {
     Timestamp int64
 }
 
+type sessionData struct {
+    Timezone int 
+    // PlayerID string 
+    FirstRun bool 
+}
 
 func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
-    // vars := mux.Vars(r)
+    // vars := mux.Vars(r))
     // game := vars[KEY_GAME]
 
     b, err := ioutil.ReadAll(r.Body)
@@ -59,6 +66,7 @@ func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
 
     var data gameplayMsg
     if err := json.Unmarshal(b, &data); err != nil {
+        log.Println(err, b )
         fmt.Fprintf(w, err.Error())
         return
     }
@@ -89,22 +97,41 @@ func receivedGameplay(event eventMsg) {
     senderId := event.Sender.Id
 
     // FBInstant player ID
-    // playerId := event.Game_play.Player_id
+    playerId := event.Game_play.Player_id
 
     // FBInstant context ID
     contextId := event.Game_play.Context_id
 
-    payLoad := event.Game_play.Payload
+    payload := event.Game_play.Payload
+    if payload != "" {
+        var m sessionData 
+        if err := json.Unmarshal( []byte(payload) , &m); err != nil {
+            log.Println( err , payload )
+            return
+        }
+        timezone := m.Timezone
+        firstRun := m.FirstRun 
+        
+        log.Println( playerId, timezone , firstRun )
 
-    // log.Println( senderId, playerId , contextId  )
+        // protect , only valid payload can be handled
+        fields := map[string]interface{} {}
+        fields[ "timezone" ] = timezone 
+        fields[ "botId" ] = senderId 
+        dbconn.UpdatePlayerInfo( playerId , fields  )
+    }
+    
+    // log.Println( payLoad  )
 
-    sendMessage(senderId, contextId, "Message to game client", "Play now!", payLoad )
+    // firstRun := payLoad.F
+
+
+    sendMessage(senderId, contextId, "Message to game client", "Play now!",  "" )
 }
 
 type sendMsgButton struct {
     Type    string `json:"type"`
     Title   string `json:"title"`
-    Context string `json:"context,omitempty"`
     Payload string `json:"payload,omitempty"`
 }
 type sendMsgElement struct {
@@ -127,6 +154,22 @@ type sendMegData struct {
     } `json:"message"`
 }
 
+type sendButtonData struct {
+    Recipient struct {
+        Id string `json:"id"`
+    } `json:"recipient"`
+    Message struct {
+        Attachment struct {
+            Type    string `json:"type"`
+            Payload struct {
+                Template_type string           `json:"template_type"`
+                Text string `json:"text"`
+                Buttons      []sendMsgButton `json:"buttons"`
+            } `json:"payload"`
+        } `json:"attachment"`
+    } `json:"message"`
+}
+
 //
 // Send bot message
 //
@@ -137,6 +180,7 @@ type sendMegData struct {
 // payload (object): Custom data that will be sent to game session
 //
 func sendMessage(player, context, message, cta, payload string ) {
+    /*
     var m sendMegData
     m.Recipient.Id = player
     m.Message.Attachment.Type = "template"
@@ -148,12 +192,26 @@ func sendMessage(player, context, message, cta, payload string ) {
                 {
                     Type:    "game_play",
                     Title:   cta,
-                    Context: context,
                     Payload: payload,
                 },
             },
         },
     }
+    /*/
+    var m sendButtonData
+    m.Recipient.Id = player
+    m.Message.Attachment.Type = "template"
+    m.Message.Attachment.Payload.Template_type = "button"
+    m.Message.Attachment.Payload.Text = message 
+    m.Message.Attachment.Payload.Buttons = []sendMsgButton {
+        {
+            Type:    "game_play",
+            Title:   cta,
+            Payload: payload,
+        },
+    }
+
+    //*/
 
     b, err := json.Marshal(m)
     if err != nil {

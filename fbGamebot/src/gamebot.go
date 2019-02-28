@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"runtime"
-	// "dbconn"
+	"dbconn"
 	"flag"
 	"fmt"
 	"log"
@@ -64,9 +64,11 @@ var listenPort = flag.String("p", "5757", "port")
 
 func main() {
 	runtime.GOMAXPROCS(1)
-	// defer dbconn.RedisClose()
+	defer dbconn.RedisClose()
 
 	flag.Parse()
+
+    dbconn.StartWorker() 
 
 	r := mux.NewRouter()
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
