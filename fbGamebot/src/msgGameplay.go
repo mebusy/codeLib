@@ -13,8 +13,9 @@ import (
     "net/http"
     // "net/url"
     // "os"
-    // "strings"
-    // "time"
+    "strings"
+    "time"
+    "event"
 )
 
 type gameplayMsg struct {
@@ -110,15 +111,24 @@ func receivedGameplay(event eventMsg) {
             return
         }
         timezone := m.Timezone
+        if timezone < 0 {
+            timezone = 24+timezone     
+        }
         firstRun := m.FirstRun 
-        
-        log.Println( playerId, timezone , firstRun )
+        // log.Println( playerId, timezone , firstRun )
 
         // protect , only valid payload can be handled
         fields := map[string]interface{} {}
         fields[ "timezone" ] = timezone 
         fields[ "botId" ] = senderId 
         dbconn.UpdatePlayerInfo( playerId , fields  )
+
+        if firstRun {
+            sendMessage( "THANK", senderId, contextId )
+        }
+        // other Non-repeat event
+        dbconn.ScheduleEvent( playerId , int64(timezone)  )
+
     }
     
     // log.Println( payLoad  )
@@ -126,7 +136,6 @@ func receivedGameplay(event eventMsg) {
     // firstRun := payLoad.F
 
 
-    sendMessage(senderId, contextId, "Message to game client", "Play now!",  "" )
 }
 
 type sendMsgButton struct {
@@ -179,37 +188,26 @@ type sendButtonData struct {
 // cta (string): Button text
 // payload (object): Custom data that will be sent to game session
 //
-func sendMessage(player, context, message, cta, payload string ) {
-    /*
-    var m sendMegData
-    m.Recipient.Id = player
-    m.Message.Attachment.Type = "template"
-    m.Message.Attachment.Payload.Template_type = "generic"
-    m.Message.Attachment.Payload.Elements = []sendMsgElement{
-        {
-            Title: message,
-            Buttons: []sendMsgButton{
-                {
-                    Type:    "game_play",
-                    Title:   cta,
-                    Payload: payload,
-                },
-            },
-        },
+func sendMessage( msgType , player, context  string ) {
+    // message, cta, payload string 
+    eData, ok := event.Conf[ msgType ]
+    if !ok {
+        log.Println( "unavailabe msgType:" , msgType  )
+        return
     }
-    /*/
+
+    message := eData.Message
+    buttons := []sendMsgButton{} 
+    for i, v := range eData.Button {
+        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: fmt.Sprintf( `{"entry":%s}`, eData.Entry[i] )  } )
+    }
+
     var m sendButtonData
     m.Recipient.Id = player
     m.Message.Attachment.Type = "template"
     m.Message.Attachment.Payload.Template_type = "button"
     m.Message.Attachment.Payload.Text = message 
-    m.Message.Attachment.Payload.Buttons = []sendMsgButton {
-        {
-            Type:    "game_play",
-            Title:   cta,
-            Payload: payload,
-        },
-    }
+    m.Message.Attachment.Payload.Buttons = buttons
 
     //*/
 
@@ -258,4 +256,31 @@ func callSendAPI(messageBytes []byte ) {
       log.Println( body  )
 
       //*/
+}
+
+
+
+func StartWorker() {
+    log.Println( "StartWorker" )
+    go func() {
+        for {
+            val := dbconn.PopTask() 
+            // log.Println( val )
+            if val == "" {
+                time.Sleep( 1 * time.Second  )
+                continue    
+            }
+            
+            // 
+            vals := strings.Split( val, "|" )
+            if len(vals) < 4 {
+                log.Println( "poped task is incorrect:" , val  )
+                return     
+            }
+            botId := vals[0]
+            msgType := vals[2]
+            // log.Println(  botId, msgType  )
+            sendMessage( msgType, botId, "" )             
+        }    
+    }()
 }

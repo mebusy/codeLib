@@ -11,6 +11,7 @@ import (
 	"net/http/httputil"
 	"os"
 	// "strings"
+    "event"
 )
 
 var BOT_VERIFY_TOKEN string 
@@ -68,7 +69,8 @@ func main() {
 
 	flag.Parse()
 
-    dbconn.StartWorker() 
+    event.LoadEvents()
+    StartWorker() 
 
 	r := mux.NewRouter()
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
