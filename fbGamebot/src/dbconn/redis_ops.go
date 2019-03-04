@@ -51,18 +51,58 @@ func getMillis() int64 {
 func UpdatePlayerInfo( playerId string , fields map[string]interface{}  ) {
     client := getRedis()
     key := playerId  // fb id
+    
+
     _ , err := client.HMSet( key , fields ).Result()
     if err != nil {
         log.Println( err )    
-        // even err, not return ,but keep  update TTL 
+        // not return ,keep TTL
     }
-    // log.Println( "UpdatePlayerInfo:" , val  )
     client.Expire( key , 7*24*3600*time.Second)
-
-    // log.Println( getMillis()  )
 }
 
+func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendId, randomFriendId, top1player string ) {
+    client := getRedis()
+    key := playerId + "_msg" // fb id
+    
+    client.Del( key )
+    params := []redis.Z {}
+
+    for k,v := range event.Conf {
+        if v.Condition == 0 || ( k == "THANK" && firstRun  ) {
+            conf := event.Conf[k]
+            params = append( params , redis.Z{ float64(conf.Priority) , k } )
+        } else {
+            combo_key := "" 
+            if k == "VS" && challengedFriendId != "" {
+                combo_key = fmt.Sprintf( "%s|%s" , k,  challengedFriendId)    
+            }
+            if  k == "toVS" && randomFriendId != "" {
+                combo_key = fmt.Sprintf( "%s|%s" , k,  randomFriendId )    
+            }
+            if k == "HIGHSCORE" && top1player != "" && top1player != playerId  {
+                combo_key = fmt.Sprintf( "%s|%s" , k,  top1player )    
+            }
+
+            if combo_key != "" {
+                conf := event.Conf[k]
+                params = append( params , redis.Z{ float64(conf.Priority) , combo_key } )
+            }
+        }
+    }
+
+    client.ZAdd( key, params... )
+    
+    client.Expire( key , 7*24*3600*time.Second)
+
+    if challengedFriendId != "" {
+        // need cancel     
+    }
+}
+
+
 var DAY_MILLIS int64 = 24*3600*1000
+var EventDays = []int64{ 1,2,3, 5,7 }  // today, next day , ...
 func ScheduleEvent( playerId string , timezone int64 )  {
     /*
     client := getRedis()
@@ -80,18 +120,9 @@ func ScheduleEvent( playerId string , timezone int64 )  {
     client := getRedis()
     millis := getMillis()  
     params := []redis.Z {}
-    for _ , k := range event.NonRepeatScheduledEvent {
-        for i , h := range event.Conf[k].Hour {
-            d :=  event.Conf[k].Day[i] 
-            // add to current timestamp 
-            if d == -1 {
-                params = append( params ,redis.Z{ float64( millis + 3600*1000 * h ) , fmt.Sprintf( "%s|%s|%d" , playerId , k,i ) } )
-            } else {
-                params = append( params ,redis.Z{ float64( millis - (millis%DAY_MILLIS) + 3600*1000 * ( d*24 + h ) ) , fmt.Sprintf( "%s|%s|%d" , playerId , k,i ) } )
-            }
-            // log.Println( k, t )     
-            
-        } 
+    for i , d := range EventDays {
+        var h int64 = 18
+        params = append( params ,redis.Z{ float64( millis - (millis%DAY_MILLIS) + 3600*1000 * ( d*24 + h - timezone  ) ) , fmt.Sprintf( "%s|%d" , playerId , i  )  } )
     }
     // log.Printf( "%+v \n" , params  )
     client.ZAdd( KEY_SCHEDULE_EVENTS, params... )

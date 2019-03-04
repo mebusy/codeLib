@@ -48,8 +48,11 @@ type eventMsg struct {
 
 type sessionData struct {
     Timezone int 
-    // PlayerID string 
     FirstRun bool 
+    ChallengedFriend string 
+    RandomFriendId string 
+    Top1player string 
+    Nickname string 
 }
 
 func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
@@ -120,15 +123,20 @@ func receivedGameplay(event eventMsg) {
         // protect , only valid payload can be handled
         fields := map[string]interface{} {}
         fields[ "timezone" ] = timezone 
-        fields[ "botId" ] = senderId 
-        dbconn.UpdatePlayerInfo( playerId , fields  )
+        fields[ "botId" ] = senderId   // page scope id
+        fields[ "nickname" ] = m.Nickname 
 
+        dbconn.UpdatePlayerInfo( playerId , fields  )
+        dbconn.UpdateAvailableMessage( playerId, firstRun , m.ChallengedFriend , m.RandomFriendId , m.Top1player  )
+
+
+        _ = contextId 
+        /*
         if firstRun {
             sendMessage( "THANK", senderId, contextId )
         }
-        // other Non-repeat event
+        //*/
         dbconn.ScheduleEvent( playerId , int64(timezone)  )
-
     }
     
     // log.Println( payLoad  )

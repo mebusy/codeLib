@@ -7,17 +7,14 @@ import (
 )
 
 type DEFINE struct {
-    Repeat int
     Button []string
-    Hour []int64
-    Day []int64
     Entry []string 
     Priority int
     Message string 
+    Condition int
 }
 
 var Conf = map[string] DEFINE {}
-var NonRepeatScheduledEvent = []string {}
 func LoadEvents() {
     b, err := ioutil.ReadFile( "event.txt" )
     if err != nil {
@@ -29,16 +26,15 @@ func LoadEvents() {
         log.Fatalln( err )
     }
 
+    /*
     for k,v := range Conf {
-        if k == "THANK" {
-            continue
-        }
-        if v.Repeat > 0  {
+        if  v.Condition == 1 {
             continue
         }
 
-        NonRepeatScheduledEvent = append( NonRepeatScheduledEvent , k  )
+        NonConditionEvent = append( NonConditionEvent , k  )
     }
+    //*/
 
     // log.Println( "%+v" , NonRepeatScheduledEvent  )
 }
