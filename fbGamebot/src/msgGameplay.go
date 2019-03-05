@@ -131,18 +131,9 @@ func receivedGameplay(event eventMsg) {
 
 
         _ = contextId 
-        /*
-        if firstRun {
-            sendMessage( "THANK", senderId, contextId )
-        }
-        //*/
         dbconn.ScheduleEvent( playerId , int64(timezone)  )
     }
     
-    // log.Println( payLoad  )
-
-    // firstRun := payLoad.F
-
 
 }
 
@@ -151,8 +142,14 @@ type sendMsgButton struct {
     Title   string `json:"title"`
     Payload string `json:"payload,omitempty"`
 }
+
+type defaultAction struct {
+    Type string `json:"type"`    
+}
 type sendMsgElement struct {
     Title   string          `json:"title"`
+    Image_url string  `json:"image_url"`
+    Default_action defaultAction  `json:"default_action"`
     Buttons []sendMsgButton `json:"buttons"`
 }
 
@@ -170,7 +167,7 @@ type sendMegData struct {
         } `json:"attachment"`
     } `json:"message"`
 }
-
+/*
 type sendButtonData struct {
     Recipient struct {
         Id string `json:"id"`
@@ -186,6 +183,7 @@ type sendButtonData struct {
         } `json:"attachment"`
     } `json:"message"`
 }
+//*/
 
 //
 // Send bot message
@@ -196,7 +194,7 @@ type sendButtonData struct {
 // cta (string): Button text
 // payload (object): Custom data that will be sent to game session
 //
-func sendMessage( msgType , player, context  string ) {
+func sendMessage( msgType , player, nickname  string ) {
     // message, cta, payload string 
     eData, ok := event.Conf[ msgType ]
     if !ok {
@@ -205,17 +203,31 @@ func sendMessage( msgType , player, context  string ) {
     }
 
     message := eData.Message
+    if nickname != "" {
+        message = strings.ReplaceAll( message , "[FRIEND_NAME]" , nickname  )
+    }
+    // log.Println( message , nickname  )
     buttons := []sendMsgButton{} 
     for i, v := range eData.Button {
         buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: fmt.Sprintf( `{"entry":%s}`, eData.Entry[i] )  } )
     }
 
-    var m sendButtonData
+    var m sendMegData 
     m.Recipient.Id = player
     m.Message.Attachment.Type = "template"
-    m.Message.Attachment.Payload.Template_type = "button"
-    m.Message.Attachment.Payload.Text = message 
-    m.Message.Attachment.Payload.Buttons = buttons
+    m.Message.Attachment.Payload.Template_type = "generic"
+
+
+    testUrl := "https://scontent-hkg3-2.xx.fbcdn.net/v/t39.2081-0/53286035_774550962902370_2138755759058452480_n.jpg?_nc_cat=110&_nc_ht=scontent-hkg3-2.xx&oh=19b21e21607495659201cf0af9c6733f&oe=5CDF1C92"
+    var ele sendMsgElement 
+    ele.Title = message 
+    ele.Buttons = buttons
+    ele.Image_url = testUrl
+    ele.Default_action = defaultAction{ Type: "game_play" }
+
+    m.Message.Attachment.Payload.Elements = []sendMsgElement{ ele }
+    // m.Message.Attachment.Payload.Text = message 
+    // m.Message.Attachment.Payload.Buttons = buttons
 
     //*/
 
@@ -243,7 +255,6 @@ func callSendAPI(messageBytes []byte ) {
     _ = http_client 
     //*/
 
-    //*
     graphApiUrl := "https://graph.facebook.com/me/messages?access_token=" + PAGE_ACCESS_TOKEN
     res, err := http.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
     if err != nil {
@@ -252,18 +263,6 @@ func callSendAPI(messageBytes []byte ) {
     }
     io.Copy(ioutil.Discard, res.Body)
     res.Body.Close()
-    /*/
-      res , err := http_client.Get( "https://www.baidu.com" )
-      if err != nil {
-          log.Println( err )
-          return
-      }
-      body, _ := ioutil.ReadAll(res.Body)
-      res.Body.Close()
-
-      log.Println( body  )
-
-      //*/
 }
 
 
@@ -271,24 +270,34 @@ func callSendAPI(messageBytes []byte ) {
 func StartWorker() {
     log.Println( "StartWorker" )
     go func() {
+        interval := 1
         for {
             val := dbconn.PopTask() 
             // log.Println( val )
             if val == "" {
-                time.Sleep( 1 * time.Second  )
+                time.Sleep( time.Duration(interval) * time.Second  )
+                interval += 1
+                if interval > 15 {
+                    interval = 15     
+                }
                 continue    
             }
             
-            // 
+            
+            // botid | type | [nikename]
             vals := strings.Split( val, "|" )
-            if len(vals) < 4 {
+            if len(vals) < 2 {
                 log.Println( "poped task is incorrect:" , val  )
                 return     
             }
             botId := vals[0]
-            msgType := vals[2]
+            msgType := vals[1]
+            nikename := ""
+            if len(vals) >= 3 {
+                nikename = vals[2]  
+            }
             // log.Println(  botId, msgType  )
-            sendMessage( msgType, botId, "" )             
+            sendMessage( msgType, botId, nikename  )             
         }    
     }()
 }
