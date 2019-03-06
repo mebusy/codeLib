@@ -6,50 +6,61 @@ import (
     "time"
     "event"
     "fmt"
+    "math/rand"
 )
 
 
 var KEY_SCHEDULE_EVENTS = "zScheduledEvents"
 var LUA_POPTASK = `
 local entries = redis.call("zrangebyscore",KEYS[1],ARGV[1],ARGV[2]);
-local playerId 
+local t_res = {}
 if table.getn(entries) > 0 then
     local eventKey = entries[1]
     redis.call("zrem",KEYS[1],eventKey);
     local idx = string.find( eventKey , "|" )
     if idx == nil then
-        return ""
+        t_res["err"] = "event id didn't containt '|'"
+        return cjson.encode( t_res )
     end 
 
-    playerId =  string.sub( eventKey ,1, idx-1 ) 
+    local playerId =  string.sub( eventKey ,1, idx-1 ) 
     
     local botId = redis.call( "hget" , playerId  , "botId" )
     if not botId  then
-        return ""
+        t_res["err"] = "can not fetch bot id"
+        return cjson.encode( t_res )
     end
 
-    local key_msg = playerId .. "_msg" 
-    local tasks = redis.call( "zrange" , key_msg , 0, 0  )
-    if (not tasks) or #tasks == 0 then
-        return ""
-    end
-    local task = tasks[1]
-    redis.call("ZINCRBY", key_msg , 100 ,  task  )
-    
-    local idx = string.find( task , "|" )
-    if idx == nil then
-        return botId .. "|" .. task
-    end 
+    while true do
+        local key_msg = playerId .. "_msg" 
+        local tasks = redis.call( "zrange" , key_msg , 0, 0  )
+        if (not tasks) or #tasks == 0 then
+            t_res["err"] = "_msg array is empty"
+            return cjson.encode( t_res )
+        end
+        local task = tasks[1]
+        redis.call("ZINCRBY", key_msg , 100 ,  task  )
+        
+        local idx = string.find( task , "|" )
+        if idx == nil then
+            t_res["data"] = botId .. "|" .. task
+            return cjson.encode( t_res )
+        end 
 
-    local event_name = string.sub( task ,1, idx-1 ) 
-    local friendId = string.sub( task , idx+1  )
-    local nickname = redis.call( "hget" , friendId   , "nickname" ) 
-    if not nickname then
-        return ""
+        local event_name = string.sub( task ,1, idx-1 ) 
+        local friendId = string.sub( task , idx+1  )
+        local nickname = redis.call( "hget" , friendId   , "nickname" ) 
+        if not nickname then
+            -- nickname can not fetch , do next meg 
+        else 
+            t_res["data"] = botId .. "|" .. event_name   .. "|"  ..  (nickname or friendId  )
+            return cjson.encode( t_res )
+        end 
+
     end 
-    return botId .. "|" .. event_name   .. "|"  ..  nickname 
 else
-    return ""
+    t_res["err"] = "EVENT_UNAVAILABLE"
+    return cjson.encode( t_res )
 end
 `
 func PopTask() string {
@@ -157,19 +168,20 @@ func ScheduleEvent( playerId string , timezone int64 )  {
     millis := getMillis()  
     params := []redis.Z {}
     
-    var time_h int64 = (millis%DAY_MILLIS)/(3600*1000) + timezone 
-    // log.Println( "current hour:  " , time_h )
+    var time_local_h  int64 = ((millis%DAY_MILLIS)/(3600*1000) + timezone + 24) % 24 
+    // log.Println( "current hour:  " , time_local_h  )
     for i , d := range EventDays {
         if i == 0 {
             // next 2 hour
             // 8:00 - 22:00 , push 
-            if time_h + 2 > 8 && time_h + 2 < 22 {
+            if time_local_h  + 2 > 8 && time_local_h  + 2 < 22 {
                 params = append( params ,redis.Z{ float64( millis + 3600*1000 * 2 ) , fmt.Sprintf( "%s|%d" , playerId , i  )  } )
             }
             continue     
         }
-        var h int64 = 18
-        params = append( params ,redis.Z{ float64( millis - (millis%DAY_MILLIS) + 3600*1000 * ( (d-1)*24 + h - timezone  ) ) , fmt.Sprintf( "%s|%d" , playerId , i  )  } )
+        var h int64 = 16
+        randomTick := rand.Int63n(  3600*1000 * 3 )
+        params = append( params ,redis.Z{ float64( millis - (millis%DAY_MILLIS) + 3600*1000 * ( (d-1)*24 + h - timezone  ) + randomTick ) , fmt.Sprintf( "%s|%d" , playerId , i  )  } )
     }
     // log.Printf( "%+v \n" , params  )
     client.ZAdd( KEY_SCHEDULE_EVENTS, params... )

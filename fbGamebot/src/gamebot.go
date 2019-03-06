@@ -62,6 +62,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 var listenPort = flag.String("p", "5757", "port")
+var debug = flag.Int("d", 1, "debug: 0|1")
 
 func main() {
 	runtime.GOMAXPROCS(1)
@@ -75,7 +76,9 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
-	r.Use(loggingMiddleware)
+    if *debug == 1 {
+        r.Use(loggingMiddleware)
+    }
 
 	r.HandleFunc("/", catchAllHandler)
 

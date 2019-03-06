@@ -7,7 +7,7 @@ import (
     "encoding/json"
     "fmt"
     // "github.com/gorilla/mux"
-    "io"
+    // "io"
     "io/ioutil"
     "log"
     "net/http"
@@ -114,9 +114,6 @@ func receivedGameplay(event eventMsg) {
             return
         }
         timezone := m.Timezone
-        if timezone < 0 {
-            timezone = 24+timezone     
-        }
         firstRun := m.FirstRun 
         // log.Println( playerId, timezone , firstRun )
 
@@ -241,6 +238,7 @@ func sendMessage( msgType , player, nickname  string ) {
     go callSendAPI( b )
 }
 
+var ch_cc = make(chan int, 256 )
 func callSendAPI(messageBytes []byte ) {
     // This transport is what's causing unclosed connections.
     // use proxy settting manually
@@ -255,39 +253,68 @@ func callSendAPI(messageBytes []byte ) {
     _ = http_client 
     //*/
 
+    ch_cc <- 1
     graphApiUrl := "https://graph.facebook.com/me/messages?access_token=" + PAGE_ACCESS_TOKEN
     res, err := http.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
     if err != nil {
         log.Println(err)
-        return
+    } else {
+        /*
+        io.Copy(ioutil.Discard, res.Body)
+        /*/
+        b, err := ioutil.ReadAll(res.Body)
+        if err != nil {
+            log.Println( err )    
+        }
+        log.Println( string(b) )
+            
+        //*/
+        res.Body.Close()
     }
-    io.Copy(ioutil.Discard, res.Body)
-    res.Body.Close()
 }
 
 
+type TASK_RESP struct {
+    Err string
+    Data string     
+}
 
 func StartWorker() {
     log.Println( "StartWorker" )
     go func() {
         interval := 1
         for {
-            val := dbconn.PopTask() 
-            // log.Println( val )
-            if val == "" {
-                time.Sleep( time.Duration(interval) * time.Second  )
-                interval += 1
-                if interval > 15 {
-                    interval = 15     
+            _val := dbconn.PopTask() 
+            var m TASK_RESP
+            if err := json.Unmarshal([]byte(_val), &m); err != nil {
+                log.Println(err, _val )
+                continue
+            }
+
+            err := m.Err 
+            if err != "" {
+                if err == "EVENT_UNAVAILABLE" {
+                    time.Sleep( time.Duration(interval) * time.Second  )
+                    interval += 1
+                    if interval > 15 {
+                        interval = 15     
+                    }
+                } else {
+                    log.Println( err ) 
                 }
                 continue    
             }
+            data := m.Data 
+            if data == "" {
+                log.Println( "task response data is empty " )
+                continue    
+            }
             
-            
+             
             // botid | type | [nikename]
-            vals := strings.Split( val, "|" )
+            vals := strings.Split( data, "|" )
             if len(vals) < 2 {
-                log.Println( "poped task is incorrect:" , val  )
+                log.Println( "poped task is incorrect:" , data  )
                 return     
             }
             botId := vals[0]
