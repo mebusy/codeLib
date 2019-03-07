@@ -85,7 +85,7 @@ func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
                 // fmt.Printf( "%+pageToken \n",  event.Game_play )
                 isGameplayMsg := event.Game_play.Game_id != ""
                 if isGameplayMsg {
-                    receivedGameplay(event)
+                    go receivedGameplay(event)
                 } else {
                     log.Printf("unknow message: %+pageToken \n", event)
                 }
@@ -96,7 +96,14 @@ func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "gameplay post.")
 }
 
+var ch_handle_gameplay  = make(chan int, 1024 )
 func receivedGameplay(event eventMsg) {
+    ch_handle_gameplay <- 1
+    // log.Println( "handle " )
+    defer func() { 
+        <- ch_handle_gameplay 
+        // log.Println( "handle done " )
+    }()
     // Page-scoped ID of the bot user
     senderId := event.Sender.Id
 

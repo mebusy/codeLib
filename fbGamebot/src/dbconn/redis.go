@@ -17,7 +17,7 @@ func getRedis() *redis.Client {
             Addr:    addr,
             Password: redis_password, // no password set
             DB:       0,  // use default DB
-            PoolSize: 10*runtime.GOMAXPROCS(0)  ,  // default:  10 * runtime.Num-CPU() 
+            PoolSize: 1000*runtime.GOMAXPROCS(0)  ,  // default:  10 * runtime.Num-CPU() 
         })
 
         if client == nil {
