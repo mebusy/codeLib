@@ -2,7 +2,12 @@ GIT_COMMIT=$(git rev-list -1 HEAD)
 
 echo $GIT_COMMIT
 
-go build -ldflags "-X main.GitCommit=$GIT_COMMIT"  -o /Volumes/WORK/WORK/STACK/UMC-Docs/gamebot/botserver
+TARGET=botserver
+DIST_FOLDER="/Volumes/WORK/WORK/STACK/UMC-Common-Service"
+go build -ldflags "-X main.GitCommit=$GIT_COMMIT"  -o $TARGET
+
+mv -f $TARGET  $DIST_FOLDER 
+
 
 
 
