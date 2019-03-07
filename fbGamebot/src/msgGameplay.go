@@ -47,7 +47,7 @@ type eventMsg struct {
 }
 
 type sessionData struct {
-    Timezone int 
+    Timezone float64
     FirstRun bool 
     ChallengedFriend string 
     RandomFriendId string 
@@ -215,11 +215,12 @@ func sendMessage( msgType , player, nickname  string ) {
     m.Message.Attachment.Payload.Template_type = "generic"
 
 
-    testUrl := "https://scontent-hkg3-2.xx.fbcdn.net/v/t39.2081-0/53286035_774550962902370_2138755759058452480_n.jpg?_nc_cat=110&_nc_ht=scontent-hkg3-2.xx&oh=19b21e21607495659201cf0af9c6733f&oe=5CDF1C92"
+    // testUrl := "https://scontent-hkg3-2.xx.fbcdn.net/v/t39.2081-0/53286035_774550962902370_2138755759058452480_n.jpg?_nc_cat=110&_nc_ht=scontent-hkg3-2.xx&oh=19b21e21607495659201cf0af9c6733f&oe=5CDF1C92"
     var ele sendMsgElement 
     ele.Title = message 
     ele.Buttons = buttons
-    ele.Image_url = testUrl
+    ele.Image_url = fmt.Sprintf( "%s%s.jpg" , CDN_IMAGE ,  msgType )
+    // log.Println( ele.Image_url   )
     ele.Default_action = defaultAction{ Type: "game_play" }
 
     m.Message.Attachment.Payload.Elements = []sendMsgElement{ ele }

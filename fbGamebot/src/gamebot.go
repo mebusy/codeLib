@@ -10,19 +10,27 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"os"
-	// "strings"
+	"strings"
     "event"
 )
 
 var BOT_VERIFY_TOKEN string 
 var PAGE_ACCESS_TOKEN string 
+var CDN_IMAGE string
 
 func init() {
     BOT_VERIFY_TOKEN = os.Getenv( "BOT_VERIFY_TOKEN" )
     PAGE_ACCESS_TOKEN = os.Getenv( "PAGE_ACCESS_TOKEN" )
     if BOT_VERIFY_TOKEN == "" || PAGE_ACCESS_TOKEN == "" {
         log.Fatalln( "you must set env variable: `BOT_VERIFY_TOKEN` and `PAGE_ACCESS_TOKEN` " ) 
-    }    
+    }
+    CDN_IMAGE = os.Getenv( "CDN_IMAGE" )
+    if CDN_IMAGE == "" {
+        log.Fatalln( "CDN_IMAGE is empty" )    
+    }
+    if ! strings.HasSuffix( CDN_IMAGE ,  "/" ) {
+        CDN_IMAGE = CDN_IMAGE + "/"    
+    }
 }
 
 func webhookHandleGET(w http.ResponseWriter, r *http.Request) {
@@ -62,7 +70,6 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 var listenPort = flag.String("p", "5757", "port")
-var debug = flag.Int("d", 1, "debug: 0|1")
 
 func main() {
 	runtime.GOMAXPROCS(1)
@@ -76,7 +83,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
-    if *debug == 1 {
+    if runtime.GOOS == "darwin" {
         r.Use(loggingMiddleware)
     }
 
