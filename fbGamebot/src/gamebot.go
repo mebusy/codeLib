@@ -71,6 +71,8 @@ func loggingMiddleware(next http.Handler) http.Handler {
 
 var listenPort = flag.String("p", "5757", "port")
 
+var GitCommit string
+
 func main() {
 	runtime.GOMAXPROCS(1)
 	defer dbconn.RedisClose()
@@ -89,7 +91,7 @@ func main() {
 
 	r.HandleFunc("/", catchAllHandler)
 
-	log.Println("listening on ", *listenPort)
+	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
 	http.ListenAndServe(":"+*listenPort, r)
 
 }
