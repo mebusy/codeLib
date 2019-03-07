@@ -85,7 +85,7 @@ func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
                 // fmt.Printf( "%+pageToken \n",  event.Game_play )
                 isGameplayMsg := event.Game_play.Game_id != ""
                 if isGameplayMsg {
-                    go receivedGameplay(event)
+                    receivedGameplay(event)
                 } else {
                     log.Printf("unknow message: %+pageToken \n", event)
                 }
@@ -96,14 +96,9 @@ func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "gameplay post.")
 }
 
-var ch_handle_gameplay  = make(chan int, 1024 )
 func receivedGameplay(event eventMsg) {
-    ch_handle_gameplay <- 1
-    // log.Println( "handle " )
-    defer func() { 
-        <- ch_handle_gameplay 
-        // log.Println( "handle done " )
-    }()
+
+    // log.Println( "1" )
     // Page-scoped ID of the bot user
     senderId := event.Sender.Id
 
@@ -139,6 +134,7 @@ func receivedGameplay(event eventMsg) {
     }
     
 
+    // log.Println( "2" )
 }
 
 type sendMsgButton struct {
@@ -246,7 +242,7 @@ func sendMessage( msgType , player, nickname  string ) {
     go callSendAPI( b )
 }
 
-var ch_cc = make(chan int, 256 )
+var ch_cc = make(chan int, 512 )
 func callSendAPI(messageBytes []byte ) {
     // This transport is what's causing unclosed connections.
     // use proxy settting manually
@@ -262,6 +258,9 @@ func callSendAPI(messageBytes []byte ) {
     //*/
 
     ch_cc <- 1
+    defer func() {
+        <- ch_cc
+    }()
     graphApiUrl := "https://graph.facebook.com/me/messages?access_token=" + PAGE_ACCESS_TOKEN
     res, err := http.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
     if err != nil {
