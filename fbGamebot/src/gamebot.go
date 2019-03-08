@@ -12,6 +12,7 @@ import (
 	"os"
 	"strings"
     "event"
+    _ "net/http/pprof"
 )
 
 var BOT_VERIFY_TOKEN string 
@@ -90,6 +91,10 @@ func main() {
     }
 
 	r.HandleFunc("/", catchAllHandler)
+
+    go func() {
+        log.Println(http.ListenAndServe("localhost:6060", nil))
+    }()
 
 	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
 	http.ListenAndServe(":"+*listenPort, r)
