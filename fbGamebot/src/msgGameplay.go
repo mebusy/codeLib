@@ -246,7 +246,7 @@ var ch_cc = make(chan int, 512 )
 func callSendAPI(messageBytes []byte ) {
     // This transport is what's causing unclosed connections.
     // use proxy settting manually
-    // Note: some version of go can not use https_proxy:  like 
+    // Note: some version of golang can not use https_proxy:  like 
     // https://127.0.0.1:3128, but works with http://127.0.0.1:3128
     /*
     tr := &http.Transport{
