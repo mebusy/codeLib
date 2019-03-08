@@ -93,7 +93,7 @@ func main() {
 	r.HandleFunc("/", catchAllHandler)
 
     go func() {
-        log.Println(http.ListenAndServe("localhost:6060", nil))
+        log.Println(http.ListenAndServe(":6060", nil))
     }()
 
 	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
