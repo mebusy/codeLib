@@ -246,6 +246,10 @@ func sendMessage( msgType , player, nickname  string ) {
 
 var cc_sendapi = make(chan int, 1024 )
 func callSendAPI(messageBytes []byte ) {
+    defer func() {
+        <- cc_sendapi
+    }()
+
     // This transport is what's causing unclosed connections.
     // use proxy settting manually
     // Note: some version of golang can not use https_proxy:  like 
@@ -259,9 +263,6 @@ func callSendAPI(messageBytes []byte ) {
     _ = http_client 
     //*/
 
-    defer func() {
-        <- cc_sendapi
-    }()
     graphApiUrl := "https://graph.facebook.com/me/messages?access_token=" + PAGE_ACCESS_TOKEN
     res, err := http.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
     if err != nil {
