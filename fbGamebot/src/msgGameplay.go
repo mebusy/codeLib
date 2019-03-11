@@ -16,6 +16,7 @@ import (
     "strings"
     "time"
     "event"
+    "runtime"
 )
 
 type gameplayMsg struct {
@@ -293,6 +294,7 @@ func StartWorker() {
     go func() {
         interval := 1
         for {
+            time.Sleep( time.Duration(interval) * time.Second  )
             _val := dbconn.PopTask( *bogMesTest == 1 ) 
             var m TASK_RESP
             if err := json.Unmarshal([]byte(_val), &m); err != nil {
@@ -306,19 +308,19 @@ func StartWorker() {
                     time.Sleep( time.Duration(interval) * time.Second  )
                     interval += 1
                     if interval > 15 {
-                        interval = 15     
+                        interval = 15
                     }
                 } else {
                     interval = 1
-                    log.Println( err ) 
+                    log.Println( err )
                 }
-                continue    
+                continue
             }
             interval = 1
-            data := m.Data 
+            data := m.Data
             if data == "" {
                 log.Println( "task response data is empty " )
-                continue    
+                continue
             }
             
              
@@ -335,7 +337,9 @@ func StartWorker() {
                 nikename = vals[2]  
             }
             // log.Println(  botId, msgType  )
+            interval = 0 
             sendMessage( msgType, botId, nikename  )             
+            runtime.Gosched() 
         }    
     }()
 }
