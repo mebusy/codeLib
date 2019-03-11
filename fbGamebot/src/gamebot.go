@@ -71,6 +71,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 var listenPort = flag.String("p", "5757", "port")
+var bogMesTest = flag.Bool( "botmsgtest" , false , "for loadtesting ONLY!!! send bot msg right now" )
 
 var GitCommit string
 

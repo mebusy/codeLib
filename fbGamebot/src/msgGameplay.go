@@ -293,7 +293,7 @@ func StartWorker() {
     go func() {
         interval := 1
         for {
-            _val := dbconn.PopTask() 
+            _val := dbconn.PopTask( *bogMesTest ) 
             var m TASK_RESP
             if err := json.Unmarshal([]byte(_val), &m); err != nil {
                 log.Println(err, _val )

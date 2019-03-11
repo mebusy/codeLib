@@ -63,15 +63,17 @@ else
     return cjson.encode( t_res )
 end
 `
-func PopTask() string {
+func PopTask( isMsgTest  bool ) string {
     client := getRedis()
-    //*
-    val , err :=  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0, getMillis() , 1  ).Result()
-    // log.Println( "millis:" , getMillis()  )
-    /*/
-    // for test 
-    val , err :=  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0,  "+inf"  , 1  ).Result()
-    //*/
+    var err error
+    var val interface{}
+    if isMsgTest {
+        // for test 
+        val , err =  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0,  "+inf"  , 1  ).Result()
+    } else {
+        val , err =  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0, getMillis() , 1  ).Result()
+    }
+
     if err != nil {
         log.Println(err) 
         return ""
