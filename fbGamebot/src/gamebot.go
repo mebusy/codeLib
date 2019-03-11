@@ -71,7 +71,8 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 var listenPort = flag.String("p", "5757", "port")
-var bogMesTest = flag.Bool( "botmsgtest" , false , "for loadtesting ONLY!!! send bot msg right now" )
+var bogMesTest = flag.Int( "t" , 0 , "for loadtesting ONLY!!! send bot msg right now" )
+var verbose = flag.Int( "v" , 0 , "verbose" )
 
 var GitCommit string
 
@@ -81,13 +82,17 @@ func main() {
 
 	flag.Parse()
 
+    if *verbose == 1 {
+        log.SetFlags(log.LstdFlags | log.Lshortfile)
+    }
+
     event.LoadEvents()
     StartWorker() 
 
 	r := mux.NewRouter()
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
-    if runtime.GOOS == "darwin" {
+    if runtime.GOOS == "darwin" || *verbose == 1 {
         r.Use(loggingMiddleware)
     }
 
