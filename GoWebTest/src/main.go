@@ -58,6 +58,9 @@ func main() {
 	defer dbconn.MysqlClose()
 	defer dbconn.RedisClose()
 
+    // Enable line numbers in logging
+    log.SetFlags(log.LstdFlags | log.Lshortfile)
+
 	/*
 	   pwd, err := os.Getwd()
 	   if err != nil {
