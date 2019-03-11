@@ -309,10 +309,12 @@ func StartWorker() {
                         interval = 15     
                     }
                 } else {
+                    interval = 1
                     log.Println( err ) 
                 }
                 continue    
             }
+            interval = 1
             data := m.Data 
             if data == "" {
                 log.Println( "task response data is empty " )
