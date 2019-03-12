@@ -6,6 +6,7 @@ import (
 	"net"
     "fmt"
     // "os"
+    "sync"
     "flag"
 )
 
@@ -37,13 +38,29 @@ func main() {
         if err != nil {
             log.Fatal("could not connect to target", err)
         }
-        defer target.Close()
-        // Echo all incoming data.
+
+        var wg sync.WaitGroup 
         // client -> target
-        go func() { io.Copy(target, client) }()
+        wg.Add(1) 
+        go func() { 
+            io.Copy(target, client) 
+            wg.Done()
+            // log.Println( "c -> t done" , client , target) 
+        }()
+        
         // target -> client 
-        go func() { io.Copy(client, target) }()
+        wg.Add(1)
+        go func() { 
+            io.Copy(client, target) 
+            wg.Done()
+            // log.Println( "t -> c done", client, target ) 
+        }()
         // Shut down the connection.
-        defer conn.Close()
+        go func() {
+            wg.Wait()
+            conn.Close()
+            target.Close() 
+            // log.Println( "close c & t" , client, target  )
+        }()
 	}
 }
