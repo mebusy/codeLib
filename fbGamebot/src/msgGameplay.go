@@ -50,6 +50,7 @@ type eventMsg struct {
 type sessionData struct {
     Timezone float64
     FirstRun bool 
+    FirstTime bool
     ChallengedFriend string 
     RandomFriendId string 
     Top1player string 
@@ -117,7 +118,7 @@ func receivedGameplay(event eventMsg) {
             return
         }
         timezone := m.Timezone
-        firstRun := m.FirstRun 
+        firstRun := m.FirstRun  || m.FirstTime 
         // log.Println( playerId, timezone , firstRun )
 
         // protect , only valid payload can be handled
@@ -131,7 +132,7 @@ func receivedGameplay(event eventMsg) {
 
 
         _ = contextId 
-        dbconn.ScheduleEvent( playerId , int64(timezone)  )
+        dbconn.ScheduleEvent( playerId , int64(timezone) , firstRun  )
     }
     
 

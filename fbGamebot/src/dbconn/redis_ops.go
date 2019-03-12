@@ -153,7 +153,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
 
 var DAY_MILLIS int64 = 24*3600*1000
 var EventDays = []int64{ 1,2,3, 5,7 }  // today, next day , ...
-func ScheduleEvent( playerId string , timezone int64 )  {
+func ScheduleEvent( playerId string , timezone int64 , firstRun bool )  {
     /*
     client := getRedis()
     v , err := client.TTL( playerId ).Result() 
@@ -185,6 +185,10 @@ func ScheduleEvent( playerId string , timezone int64 )  {
         var h int64 = 16
         randomTick := rand.Int63n(  3600*1000 * 3 )
         params = append( params ,redis.Z{ float64( millis - (millis%DAY_MILLIS) + 3600*1000 * ( (d-1)*24 + h - timezone  ) + randomTick ) , fmt.Sprintf( "%s|%d" , playerId , i  )  } )
+    }
+
+    if firstRun {
+        params = append( params ,redis.Z{ float64(millis)   , fmt.Sprintf( "%s|%d" , playerId , 99  )  } )    
     }
     // log.Printf( "%+v \n" , params  )
     client.ZAdd( KEY_SCHEDULE_EVENTS, params... )
