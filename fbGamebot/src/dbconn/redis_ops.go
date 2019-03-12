@@ -7,6 +7,7 @@ import (
     "event"
     "fmt"
     "math/rand"
+    "strconv"
 )
 
 
@@ -188,3 +189,26 @@ func ScheduleEvent( playerId string , timezone int64 )  {
     // log.Printf( "%+v \n" , params  )
     client.ZAdd( KEY_SCHEDULE_EVENTS, params... )
 }
+
+
+
+func GetMaxConnection() int {
+    client := getRedis()
+
+    vals , err := client.ConfigGet( "maxclients" ).Result()
+    if err != nil {
+        log.Println( err )
+    }
+    if len(vals) == 2 {
+        i, err := strconv.Atoi( vals[1].(string)  )
+        if err != nil {
+            // handle error
+            log.Println( err )
+        } else {
+            return i 
+        }
+    }
+
+    return 0
+}
+

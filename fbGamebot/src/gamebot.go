@@ -56,6 +56,11 @@ func webhookHandleGET(w http.ResponseWriter, r *http.Request) {
 func catchAllHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "catch all")
 }
+func infoHandle(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "git commit: %s \n",  GitCommit  )
+    maxconnection := dbconn.GetMaxConnection()
+	fmt.Fprintf(w, "max connection: %d \n", maxconnection  )
+}
 
 // type MiddlewareFunc func(http.Handler) http.Handler
 func loggingMiddleware(next http.Handler) http.Handler {
@@ -90,6 +95,7 @@ func main() {
     StartWorker() 
 
 	r := mux.NewRouter()
+	r.HandleFunc( "/info", infoHandle).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
     if runtime.GOOS == "darwin" || *verbose == 1 {
