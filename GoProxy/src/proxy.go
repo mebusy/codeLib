@@ -12,7 +12,9 @@ import (
 var listenPort = flag.Int( "p" , 31280 , "listen port" ) 
 var targetURL = flag.String( "t", "127.0.0.1:3128" ,   "host:port" ) 
 
+var GIT_COMMIT string
 func main() {
+    log.Printf( "listen on: %d, commit: %s \n" , *listenPort , GIT_COMMIT )
 	// Listen on TCP port 2000 on all available unicast and
 	// anycast IP addresses of the local system.
 	l, err := net.Listen("tcp", fmt.Sprintf( ":%d" , *listenPort )  )
