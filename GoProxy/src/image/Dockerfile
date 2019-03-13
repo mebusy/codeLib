@@ -7,10 +7,10 @@ COPY . /opt/app
 WORKDIR /opt/app
 
 
-# COPY umc-service runner
-COPY umc-service.sh /usr/bin/
-RUN chmod +x /usr/bin/umc-service.sh
+# COPY service runner
+COPY service.sh /usr/bin/
+RUN chmod +x /usr/bin/service.sh
 
 CMD []
-ENTRYPOINT ["umc-service.sh"]
+ENTRYPOINT ["service.sh"]
 
