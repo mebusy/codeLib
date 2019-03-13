@@ -13,11 +13,14 @@ import (
 	"strings"
     "event"
     _ "net/http/pprof"
+    "net/url"
 )
 
 var BOT_VERIFY_TOKEN string 
 var PAGE_ACCESS_TOKEN string 
 var CDN_IMAGE string
+
+var proxyURL *url.URL  = nil 
 
 func init() {
     BOT_VERIFY_TOKEN = os.Getenv( "BOT_VERIFY_TOKEN" )
@@ -31,6 +34,17 @@ func init() {
     }
     if ! strings.HasSuffix( CDN_IMAGE ,  "/" ) {
         CDN_IMAGE = CDN_IMAGE + "/"    
+    }
+
+    http_proxy := os.Getenv( "HTTP_PROXY" )
+    if http_proxy != "" {
+        p  , err := url.Parse( http_proxy )      
+        if err != nil {
+            log.Println( err )    
+        } else {
+            proxyURL = p 
+            log.Println( "proxyURL ", proxyURL  )    
+        }
     }
 }
 

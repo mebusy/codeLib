@@ -3,7 +3,7 @@ package main
 import (
     "bytes"
     "dbconn"
-    // "crypto/tls"
+    "crypto/tls"
     "encoding/json"
     "fmt"
     // "github.com/gorilla/mux"
@@ -264,9 +264,17 @@ func callSendAPI(messageBytes []byte ) {
     http_client := &http.Client{Timeout: 15 * time.Second, Transport: tr}
     _ = http_client 
     //*/
+    tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
+    if proxyURL != nil {
+        tr.Proxy = http.ProxyURL( proxyURL )
+        log.Printf( "use %+v" , proxyURL )
+    }
+    http_client := &http.Client{Timeout: 15 * time.Second, Transport: tr}
 
     graphApiUrl := "https://graph.facebook.com/me/messages?access_token=" + PAGE_ACCESS_TOKEN
-    res, err := http.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
+    res, err := http_client.Post(graphApiUrl, "application/json", bytes.NewBuffer(messageBytes))
     if err != nil {
         log.Println(err)
     } else {
