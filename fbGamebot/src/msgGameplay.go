@@ -316,8 +316,8 @@ func StartWorker() {
                 if err == "EVENT_UNAVAILABLE" {
                     time.Sleep( time.Duration(interval) * time.Second  )
                     interval += 1
-                    if interval > 15 {
-                        interval = 15
+                    if interval > 10 {
+                        interval = 10
                     }
                 } else {
                     interval = 1

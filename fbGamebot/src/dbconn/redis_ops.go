@@ -64,19 +64,36 @@ else
     return cjson.encode( t_res )
 end
 `
+
+var SHA_LUA_POPTASK = ""
 func PopTask( isMsgTest  bool ) string {
     client := getRedis()
     var err error
     var val interface{}
+    
+    if SHA_LUA_POPTASK == "" {
+        var sha1 string
+        sha1 , err = client.ScriptLoad(  LUA_POPTASK).Result()
+        if err != nil {
+            log.Println( err )     
+            return ""
+        }
+        log.Println( "script load:" ,  sha1 ) 
+
+        SHA_LUA_POPTASK = sha1 
+    }
+
     if isMsgTest {
         // for test 
-        val , err =  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0,  "+inf"  , 1  ).Result()
+        val , err =  client.EvalSha( SHA_LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0,  "+inf"  , 1  ).Result()
     } else {
-        val , err =  client.Eval( LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0, getMillis() , 1  ).Result()
+        val , err =  client.EvalSha( SHA_LUA_POPTASK , []string{KEY_SCHEDULE_EVENTS} ,  0, getMillis() , 1  ).Result()
     }
 
     if err != nil {
         log.Println(err) 
+        // if error happen , try reload script
+        SHA_LUA_POPTASK = "" 
         return ""
     }
     
