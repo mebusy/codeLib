@@ -233,3 +233,11 @@ func GetMaxConnection() int {
     return 0
 }
 
+func GetRedisInfo() string {
+    client := getRedis()
+    info , err := client.Info(  ).Result() 
+    if err != nil {
+        log.Println( err  )    
+    }
+    return info
+}

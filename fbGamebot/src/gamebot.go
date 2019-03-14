@@ -14,6 +14,7 @@ import (
     "event"
     _ "net/http/pprof"
     "net/url"
+	"syscall"
 )
 
 var BOT_VERIFY_TOKEN string 
@@ -72,8 +73,17 @@ func catchAllHandler(w http.ResponseWriter, r *http.Request) {
 }
 func infoHandle(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "git commit: %s \n",  GitCommit  )
-    maxconnection := dbconn.GetMaxConnection()
-	fmt.Fprintf(w, "max connection: %d \n", maxconnection  )
+
+	var rLimit syscall.Rlimit
+	err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit)
+	if err != nil {
+		log.Println("Error Getting Rlimit ", err)
+	} else {
+        fmt.Fprintf( w, "rlimt cur:%d , max: %d \n" , rLimit.Cur , rLimit.Max   )
+    }
+
+    info := dbconn.GetRedisInfo()
+	fmt.Fprintf(w, "redis info:  %s \n", info  )
 }
 
 // type MiddlewareFunc func(http.Handler) http.Handler
@@ -98,6 +108,8 @@ var GitCommit string
 func main() {
 	runtime.GOMAXPROCS(1)
 	defer dbconn.RedisClose()
+
+    MaxOpenFiles() 
 
 	flag.Parse()
 
