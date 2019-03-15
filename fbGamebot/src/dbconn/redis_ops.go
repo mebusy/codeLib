@@ -169,7 +169,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
 
 
 var DAY_MILLIS int64 = 24*3600*1000
-var EventDays = []int64{ 1,2,3, 5,7 }  // today, next day , ...
+var EventDays = []int64{ 1,2,3, 7,10 }  // today, next day , 
 func ScheduleEvent( playerId string , timezone int64 , firstRun bool )  {
     /*
     client := getRedis()
