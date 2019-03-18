@@ -7,6 +7,7 @@ import (
 	"syscall"
 )
 
+// 
 func MaxOpenFiles() {
 	var rLimit syscall.Rlimit
 
