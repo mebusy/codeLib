@@ -121,7 +121,7 @@ func UpdatePlayerInfo( playerId string , fields map[string]interface{}  ) {
     client.Expire( key , 7*24*3600*time.Second)
 }
 
-func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendId, randomFriendId, top1player string ) {
+func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendId, randomFriendId, top1player string , testMsgId int ) {
     client := getRedis()
     key := playerId + "_msg" // fb id
     
@@ -129,9 +129,13 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
     params := []redis.Z {}
 
     for k,v := range event.Conf {
+        conf := event.Conf[k]
+        prio := conf.Priority 
+        if testMsgId > 0 && testMsgId == prio {
+            prio -= 10     
+        }
         if v.Condition == 0 || ( k == "THANK" && firstRun  ) {
-            conf := event.Conf[k]
-            params = append( params , redis.Z{ float64(conf.Priority) , k } )
+            params = append( params , redis.Z{ float64(prio) , k } )
         } else {
             combo_key := "" 
             if k == "VS" && challengedFriendId != "" {
@@ -141,9 +145,8 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
                 if err != nil {
                     log.Println( err )    
                 } else if ttl > 5  {
-                    conf := event.Conf[k]
                     // you can update the priority of other players event
-                    client.ZAddNX(  key_msg , redis.Z {float64(conf.Priority) , combo_key}  )    
+                    client.ZAddNX(  key_msg , redis.Z {float64(prio) , combo_key}  )    
                 }
                 continue 
             }
@@ -155,8 +158,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
             }
 
             if combo_key != "" {
-                conf := event.Conf[k]
-                params = append( params , redis.Z{ float64(conf.Priority) , combo_key } )
+                params = append( params , redis.Z{ float64(prio) , combo_key } )
             }
         }
     }
@@ -170,7 +172,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
 
 var DAY_MILLIS int64 = 24*3600*1000
 var EventDays = []int64{ 1,2,3, 7,10 }  // today, next day , 
-func ScheduleEvent( playerId string , timezone int64 , firstRun bool )  {
+func ScheduleEvent( playerId string , timezone int64 , firstRun bool, testMsgId int  )  {
     /*
     client := getRedis()
     v , err := client.TTL( playerId ).Result() 
@@ -206,6 +208,10 @@ func ScheduleEvent( playerId string , timezone int64 , firstRun bool )  {
 
     if firstRun {
         params = append( params ,redis.Z{ float64(millis)   , fmt.Sprintf( "%s|%d" , playerId , 99  )  } )    
+    }
+
+    if testMsgId > 0 {
+        params = append( params ,redis.Z{ float64(millis)   , fmt.Sprintf( "%s|%d" , playerId , 100  )  } )    
     }
     // log.Printf( "%+v \n" , params  )
     client.ZAdd( KEY_SCHEDULE_EVENTS, params... )

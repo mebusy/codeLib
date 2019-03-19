@@ -55,6 +55,7 @@ type sessionData struct {
     RandomFriendId string 
     Top1player string 
     Nickname string 
+    TestMsgId int  // it is actually the priority 
 }
 
 func webhookHandlePOST(w http.ResponseWriter, r *http.Request) {
@@ -119,6 +120,7 @@ func receivedGameplay(event eventMsg) {
         }
         timezone := m.Timezone
         firstRun := m.FirstRun  || m.FirstTime 
+        testMsgId := m.TestMsgId 
         // log.Println( playerId, timezone , firstRun )
 
         // protect , only valid payload can be handled
@@ -128,11 +130,11 @@ func receivedGameplay(event eventMsg) {
         fields[ "nickname" ] = m.Nickname 
 
         dbconn.UpdatePlayerInfo( playerId , fields  )
-        dbconn.UpdateAvailableMessage( playerId, firstRun , m.ChallengedFriend , m.RandomFriendId , m.Top1player  )
+        dbconn.UpdateAvailableMessage( playerId, firstRun , m.ChallengedFriend , m.RandomFriendId , m.Top1player , testMsgId )
 
 
         _ = contextId 
-        dbconn.ScheduleEvent( playerId , int64(timezone) , firstRun  )
+        dbconn.ScheduleEvent( playerId , int64(timezone) , firstRun , testMsgId  )
     }
     
 
