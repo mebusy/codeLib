@@ -54,7 +54,7 @@ if table.getn(entries) > 0 then
         if not nickname then
             -- nickname can not fetch , do next meg 
         else 
-            t_res["data"] = botId .. "|" .. event_name   .. "|"  ..  (nickname or friendId  )
+            t_res["data"] = botId .. "|" .. event_name   .. "|"  ..  (nickname or friendId  )  .. "|"  ..  friendId 
             return cjson.encode( t_res )
         end 
 

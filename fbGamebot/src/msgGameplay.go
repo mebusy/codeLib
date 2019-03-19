@@ -189,6 +189,11 @@ type sendButtonData struct {
 }
 //*/
 
+type msgButtonPayload struct {
+    Entry string `json:"entry"`
+    FriendId  string `json:"friendId,omitempty"`
+}
+
 //
 // Send bot message
 //
@@ -198,7 +203,7 @@ type sendButtonData struct {
 // cta (string): Button text
 // payload (object): Custom data that will be sent to game session
 //
-func sendMessage( msgType , player, nickname  string ) {
+func sendMessage( msgType , player, nickname, friendId  string ) {
     // message, cta, payload string 
     eData, ok := event.Conf[ msgType ]
     if !ok {
@@ -213,7 +218,16 @@ func sendMessage( msgType , player, nickname  string ) {
     // log.Println( message , nickname  )
     buttons := []sendMsgButton{} 
     for i, v := range eData.Button {
-        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: fmt.Sprintf( `{"entry": "%s"}`, eData.Entry[i] )  } )
+        var m msgButtonPayload
+        m.Entry =  eData.Entry[i] 
+        m.FriendId = friendId
+        b, err := json.Marshal(m)
+        if err != nil {
+            log.Println("error:", err)
+            continue
+        }
+        // log.Println( "button payload: " , string( b ) )
+        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: string(b) } )
     }
 
     var m sendMegData 
@@ -344,12 +358,14 @@ func StartWorker() {
             botId := vals[0]
             msgType := vals[1]
             nikename := ""
-            if len(vals) >= 3 {
+            friendId := ""
+            if len(vals) >= 4 {
                 nikename = vals[2]  
+                friendId = vals[3]
             }
             // log.Println(  botId, msgType  )
             interval = 0 
-            sendMessage( msgType, botId, nikename  )             
+            sendMessage( msgType, botId, nikename , friendId )             
             runtime.Gosched() 
         }    
     }()
