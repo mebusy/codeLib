@@ -8,7 +8,7 @@ export PAGE_ACCESS_TOKEN="EAAJZCX3nfYG4BAA8ZBWKb7gyQkrZCB3wXfVEeZBoyn1QJURPKCcST
 export CDN_IMAGE="https://df4mizyl6bphs.cloudfront.net/fbchatbot/stack/"
 
 export REDIS_HOST="127.0.0.1"
-export REDIS_PASSWORD="root"
+export REDIS_PASSWORD=""
 
 
 echo you should source it 
