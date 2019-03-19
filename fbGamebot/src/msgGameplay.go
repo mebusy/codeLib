@@ -211,7 +211,7 @@ func sendMessage( msgType , player, nickname  string ) {
     // log.Println( message , nickname  )
     buttons := []sendMsgButton{} 
     for i, v := range eData.Button {
-        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: fmt.Sprintf( `{"entry":%s}`, eData.Entry[i] )  } )
+        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: fmt.Sprintf( `{"entry": "%s"}`, eData.Entry[i] )  } )
     }
 
     var m sendMegData 
@@ -328,7 +328,7 @@ func StartWorker() {
             interval = 1
             data := m.Data
             if data == "" {
-                log.Println( "task response data is empty " )
+                log.Println( "task response data is empty" )
                 continue
             }
             
