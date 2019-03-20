@@ -134,21 +134,26 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
         if testMsgId > 0 && testMsgId == prio {
             prio -= 10     
         }
+        isTestingMsg := prio < 0
+
         if v.Condition == 0 || ( k == "THANK" && firstRun  ) {
             params = append( params , redis.Z{ float64(prio) , k } )
         } else {
             combo_key := "" 
-            if k == "VS" && challengedFriendId != "" {
+            if k == "VS" && ( challengedFriendId != "" || isTestingMsg )  {
                 combo_key = fmt.Sprintf( "%s|%s" , k,  playerId )    
-                key_msg := challengedFriendId +  "_msg"
-                ttl,err := client.TTL( key_msg ).Result() 
-                if err != nil {
-                    log.Println( err )    
-                } else if ttl > 5  {
-                    // you can update the priority of other players event
-                    client.ZAddNX(  key_msg , redis.Z {float64(prio) , combo_key}  )    
+                if ! isTestingMsg {
+                    // prod flow
+                    key_msg := challengedFriendId +  "_msg"
+                    ttl,err := client.TTL( key_msg ).Result() 
+                    if err != nil {
+                        log.Println( err )    
+                    } else if ttl > 5  {
+                        // you can update the priority of other players event
+                        client.ZAddNX(  key_msg , redis.Z {float64(prio) , combo_key}  )    
+                    }
+                    continue 
                 }
-                continue 
             }
             if  k == "toVS" && randomFriendId != "" {
                 combo_key = fmt.Sprintf( "%s|%s" , k,  randomFriendId )    
