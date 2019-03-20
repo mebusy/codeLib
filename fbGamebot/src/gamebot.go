@@ -72,7 +72,9 @@ func catchAllHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "catch all")
 }
 func infoHandle(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "git commit: %s \n",  GitCommit  )
+    s := fmt.Sprintf( "git commit: %s",  GitCommit   )
+	fmt.Fprintf(w, "%s\n",  s  )
+
 
 	var rLimit syscall.Rlimit
 	err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit)
@@ -81,6 +83,7 @@ func infoHandle(w http.ResponseWriter, r *http.Request) {
 	} else {
         fmt.Fprintf( w, "rlimt cur:%d , max: %d \n" , rLimit.Cur , rLimit.Max   )
     }
+	fmt.Fprintf(w, fmt.Sprintf("debug msg is: %d\n" , QA_debugMsgID )  )
 
     info := dbconn.GetRedisInfo()
 	fmt.Fprintf(w, "redis info:  %s \n", info  )
@@ -103,7 +106,7 @@ var listenPort = flag.String("p", "5757", "port")
 var bogMesTest = flag.Int( "t" , 0 , "for loadtesting ONLY!!! send bot msg right now" )
 var verbose = flag.Int( "v" , 0 , "verbose" )
 
-var GitCommit string
+var GitCommit string = "fakecommit"
 
 func main() {
 	runtime.GOMAXPROCS(1)
@@ -124,6 +127,7 @@ func main() {
 	r.HandleFunc( "/info", infoHandle).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
+	r.HandleFunc( "/debug", debugHandle )
     if runtime.GOOS == "darwin" || *verbose == 1 {
         r.Use(loggingMiddleware)
     }

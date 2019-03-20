@@ -121,6 +121,9 @@ func receivedGameplay(event eventMsg) {
         timezone := m.Timezone
         firstRun := m.FirstRun  || m.FirstTime 
         testMsgId := m.TestMsgId 
+        if testMsgId < 1 && QA_debugMsgID >= 1 {
+            testMsgId = QA_debugMsgID
+        }
         // log.Println( playerId, timezone , firstRun )
 
         // protect , only valid payload can be handled

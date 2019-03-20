@@ -131,10 +131,11 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
     for k,v := range event.Conf {
         conf := event.Conf[k]
         prio := conf.Priority 
-        if testMsgId > 0 && testMsgId == prio {
+        if testMsgId > 0 && testMsgId%100 == prio {
             prio -= 10     
         }
         isTestingMsg := prio < 0
+        firstRun = firstRun || isTestingMsg 
 
         if v.Condition == 0 || ( k == "THANK" && firstRun  ) {
             params = append( params , redis.Z{ float64(prio) , k } )
@@ -149,7 +150,8 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
                     if err != nil {
                         log.Println( err )    
                     } else if ttl > 5  {
-                        // you can update the priority of other players event
+                        // you can not update the priority of other players event
+                        // PS: ZAddNX is Redis 3.0.2 command
                         client.ZAddNX(  key_msg , redis.Z {float64(prio) , combo_key}  )    
                     }
                     continue 
