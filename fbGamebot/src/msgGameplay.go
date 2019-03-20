@@ -121,6 +121,8 @@ func receivedGameplay(event eventMsg) {
         timezone := m.Timezone
         firstRun := m.FirstRun  || m.FirstTime 
         testMsgId := m.TestMsgId 
+
+        QA_debugMsgID := dbconn.Get_QA_debugMsgID()
         if testMsgId < 1 && QA_debugMsgID >= 1 {
             testMsgId = QA_debugMsgID
         }

@@ -254,3 +254,40 @@ func GetRedisInfo() string {
     }
     return info
 }
+
+
+func Set_QA_debugMsgID ( v int ) {
+    client := getRedis() 
+    client.Set( "QA_debugMsgID" , v , 0 )    
+}
+func Get_QA_debugMsgID() int {
+    client := getRedis() 
+    v, err := client.Get( "QA_debugMsgID" ).Result()
+    if err != nil {
+        log.Println( err )
+        return -99
+    }
+
+    i,err := strconv.Atoi(v)
+    if err != nil {
+        log.Println( err )
+        return -1
+    }
+
+    return i
+}
+
+func Set_QA_debugEnabled ( v bool ) {
+    client := getRedis() 
+    client.Set( "QA_debugEnabled" , v , 0 )    
+}
+func Get_QA_debugEnabled ( ) bool {
+    client := getRedis() 
+    v , err := client.Get( "QA_debugEnabled" ).Result()
+    if err  != nil {
+        log.Println(err)
+        return false
+    }
+
+    return v == "1"
+}

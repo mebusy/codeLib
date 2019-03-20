@@ -83,7 +83,6 @@ func infoHandle(w http.ResponseWriter, r *http.Request) {
 	} else {
         fmt.Fprintf( w, "rlimt cur:%d , max: %d \n" , rLimit.Cur , rLimit.Max   )
     }
-	fmt.Fprintf(w, fmt.Sprintf("debug msg is: %d\n" , QA_debugMsgID )  )
 
     info := dbconn.GetRedisInfo()
 	fmt.Fprintf(w, "redis info:  %s \n", info  )
