@@ -158,7 +158,7 @@ type defaultAction struct {
 type sendMsgElement struct {
     Title   string          `json:"title"`
     Image_url string  `json:"image_url"`
-    Default_action defaultAction  `json:"default_action"`
+    // Default_action defaultAction  `json:"default_action"`
     Buttons []sendMsgButton `json:"buttons"`
 }
 
@@ -247,7 +247,7 @@ func sendMessage( msgType , player, nickname, friendId  string ) {
     ele.Buttons = buttons
     ele.Image_url = fmt.Sprintf( "%s%s.jpg" , CDN_IMAGE ,  msgType )
     // log.Println( ele.Image_url   )
-    ele.Default_action = defaultAction{ Type: "game_play" }
+    // ele.Default_action = defaultAction{ Type: "game_play" }
 
     m.Message.Attachment.Payload.Elements = []sendMsgElement{ ele }
     // m.Message.Attachment.Payload.Text = message 
