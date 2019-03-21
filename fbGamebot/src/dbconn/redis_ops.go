@@ -279,7 +279,7 @@ func Get_QA_debugMsgID() int {
 
 func Set_QA_debugEnabled ( v bool ) {
     client := getRedis() 
-    client.Set( "QA_debugEnabled" , v , 0 )    
+    client.Set( "QA_debugEnabled" , v , 7 * 24 * 3600 * time.Second  )    
 }
 func Get_QA_debugEnabled ( ) bool {
     client := getRedis() 
@@ -290,4 +290,10 @@ func Get_QA_debugEnabled ( ) bool {
     }
 
     return v == "1"
+}
+
+func Get_QA_debugEnabled_TTL ()  time.Duration {
+    client := getRedis()
+    ttl := client.TTL( "QA_debugEnabled" ).Val()
+    return ttl 
 }

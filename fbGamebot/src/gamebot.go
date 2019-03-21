@@ -115,10 +115,6 @@ func main() {
 
 	flag.Parse()
 
-    if *verbose == 1 {
-        log.SetFlags(log.LstdFlags | log.Lshortfile)
-    }
-
     event.LoadEvents()
     StartWorker() 
 
@@ -127,15 +123,17 @@ func main() {
 	r.HandleFunc( "/bot", webhookHandleGET).Methods("GET")
 	r.HandleFunc( "/bot", webhookHandlePOST).Methods("POST")
 	r.HandleFunc( "/debug", debugHandle )
-    if runtime.GOOS == "darwin" || *verbose == 1 {
-        r.Use(loggingMiddleware)
-    }
 
 	r.HandleFunc("/", catchAllHandler)
 
     go func() {
         log.Println(http.ListenAndServe(":6060", nil))
     }()
+
+    if runtime.GOOS == "darwin" || *verbose == 1 {
+        log.SetFlags(log.LstdFlags | log.Lshortfile)
+        r.Use(loggingMiddleware)
+    }
 
 	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
 	http.ListenAndServe(":"+*listenPort, r)
