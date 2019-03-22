@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+    "github.com/gorilla/handlers"
 	"runtime"
 	"dbconn"
 	"flag"
@@ -134,8 +135,11 @@ func main() {
         log.SetFlags(log.LstdFlags | log.Lshortfile)
         r.Use(loggingMiddleware)
     }
+ 
+    corsObj:=handlers.AllowedOrigins([]string{"*"})
+
 
 	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
-	http.ListenAndServe(":"+*listenPort, r)
+	http.ListenAndServe(":"+*listenPort, handlers.CORS(corsObj)(r) )
 
 }
