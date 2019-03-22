@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-    "github.com/gorilla/handlers"
+    // "github.com/gorilla/handlers"
 	"runtime"
 	"dbconn"
 	"flag"
@@ -70,7 +70,27 @@ func webhookHandleGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func catchAllHandler(w http.ResponseWriter, r *http.Request) {
+    headers := w.Header()
+    headers.Add("Access-Control-Allow-Origin", "*")
+    headers.Add("Access-Control-Allow-Credentials", "true")
+    headers.Add("Access-Control-Expose-Headers", "Date")
+
+    //*
+    // headers.Add("Vary", "Origin")
+    // headers.Add("Vary", "Access-Control-Request-Method")
+    // headers.Add("Vary", "Access-Control-Request-Headers")
+
+    if r.Method == "OPTIONS" {
+        headers.Add("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Date")
+        headers.Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+        w.WriteHeader(http.StatusNoContent)
+        return
+    } else {
+	    fmt.Fprintf(w, "catch all")
+    }
+    /*/
 	fmt.Fprintf(w, "catch all")
+    //*/
 }
 func infoHandle(w http.ResponseWriter, r *http.Request) {
     s := fmt.Sprintf( "git commit: %s",  GitCommit   )
@@ -136,10 +156,8 @@ func main() {
         r.Use(loggingMiddleware)
     }
  
-    corsObj:=handlers.AllowedOrigins([]string{"*"})
-
 
 	log.Println("listening on", *listenPort, "git commit:", GitCommit  )
-	http.ListenAndServe(":"+*listenPort, handlers.CORS(corsObj)(r) )
+	http.ListenAndServe(":"+*listenPort, r )
 
 }
