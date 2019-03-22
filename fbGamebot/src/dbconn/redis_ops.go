@@ -13,7 +13,7 @@ import (
 
 var KEY_SCHEDULE_EVENTS = "zScheduledEvents"
 var LUA_POPTASK = `
-local entries = redis.call("zrangebyscore",KEYS[1],ARGV[1],ARGV[2]);
+local entries = redis.call("zrangebyscore",KEYS[1],ARGV[1],ARGV[2], 'LIMIT', 0 ,ARGV[3] );
 local t_res = {}
 if table.getn(entries) > 0 then
     local eventKey = entries[1]
