@@ -322,6 +322,14 @@ type TASK_RESP struct {
 func StartWorker() {
     log.Println( "StartWorker" )
     go func() {
+        defer func() {
+            if r := recover(); r != nil {
+                log.Println("worker goroutine paniced:", r)
+
+                StartWorker()
+            }
+        }()
+
         interval := 1
         for {
             time.Sleep( time.Duration(interval) * time.Second  )
@@ -335,6 +343,8 @@ func StartWorker() {
             err := m.Err 
             if err != "" {
                 if err == "EVENT_UNAVAILABLE" {
+                    // log.Println( "EVENT_UNAVAILABLE" )
+                    // panic( "p" )
                     time.Sleep( time.Duration(interval) * time.Second  )
                     interval += 1
                     if interval > 10 {
