@@ -5,7 +5,7 @@
 export BOT_VERIFY_TOKEN="STACK_VERIFY_TOKEN"
 export PAGE_ACCESS_TOKEN="EAAJZCX3nfYG4BAA8ZBWKb7gyQkrZCB3wXfVEeZBoyn1QJURPKCcSTSxBIrlGLj1tnvvjbuZA0fuZC11aLB9ismMj7o24ZBA73neGS7FRK0nHZCz4cr82vvFdoeR60iMLoQ9l2geo1JY9CYybvZCDUTcuD3ZAI6AZBbyLozkotaN3QMiGwZDZD"
 
-export CDN_IMAGE="https://df4mizyl6bphs.cloudfront.net/fbchatbot/stack/"
+export CDN_IMAGE="https://d1pjqtyiz506zt.cloudfront.net/fbchatbot/stack/"
 
 export REDIS_HOST="127.0.0.1"
 export REDIS_PASSWORD=""

@@ -105,8 +105,10 @@ func infoHandle(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf( w, "rlimt cur:%d , max: %d \n" , rLimit.Cur , rLimit.Max   )
     }
 
-    info := dbconn.GetRedisInfo()
-	fmt.Fprintf(w, "redis info:  %s \n", info  )
+    fmt.Fprintf( w , "cnd imaeg url: %s\n" , CDN_IMAGE  )
+
+    // info := dbconn.GetRedisInfo()
+	// fmt.Fprintf(w, "redis info:  %s \n", info  )
 }
 
 // type MiddlewareFunc func(http.Handler) http.Handler
