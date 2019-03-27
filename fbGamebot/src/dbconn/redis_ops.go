@@ -118,7 +118,7 @@ func UpdatePlayerInfo( playerId string , fields map[string]interface{}  ) {
         log.Println( err )    
         // not return ,keep TTL
     }
-    client.Expire( key , 7*24*3600*time.Second)
+    client.Expire( key , 10*24*3600*time.Second)
 }
 
 func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendId, randomFriendId, top1player string , testMsgId int ) {
@@ -172,7 +172,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
 
     client.ZAdd( key, params... )
     
-    client.Expire( key , 7*24*3600*time.Second)
+    client.Expire( key , 10*24*3600*time.Second)
 
 }
 
