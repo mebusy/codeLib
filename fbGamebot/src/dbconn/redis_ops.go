@@ -140,13 +140,13 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
 
     for k,v := range event.Conf {
         conf := event.Conf[k]
-        prio := conf.Priority 
+        prio := conf.Priority
         if testMsgId > 0 && testMsgId%100 == prio {
-            prio -= 20     
+            prio -= 20
         }
         // log.Println( k, lastMessage )
-        if k == lastMessage {
-            prio += 10     
+        if k == lastMessage && k != "VS" {
+            prio += 10
         }
         isTestingMsg := prio < 0
         firstRun = firstRun || isTestingMsg 
@@ -154,7 +154,7 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
         if v.Condition == 0 || ( k == "THANK" && firstRun  ) {
             params = append( params , redis.Z{ float64(prio) , k } )
         } else {
-            combo_key := "" 
+            combo_key := ""
             if k == "VS" && ( challengedFriendId != "" || isTestingMsg )  {
                 combo_key = fmt.Sprintf( "%s|%s" , k,  playerId )    
                 if ! isTestingMsg {
