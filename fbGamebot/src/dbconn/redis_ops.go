@@ -45,6 +45,7 @@ if table.getn(entries) > 0 then
         local idx = string.find( task , "|" )
         if idx == nil then
             t_res["data"] = botId .. "|" .. task
+            t_res["playerId"] = playerId 
             return cjson.encode( t_res )
         end 
 
@@ -55,6 +56,7 @@ if table.getn(entries) > 0 then
             -- nickname can not fetch , do next meg 
         else 
             t_res["data"] = botId .. "|" .. event_name   .. "|"  ..  (nickname or friendId  )  .. "|"  ..  friendId 
+            t_res["playerId"] = playerId 
             return cjson.encode( t_res )
         end 
 
@@ -123,6 +125,14 @@ func UpdatePlayerInfo( playerId string , fields map[string]interface{}  ) {
 
 func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendId, randomFriendId, top1player string , testMsgId int ) {
     client := getRedis()
+    
+    lastMessage , err := client.HGet( playerId , "lastMessage" ).Result()
+    if err != nil {
+        log.Println( "get lastMessage: " , err )
+        lastMessage = ""
+    }
+    // log.Println( "last message :" , lastMessage )
+ 
     key := playerId + "_msg" // fb id
     
     client.Del( key )
@@ -132,7 +142,11 @@ func UpdateAvailableMessage( playerId string , firstRun bool , challengedFriendI
         conf := event.Conf[k]
         prio := conf.Priority 
         if testMsgId > 0 && testMsgId%100 == prio {
-            prio -= 10     
+            prio -= 20     
+        }
+        // log.Println( k, lastMessage )
+        if k == lastMessage {
+            prio += 10     
         }
         isTestingMsg := prio < 0
         firstRun = firstRun || isTestingMsg 
@@ -297,3 +311,21 @@ func Get_QA_debugEnabled_TTL ()  time.Duration {
     ttl := client.TTL( "QA_debugEnabled" ).Val()
     return ttl 
 }
+
+const LUA_SET_LAST_MESSAGE = `
+local exist = redis.call( "exists" , KEYS[1] )
+if exist == 1 then
+    redis.call( "hset" , KEYS[1] , "lastMessage"   ,  ARGV[1]  )   
+end
+return 0
+`
+
+func SetLastSendMsgType(  playerId , msgType string ) {
+    client := getRedis() 
+    err := client.Eval( LUA_SET_LAST_MESSAGE , []string{ playerId } , msgType  ).Err()
+           
+    if err != nil {
+        log.Println( err )   
+    }
+} 
+

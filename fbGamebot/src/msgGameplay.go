@@ -208,7 +208,7 @@ type msgButtonPayload struct {
 // cta (string): Button text
 // payload (object): Custom data that will be sent to game session
 //
-func sendMessage( msgType , player, nickname, friendId  string ) {
+func sendMessage( msgType , player, nickname, friendId, playerId  string ) {
     // message, cta, payload string 
     eData, ok := event.Conf[ msgType ]
     if !ok {
@@ -264,11 +264,11 @@ func sendMessage( msgType , player, nickname, friendId  string ) {
     _ = b
 
     cc_sendapi <- 1
-    go callSendAPI( b )
+    go callSendAPI( b,playerId , msgType )
 }
 
 var cc_sendapi = make(chan int, 1024 )
-func callSendAPI(messageBytes []byte ) {
+func callSendAPI(messageBytes []byte , playerId , msgType string ) {
     defer func() {
         <- cc_sendapi
     }()
@@ -310,6 +310,10 @@ func callSendAPI(messageBytes []byte ) {
             
         //*/
         res.Body.Close()
+
+        if playerId != "" {
+            dbconn.SetLastSendMsgType(  playerId,msgType)
+        }
     }
 }
 
@@ -317,6 +321,7 @@ func callSendAPI(messageBytes []byte ) {
 type TASK_RESP struct {
     Err string
     Data string     
+    PlayerId string 
 }
 
 func StartWorker() {
@@ -380,7 +385,9 @@ func StartWorker() {
             }
             // log.Println(  botId, msgType  )
             interval = 0 
-            sendMessage( msgType, botId, nikename , friendId )             
+
+            playerId := m.PlayerId 
+            sendMessage( msgType, botId, nikename , friendId, playerId  )             
             runtime.Gosched() 
         }    
     }()
