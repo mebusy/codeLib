@@ -245,7 +245,7 @@ func sendMessage( msgType , player, nickname, friendId, playerId  string ) {
     var ele sendMsgElement 
     ele.Title = message 
     ele.Buttons = buttons
-    ele.Image_url = fmt.Sprintf( "%s%s.jpg" , CDN_IMAGE ,  msgType )
+    ele.Image_url = fmt.Sprintf( "%s%s.jpg?%s" , CDN_IMAGE ,  msgType, GitCommit  )
     // log.Println( ele.Image_url   )
     // ele.Default_action = defaultAction{ Type: "game_play" }
 
