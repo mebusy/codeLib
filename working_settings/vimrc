@@ -1,5 +1,7 @@
 set encoding=utf-8
 
+set mouse=a
+
 " Configuration file for vim
 set modelines=0		" CVE-2007-2438
 
