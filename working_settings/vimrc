@@ -148,7 +148,7 @@ let NERDTreeIgnore = ['\.pyc$', '\.swp$']
 nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " just to new tab
-let g:ycm_goto_buffer_command = 'new-tab'
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 
 
 " " 主动调用补全
