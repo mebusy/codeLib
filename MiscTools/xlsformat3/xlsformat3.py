@@ -57,7 +57,7 @@ if __name__ == '__main__':
             # convert column data to same type
             # print f_unnan.dtypes  , f_unnan
             expected_types = {}
-            for k in define.keys()  :
+            for k in [main_key] + define.keys()  :
                 f =  df[k].dropna()
                 
                 if f.dtypes == np.object :
@@ -75,6 +75,10 @@ if __name__ == '__main__':
                     # df[k] = pd.to_numeric(  df[k], downcast="integer" )
                     # print df[k]
                     pass
+
+            # convert main key to int , if necessary
+            if expected_types[main_key] == int :
+                df[main_key] = df[main_key].astype( int )
 
             data = {} 
             for group, frame in df.groupby(main_key):
