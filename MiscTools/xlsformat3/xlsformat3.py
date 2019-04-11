@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
         for sheet_name in sheet_names :
             print 'parsing', _fname , sheet_name
-            df = pd.read_excel( "gamebotConf.xls" , usecols= [main_key] + define.keys() , sheet_name = sheet_name, skiprows=skiprows )
+            df = pd.read_excel( xls_name , usecols= [main_key] + define.keys() , sheet_name = sheet_name, skiprows=skiprows )
             # df = df.set_index( main_key )
             df[main_key] = df[main_key].fillna(method='ffill')
             # print df 
