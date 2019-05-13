@@ -1,0 +1,132 @@
+
+class            -> 'class' className '{' CLASSVARDEC_STAR SUBROUTINEDEC_STAR '}'
+                    ;
+CLASSVARDEC_STAR -> classVarDec CLASSVARDEC_STAR 
+                 |  @epsilon
+                 ;
+SUBROUTINEDEC_STAR -> subroutineDec SUBROUTINEDEC_STAR
+                    | @epsilon
+                    ;
+classVarDec     -> STATIC_FIELD_DEC type varName MORE_VARNAME ';'
+                    ;
+STATIC_FIELD_DEC -> 'static' 
+                 |  'field'
+                 ;
+MORE_VARNAME    -> ',' varName MORE_VARNAME 
+                |  @epsilon   
+                ;
+type            -> 'int' 
+                |  'char'
+                |  'boolean'
+                | className 
+                ;
+subroutineDec   -> SUBROUTINEDEC_TYPE SUBROUTINEDEC_RET_TYPE subroutineName '(' parameterList  ')' subroutineBody
+                ;
+SUBROUTINEDEC_TYPE  -> 'constructor'
+                    | 'function'
+                    | 'method' 
+                    ;
+SUBROUTINEDEC_RET_TYPE -> 'void'
+                        | type 
+                        ;
+parameterList   -> type varName  MORE_PARAMETERLIST
+                | @epsilon  
+                ;
+MORE_PARAMETERLIST    -> ',' type varName MORE_PARAMETERLIST 
+                | @epsilon  
+                ;
+subroutineBody  -> '{' VARDEC_STAR statements  '}'
+                ;
+VARDEC_STAR     -> varDec VARDEC_STAR
+                | @epsilon 
+                ;
+varDec          -> 'var' type varName MORE_VARNAME ';'
+                ;
+className       -> identifier
+                ;
+subroutineName  -> identifier
+                ;
+varName         -> identifier
+                ;
+
+statements      -> STATEMENT_STAR 
+                ;
+STATEMENT_STAR  -> statement STATEMENT_STAR 
+                | @epsilon  
+                ;
+statement       -> letStatement 
+                | ifStatement 
+                | whileStatement 
+                | doStatement 
+                | returnStatement 
+                ;
+letStatement    -> 'let' varName ARRAY_SUB '=' expression ';'
+                ;
+ARRAY_SUB       -> '[' expression ']'
+                | @epsilon   
+                ;
+ifStatement     -> 'if' '(' expression ')' '{' statements '}' IF_ELSE_PART_01 
+                ;
+IF_ELSE_PART_01 -> 'else' '{' statements '}' 
+                | @epsilon   
+                ;
+whileStatement  -> 'while' '(' expression ')'  '{' statements '}'
+                ;
+doStatement     -> 'do' subroutineCall ';' 
+                ;
+returnStatement -> 'return' EXPRESSION_01 ';'
+                ;
+EXPRESSION_01 -> expression 
+                | @epsilon   
+                ;
+
+expression      -> term OP_TERM_STAR 
+                ;
+OP_TERM_STAR    -> op term  OP_TERM_STAR 
+                | @epsilon    
+                ;
+term            -> integerConstant 
+                | stringConstant
+                | keywordConstant 
+                | varName 
+                | varName ARRAY_SUB 
+                | subroutineCall 
+                | '(' expression ')' 
+                | unaryOp term 
+                ;
+subroutineCall  -> subroutineName '(' expressionList ')' 
+                | CLASS_VAR_NAME '.' subroutineName '(' expressionList ')'
+                ;
+CLASS_VAR_NAME  -> className 
+                | varName  
+                ;
+expressionList  -> expression  MORE_EXPRESSION 
+                | @epsilon    
+                ;
+MORE_EXPRESSION -> ',' expression  MORE_EXPRESSION
+                | @epsilon  
+                ;
+op              -> '+' 
+                | '-'
+                | '*'
+                | '/' 
+                | '&'
+                | '|'
+                | '<'
+                | '>'
+                | '='
+                ;
+unaryOp         -> '-'
+                | '~'
+                ;
+keywordConstant -> 'true' 
+                | 'false' 
+                | 'null' 
+                | 'this'
+                ;
+
+
+
+
+
+

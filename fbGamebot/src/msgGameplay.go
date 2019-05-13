@@ -150,6 +150,7 @@ type sendMsgButton struct {
     Type    string `json:"type"`
     Title   string `json:"title"`
     Payload string `json:"payload,omitempty"`
+    Url     string `json:"url,omitempty"`
 }
 
 type defaultAction struct {
@@ -232,7 +233,11 @@ func sendMessage( msgType , player, nickname, friendId, playerId  string ) {
             continue
         }
         // log.Println( "button payload: " , string( b ) )
-        buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: string(b) } )
+        if m.Entry == "moregames" {
+            buttons = append( buttons , sendMsgButton { Type:"web_url", Title:v , Url:"https://lp.9longame.com/gamelist.php" } )
+        } else {
+            buttons = append( buttons , sendMsgButton { Type:"game_play", Title:v , Payload: string(b) } )
+        }
     }
 
     var m sendMegData 
