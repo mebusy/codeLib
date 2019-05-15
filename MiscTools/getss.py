@@ -1,8 +1,11 @@
 import grequests
 import json
 import base64
+# import time
+import datetime
 
-### to fetch the final shadowsocks webpage URL
+
+# to fetch the final shadowsocks webpage URL
 
 rs = (grequests.get( "https://umc-common.upaidui.com/ss" ) for _ in xrange(10))
 
@@ -26,7 +29,11 @@ for url in urls:
     # print url
     pass
 
-print urls[-1]
+url =  urls[-1]
+idx = url.find( "ts=" )
+ts =  int(url[idx+3:])
 
+date = datetime.datetime.fromtimestamp( ts ).strftime('%Y-%m-%dT%H:%M:%SZ')
+print url , date 
 
 print "done"
