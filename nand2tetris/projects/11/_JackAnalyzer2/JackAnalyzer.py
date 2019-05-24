@@ -13,6 +13,8 @@ from lex_def import *
 from LL_parser_table import RE_RULES, makeGrammarByRoughRules 
 from  CFGrammarLL  import CFGrammarLL
 
+from CodeWriter import CodeWriter 
+
 class Tag(object):
     KEYWORD = 256
     SYMBOL = 257
@@ -207,6 +209,8 @@ class Lexer(object):
 
         xml_output = "" 
 
+        writer = CodeWriter() 
+
         X = stack[-1] 
         while X != self.pg.endmark :
 
@@ -214,6 +218,10 @@ class Lexer(object):
             if X == a :
                 if IsJackHomeWork :
                     xml_output +=  "<{1}> {0} </{1}>".format(  cgi.escape( w[ip][1] , True )  , w[ip][2]  )
+                    # keyword, symbol, id, int , str 
+                    # print w[ip][1:]
+                    method_to_call = getattr( writer, 'visit_' + w[ip][2] )
+                    method_to_call( w[ip][1]  )
                 stack.pop()
                 ip += 1 
             elif X == '@epsilon' :
@@ -261,6 +269,10 @@ class Lexer(object):
                 X_poped = stack.pop()
                 if IsJackHomeWork and self.isSemantisNeed2Output( X_poped ) :
                     xml_output += "<{}>".format( X_poped) 
+                
+                    method_to_call = getattr(writer, 'visit_' + X_poped )
+                    method_to_call( 'NTstart'  )
+
                     stack.append( "</{}>".format( X_poped)   )
                 stack.extend( reversed( product ) )
 
@@ -270,6 +282,9 @@ class Lexer(object):
                     if X.startswith( "</" ) :
                         X_poped = stack.pop() 
                         xml_output += "{}".format( X_poped )
+                        method_to_call = getattr(writer, 'visit_' + X_poped[2:-1] )
+                        method_to_call( 'NTend'  )
+                        
                         X = stack[-1]  
                     else:
                         break
