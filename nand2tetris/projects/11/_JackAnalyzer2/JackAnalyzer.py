@@ -13,7 +13,7 @@ from lex_def import *
 from LL_parser_table import RE_RULES, makeGrammarByRoughRules 
 from  CFGrammarLL  import CFGrammarLL
 
-from CodeWriter import CodeWriter 
+from CodeWriter import CodeWriter , Node
 
 class Tag(object):
     KEYWORD = 256
@@ -209,7 +209,9 @@ class Lexer(object):
 
         xml_output = "" 
 
-        writer = CodeWriter() 
+
+        root = Node("root" , None ) 
+        top_root = root
 
         X = stack[-1] 
         while X != self.pg.endmark :
@@ -220,8 +222,11 @@ class Lexer(object):
                     xml_output +=  "<{1}> {0} </{1}>".format(  cgi.escape( w[ip][1] , True )  , w[ip][2]  )
                     # keyword, symbol, id, int , str 
                     # print w[ip][1:]
-                    method_to_call = getattr( writer, 'visit_' + w[ip][2] )
-                    method_to_call( w[ip][1]  )
+                    # method_to_call = getattr( writer, 'visit_' + w[ip][2] )
+                    # method_to_call( w[ip][1]  )
+                    n = Node(  w[ip][2] ,  w[ip][1]  )
+                    root.add( n )
+                    
                 stack.pop()
                 ip += 1 
             elif X == '@epsilon' :
@@ -270,8 +275,11 @@ class Lexer(object):
                 if IsJackHomeWork and self.isSemantisNeed2Output( X_poped ) :
                     xml_output += "<{}>".format( X_poped) 
                 
-                    method_to_call = getattr(writer, 'visit_' + X_poped )
-                    method_to_call( 'NTstart'  )
+                    # method_to_call = getattr(writer, 'visit_' + X_poped )
+                    # method_to_call( 'NTstart'  )
+                    n = Node( X_poped, "NT" )
+                    root.add( n )
+                    root = n
 
                     stack.append( "</{}>".format( X_poped)   )
                 stack.extend( reversed( product ) )
@@ -282,8 +290,10 @@ class Lexer(object):
                     if X.startswith( "</" ) :
                         X_poped = stack.pop() 
                         xml_output += "{}".format( X_poped )
-                        method_to_call = getattr(writer, 'visit_' + X_poped[2:-1] )
-                        method_to_call( 'NTend'  )
+
+                        # method_to_call = getattr(writer, 'visit_' + X_poped[2:-1] )
+                        # method_to_call( 'NTend'  )
+                        root = root.parent
                         
                         X = stack[-1]  
                     else:
@@ -292,7 +302,16 @@ class Lexer(object):
         if IsJackHomeWork :
             self.outputXML( xml_output  )
 
+            writer = CodeWriter() 
+            # writer.traverse( top_root.children[0] )
+            writer.handle( top_root.children[0], {} )
+
+
     def isSemantisNeed2Output(self , sem ):
+        # for code writing
+        # if sem in ( "subroutineCall" ) :
+        #     return True
+
         if sem in ( 'type' , 'className' , 'subroutineName' , 'varName' , 'statement' ,
              'subroutineCall', 'unaryOp' , 'op' , 'keywordConstant') :
             return False 
