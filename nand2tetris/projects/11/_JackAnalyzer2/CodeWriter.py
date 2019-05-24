@@ -1,6 +1,7 @@
 # import inspect
 import functools
 import json
+import os
 
 class Node():
     def __init__(self, _type , val):
@@ -73,6 +74,13 @@ class CodeWriter():
         print "env:" , json.dumps(env , indent=4, sort_keys=True)
         print "~~"
         print self.vm_code
+
+
+        _path , _fname = os.path.split( self._srcFilePath  )  
+        _name , _ext = os.path.splitext( _fname  )
+        dst_file = os.path.join( _path , _name + ".vm"    )
+        with open ( dst_file , "w" ) as fp:
+            fp.write(  self.vm_code  )
         return True
 
     @checkUnhandleValue
@@ -81,6 +89,10 @@ class CodeWriter():
         env["decl_subroutine_type"] = node.children[0].val
         env["decl_subroutine_ret_type"] = node.children[1].val
         env["decl_subroutine_name"] = node.children[2].val
+        
+        self.writeCode( """
+        function {}.{} {}
+        """.format( env["class_name"], env["decl_subroutine_name"] , 0  ) )
 
         for child in node.children[4:]:
             self.handle( child, env )
@@ -142,9 +154,85 @@ class CodeWriter():
 
     @checkUnhandleValue
     def visit_expressionList(self,node,env):
+        for child in node.children:
+            self.handle(child, env)
+        return True
+
+    @checkUnhandleValue
+    def visit_expression(self,node,env):
+        # term
+        self.handle( node.children[0], env )
+        # term
+        self.handle( node.children[2], env )
+        
+        op = node.children[1].val
+        op_vmcode_map = {
+            '+' : "add",
+            '-' : "sub",
+            '*' : "call Math.multiply 2",
+            '/' : "call Math.divide 2" ,
+            '&' : "and" ,
+            '|' : "or" , 
+            '<' : "lt" ,
+            '>' : "gt" , 
+            '=' : "eq" , 
+        }
+
+        self.writeCode("""
+        {}
+        """.format( op_vmcode_map[op]) )
         return True
 
     @checkUnhandleValue
     def visit_symbol(self,node,env):
         if node.val in ["(", ")"]:
             return True
+        if node.val in ["-"]:
+            self.writeCode( """
+            neg 
+            """ )
+            return True  
+        if node.val in ["~"]:
+            self.writeCode( """
+            not
+            """ )
+            return True  
+
+    @checkUnhandleValue
+    def visit_term(self,node,env):
+        if node.children[0].type == 'symbol' and node.children[0].val in [ "-", "~" ]:
+            l = node.children[ 1: ]
+            for child in l :
+                self.handle( child, env )
+            self.visit_symbol( node.children[0], env  )
+            return True
+            
+        l = node.children 
+        for child in l :
+            self.handle( child, env )
+
+        return True
+    
+    @checkUnhandleValue
+    def visit_returnStatement(self,node,env):
+        # handle expr first 
+        for child in node.children[1:]:
+            self.handle(child,env)
+
+        # handle return finally
+        self.writeCode( """
+        {}
+        return 
+        """.format( len(node.children) > 1 and "push constant 0" or "" ) )
+        return True
+
+    @checkUnhandleValue
+    def visit_integerConstant(self,node,env):
+        self.writeCode( """
+        push constant {}
+        """.format( node.val ) )
+        return True
+
+    
+
+    

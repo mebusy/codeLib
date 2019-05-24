@@ -303,6 +303,7 @@ class Lexer(object):
             self.outputXML( xml_output  )
 
             writer = CodeWriter() 
+            writer._srcFilePath  = self._srcFilePath 
             # writer.traverse( top_root.children[0] )
             writer.handle( top_root.children[0], {} )
 
