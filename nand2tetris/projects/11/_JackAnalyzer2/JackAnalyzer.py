@@ -310,8 +310,8 @@ class Lexer(object):
 
     def isSemantisNeed2Output(self , sem ):
         # for code writing
-        # if sem in ( "subroutineCall" ) :
-        #     return True
+        if sem in ( "subroutineCall" ) :
+            return True
 
         if sem in ( 'type' , 'className' , 'subroutineName' , 'varName' , 'statement' ,
              'subroutineCall', 'unaryOp' , 'op' , 'keywordConstant') :
