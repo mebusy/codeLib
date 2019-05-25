@@ -72,13 +72,16 @@ class CodeWriter():
         # print val, env
         env["class_name"] = node.children[1].val
         env["symboltable_class"] = {}
+        env["symboltable_subroutine"] = {}
+        env["nstatic"] = 0 
+        env["nfield"] = 0 
 
         for child in node.children[3:-1]:
             self.handle( child, env )
 
         print "env:" , json.dumps(env , indent=4, sort_keys=True)
-        print "~~"
-        print self.vm_code
+        # print "~~"
+        # print self.vm_code
 
 
         _path , _fname = os.path.split( self._srcFilePath  )  
@@ -94,6 +97,9 @@ class CodeWriter():
         env["symboltable_subroutine"] = {}
         # init positon 
         env["nLocal"] = 0 
+        env["label_if_cnt"] = 0 
+        env["label_while_cnt"] = 0 
+
 
         env["decl_subroutine_type"] = node.children[0].val
         env["decl_subroutine_ret_type"] = node.children[1].val
@@ -103,11 +109,28 @@ class CodeWriter():
         function {}.{} <placeholder_nLocal>
         """.format( env["class_name"], env["decl_subroutine_name"]  ) )
 
+        if "constructor" == env["decl_subroutine_type"]:
+            self.writeCode( """
+            push constant <placeholder_nSize>
+            call Memory.alloc 1
+            // anchors this at the base address
+            pop pointer 0  
+            """)
+        elif "method" == env["decl_subroutine_type"]:
+            self.writeCode( """
+            push argument 0
+            // anchors this at the base address
+            pop pointer 0  
+            """)
+
+
+
         for child in node.children[4:]:
             self.handle( child, env )
         
         # after everything is done, calc number of needed space of  local variable 
         self.vm_code = self.vm_code.replace( "<placeholder_nLocal>" , str(env["nLocal"])  )
+        self.vm_code = self.vm_code.replace( "<placeholder_nSize>" , str(env["nfield"])  )
         # print env["symboltable_subroutine"] 
         return True
 
@@ -142,19 +165,31 @@ class CodeWriter():
                 self.handle( child, env )
 
             env["call_classvar"] = node.children[0].val 
+            var_type,var_kind, var_pos  = self.findFromSymbolTable( env,  env["call_classvar"] )
+            if var_type is None:
+                classVar = env["call_classvar"]
+            else :
+                self.writeCode( """
+                push {} {}
+                """.format( var_kind,  var_pos ) )
+                classVar = var_type
+                nParam += 1
+
             env["call_subroutinename"] = node.children[2].val
             self.writeCode( """
             call {}.{} {}
-            """.format( env["call_classvar"],  env["call_subroutinename"], nParam ) )
+            """.format( classVar ,  env["call_subroutinename"], nParam ) )
         else:
+            # call self method
             for child in node.children[3-2:]:
                 self.handle( child, env )
 
             env["call_classvar"] = None
             env["call_subroutinename"] = node.children[2-2].val
             self.writeCode( """
-            call {} {}
-            """.format( env["call_subroutinename"], nParam ) )
+            push pointer 0
+            call {}.{} {}
+            """.format( env["class_name"], env["call_subroutinename"], nParam+1 ) )
 
         return True 
 
@@ -223,9 +258,10 @@ class CodeWriter():
             table = env[ self.symbol_table_name[tbl] ]
             if name in table:
                 prop =  table[name]
-                return prop["type"] , prop["kind"], prop["position"]
+                return prop["type"] , prop["kind"] == "field" and "this" or prop["kind"] , prop["position"]
 
-        return None 
+        return None ,None, None 
+        
         
         
 
@@ -238,8 +274,21 @@ class CodeWriter():
             var_name =  node.children[i].val
             env["nLocal"] += 1
             self.add2symboltable( env, 1, var_name , t , "local" ) 
+        return True 
+
+    @checkUnhandleValue
+    def visit_classVarDec(self,node,env):
+        kind = node.children[0].val
+        t = node.children[1].val
+        for i in xrange( 2 , len(node.children), 2  ):
+            var_name =  node.children[i].val
+            env["n" + kind ] += 1
+            self.add2symboltable( env, 0, var_name , t , kind ) 
 
         return True 
+
+    
+    @checkUnhandleValue
     def visit_parameterList(self,node,env):
         for i in xrange( 0, len(node.children), 3  ):
             t = node.children[i].val
@@ -269,10 +318,15 @@ class CodeWriter():
             self.handle(child,env)
 
         # handle return finally
+        # 'return ;'  , len=2, should push a value to stack
+
+        pushContent = ""
+        if len(node.children) < 3 :
+            pushContent = "push constant 0"
         self.writeCode( """
         {}
         return 
-        """.format( len(node.children) > 1 and "push constant 0" or "" ) )
+        """.format( pushContent ) )
         return True
 
     @checkUnhandleValue
@@ -283,7 +337,7 @@ class CodeWriter():
         # assignment 
         var_name = node.children[1].val 
         var_type,var_kind, var_pos  = self.findFromSymbolTable( env, var_name )
-        assert var_type is not None 
+        assert var_type is not None  , "can not find var property of '{}' from symbol table".format( var_name )
         
         self.writeCode("""
         pop {} {}
@@ -295,11 +349,12 @@ class CodeWriter():
         # for child in node.children:
         #     print child
 
-        self.label_while_cnt  = 0 
+        label_cnt = env["label_while_cnt"]
+        env["label_while_cnt"] += 1 
         # set label for whiel expre
         self.writeCode("""
         label WHILE_EXP{}
-        """.format( self.label_while_cnt  ))  
+        """.format(label_cnt))  
 
         self.handle( node.children[2], env )
         # not condition , for simple code generation
@@ -310,22 +365,57 @@ class CodeWriter():
         
         self.writeCode("""
         if-goto WHILE_END{}
-        """.format( self.label_while_cnt  ))  
+        """.format( label_cnt ))  
 
         self.handle( node.children[5], env )
 
         self.writeCode("""
         goto WHILE_EXP{0}
         label WHILE_END{0}
-        """.format( self.label_while_cnt  ))  
+        """.format( label_cnt ))  
 
-        self.label_while_cnt  += 1
         return True 
 
     @checkUnhandleValue
     def visit_ifStatement(self,node,env):
-        for child in node.children:
-            print child 
+        # for child in node.children:
+        #     print child 
+
+        label_cnt = env["label_if_cnt"] 
+        env["label_if_cnt"] += 1 
+
+        hasElse = len(node.children) > 9
+
+        self.handle( node.children[2], env )
+
+        # for if , we donot apply neg conditon
+
+        self.writeCode("""
+        if-goto IF_TRUE{0}
+        goto IF_FALSE{0}
+        label IF_TRUE{0}
+        """.format( label_cnt ))  
+
+        self.handle( node.children[5], env )
+
+        if hasElse:
+            self.writeCode("""
+            goto IF_END{}
+            """.format( label_cnt ))  
+
+
+        self.writeCode("""
+        label IF_FALSE{}
+        """.format( label_cnt))  
+
+        if hasElse:
+            self.handle( node.children[9], env )
+
+        if hasElse:
+            self.writeCode("""
+            label IF_END{}
+            """.format( label_cnt ))  
+
         return True 
 
     @checkUnhandleValue
@@ -372,6 +462,12 @@ class CodeWriter():
             push constant 0
             """ )
             return True  
+        elif node.val == "this":
+            self.writeCode( """
+            // access this 
+            push pointer 0
+            """ )
+            return True
 
 
 
