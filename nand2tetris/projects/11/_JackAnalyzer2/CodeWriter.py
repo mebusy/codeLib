@@ -258,6 +258,7 @@ class CodeWriter():
             table = env[ self.symbol_table_name[tbl] ]
             if name in table:
                 prop =  table[name]
+                # when you access a field , you actually access this[i]
                 return prop["type"] , prop["kind"] == "field" and "this" or prop["kind"] , prop["position"]
 
         return None ,None, None 
