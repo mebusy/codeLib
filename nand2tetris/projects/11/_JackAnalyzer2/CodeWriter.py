@@ -2,6 +2,7 @@
 import functools
 import json
 import os
+import re
 
 class Node():
     def __init__(self, _type , val):
@@ -88,6 +89,9 @@ class CodeWriter():
         _name , _ext = os.path.splitext( _fname  )
         dst_file = os.path.join( _path , _name + ".vm"    )
         with open ( dst_file , "w" ) as fp:
+            # vm simulator has some limitation on VM code format
+            RE_TIME_LINE_SPACE_LEFT = re.compile( r"\n[ \t]*" )
+            self.vm_code = re.sub(RE_TIME_LINE_SPACE_LEFT, "\n" , self.vm_code )
             fp.write(  self.vm_code  )
         return True
 
