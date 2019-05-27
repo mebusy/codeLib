@@ -79,7 +79,7 @@ class CodeWriter():
         for child in node.children[3:-1]:
             self.handle( child, env )
 
-        print "env:" , json.dumps(env , indent=4, sort_keys=True)
+        # print "env:" , json.dumps(env , indent=4, sort_keys=True)
         # print "~~"
         # print self.vm_code
 
@@ -109,6 +109,7 @@ class CodeWriter():
         function {}.{} <placeholder_nLocal>
         """.format( env["class_name"], env["decl_subroutine_name"]  ) )
 
+        bImplyThis = False 
         if "constructor" == env["decl_subroutine_type"]:
             self.writeCode( """
             push constant <placeholder_nSize>
@@ -117,12 +118,15 @@ class CodeWriter():
             pop pointer 0  
             """)
         elif "method" == env["decl_subroutine_type"]:
+            bImplyThis = True
             self.writeCode( """
             push argument 0
             // anchors this at the base address
             pop pointer 0  
             """)
-
+        
+        if bImplyThis :
+            self.add2symboltable( env, 1, "this" , env["class_name"] , "argument" )
 
 
         for child in node.children[4:]:
@@ -332,17 +336,41 @@ class CodeWriter():
 
     @checkUnhandleValue
     def visit_letStatement(self,node,env):
-        # handl right expression first 
-        for child in node.children[3:]:
-            self.handle( child , env )
-        # assignment 
         var_name = node.children[1].val 
         var_type,var_kind, var_pos  = self.findFromSymbolTable( env, var_name )
+
+        # handle left array acces at first 
+        bArrayStore =  len( node.children[2].children ) > 0 
+        if bArrayStore:
+            self.writeCode( """
+            // push array address for further computation
+            push {} {}
+            """.format( var_kind, var_pos ) )
+
+            self.visit_ARRAY_SUB(  node.children[2] , env, True  )
+
+
+        # then handle right expression 
+        for child in node.children[4:]:
+            self.handle( child , env )
+        # assignment 
         assert var_type is not None  , "can not find var property of '{}' from symbol table".format( var_name )
+
+        if bArrayStore:
+            self.writeCode( """
+            // right value -> temp 0
+            pop temp 0 
+
+            // now that is pointer arr[x]
+            pop pointer 1
+            // push right value to stack
+            push temp 0
+            """ )
         
         self.writeCode("""
+        // stack -> var 
         pop {} {}
-        """.format( var_kind, var_pos  )  )  
+        """.format( bArrayStore and "that" or var_kind, var_pos  )  )  
          
         return True
 
@@ -420,6 +448,28 @@ class CodeWriter():
         return True 
 
     @checkUnhandleValue
+    def visit_ARRAY_SUB(self, node, env, isLeftValue = False  ):
+        # expr push
+        for child in node.children[1:-1]:
+            self.handle( child, env )
+
+        self.writeCode( """
+            // arr + offset
+            add
+            """)
+
+        if not isLeftValue:
+            self.writeCode( """
+            // right-value array access
+            pop pointer 1 
+            // arr[xxx] -> stack
+            push that 0 
+            """ )
+
+        return True
+
+
+    @checkUnhandleValue
     def visit_identifier(self, node, env):
         var_type,var_kind, var_pos  = self.findFromSymbolTable( env, node.val )
         self.writeCode("""
@@ -433,6 +483,25 @@ class CodeWriter():
         self.writeCode( """
         push constant {}
         """.format( node.val ) )
+        return True
+
+    @checkUnhandleValue
+    def visit_stringConstant(self,node,env):
+        strVal = node.val
+        nLen = len(strVal)
+
+        self.writeCode( """
+        // string length 
+        push constant {}
+        call String.new 1
+        """.format( nLen ) )
+
+        for ch in strVal :
+            self.writeCode( """
+            push constant {}
+            call String.appendChar 2
+            """.format( ord(ch) ) )
+
         return True
 
     @checkUnhandleValue
@@ -469,6 +538,13 @@ class CodeWriter():
             push pointer 0
             """ )
             return True
+        elif node.val == "null":
+            self.writeCode( """
+            push constant 0
+            not
+            """ )
+            return True  
+
 
 
 

@@ -300,7 +300,7 @@ class Lexer(object):
                         break
 
         if IsJackHomeWork :
-            self.outputXML( xml_output  )
+            # self.outputXML( xml_output  )
 
             writer = CodeWriter() 
             writer._srcFilePath  = self._srcFilePath 
@@ -310,7 +310,7 @@ class Lexer(object):
 
     def isSemantisNeed2Output(self , sem ):
         # for code writing
-        if sem in ( "subroutineCall" ) :
+        if sem in ( "subroutineCall" , "ARRAY_SUB" ) :
             return True
 
         if sem in ( 'type' , 'className' , 'subroutineName' , 'varName' , 'statement' ,
