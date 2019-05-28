@@ -343,7 +343,7 @@ class CodeWriter():
         var_name = node.children[1].val 
         var_type,var_kind, var_pos  = self.findFromSymbolTable( env, var_name )
 
-        # handle left array acces at first 
+        # handle left array access at first 
         bArrayStore =  len( node.children[2].children ) > 0 
         if bArrayStore:
             self.writeCode( """
@@ -371,10 +371,17 @@ class CodeWriter():
             push temp 0
             """ )
         
-        self.writeCode("""
-        // stack -> var 
-        pop {} {}
-        """.format( bArrayStore and "that" or var_kind, var_pos  )  )  
+        if bArrayStore:
+            self.writeCode("""
+            // store to a[], stack -> var 
+            pop that 0  
+            """)
+        else:
+            self.writeCode("""
+            // store , stack -> var 
+            pop {} {}  
+            """.format( var_kind, var_pos  )  )  
+
          
         return True
 
@@ -464,11 +471,11 @@ class CodeWriter():
 
         if not isLeftValue:
             self.writeCode( """
-            // right-value array access
             pop pointer 1 
-            // arr[xxx] -> stack
-            push that 0 
+            // a[] -> stack 
+            push that 0  
             """ )
+
 
         return True
 
@@ -545,7 +552,6 @@ class CodeWriter():
         elif node.val == "null":
             self.writeCode( """
             push constant 0
-            not
             """ )
             return True  
 
