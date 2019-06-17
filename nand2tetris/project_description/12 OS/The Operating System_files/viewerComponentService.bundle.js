@@ -189,7 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/wix-ui-santa/1.124.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/wix-ui-santa/1.134.0/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
@@ -437,7 +437,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1063);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1068);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -468,7 +468,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__1__;
 
 /***/ }),
 
-/***/ 1063:
+/***/ 1068:
 /*!**************************************!*\
   !*** ./components-service/viewer.js ***!
   \**************************************/
@@ -488,61 +488,61 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var compsToPackages = {
   'wixui.RichTextBox': function wixuiRichTextBox() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.RichTextBox */ 46).then(__webpack_require__.t.bind(null, /*! ../legacy/components/RichTextBox */ 411, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.RichTextBox */ 46).then(__webpack_require__.t.bind(null, /*! ../legacy/components/RichTextBox */ 412, 7))]);
   },
   'wixui.ToggleSwitch': function wixuiToggleSwitch() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.ToggleSwitch */ 53).then(__webpack_require__.t.bind(null, /*! ../legacy/components/ToggleSwitch */ 410, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.ToggleSwitch */ 53).then(__webpack_require__.t.bind(null, /*! ../legacy/components/ToggleSwitch */ 411, 7))]);
   },
   'wixui.Slider': function wixuiSlider() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.Slider */ 48).then(__webpack_require__.t.bind(null, /*! ../components/Slider */ 440, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.Slider */ 48).then(__webpack_require__.t.bind(null, /*! ../components/Slider */ 441, 7))]);
   },
   'wixui.SearchBox': function wixuiSearchBox() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.SearchBox */ 47).then(__webpack_require__.t.bind(null, /*! ../components/SearchBox */ 442, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.SearchBox */ 47).then(__webpack_require__.t.bind(null, /*! ../components/SearchBox */ 443, 7))]);
   },
   'wixui.Captcha': function wixuiCaptcha() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.Captcha */ 39).then(__webpack_require__.t.bind(null, /*! ../components/Captcha */ 437, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.Captcha */ 39).then(__webpack_require__.t.bind(null, /*! ../components/Captcha */ 438, 7))]);
   },
   'wixui.Pagination': function wixuiPagination() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.Pagination */ 42).then(__webpack_require__.t.bind(null, /*! ../components/Pagination */ 434, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.Pagination */ 42).then(__webpack_require__.t.bind(null, /*! ../components/Pagination */ 435, 7))]);
   },
   'wixui.AddressInput': function wixuiAddressInput() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.AddressInput */ 36).then(__webpack_require__.t.bind(null, /*! ../components/AddressInput */ 444, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.AddressInput */ 36).then(__webpack_require__.t.bind(null, /*! ../components/AddressInput */ 445, 7))]);
   },
   'wixui.StylableLine': function wixuiStylableLine() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.StylableLine */ 50).then(__webpack_require__.t.bind(null, /*! ../components/StylableLine */ 447, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.StylableLine */ 50).then(__webpack_require__.t.bind(null, /*! ../components/StylableLine */ 448, 7))]);
   },
   'wixui.Tags': function wixuiTags() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.Tags */ 51).then(__webpack_require__.t.bind(null, /*! ../components/Tags */ 435, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.Tags */ 51).then(__webpack_require__.t.bind(null, /*! ../components/Tags */ 436, 7))]);
   },
   'wixui.RatingsInput': function wixuiRatingsInput() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.RatingsInput */ 45).then(__webpack_require__.t.bind(null, /*! ../components/RatingsInput */ 436, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.RatingsInput */ 45).then(__webpack_require__.t.bind(null, /*! ../components/RatingsInput */ 437, 7))]);
   },
   'wixui.TimePicker': function wixuiTimePicker() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.TimePicker */ 52).then(__webpack_require__.t.bind(null, /*! ../components/TimePicker */ 445, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.TimePicker */ 52).then(__webpack_require__.t.bind(null, /*! ../components/TimePicker */ 446, 7))]);
   },
   'wixui.RatingsDisplay': function wixuiRatingsDisplay() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.RatingsDisplay */ 44).then(__webpack_require__.t.bind(null, /*! ../components/RatingsDisplay */ 438, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.RatingsDisplay */ 44).then(__webpack_require__.t.bind(null, /*! ../components/RatingsDisplay */ 439, 7))]);
   },
   'wixui.VideoPlayer': function wixuiVideoPlayer() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.VideoPlayer */ 54).then(__webpack_require__.t.bind(null, /*! ../components/VideoPlayer */ 433, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.VideoPlayer */ 54).then(__webpack_require__.t.bind(null, /*! ../components/VideoPlayer */ 434, 7))]);
   },
   'wixui.LineShareButton': function wixuiLineShareButton() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.LineShareButton */ 40).then(__webpack_require__.t.bind(null, /*! ../components/LineShareButton */ 446, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.LineShareButton */ 40).then(__webpack_require__.t.bind(null, /*! ../components/LineShareButton */ 447, 7))]);
   },
   'wixui.MusicPlayer': function wixuiMusicPlayer() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.MusicPlayer */ 41).then(__webpack_require__.t.bind(null, /*! ../components/MusicPlayer */ 399, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.MusicPlayer */ 41).then(__webpack_require__.t.bind(null, /*! ../components/MusicPlayer */ 400, 7))]);
   },
   'wixui.StylableButton': function wixuiStylableButton() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.StylableButton */ 49).then(__webpack_require__.t.bind(null, /*! ../components/StylableButton */ 448, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.StylableButton */ 49).then(__webpack_require__.t.bind(null, /*! ../components/StylableButton */ 449, 7))]);
   },
   'wixui.ProgressBar': function wixuiProgressBar() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.ProgressBar */ 43).then(__webpack_require__.t.bind(null, /*! ../components/ProgressBar */ 441, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.ProgressBar */ 43).then(__webpack_require__.t.bind(null, /*! ../components/ProgressBar */ 442, 7))]);
   },
   'wixui.BarChart': function wixuiBarChart() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.BarChart */ 37).then(__webpack_require__.t.bind(null, /*! ../components/BarChart */ 439, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.BarChart */ 37).then(__webpack_require__.t.bind(null, /*! ../components/BarChart */ 440, 7))]);
   },
   'wixui.BorisButton': function wixuiBorisButton() {
-    return Promise.all([__webpack_require__.e(/*! import() | wixui.BorisButton */ 38).then(__webpack_require__.t.bind(null, /*! ../components/BorisButton */ 443, 7))]);
+    return Promise.all([__webpack_require__.e(/*! import() | wixui.BorisButton */ 38).then(__webpack_require__.t.bind(null, /*! ../components/BorisButton */ 444, 7))]);
   }
 };
 
