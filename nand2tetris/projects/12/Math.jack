@@ -107,7 +107,30 @@ class Math {
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
+        var int y ; 
+        var int j ; 
+        var int tmp  ;
 
+        if (x<0)
+            return -1 ;
+        
+        let y = 0; 
+        let n = 0; 
+        while ( x >= twoToThe(n) ) {
+            let n = n+1 ; 
+        }
+
+        let j = n/2 ; 
+        while ( j >=0 ) {
+            let tmp = (y+ twoToThe(j)) * (y+ twoToThe(j))  ; 
+            if ( tmp > 0 ) {
+                if ( tmp <= x ) {
+                    let y = y + twoToThe(j) ; 
+                }
+            }
+            let j = j-1 ; 
+        }
+        return y ; 
     }
 
     /** Returns the greater number. */
