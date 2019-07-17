@@ -28,7 +28,8 @@ class Math {
         let twoToThe[12] = 4096 ;
         let twoToThe[13] = 8192 ;
         let twoToThe[14] = 16384 ;
-        let twoToThe[15] = 32768 ;
+        let twoToThe[15] =  twoToThe[14] + twoToThe[14] ; 
+        return ;
     }
 
     /** Returns the absolute value of x. */
@@ -83,21 +84,23 @@ class Math {
             let sign = -sign ;
         }
 
-        let pos_div = positive_divide( x,y ) ;
+        let pos_div = Math.positive_divide( x,y ) ;
         if (sign < 0 ) {
             let pos_div = - pos_div ; 
         }
         return pos_div ; 
     }
 
-    function int positive_divide(x,y) {
+    function int positive_divide(int x, int y) {
         var int q ; 
-        if ( y > x ) 
+        if ( y > x ) {
             return 0 ;
-        if ( y < 0 ) 
+        }
+        if ( y < 0 ) {
             return 0 ;
+        }
 
-        let q = positive_divide(x, y+y ) ;
+        let q = Math.positive_divide(x, y+y ) ;
         if (  x - ( (y+y)*q ) < y  )  {
             return q+q ;
         } else {
@@ -110,22 +113,24 @@ class Math {
         var int y ; 
         var int j ; 
         var int tmp  ;
+        var int n ; 
 
-        if (x<0)
+        if (x<0) {
             return -1 ;
+        }
         
         let y = 0; 
         let n = 0; 
-        while ( x >= twoToThe(n) ) {
+        while ( ~(x < twoToThe[n]) ) {
             let n = n+1 ; 
         }
 
         let j = n/2 ; 
-        while ( j >=0 ) {
-            let tmp = (y+ twoToThe(j)) * (y+ twoToThe(j))  ; 
+        while ( ~(j<0) ) {
+            let tmp = (y+ twoToThe[j]) * (y+ twoToThe[j])  ; 
             if ( tmp > 0 ) {
-                if ( tmp <= x ) {
-                    let y = y + twoToThe(j) ; 
+                if ( ~(tmp > x) ) {
+                    let y = y + twoToThe[j] ; 
                 }
             }
             let j = j-1 ; 
