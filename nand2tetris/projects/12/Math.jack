@@ -114,6 +114,7 @@ class Math {
         var int j ; 
         var int tmp  ;
         var int n ; 
+        var boolean bCond ; 
 
         if (x<0) {
             return -1 ;
@@ -121,8 +122,16 @@ class Math {
         
         let y = 0; 
         let n = 0; 
-        while ( ~(x < twoToThe[n]) ) {
-            let n = n+1 ; 
+        let bCond = true ; 
+        while ( bCond ) {
+            if (~(x < twoToThe[n]) )  {
+                let n = n+1 ; 
+                if ( n = 15 ) {
+                    let bCond = false ;
+                }
+            } else {
+                let bCond = false ; 
+            }
         }
 
         let j = n/2 ; 
