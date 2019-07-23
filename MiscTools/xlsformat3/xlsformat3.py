@@ -1,4 +1,3 @@
-
 import pandas as pd 
 import numpy as np
 import os
@@ -77,7 +76,7 @@ if __name__ == '__main__':
                     pass
 
             # convert main key to int , if necessary
-            if expected_types[main_key] == int :
+            if main_key not in expected_types or expected_types[main_key] == int :
                 df[main_key] = df[main_key].astype( int )
 
             data = {} 
