@@ -47,7 +47,7 @@ class Memory {
         while ( true ) {
             let nextBlock = ram[freeList]  ;
             let curBlockSize = ram[freeList+1]   ;
-            if ( curBlockSize < size+2 )  {
+            if ( curBlockSize < (size+2) )  {
                 if ( nextBlock > 0 ) {
                     let freeList = nextBlock  ;
                 } else {
@@ -63,7 +63,7 @@ class Memory {
                 return block_addr+2 ; 
             }
         }
-        do Sys.error(5);
+        do Sys.error(6);
         return -1 ;
     }
 
@@ -115,7 +115,7 @@ class Memory {
 
         let block_addr_2nd = addr2 ;
         
-        if ( block_addr + 2 + ram[block_addr+1] = ram[block_addr] ) {
+        if ( (block_addr + 2 + ram[block_addr+1]) = ram[block_addr] ) {
             let ram[block_addr] = ram[ram[block_addr]];
             let ram[block_addr+1] = ram[block_addr+1] + ( ram[block_next+1]+2 ) ;
             let block_addr_2nd = block_addr; 
@@ -124,7 +124,7 @@ class Memory {
         if ( ~(addr3 = 0) ) {
             let block_addr = block_addr_2nd  ; 
             let block_next = addr3 ;
-            if (block_addr + 2 + ram[block_addr+1] = ram[block_addr]) {
+            if ( (block_addr + 2 + ram[block_addr+1]) = ram[block_addr]) {
                 let ram[block_addr] = ram[ram[block_addr]] ; 
                 let ram[block_addr+1] = ram[block_addr+1] + ( ram[block_next+1]+2 ) ;
             }
