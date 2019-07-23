@@ -8,7 +8,6 @@ heap_base = 2048
 
 ram[ heap_base ] = 0 
 ram[ heap_base + 1] = 16384 - 2048 - 2 
-freeListTail = heap_base
 
 
 def alloc( size ):
