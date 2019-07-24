@@ -533,6 +533,7 @@ class CodeWriter():
     @checkUnhandleValue
     def visit_keyword(self,node,env):
         if node.val == "true":
+            # true is -1 
             self.writeCode( """
             push constant 0
             not

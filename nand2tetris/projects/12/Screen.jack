@@ -10,13 +10,26 @@
  * the screen is indexed (0,0).
  */
 class Screen {
-
+    static Array ram ;
+    static int screen_base ;
+    static int screen_len ;
     /** Initializes the Screen. */
     function void init() {
+        let ram = 0     ;
+        let screen_base = 16*1024 ;
+        let screen_len = 8*1024 ; 
+        return ;
     }
 
     /** Erases the entire screen. */
     function void clearScreen() {
+        var int ptr ;
+        let ptr = 0 ;
+        while (ptr < screen_len ) {
+            let ram[ screen_base + ptr ] = 0 ;
+            let ptr = ptr + 1 ;
+        }
+        return ;
     }
 
     /** Sets the current color, to be used for all subsequent drawXXX commands.
