@@ -10,14 +10,14 @@
  * the screen is indexed (0,0).
  */
 class Screen {
-    static Array ram ;
     static int screen_base ;
     static int screen_len ;
+    static int curColor ; 
     /** Initializes the Screen. */
     function void init() {
-        let ram = 0     ;
         let screen_base = 16*1024 ;
         let screen_len = 8*1024 ; 
+        let curColor = 1 ;
         return ;
     }
 
@@ -26,7 +26,7 @@ class Screen {
         var int ptr ;
         let ptr = 0 ;
         while (ptr < screen_len ) {
-            let ram[ screen_base + ptr ] = 0 ;
+            do Memory.poke(  screen_base + ptr , 0 ) ;
             let ptr = ptr + 1 ;
         }
         return ;
@@ -35,10 +35,27 @@ class Screen {
     /** Sets the current color, to be used for all subsequent drawXXX commands.
      *  Black is represented by true, white by false. */
     function void setColor(boolean b) {
+        if ( b ) {
+            let curColor = 1 ;
+        } else {
+            let curColor = 0 ; 
+        }
     }
+
 
     /** Draws the (x,y) pixel, using the current color. */
     function void drawPixel(int x, int y) {
+        var int address ;
+        var int value ;  
+        var int bit ; 
+
+        let address = (32*y) + (x/16)  ;
+        let value = Memory.peek( screen_base + address ) ; 
+        let bit = Math.mod( x , 16 ) ;
+        let value = value & ( ~Math.twoToThe(bit) ) ;
+        let value = value | ( 0*Math.twoToThe(bit) ) ; 
+        do Memory.poke(address, value)
+        return ;
     }
 
     /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */

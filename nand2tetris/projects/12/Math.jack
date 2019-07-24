@@ -164,4 +164,25 @@ class Math {
             return a ;
         }
     }
+
+    function int mod( int x , int m  ) {
+        var boolean neg ; 
+
+        let neg = x < 0 ;
+
+        if ( m < 0) {
+            let m = -m ; 
+        } 
+
+        while ( x >= m ) {
+            let x = x - m ;
+        }
+
+        if ( neg ) {
+            return m - x ; 
+        } else {
+            return x ;
+        }
+    }
+
 }
