@@ -40,34 +40,109 @@ class Screen {
         } else {
             let curColor = 0 ; 
         }
+        return ;
     }
 
+    function void setColorByAddressBit( int address , int bit ) {
+        var int value ;  
+
+        let value = Memory.peek( screen_base + address ) ; 
+        let value = value & ( ~Math.getTwoToThe(bit) ) ;
+        let value = value | ( curColor  *Math.getTwoToThe(bit) ) ; 
+
+        do Memory.poke(address, value) ;
+        return ;
+    }
 
     /** Draws the (x,y) pixel, using the current color. */
     function void drawPixel(int x, int y) {
         var int address ;
-        var int value ;  
         var int bit ; 
 
         let address = (32*y) + (x/16)  ;
-        let value = Memory.peek( screen_base + address ) ; 
         let bit = Math.mod( x , 16 ) ;
-        let value = value & ( ~Math.twoToThe(bit) ) ;
-        let value = value | ( 0*Math.twoToThe(bit) ) ; 
-        do Memory.poke(address, value)
+
+        do Screen.setColorByAddressBit( address , bit ) ;
+        return ;
+    }
+    function void drawLineV(int y1, int y2, int x1) {
+        var int address ;
+        var int bit ; 
+        var int x ;
+        var int y ; 
+        var int len ;
+        var int cnt ; 
+
+        let x = x1 ; 
+        let y = Math.min( y1, y2 ) ;
+        let len = Math.abs( y1-y2 ) + 1 ; 
+
+        let address = (32*y) + (x/16)  ;
+        let bit = Math.mod( x , 16 ) ;
+        
+        let cnt = 0 ;
+        while ( cnt < len ) {
+            do Screen.setColorByAddressBit( address , bit ) ;
+            let cnt = cnt + 1 ;
+            let address = address + 32 ;
+        }
+        return ;
+    }
+    function void drawLineH(int x1, int x2, int y1) {
+        var int address_start ;
+        var int bit_start ; 
+        var int address_end ;
+        var int bit_end ; 
+        var int x ;
+        var int y ; 
+        var int len ;
+        var int cnt ; 
+
+        let y = y1 ; 
+
+        let x = Math.min( x1, x2 ) ;
+        let address_start = (32*y) + (x/16)  ;
+        let bit_start = Math.mod( x , 16 ) ;
+
+        let x = Math.max( x1, x2 ) ;
+        let address_end = (32*y) + (x/16)  ;
+        let bit_end = Math.mod( x , 16 ) ;
+        
+        
+
+        let len = Math.abs( x1-x2 ) + 1 ; 
+        
+        let cnt = 0 ;
+        while ( cnt < len ) {
+            do Screen.setColorByAddressBit( address , bit ) ;
+            let cnt = cnt + 1 ;
+            let address = address + 32 ;
+        }
         return ;
     }
 
     /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
     function void drawLine(int x1, int y1, int x2, int y2) {
+        if (x1 = x2) {
+            do Screen.drawLineV( y1, y2 , x1 ) ;
+            return ;
+        } 
+        if (y1 = y2) {
+            do Screen.drawLineH( x1, x2, y1 ) ;
+            return ;
+        }
+
+        return ;
     }
 
     /** Draws a filled rectangle whose top left corner is (x1, y1)
      * and bottom right corner is (x2,y2), using the current color. */
     function void drawRectangle(int x1, int y1, int x2, int y2) {
+        return ;
     }
 
     /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
     function void drawCircle(int x, int y, int r) {
+        return ;
     }
 }

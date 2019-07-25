@@ -32,6 +32,10 @@ class Math {
         return ;
     }
 
+    function int getTwoToThe( int i  ) {
+        return twoToThe[ i ] ;
+    }
+
     /** Returns the absolute value of x. */
     function int abs(int x) {
         if (x<0) {
@@ -174,7 +178,7 @@ class Math {
             let m = -m ; 
         } 
 
-        while ( x >= m ) {
+        while ( ~(x < m) ) {
             let x = x - m ;
         }
 
