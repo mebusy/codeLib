@@ -93,6 +93,8 @@ class Screen {
         var int bit_start ; 
         var int address_end ;
         var int bit_end ; 
+        var int mask ;
+        var int value ;
         var int x ;
         var int y ; 
         var int len ;
@@ -108,7 +110,7 @@ class Screen {
         let address_end = (32*y) + (x/16)  ;
         let bit_end = Math.mod( x , 16 ) ;
         
-        
+         
 
         let len = Math.abs( x1-x2 ) + 1 ; 
         
