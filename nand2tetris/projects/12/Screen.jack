@@ -229,6 +229,10 @@ class Screen {
         var int dy ;
         var int dx ; 
 
+        if ( r > 181 ) {
+            let r = 181 ;
+        }
+
         let dy = -r ;
         while ( dy < ( r+1 )) {
             let dx = Math.sqrt( (r*r) - (dy*dy) ) ; 
