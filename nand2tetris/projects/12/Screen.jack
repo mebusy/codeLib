@@ -50,7 +50,7 @@ class Screen {
         let value = value & ( ~Math.getTwoToThe(bit) ) ;
         let value = value | ( curColor  *Math.getTwoToThe(bit) ) ; 
 
-        do Memory.poke(address, value) ;
+        do Memory.poke( screen_base +address, value) ;
         return ;
     }
 
@@ -197,7 +197,7 @@ class Screen {
 
             if (diff < 0 ) {
                 let a = a + 1 ; 
-                let diff = diff + dy ; 
+                let diff = diff + dy_pos ; 
             } else {
                 let b = b + 1 ;
                 let diff = diff - dx  ;
@@ -232,7 +232,7 @@ class Screen {
         let dy = -r ;
         while ( dy < ( r+1 )) {
             let dx = Math.sqrt( (r*r) - (dy*dy) ) ; 
-            do Screen.drawLineH( x-dx, x+dx, y ) ;
+            do Screen.drawLineH( x-dx, x+dx, y + dy  ) ;
             let dy = dy + 1 ;
         }
 
