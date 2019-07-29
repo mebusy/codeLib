@@ -43,7 +43,7 @@ class Screen {
         return ;
     }
 
-    function void setColorByAddressBit( int address , int bit ) {
+    function void setColorByReladdrBit( int address , int bit ) {
         var int value ;  
 
         let value = Memory.peek( screen_base + address ) ; 
@@ -62,7 +62,7 @@ class Screen {
         let address = (32*y) + (x/16)  ;
         let bit = Math.mod( x , 16 ) ;
 
-        do Screen.setColorByAddressBit( address , bit ) ;
+        do Screen.setColorByReladdrBit( address , bit ) ;
         return ;
     }
     function void drawLineV(int y1, int y2, int x1) {
@@ -82,7 +82,7 @@ class Screen {
         
         let cnt = 0 ;
         while ( cnt < len ) {
-            do Screen.setColorByAddressBit( address , bit ) ;
+            do Screen.setColorByReladdrBit( address , bit ) ;
             let cnt = cnt + 1 ;
             let address = address + 32 ;
         }
@@ -112,8 +112,8 @@ class Screen {
 
         if ( address_start = address_end ) {
             let bit = bit_start ;
-            while ( bit < bit_end + 1 ) {
-                do Screen.setColorByAddressBit( address_start , bit  ) ;
+            while ( bit < ( bit_end + 1 ) ) {
+                do Screen.setColorByReladdrBit( address_start , bit  ) ;
                 let bit = bit + 1 ;
             }
             return ;
@@ -121,14 +121,14 @@ class Screen {
         // draw left 
         let bit = bit_start  ; 
         while ( bit < 16 ) {
-            do Screen.setColorByAddressBit( address_start , bit ) ;
+            do Screen.setColorByReladdrBit( address_start , bit ) ;
             let bit = bit + 1 ;
         }
 
         // draw right
         let bit = 0  ; 
-        while ( bit < bit_end + 1  ) {
-            do Screen.setColorByAddressBit( address_end , bit ) ;
+        while ( bit < ( bit_end + 1  ) ) {
+            do Screen.setColorByReladdrBit( address_end , bit ) ;
             let bit = bit + 1 ;
         }
          
@@ -212,12 +212,12 @@ class Screen {
      * and bottom right corner is (x2,y2), using the current color. */
     function void drawRectangle(int x1, int y1, int x2, int y2) {
         var int y ; 
-        var int len ;
+        var int y_end ; 
 
         let y = Math.min( y1,y2 ) ;
-        let len = Math.abs( y2 - y1 ) + 1 ;
+        let y_end = Math.max( y2 , y1 )  ;
 
-        while ( y < len ) {
+        while ( y < (y_end + 1 ) ) {
             do Screen.drawLineH( x1, x2, y ) ;
             let y = y + 1 ;
         }
@@ -226,6 +226,16 @@ class Screen {
 
     /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
     function void drawCircle(int x, int y, int r) {
+        var int dy ;
+        var int dx ; 
+
+        let dy = -r ;
+        while ( dy < ( r+1 )) {
+            let dx = Math.sqrt( (r*r) - (dy*dy) ) ; 
+            do Screen.drawLineH( x-dx, x+dx, y ) ;
+            let dy = dy + 1 ;
+        }
+
         return ;
     }
 }
