@@ -22,17 +22,28 @@ class Output {
     static int cursorX ;
     static int cursorY ;
 
+    static int charW ; 
+    static int charH ; 
     static int screenW ; 
     static int screenH ; 
+    static int screen_base ;
+    static int screen_len ; 
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
-        do initMap() ; 
+        do Output.initMap() ; 
+
+        let screen_base = 16*1024 ;
+        let screen_len = 8*1024 ; 
+
         let cursorX = 0 ;
         let cursorY = 0 ;
 
+        let charW = 8 ;
+        let charH = 11 ; 
         let screenW = 32*2 ; 
         let screenH = 23 ;
+        return ;
     }
 
     // Initializes the character map array
@@ -188,37 +199,99 @@ class Output {
     /** Moves the cursor to the j-th column of the i-th row,
      *  and erases the character displayed there. */
     function void moveCursor(int i, int j) {
-        let cursorX = Math.mod( i, screenW ) ;
         let cursorY = Math.mod( i, screenH ) ;
+        let cursorX = Math.mod( j, screenW ) ;
+        return ;
     }
 
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
-        // TODO
+        var int high; 
+        var int low ; 
+        var int value ;
+        var int cnt ; 
+        var Array chmap ; 
+        var int address ;
+        
+        let address = (32* cursorY* charH ) + ( cursorX/ 2 )   ;
+        let cnt = 0 ;
+        let chmap = Output.getMap( c ) ;
+        while ( cnt < charH ) {
+            if ( address < screen_len ) {
+                let value = Memory.peek( screen_base + address ) ; 
+                let low = ( Math.getTwoToThe( 8 ) -1 ) & value ;  
+                let high = ( Math.getTwoToThe( 8 ) -1 ) & ( value /  Math.getTwoToThe( 8 ) ) ;  
+
+                if ( (cursorX & 1) = 0 ) {
+                    let value = ( high *  Math.getTwoToThe( 8 )  ) | chmap[cnt] ; 
+                } else {
+                    let value = ( chmap[cnt] *  Math.getTwoToThe( 8 )  ) | low ; 
+                }
+
+                do Memory.poke( screen_base + address , value  ) ; 
+                 
+                let cnt = cnt + 1 ;
+                let address = address + 32 ; 
+            }
+        } 
 
         let cursorX = cursorX + 1 ;
         if ( cursorX > ( screenW-1 ) ) {
             let cursorX = 0;
             let cursorY = Math.mod( cursorY + 1 , screenH ) ;
         }
+        return ;
     }
 
     /** displays the given string starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printString(String s) {
+        var int len ;
+        var int i ; 
+        var char ch ; 
+
+        let len = s.length();
+        let i = 0 ; 
+        
+        while ( i < len ) {
+            let ch = s.charAt( i ) ;
+            do Output.printChar( ch ) ;
+            let i = i + 1 ;
+        }
+        return ;
     }
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
+        var String s ;
+        
+        let s = String.new( 6 ) ;
+        do s.setInt( i ) ;
+        do Output.printString( s ) ;
+        return ;
     }
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
+        do Output.moveCursor(  cursorY + 1, 0  ) ;
+        return ;
     }
 
     /** Moves the cursor one column back. */
     function void backSpace() {
+        var int x ; 
+        var int y ;
+
+        let x = cursorX - 1 ;
+        let y = cursorY ; 
+        if ( x < 0 ) {
+            let x = 0 ;
+            let y = cursorY - 1 ;
+        } 
+
+        do Output.moveCursor( y , x ) ;
+        return ;
     }
 }
