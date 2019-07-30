@@ -32,8 +32,14 @@ class Sys {
     /** Waits approximately duration milliseconds and returns.  */
     function void wait(int duration) {
         var int cnt ; 
+        var int cnt_inner ;
+
         let cnt = 0 ;
         while ( cnt < duration ) {
+            let cnt_inner = 0 ;
+            while (cnt_inner < 350 ) {
+                let cnt_inner = cnt_inner + 1 ;
+            }
             let cnt = cnt + 1 ; 
         }
 
