@@ -108,40 +108,9 @@ class Keyboard {
      */
     function int readInt(String message) {
         var String s ; 
-        var int len ;
-        var int val ;
-        var int sign ; 
-        var char ch ; 
-        var int i ; 
 
         let s = Keyboard.readLine( message ) ;
-        let val = 0 ;
-        let sign = 1 ; 
-        let i = 0 ;
-        let len = s.length() ;
+        return s.intValue() ; 
         
-        if ( len < 2 ) {
-            return 0 ;
-        }
-        
-        let ch = s.charAt(0) ; 
-        if ( ch = 45 ) {
-            let sign = -1 ;
-            let i = 1 ; 
-        }
-
-        while ( i < len ) {
-            let ch = s.charAt(i) ; 
-            if ( ch < 48 ) {
-                return sign * val ; 
-            }
-            if ( ch > 57 ) {
-                return sign * val ; 
-            }
-
-            let val = (val * 10) + ( ch - 48 ) ;
-            let i = i + 1 ; 
-        }
-        return sign * val ; 
     }  
 }
