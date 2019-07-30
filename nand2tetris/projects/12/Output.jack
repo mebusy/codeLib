@@ -290,7 +290,8 @@ class Output {
             let x = 0 ;
             let y = cursorY - 1 ;
         } 
-
+        do Output.moveCursor( y , x ) ;
+        do Output.printChar( 32 ) ;
         do Output.moveCursor( y , x ) ;
         return ;
     }
