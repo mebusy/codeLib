@@ -195,6 +195,13 @@ class Output {
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
+        // TODO
+
+        let cursorX = cursorX + 1 ;
+        if ( cursorX > ( screenW-1 ) ) {
+            let cursorX = 0;
+            let cursorY = Math.mod( cursorY + 1 , screenH ) ;
+        }
     }
 
     /** displays the given string starting at the cursor location,
