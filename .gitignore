@@ -27,3 +27,5 @@ golang.org/
 
 *.swp
 
+nand2tetris/tools/bin/Virtual\ Machine\ Emulator.dat
+
