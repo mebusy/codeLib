@@ -15,6 +15,7 @@ class Memory {
 
     /** Initializes the class. */
     function void init() {
+        // don't use math lib here
         let ram = 0 ; // Jack is weak typed
 
         let heap_base = 2048 ;
@@ -48,13 +49,19 @@ class Memory {
             let nextBlock = ram[freeList]  ;
             let curBlockSize = ram[freeList+1]   ;
             if ( curBlockSize < (size+2) )  {
+                // not enought block size
+
                 if ( nextBlock > 0 ) {
+                    // seek next block
                     let freeList = nextBlock  ;
                 } else {
+                    // end , return error
                     do Sys.error(5);
                     return -1 ;
                 }
             } else {
+                // carve memory from heap bottom
+
                 let block_addr = freeList + 2 + curBlockSize - (size+2)  ; 
                 let ram[freeList+1] =  ram[freeList+1] - (size+2) ; 
 
