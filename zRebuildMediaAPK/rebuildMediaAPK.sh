@@ -82,7 +82,7 @@ fi
 rm -rf $FOLDER_APK
 
 # -digestalg SHA1 -sigalg MD5withRSA  , need by jdk1.8
-jarsigner -digestalg SHA1 -sigalg MD5withRSA -storepass ubisoft7 -keystore $KEY_STORE   _unsigned.apk $KEY_ALIAS  # -tsa http://timestamp.digicert.com 
+jarsigner -digestalg SHA1 -sigalg MD5withRSA -storepass uboft7 -keystore $KEY_STORE   _unsigned.apk $KEY_ALIAS  # -tsa http://timestamp.digicert.com 
 if [ "$?" -eq "0" ] ; then
         echo
         
