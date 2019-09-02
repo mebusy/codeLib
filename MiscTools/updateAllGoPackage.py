@@ -7,7 +7,7 @@ def runBashCmd( cmd ):
     streamdata = child.communicate()[0]
     rc = child.returncode
     if rc != 0:
-        print cmd , "exit with" , rc  
+        print cmd , "exit with" , rc  , streamdata
         sys.exit( 1 )
 
     return streamdata 
