@@ -1,67 +1,75 @@
 import os
 import os.path
-import fnmatch
+# import fnmatch
 import logging
 import ycm_core
-import re
+# import re
 
 C_BASE_FLAGS = [
-        '-Wall',
-        '-Wextra',
-        '-Werror',
-        '-Wno-long-long',
-        '-Wno-variadic-macros',
-        '-fexceptions',
-        '-ferror-limit=10000',
-        '-DNDEBUG',
-        '-std=c11',
-        '-I/usr/lib/',
-        '-I/usr/include/'
-        ]
+    '-Wall',
+    '-Wextra',
+    '-Werror',
+    '-Wno-long-long',
+    '-Wno-variadic-macros',
+    '-fexceptions',
+    '-ferror-limit=10000',
+    '-DNDEBUG',
+    '-std=gunc99',
+    '-x', 'c', 
+    '-I/usr/lib/',
+    '-I/usr/include/'
+]
 
 CPP_BASE_FLAGS = [
-        '-Wall',
-        '-Wextra',
-        '-Wno-long-long',
-        '-Wno-variadic-macros',
-        '-fexceptions',
-        '-ferror-limit=10000',
-        '-DNDEBUG',
-        '-std=c++1z',
-        '-xc++',
-        '-I/usr/lib/',
-        '-I/usr/include/'
-        ]
+    '-Wall',
+    '-Wextra',
+    '-Wno-long-long',
+    '-Wno-variadic-macros',
+    '-fexceptions',
+    '-ferror-limit=10000',
+    '-DNDEBUG',
+    '-std=c++1z',
+    '-x', 'c++',
+    '-I/usr/lib/',
+    '-I/usr/include/'
+]
+
 
 C_SOURCE_EXTENSIONS = [
-        '.c'
-        ]
+    '.c'
+]
 
 CPP_SOURCE_EXTENSIONS = [
-        '.cpp',
-        '.cxx',
-        '.cc',
-        '.m',
-        '.mm'
-        ]
+    '.cpp',
+    '.cxx',
+    '.cc',
+    '.m',
+    '.mm'
+]
 
-SOURCE_DIRECTORIES = [
-        'src',
-        'lib'
-        ]
 
 HEADER_EXTENSIONS = [
-        '.h',
-        '.hxx',
-        '.hpp',
-        '.hh'
-        ]
+    '.h',
+    '.hxx',
+    '.hpp',
+    '.hh'
+]
+
+C_HEADER_EXTENSIONS = [
+    '.h',
+]
 
 HEADER_DIRECTORIES = [
-        'include'
-        ]
+    'include',
+]
 
-BUILD_DIRECTORY = 'build';
+SOURCE_DIRECTORIES = [
+    'src',
+    'lib',
+]
+
+BUILD_DIRECTORY = 'build'
+
 
 def IsSourceFile(filename):
     extension = os.path.splitext(filename)[1]
@@ -96,17 +104,17 @@ def FindNearest(path, target, build_folder=None):
     candidate = os.path.join(path, target)
     if(os.path.isfile(candidate) or os.path.isdir(candidate)):
         logging.info("Found nearest " + target + " at " + candidate)
-        return candidate;
+        return candidate
 
-    parent = os.path.dirname(os.path.abspath(path));
+    parent = os.path.dirname(os.path.abspath(path))
     if(parent == path):
-        raise RuntimeError("Could not find " + target);
+        raise RuntimeError("Could not find " + target)
 
     if(build_folder):
         candidate = os.path.join(parent, build_folder, target)
         if(os.path.isfile(candidate) or os.path.isdir(candidate)):
             logging.info("Found nearest " + target + " in build folder at " + candidate)
-            return candidate;
+            return candidate
 
     return FindNearest(parent, target, build_folder)
 
@@ -174,24 +182,30 @@ def FlagsForCompilationDatabase(root, filename):
         if not compilation_info:
             logging.info("No compilation info for " + filename + " in compilation database")
             return None
-        return MakeRelativePathsInFlagsAbsolute(
-                compilation_info.compiler_flags_,
-                compilation_info.compiler_working_dir_)
+        return MakeRelativePathsInFlagsAbsolute( 
+            compilation_info.compiler_flags_,
+            compilation_info.compiler_working_dir_)
     except:
         return None
 
 def FlagsForFile(filename):
-    root = os.path.realpath(filename);
+    root = os.path.realpath(filename)
     compilation_db_flags = FlagsForCompilationDatabase(root, filename)
     if compilation_db_flags:
         final_flags = compilation_db_flags
     else:
+        extension = os.path.splitext(filename)[1]
         if IsSourceFile(filename):
-            extension = os.path.splitext(filename)[1]
             if extension in C_SOURCE_EXTENSIONS:
                 final_flags = C_BASE_FLAGS
             else:
                 final_flags = CPP_BASE_FLAGS
+        else:
+            if extension in C_HEADER_EXTENSIONS:
+                final_flags = C_BASE_FLAGS
+            else:
+                final_flags = CPP_BASE_FLAGS
+
 
         clang_flags = FlagsForClangComplete(root)
         if clang_flags:
@@ -200,6 +214,55 @@ def FlagsForFile(filename):
         if include_flags:
             final_flags = final_flags + include_flags
     return {
-            'flags': final_flags,
-            'do_cache': True
-            }
+        'flags': final_flags,
+        'do_cache': True }
+
+
+
+# ========================
+
+
+import os.path as p
+import subprocess
+
+DIR_OF_THIS_SCRIPT = p.abspath( p.dirname( __file__ ) )
+DIR_OF_THIRD_PARTY = p.join( DIR_OF_THIS_SCRIPT, 'third_party' )
+
+
+def GetStandardLibraryIndexInSysPath( sys_path ):
+  for index, path in enumerate( sys_path ):
+    if p.isfile( p.join( path, 'os.py' ) ):
+      return index
+  raise RuntimeError( 'Could not find standard library path in Python path.' )
+
+
+def PythonSysPath( **kwargs ):
+  sys_path = kwargs[ 'sys_path' ]
+
+  dependencies = [ p.join( DIR_OF_THIS_SCRIPT, 'python' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'requests-futures' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'ycmd' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'requests_deps', 'idna' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'requests_deps', 'chardet' ),
+                   p.join( DIR_OF_THIRD_PARTY,
+                           'requests_deps',
+                           'urllib3',
+                           'src' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'requests_deps', 'certifi' ),
+                   p.join( DIR_OF_THIRD_PARTY, 'requests_deps', 'requests' ) ]
+
+  # The concurrent.futures module is part of the standard library on Python 3.
+  interpreter_path = kwargs[ 'interpreter_path' ]
+  major_version = int( subprocess.check_output( [
+    interpreter_path, '-c', 'import sys; print( sys.version_info[ 0 ] )' ]
+  ).rstrip().decode( 'utf8' ) )
+  if major_version == 2:
+    dependencies.append( p.join( DIR_OF_THIRD_PARTY, 'pythonfutures' ) )
+
+  sys_path[ 0:0 ] = dependencies
+  sys_path.insert( GetStandardLibraryIndexInSysPath( sys_path ) + 1,
+                   p.join( DIR_OF_THIRD_PARTY, 'python-future', 'src' ) )
+
+  return sys_path
+
+
