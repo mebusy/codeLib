@@ -195,8 +195,6 @@ let g:lua_complete_omni = 1
 "     au BufReadPost *.rkt,*.rktl set filetype=scheme
 " endif
 
-" rust 
-let g:ycm_rust_src_path = '/Volumes/WORK/_Y/rustc-1.22.1-src/src'
 
 " debug
 " let g:ycm_keep_logfiles = 1
