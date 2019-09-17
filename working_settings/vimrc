@@ -39,7 +39,7 @@ Bundle 'majutsushi/tagbar'
 " Bundle 'kien/ctrlp.vim'
 " Bundle 'pbrisbin/vim-mkdir'
 " systastic is used by java complete
-Bundle 'scrooloose/syntastic'
+" Bundle 'scrooloose/syntastic'
 " Bundle 'slim-template/vim-slim'
 " Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-bundler'
@@ -171,7 +171,12 @@ let g:syntastic_java_javac_config_file_enabled=1
 " let g:JavaComplete_LibsPath=".:/usr/local/algs4/algs4.jar"
 
 " java complele
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" Youcompleteme Java , manually disable Syntastic Java diagnostics.
+let g:syntastic_java_checkers = []  
+" manually disable Eclim Java diagnostics.
+let g:EclimFileTypeValidate = 0
+
 
 "  color 
 highlight Comment ctermfg=darkgray
