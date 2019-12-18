@@ -56,7 +56,6 @@ Bundle 'vim-scripts/tComment'
 " Bundle "mattn/emmet-vim"
 Bundle "scrooloose/nerdtree"
 Bundle "Lokaltog/vim-powerline"
-" Bundle "godlygeek/tabular"
 Bundle "msanders/snipmate.vim"
 " Bundle "jelera/vim-javascript-syntax"
 " Bundle "altercation/vim-colors-solarized"
@@ -73,6 +72,10 @@ Bundle "ycm-core/YouCompleteMe"
 " Bundle "artur-shaik/vim-javacomplete2"
 Bundle "xolox/vim-misc"
 Bundle "xolox/vim-lua-ftplugin"
+
+" The tabular plugin must come before vim-markdown.
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
 
 set smartindent  
 set tabstop=4  
@@ -188,6 +191,14 @@ set listchars=tab:>-
 " lua support
 let g:lua_complete_dynamic = 0 
 let g:lua_complete_omni = 1
+
+
+" markdown
+""" disable folding
+let g:vim_markdown_folding_disabled = 1
+""" Set header folding level
+let g:vim_markdown_folding_level = 4
+let g:vim_markdown_toc_autofit = 1
 
 " visualize text , then Ctrl-C if your vim doesn't support clipboard
 " map <C-c> y:e ~/clipsongzboard<CR>P:w !pbcopy<CR><CR>:bdelete!<CR>
