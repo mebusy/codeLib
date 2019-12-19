@@ -15,7 +15,9 @@ au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
+" 开启语法高亮功能
 syntax enable
+" " 允许用指定语法高亮配色方案替换默认方案
 syntax on
 
 set number
@@ -117,10 +119,6 @@ set hlsearch
 
 
 
-" 开启语法高亮功能
-syntax enable
-" " 允许用指定语法高亮配色方案替换默认方案
-syntax on
 
 
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
