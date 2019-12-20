@@ -1,18 +1,20 @@
 # detect shell env
 if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
     echo "It's in" $0 
+    # Git branch in prompt.
+    parse_git_branch() {
+        git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    }
+    export -f parse_git_branch
+    export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+
 elif [ "zsh" = "$0"  ] || [ "-zsh" = "$0" ]  ; then
     echo "It's in" $0 
     # /usr/bin/env bash
     emulate bash
+
 fi
 
-# Git branch in prompt.
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export -f parse_git_branch
-export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # to use , vi ~/.profile, add...
 # myProfile=~/".myProfile" 
