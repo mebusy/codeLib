@@ -1,3 +1,11 @@
+# detect shell env
+if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
+    echo $0 
+elif [ "zsh" = "$0"  ] || [ "-zsh" = "$0" ]  ; then
+    echo $0 
+    # /usr/bin/env bash
+    emulate bash
+fi
 
 # Git branch in prompt.
 parse_git_branch() {
