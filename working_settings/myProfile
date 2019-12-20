@@ -1,8 +1,8 @@
 # detect shell env
 if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
-    echo $0 
+    echo "It's in" $0 
 elif [ "zsh" = "$0"  ] || [ "-zsh" = "$0" ]  ; then
-    echo $0 
+    echo "It's in" $0 
     # /usr/bin/env bash
     emulate bash
 fi
