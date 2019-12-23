@@ -7,12 +7,6 @@ if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
     }
     export -f parse_git_branch
     export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-
-elif [ "zsh" = "$0"  ] || [ "-zsh" = "$0" ]  ; then
-    echo "It's in" $0 
-    # /usr/bin/env bash
-    emulate bash
-
 fi
 
 
