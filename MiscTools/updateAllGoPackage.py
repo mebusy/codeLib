@@ -2,14 +2,15 @@ import subprocess
 import sys
 import os
 
-def runBashCmd( cmd ):
+def runBashCmd( cmd, ingoreErr = False  ):
     child = subprocess.Popen( cmd , stdout=subprocess.PIPE , stdin=subprocess.PIPE, stderr=subprocess.STDOUT , shell=True )
     streamdata = child.communicate()[0]
     rc = child.returncode
     if rc != 0:
         print cmd , "exit with" , rc  , streamdata
-        sys.exit( 1 )
-
+        if not ingoreErr:
+            sys.exit( 1 )
+    
     return streamdata 
 
 
@@ -18,9 +19,11 @@ def updateAll():
     gopath = gopaths[0]
     print "GOPATH:" , gopath
 
+    print runBashCmd( "rm -rf {}/src/github.com/0xAX/notificator".format( gopath ) )
+
     updated = {} 
     excludes = [
-        "github.com/go-gl/glfw" , 
+        # "github.com/go-gl/glfw" , 
     ]
 
     cmd = "go list ..."
@@ -62,7 +65,7 @@ def updateAll():
     ]
     for cmd in cmds:
         print cmd
-        print runBashCmd(cmd) 
+        print runBashCmd(cmd, True ) 
 
 
 if __name__ == '__main__':
