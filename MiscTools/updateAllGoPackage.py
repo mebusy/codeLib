@@ -8,9 +8,9 @@ def runBashCmd( cmd, ingoreErr = False  ):
     rc = child.returncode
     if rc != 0:
         print cmd , "exit with" , rc  , streamdata
-        if not ingoreErr:
+        if not ingoreErr and streamdata.find("no Go files in")==-1 :
             sys.exit( 1 )
-    
+
     return streamdata 
 
 
@@ -23,7 +23,7 @@ def updateAll():
 
     updated = {} 
     excludes = [
-        # "github.com/go-gl/glfw" , 
+        # "github.com/go-gl/glfw" ,   # can not go get
     ]
 
     cmd = "go list ..."
@@ -45,23 +45,23 @@ def updateAll():
 
         updated[ package ] = 1
         
-        if True or paths[0] == "golang.org" or package in excludes  :
+        if paths[0] == "golang.org" or package in excludes  :
             runBashCmd( "cd " + path_package  )
             runBashCmd( "git checkout master && git pull" ) 
             print "update repo " + package
         else:
-            cmd = "go get -u " + package
+            cmd = "go get -v -u " + package
             print cmd 
             print runBashCmd( cmd  )
 
 
     # final
     cmds = [ 
-        "go get golang.org/x/mobile/cmd/gomobile" , 
+        "go get -v golang.org/x/mobile/cmd/gomobile" , 
         "gomobile init"  , 
-        "go get github.com/codegangsta/gin" , 
-        "go get github.com/gopherjs/gopherjs" , 
-        "go get github.com/hajimehoshi/ebiten/..." , 
+        "go get -v -u github.com/codegangsta/gin" , 
+        "go get -v -u github.com/gopherjs/gopherjs" , 
+        "go get -v -u github.com/hajimehoshi/ebiten/..." , 
     ]
     for cmd in cmds:
         print cmd
