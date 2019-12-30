@@ -2,13 +2,13 @@ import subprocess
 import sys
 import os
 
-def runBashCmd( cmd, ingoreErr = False  ):
+def runBashCmd( cmd  ):
     child = subprocess.Popen( cmd , stdout=subprocess.PIPE , stdin=subprocess.PIPE, stderr=subprocess.STDOUT , shell=True )
     streamdata = child.communicate()[0]
     rc = child.returncode
     if rc != 0:
         print cmd , "exit with" , rc  , streamdata
-        if not ingoreErr and streamdata.find("no Go files in")==-1 :
+        if streamdata.find("no Go files in")==-1 and streamdata.find( "found meta tag get.metaImport{Prefix:" ) == -1 :
             sys.exit( 1 )
 
     return streamdata 
@@ -19,12 +19,10 @@ def updateAll():
     gopath = gopaths[0]
     print "GOPATH:" , gopath
 
-    print runBashCmd( "rm -rf {}/src/github.com/0xAX/notificator".format( gopath ) )
+    for repo in [ "github.com/0xAX/notificator"  ]:
+        print runBashCmd( "rm -rf {}/src/{}".format( gopath , repo) )
 
     updated = {} 
-    excludes = [
-        # "github.com/go-gl/glfw" ,   # can not go get
-    ]
 
     cmd = "go list ..."
     res =  runBashCmd( cmd )
@@ -45,7 +43,8 @@ def updateAll():
 
         updated[ package ] = 1
         
-        if paths[0] == "golang.org" or package in excludes  :
+        if paths[0] == "golang.org" :
+            # repo update only
             runBashCmd( "cd " + path_package  )
             runBashCmd( "git checkout master && git pull" ) 
             print "update repo " + package
@@ -65,7 +64,7 @@ def updateAll():
     ]
     for cmd in cmds:
         print cmd
-        print runBashCmd(cmd, True ) 
+        print runBashCmd(cmd ) 
 
 
 if __name__ == '__main__':
