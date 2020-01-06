@@ -9,7 +9,8 @@ def runBashCmd( cmd  ):
     if rc != 0:
         print cmd , "exit with" , rc  , streamdata
         if streamdata.find("no Go files in")==-1 and streamdata.find( "found meta tag get.metaImport{Prefix:" ) == -1 :
-            sys.exit( 1 )
+            # sys.exit( 1 )
+            pass  # no longer exit
 
     return streamdata 
 
