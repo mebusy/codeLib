@@ -1,12 +1,14 @@
 #!/bin/zsh
 
-cmd="$1"
+cmd="$@"
 if [[ $cmd == "" ]]; 
 then
     echo missing command
     exit 1
 fi
 
-docker run --entrypoint="manim" --rm -it --name manim  -v `pwd`/output:/media -v `pwd`:/input manim:v1 $cmd
+input="input"
+docker run --entrypoint="" --rm -it --name manim  -v `pwd`/output:/media -v `pwd`:/$input manim:v1 /bin/sh -c "manim $input/$cmd"
+
 
 
