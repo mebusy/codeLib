@@ -19,7 +19,7 @@ docker run --entrypoint="" --rm -it --name manim  \
 
 # should remore `\r` otherwise file will not found
 dest=`awk -v RS='\r\n'  '/File ready at/ {print substr($4,2)}' o.txt` 
-open $dest
+open -a vlc $dest
 rm -f o.txt
 
 
