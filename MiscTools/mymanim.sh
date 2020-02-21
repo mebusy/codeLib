@@ -4,6 +4,10 @@ cmd="$@"
 if [[ $cmd == "" ]]; 
 then
     echo missing command
+
+    docker run --entrypoint="" --rm -it --name manim  \
+        manim:v1 manim
+
     exit 1
 fi
 
