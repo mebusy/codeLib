@@ -9,10 +9,10 @@ fi
 
 
 input="input"
-output="media"
+output="/Volumes/RamDisk/media"
 
 docker run --entrypoint="" --rm -it --name manim  \
-    -v `pwd`/$output:/media \
+    -v $output:/media \
     -v `pwd`:/$input manim:v1 \
     /bin/sh -c "manim $input/$cmd" \
         | tee o.txt 
