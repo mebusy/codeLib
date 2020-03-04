@@ -25,7 +25,7 @@ docker run --entrypoint="" --rm -it --name manim  \
     -v `pwd`:$d_input \
     -v $output:$d_output \
     manim:v1 \
-    /bin/sh -c "manim --media_dir=$d_output $d_input/$cmd" \
+    /bin/sh -c "manim --media_dir=$d_output $cmd" \
         | tee o.txt 
 
 # should remore `\r` otherwise file will not found
