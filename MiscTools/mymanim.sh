@@ -12,13 +12,20 @@ then
 fi
 
 
-input="input"
-output="/Volumes/RamDisk/media"
+# inner input dir
+d_input="/tmp/input"
+
+d_output="/tmp/output"
+
+# external output dir
+output="/Volumes/RamDisk/manim_output"
 
 docker run --entrypoint="" --rm -it --name manim  \
-    -v $output:/media \
-    -v `pwd`:/$input manim:v1 \
-    /bin/sh -c "manim $input/$cmd" \
+    -w $d_input \
+    -v `pwd`:$d_input \
+    -v $output:$d_output \
+    manim:v1 \
+    /bin/sh -c "manim --media_dir=$d_output $d_input/$cmd" \
         | tee o.txt 
 
 # should remore `\r` otherwise file will not found
@@ -31,7 +38,7 @@ then
 fi
 
 # open -a vlc $dest
-open $output/../$dest
+open $output/${dest:${#d_output}}
 rm -f o.txt
 
 
