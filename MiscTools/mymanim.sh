@@ -24,6 +24,7 @@ docker run --entrypoint="" --rm -it --name manim  \
     -w $d_input \
     -v `pwd`:$d_input \
     -v $output:$d_output \
+    -e PYTHONPATH=$d_input \
     manim:v1 \
     /bin/sh -c "manim --media_dir=$d_output $cmd" \
         | tee o.txt 
@@ -40,18 +41,5 @@ fi
 # open -a vlc $dest
 open $output/${dest:${#d_output}}
 rm -f o.txt
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
