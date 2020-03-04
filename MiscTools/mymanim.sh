@@ -31,7 +31,7 @@ then
 fi
 
 # open -a vlc $dest
-open $dest
+open $output/../$dest
 rm -f o.txt
 
 
