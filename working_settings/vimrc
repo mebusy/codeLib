@@ -41,7 +41,7 @@ Bundle 'majutsushi/tagbar'
 " Bundle 'kien/ctrlp.vim'
 " Bundle 'pbrisbin/vim-mkdir'
 " systastic is used by java complete
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 " Bundle 'slim-template/vim-slim'
 " Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-bundler'
