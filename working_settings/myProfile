@@ -8,7 +8,7 @@ export -f parse_git_branch > /dev/null
 
 # detect shell env
 if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
-    echo "It's in" $0 
+    # echo "It's in" $0 
     # Git branch in prompt.
     export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 else
