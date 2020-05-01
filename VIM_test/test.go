@@ -1,6 +1,9 @@
-package main 
+package main
 
-import "io"
+import "log"
 
+func main() {
+    log.Println(  "aaa" ) 
+}
 
 // io.
