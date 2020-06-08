@@ -1,0 +1,46 @@
+package main
+
+import (
+	"log"
+	"net"
+)
+
+const RBUF_SIZE int = 2048
+
+func main() {
+    addr, _ := net.ResolveUDPAddr("udp", ":1053")
+    sock, err := net.ListenUDP("udp", addr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer sock.Close()
+
+    /*
+    err = sock.SetReadBuffer( RBUF_SIZE )
+    if err != nil {
+        log.Println( err )
+    }
+    //*/
+
+    log.Println( "udp listen on" , addr )
+
+	for {
+		buf := make([]byte, RBUF_SIZE)
+		n, addr, err := sock.ReadFromUDP(buf)
+		if err != nil {
+			continue
+		}
+        log.Println( "read:" , n )
+		go serve(sock, addr, buf[:n])
+	}
+
+}
+
+func serve(conn *net.UDPConn, addr net.Addr, buf []byte) {
+	// 0 - 1: ID
+	// 2: QR(1): Opcode(4)
+    log.Printf( "%q\n", buf[:20] )
+
+	conn.WriteTo(buf, addr)
+}
+
