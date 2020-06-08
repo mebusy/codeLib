@@ -3,12 +3,23 @@ package main
 import (
 	"log"
 	"net"
+    "flag"
+    "fmt"
 )
 
 const RBUF_SIZE int = 2048
 
+var port = flag.Int("p", 1053, "udp port"  )
+var help = flag.Bool("h", false, "help"  )
+
 func main() {
-    addr, _ := net.ResolveUDPAddr("udp", ":1053")
+    flag.Parse()
+    if *help {
+        flag.PrintDefaults()
+        return
+    }
+
+    addr, _ := net.ResolveUDPAddr("udp",  fmt.Sprintf(":%d", *port)  )
     sock, err := net.ListenUDP("udp", addr)
 	if err != nil {
 		log.Fatal(err)
