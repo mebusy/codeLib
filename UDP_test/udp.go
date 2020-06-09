@@ -50,7 +50,7 @@ func main() {
 func serve(conn *net.UDPConn, addr net.Addr, buf []byte) {
 	// 0 - 1: ID
 	// 2: QR(1): Opcode(4)
-    prefix:=fmt.Sprintf( "server write to %s :", addr )
+    prefix:=fmt.Sprintf( "server response to %s :", addr )
     log.Println( prefix )
 
 	conn.WriteTo( append( []byte(prefix), buf... ), addr)
