@@ -3,11 +3,22 @@ package main
 import (
   "net"
   "log"
+  "flag"
+  "fmt"
 )
 
+var port = flag.Int("p", 1053, "udp port"  )
+var host = flag.String("host", "localhost", "host"  )
+var help = flag.Bool("h", false, "help"  )
 
 func main() {
-    addr, _ := net.ResolveUDPAddr("udp", "127.0.0.1:1053")
+    flag.Parse()
+    if *help {
+        flag.PrintDefaults()
+        return
+    }
+
+    addr, _ := net.ResolveUDPAddr("udp", fmt.Sprintf( "%s:%d" , *host, *port  ))
     conn, err := net.DialUDP("udp", nil, addr )
     if err != nil {
         log.Fatal( err )
@@ -25,6 +36,17 @@ func main() {
         log.Println( err )
     } else {
         log.Println( "written: " , n  )
+    }
+    
+    for i := 0 ; i< len(buf) ; i++ {
+        buf[i] = 0
+    }
+
+    n , err = conn.Read( buf )
+    if err != nil {
+        log.Println(err)
+    } else {
+        log.Printf( "written: %q" , buf[:10]  )
     }
 
 

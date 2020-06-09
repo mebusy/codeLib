@@ -7,7 +7,7 @@ import (
     "fmt"
 )
 
-const RBUF_SIZE int = 2048
+const RBUF_SIZE int = 64
 
 var port = flag.Int("p", 1053, "udp port"  )
 var help = flag.Bool("h", false, "help"  )
@@ -50,8 +50,8 @@ func main() {
 func serve(conn *net.UDPConn, addr net.Addr, buf []byte) {
 	// 0 - 1: ID
 	// 2: QR(1): Opcode(4)
-    log.Printf( "%q\n", buf[:20] )
+    prefix:=fmt.Sprintf( "server write to %s :", addr )
 
-	conn.WriteTo(buf, addr)
+	conn.WriteTo( append( []byte(prefix), buf... ), addr)
 }
 
