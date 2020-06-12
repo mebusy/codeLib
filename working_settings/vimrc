@@ -149,6 +149,9 @@ let NERDTreeIgnore = ['\.pyc$', '\.swp$']
 " Go to definition else declaration
 nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" don't show Maximum number of diagnostics exceeded
+let g:ycm_max_diagnostics_to_display = 0
+
 " just to new tab
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 
@@ -157,7 +160,8 @@ let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 let g:ycm_key_invoke_completion = '<C-a>'
 
 let g:ycm_confirm_extra_conf=0 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" tempelate has been changed, the old conf.py doesn't compatible anymore
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 " markdown chrome browse
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
