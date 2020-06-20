@@ -151,7 +151,9 @@ nmap <Leader>fl :Lex<CR>
 " Read an empty HTML template and move cursor to title
 " nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 
-
+" en_us,de_de
+" set spelllang=en_us
+" set spell
 
 " ============== PLUGINS  =================
 
@@ -182,7 +184,7 @@ let g:syntastic_java_javac_config_file_enabled=1
 " external lib support for java completeme
 " let g:JavaComplete_LibsPath=".:/usr/local/algs4/algs4.jar"
 
-" java complele
+" java complete
 " autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Youcompleteme Java , manually disable Syntastic Java diagnostics.
 let g:syntastic_java_checkers = []  
