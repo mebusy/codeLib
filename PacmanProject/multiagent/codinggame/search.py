@@ -1,9 +1,47 @@
 #!/usr/local/bin/python3
 import time
 
+import itertools
 import heapq
 
-class PriorityQueue:
+REMOVED = '<removed-task>'      # placeholder for a removed task
+
+
+class PriorityQueue():
+
+    def __init__(self):
+        self.pq = []                         # list of entries arranged in a heap
+        self.entry_finder = {}               # mapping of tasks to entries
+        self.counter = itertools.count()     # unique sequence count
+
+    def push(self, task, priority=0):
+        'Add a new task or update the priority of an existing task'
+        if task in self.entry_finder:
+            self.remove_task(task)
+        count = next(self.counter)
+        entry = [priority, count, task]
+        self.entry_finder[task] = entry
+        heapq.heappush(self.pq, entry)
+
+    def remove_task(self, task):
+        'Mark an existing task as REMOVED.  Raise KeyError if not found.'
+        entry = self.entry_finder.pop(task)
+        entry[-1] = REMOVED
+
+    def pop(self):
+        'Remove and return the lowest priority task with priority. Raise KeyError if empty.'
+        while self.pq :
+            priority, count, task = heapq.heappop(self.pq)
+            if task is not REMOVED:
+                del self.entry_finder[task]
+                return task #, priority
+        raise KeyError('pop from an empty priority queue')
+
+    def isEmpty(self):
+        return len(self.entry_finder) == 0
+
+
+class PriorityQueueNaive:
     def  __init__(self):
         self.heap = []
         self.count = 0
@@ -61,6 +99,8 @@ def graphSearch( problem, fringe):
     return []
 
 
+ingredient_values = [0,0,0,0]
+
 class Problem(object):
     def __init__(self, startState, goalState, spells, spell_ids, spell_repeatable):
         self.startState = startState
@@ -80,7 +120,7 @@ class Problem(object):
         for i in range(4 ):
             v = state.ingredients[i] - self.goalState.ingredients[i]
             if v < 0:
-                h += -v * (1)
+                h += -v * ingredient_values[i]
         return h
     def isGoalState(self, state):
         for i in range(4 ):
@@ -137,13 +177,31 @@ class State(object):
 if __name__ == '__main__':
     start = time.time()
 
+    spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (0, 2, -1, 0), (-2, 0, -1, 2), (-2, 2, 0, 0), (0, 0, -2, 2), (2, 2, 0, -1), (-2, 0, 1, 0), (0, 3, 2, -2), (1, 1, 1, -1), (-5, 0, 3, 0), (0, 2, -2, 1)]
+    spell_ids = [1+i for i in range( len(spells) ) ]
+    spell_repeatable = [False, False, False, False, True, True, True, True, True, True, True, True, True, True]
+    nSpell = len(spells)
+
+    tmp = [0]*4
+    for i in range(4):
+        goal = [0]*4 
+        goal[i] = 1
+        fringe = PriorityQueue()
+        problem = Problem( 
+            State( [0,0,0,0], (True,)*nSpell), 
+            State( goal , (True,)*nSpell),
+            tuple( spells), 
+            tuple(spell_ids),
+            tuple( spell_repeatable )
+            )
+        # print( problem.getHeuristic( State([3,0,0,0]) ) )
+        tmp[i] = len(graphSearch( problem, fringe ) )
+
+    ingredient_values = tmp
+    print( ingredient_values )
+
     for _ in range(1):
         fringe = PriorityQueue()
-
-        spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (0, 2, -1, 0), (-2, 0, -1, 2), (-2, 2, 0, 0), (0, 0, -2, 2), (2, 2, 0, -1), (-2, 0, 1, 0), (0, 3, 2, -2), (1, 1, 1, -1), (-5, 0, 3, 0), (0, 2, -2, 1)]
-        spell_ids = [1+i for i in range( len(spells) ) ]
-        spell_repeatable = [False, False, False, False, True, True, True, True, True, True, True, True, True, True]
-        nSpell = len(spells)
         problem = Problem( 
             State((0,0,0,0), (True,)*nSpell), 
             State((0,0,3,2), (True,)*nSpell),
