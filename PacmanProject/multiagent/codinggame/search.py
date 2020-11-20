@@ -122,8 +122,8 @@ class Problem(object):
 class State(object):
     def __init__(self, ingredients, spell_castable ):
         # all positive
-        self.ingredients = ingredients
-        self.spell_castable = spell_castable
+        self.ingredients = tuple(ingredients)
+        self.spell_castable = tuple(spell_castable)
         # print(self.ToString())
     def ToString(self):
         return self.ingredients + self.spell_castable
@@ -136,15 +136,16 @@ if __name__ == '__main__':
     for _ in range(100):
         fringe = PriorityQueue()
 
-        spells =  [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (-4,0,1,0) ] 
+        spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (2, -2, 0, 1), (-3, 0, 0, 1), (-3, 1, 1, 0), (-5, 0, 3, 0), (0, 0, 2, -1), (3, 0, 1, -1), (1, 1, 1, -1), (3, -2, 1, 0), (0, 2, -2, 1), (0, -2, 2, 0)]
         spell_ids = [1+i for i in range( len(spells) ) ]
+        spell_repeatable = [False, False, False, False, True, True, True, True, True, True, True, True, True, True]
         nSpell = len(spells)
         problem = Problem( 
-            State((2,1,0,0), (1,)*nSpell), 
-            State((1,1,3,1), (1,)*nSpell),
+            State((3,0,0,0), (1,)*nSpell), 
+            State((2,2,0,2), (1,)*nSpell),
             tuple( spells), 
             tuple(spell_ids),
-            (True,)* nSpell
+            tuple( spell_repeatable )
             )
         # print( problem.getHeuristic( State([3,0,0,0]) ) )
         print( graphSearch( problem, fringe )  )
