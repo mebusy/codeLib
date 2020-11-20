@@ -93,15 +93,13 @@ class Problem(object):
 
         # action REST -1
         # if state.spell_castable.sum() < self.nSpell  : # NEW
-        for castable in state.spell_castable:
-            if castable == 0: 
-                suc.append( ( State( state.ingredients, self.ALL_CASTABLE ), -1,1, 1 ) )
-                break
+        if not all( state.spell_castable ):
+            suc.append( ( State( state.ingredients, self.ALL_CASTABLE ), -1,1, 1 ) )
 
         # other spell
         ingredients = [0,0,0,0]
         for i,spell in enumerate( self.spells ):
-            if state.spell_castable[i] == 1:
+            if state.spell_castable[i]:
                 max_cast_times = self.spell_repeatable[i] and 10 or 1
                 for j in range(max_cast_times):
                     hasNegative = False
@@ -116,7 +114,7 @@ class Problem(object):
                             break
                     # print( state.ingredients , spell,  ingredients , sum( ingredients ) )
                     if sum( ingredients ) <= 10 and not hasNegative :
-                        suc.append( (State( ingredients, state.spell_castable[:i]+ (0,) +state.spell_castable[i+1:]  ),self.spell_ids[i], j+1,  1 ))
+                        suc.append( (State( ingredients, state.spell_castable[:i]+ (False,) +state.spell_castable[i+1:]  ),self.spell_ids[i], j+1,  1 ))
                     else:
                         break
         return suc
@@ -139,7 +137,7 @@ class State(object):
 if __name__ == '__main__':
     start = time.time()
 
-    for _ in range(100):
+    for _ in range(1):
         fringe = PriorityQueue()
 
         spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (2, -2, 0, 1), (-3, 0, 0, 1), (-3, 1, 1, 0), (-5, 0, 3, 0), (0, 0, 2, -1), (3, 0, 1, -1), (1, 1, 1, -1), (3, -2, 1, 0), (0, 2, -2, 1), (0, -2, 2, 0)]
@@ -147,8 +145,8 @@ if __name__ == '__main__':
         spell_repeatable = [False, False, False, False, True, True, True, True, True, True, True, True, True, True]
         nSpell = len(spells)
         problem = Problem( 
-            State((3,0,0,0), (1,)*nSpell), 
-            State((2,2,0,2), (1,)*nSpell),
+            State((3,0,0,0), (True,)*nSpell), 
+            State((2,2,0,2), (True,)*nSpell),
             tuple( spells), 
             tuple(spell_ids),
             tuple( spell_repeatable )
