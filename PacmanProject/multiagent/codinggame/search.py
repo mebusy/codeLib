@@ -140,13 +140,13 @@ if __name__ == '__main__':
     for _ in range(1):
         fringe = PriorityQueue()
 
-        spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (2, -2, 0, 1), (-3, 0, 0, 1), (-3, 1, 1, 0), (-5, 0, 3, 0), (0, 0, 2, -1), (3, 0, 1, -1), (1, 1, 1, -1), (3, -2, 1, 0), (0, 2, -2, 1), (0, -2, 2, 0)]
+        spells = [(2, 0, 0, 0), (-1, 1, 0, 0), (0, -1, 1, 0), (0, 0, -1, 1), (0, 2, -1, 0), (-2, 0, -1, 2), (-2, 2, 0, 0), (0, 0, -2, 2), (2, 2, 0, -1), (-2, 0, 1, 0), (0, 3, 2, -2), (1, 1, 1, -1), (-5, 0, 3, 0), (0, 2, -2, 1)]
         spell_ids = [1+i for i in range( len(spells) ) ]
         spell_repeatable = [False, False, False, False, True, True, True, True, True, True, True, True, True, True]
         nSpell = len(spells)
         problem = Problem( 
-            State((3,0,0,0), (True,)*nSpell), 
-            State((2,2,0,2), (True,)*nSpell),
+            State((0,0,0,0), (True,)*nSpell), 
+            State((0,0,3,2), (True,)*nSpell),
             tuple( spells), 
             tuple(spell_ids),
             tuple( spell_repeatable )
