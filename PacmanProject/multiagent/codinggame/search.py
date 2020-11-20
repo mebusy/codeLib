@@ -129,9 +129,10 @@ class State(object):
         # all positive
         self.ingredients = tuple(ingredients)
         self.spell_castable = tuple(spell_castable)
+        self.key = (self.ingredients + self.spell_castable).__hash__()
         # print(self.ToString())
     def ToString(self):
-        return self.ingredients + self.spell_castable
+        return self.key
 
 
 
