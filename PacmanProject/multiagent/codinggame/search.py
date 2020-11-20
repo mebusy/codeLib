@@ -99,12 +99,17 @@ class Problem(object):
                 break
 
         # other spell
+        ingredients = [0,0,0,0]
         for i,spell in enumerate( self.spells ):
             if state.spell_castable[i] == 1:
                 max_cast_times = self.spell_repeatable[i] and 10 or 1
                 for j in range(max_cast_times):
                     hasNegative = False
-                    ingredients = tuple( (state.ingredients[ii] + spell[ii]*(j+1) for ii in range(4) ))
+                    # ingredients = [state.ingredients[ii] + spell[ii]*(j+1) for ii in range(4) ]
+                    ingredients[0] = state.ingredients[0] + spell[0]*(j+1)
+                    ingredients[1] = state.ingredients[1] + spell[1]*(j+1)
+                    ingredients[2] = state.ingredients[2] + spell[2]*(j+1)
+                    ingredients[3] = state.ingredients[3] + spell[3]*(j+1)
                     for v in ingredients:
                         if v < 0:
                             hasNegative = True
