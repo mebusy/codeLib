@@ -223,7 +223,7 @@ let g:vim_markdown_toc_autofit = 1
 " let g:ycm_keep_logfiles = 1
 " let g:ycm_log_level = 'debug'
 
-# YCM uses is the omnifunc that Vim provides for CSS
+" YCM uses is the omnifunc that Vim provides for CSS
 let g:ycm_semantic_triggers = {
     \   'css': [ 're!^\s+', ': ' ],
     \ }
