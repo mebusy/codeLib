@@ -122,6 +122,7 @@ set wildmenu
 
 " TAG JUMPING
 " run !ctags -R .   (bind it to you :w command ?)
+" note: ctags shipped with OSX is not exuberant ctags, brew install ctags
 " Now we can 
 "   - use ^] to jump to tag under cursor
 "   - g^] for ambiguous tags , it will show a list
@@ -221,5 +222,4 @@ let g:vim_markdown_toc_autofit = 1
 " debug
 " let g:ycm_keep_logfiles = 1
 " let g:ycm_log_level = 'debug'
-
 
