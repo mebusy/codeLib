@@ -34,12 +34,13 @@ if __name__ == '__main__':
     confs = load_config() 
     # print pd.read_excel.__doc__
     for conf in confs :
-        xls_name = conf["xls_name"] 
-        sheet_names = conf["sheet_name"] 
-        main_key = conf["main_key"]
-        define = conf["define"] 
+        xls_name = conf["xls_name"]   # xls file name
+        sheet_names = conf["sheet_name"]  # list , or string
+        main_key = conf["main_key"]    # main json key for exporting
+        define = conf["define"]    # data to export to json
 
-        skiprows =  "skiprows" in conf and conf["skiprows"] or 0
+        skiprows =  "skiprows" in conf and conf["skiprows"] or 0  # rows to skp
+        out_dir =  "out_dir" in conf and conf["out_dir"] or "."   # output dir
 
         if not isinstance( sheet_names , list ) :
             sheet_names = [sheet_names]
@@ -100,7 +101,7 @@ if __name__ == '__main__':
 
             # print data 
             jsonObj = json.dumps(data , ensure_ascii=False , separators=(',',':') , indent=4)
-            with codecs.open( sheet_name + '.txt'  , "w", "utf-8") as fp:
+            with codecs.open( os.path.join( out_dir, sheet_name + '.txt' )  , "w", "utf-8") as fp:
                 fp.write(jsonObj )
                 fp.close()
     print 'done'
