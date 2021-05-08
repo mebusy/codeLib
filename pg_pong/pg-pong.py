@@ -12,7 +12,7 @@ decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 resume = False # resume from previous checkpoint?
 render = False
 
-iter_values = []
+# iter_values = [] # no used
 
 # model initialization
 D = 80 * 80 # input dimensionality: 80x80 grid
@@ -119,17 +119,18 @@ while True:
       for k,v in model.iteritems():
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
+        # TODO: shouldn't be -= ? , No. Pls see the comments at line 89
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 
     # boring book-keeping
     running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
     print 'resetting env. episode reward total was %f. running mean: %f' % (reward_sum, running_reward)
-    iter_values.append( (reward_sum, running_reward)   )
+    # iter_values.append( (reward_sum, running_reward)   )
 
     if episode_number % 100 == 0: 
         pickle.dump(model, open('save.p', 'wb'))
-        pickle.dump( iter_values , open('pg-pong_iter_values', 'wb')  )
+        # pickle.dump( iter_values , open('pg-pong_iter_values', 'wb')  )
     reward_sum = 0
     observation = env.reset() # reset env
     prev_x = None
