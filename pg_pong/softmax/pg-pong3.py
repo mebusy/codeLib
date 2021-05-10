@@ -7,7 +7,7 @@ import gym
 # hyperparameters
 H = 200 # number of hidden layer neurons
 batch_size = 10 # every how many episodes to do a param update?
-learning_rate = 1e-3
+learning_rate = 1e-3  # 1e-4 
 gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 resume = False # resume from previous checkpoint?
@@ -41,9 +41,9 @@ def prepro(I):
 
 def discount_rewards(r):
   """ take 1D float array of rewards and compute discounted reward """
-  discounted_r = np.zeros_like(r)
+  discounted_r = np.zeros_like(r) # an array of zeros with the same shape
   running_add = 0
-  for t in reversed(range(0, r.size)):
+  for t in reversed(range(0, r.size)): # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
     if r[t] != 0: running_add = 0 # reset the sum, since this was a game boundary (pong specific!)
     running_add = running_add * gamma + r[t]
     discounted_r[t] = running_add
