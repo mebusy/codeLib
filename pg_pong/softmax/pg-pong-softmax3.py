@@ -63,10 +63,29 @@ def policy_forward(x):
 
 def policy_backward(eph, epdlogp):
   """ backward pass. (eph is array of intermediate hidden states) """
-  dW2 = np.dot(eph.T, epdlogp).ravel()
-  dh = np.outer(epdlogp, model['W2'])
-  dh[eph <= 0] = 0 # backpro prelu
-  dW1 = np.dot(dh.T, epx)
+  # dW2 = np.dot(eph.T, epdlogp).ravel()
+  # dh = np.outer(epdlogp, model['W2'])
+  # dh[eph <= 0] = 0 # backpro prelu
+  # dW1 = np.dot(dh.T, epx)
+
+  loss, grads = 0, {}
+
+  W1 = model['W1']
+  W2 = model['W2']
+  
+  loss, smx_grad = softmax_loss( scores, y )  # loss of score
+  # + loss of regularization
+  # **loss won't be actually used in calculating gradients**
+  loss += 0.5 * self.reg * ( (W1*W1).sum() + (W2*W2).sum() )
+  
+  dx2, dw2, db2 = affine_backward(smx_grad, cache2 )
+  grads["W2"] = dw2 + self.reg * W2
+  grads["b2"] = db2
+  
+  dx1, dw1, db1 = affine_relu_backward( dx2, cache1 )
+  grads["W1"] = dw1 + self.reg * W1
+  grads["b1"] = db1
+
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("Pong-v0")
@@ -84,16 +103,16 @@ while True:
   x = cur_x - prev_x if prev_x is not None else np.zeros(D)
   prev_x = cur_x
 
+  # reshape for fitting cs231n code
+  x = x.reshape( 1, -1 )
+
   # forward the policy network and sample an action from the returned probability
   scores, cache1, cache2 = policy_forward(x)
-  scores_softmax = softmax( scores, aggregate_axis=1 )
+  scores_softmax = softmax( scores, aggregate_axis=1 ) [0]  # only 1 result
 
   # pick action
   # action = 2 if np.random.uniform() < aprob else 3 # roll the dice!
-  if np.random.uniform() <= 0.9:  # more exploit
-    action = 2 + np.random.choice(np.where(scores_softmax == scores_softmax.max())[0])
-  else:
-    action = np.random.choice( [2,3] ) # exploration
+  action = 2 + np.random.choice( C , p = scores_softmax )
 
   # record various intermediates (needed later for backprop)
   xs.append(x) # observation

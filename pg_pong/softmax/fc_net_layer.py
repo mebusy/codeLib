@@ -208,4 +208,61 @@ def affine_relu_backward(dout, cache):
     return dx, dw, db
 
 
+def forwardpass_test():
+    # ( ( x,w,b ), lru_x  )
+    _scores1, cache1 = affine_relu_forward(X, model["W1"], np.zeros( H ) )
+    # cache2: (s,w,b)
+    scores , cache2 = affine_forward( _scores1 , model["W2"], np.zeros( C )  )
+
+    scores_softmax = softmax( scores, aggregate_axis=1 ) [0]
+    for i in range(10):
+        action = np.random.choice( C , p = scores_softmax )
+        print (scores_softmax , action)
+
+    return scores, cache1, cache2
+
+
+def backpass_test( y ):
+    loss, grads = 0, {}
+    reg = 0.3
+
+    W1= model['W1']
+    W2= model['W2']
+    
+    loss, smx_grad = softmax_loss( g_scores, y )  # loss of score
+    # + loss of regularization
+    # **loss won't be actually used in calculating gradients**
+    loss += 0.5 * reg * ( (W1*W1).sum() + (W2*W2).sum() )
+    
+    dx2, dw2, db2 = affine_backward(smx_grad, g_cache2 )
+    grads["W2"] = dw2 + reg * W2
+    # grads["b2"] = db2   # ignore bias
+
+    dx1, dw1, db1 = affine_relu_backward( dx2, g_cache1 )
+    grads["W1"] = dw1 + reg * W1
+    # grads["b1"] = db1   # ignore bias
+    return loss, grads
+
+if __name__ == '__main__':
+    D = 80 * 80
+    H = 200 # number of hidden layer neurons
+    C = 2 # for softmax
+
+    model = {}
+    model['W1'] = np.random.randn(D,H) / np.sqrt(D) # "Xavier" initialization
+    model['W2'] = np.random.randn(H,C) / np.sqrt(H)
+
+    X = np.random.randn( D )
+    X = X.reshape(  1, -1  ) # 1 sample
+
+    # forward test
+    for i in range(3):
+        scores, cache1, cache2 = forwardpass_test()
+        print(cache1)
+
+    # backpass test
+    y = np.zeros( C, dtype=int )
+    loss, grads = backpass_test( y )
+    print( loss, grads )
+
 
