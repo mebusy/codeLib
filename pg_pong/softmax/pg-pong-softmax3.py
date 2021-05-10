@@ -4,8 +4,12 @@ import numpy as np
 import pickle  # python3
 import gym
 
+from fc_net_layer import *
+
 # hyperparameters
 H = 200 # number of hidden layer neurons
+C = 2 # for softmax
+
 batch_size = 10 # every how many episodes to do a param update?
 learning_rate = 1e-3  # 1e-4 
 gamma = 0.99 # discount factor for reward
@@ -17,12 +21,14 @@ render = False
 
 # model initialization
 D = 80 * 80 # input dimensionality: 80x80 grid
+
+
 if resume:
   model = pickle.load(open('save.p', 'rb'))
 else:
   model = {}
-  model['W1'] = np.random.randn(H,D) / np.sqrt(D) # "Xavier" initialization
-  model['W2'] = np.random.randn(H) / np.sqrt(H)
+  model['W1'] = np.random.randn(D,H) / np.sqrt(D) # "Xavier" initialization
+  model['W2'] = np.random.randn(H,C) / np.sqrt(H)
   
 grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers that add up gradients over a batch
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
@@ -50,11 +56,10 @@ def discount_rewards(r):
   return discounted_r
 
 def policy_forward(x):
-  h = np.dot(model['W1'], x)
-  h[h<0] = 0 # ReLU nonlinearity
-  logp = np.dot(model['W2'], h)
-  p = sigmoid(logp)
-  return p, h # return probability of taking action 2, and hidden state
+    # ignore bias 
+    _scores1, cache1 = affine_relu_forward(X, model["W1"], np.zeros( H ) )
+    scores , cache2 = affine_forward( _scores1 , model["W2"], np.zeros( C )  )
+    return scores, cache1, cache2 # return probability of taking action 2, and hidden state
 
 def policy_backward(eph, epdlogp):
   """ backward pass. (eph is array of intermediate hidden states) """
@@ -80,8 +85,15 @@ while True:
   prev_x = cur_x
 
   # forward the policy network and sample an action from the returned probability
-  aprob, h = policy_forward(x)
-  action = 2 if np.random.uniform() < aprob else 3 # roll the dice!
+  scores, cache1, cache2 = policy_forward(x)
+  scores_softmax = softmax( scores, aggregate_axis=1 )
+
+  # pick action
+  # action = 2 if np.random.uniform() < aprob else 3 # roll the dice!
+  if np.random.uniform() <= 0.9:  # more exploit
+    action = 2 + np.random.choice(np.where(scores_softmax == scores_softmax.max())[0])
+  else:
+    action = np.random.choice( [2,3] ) # exploration
 
   # record various intermediates (needed later for backprop)
   xs.append(x) # observation
