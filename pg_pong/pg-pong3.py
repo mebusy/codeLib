@@ -87,6 +87,7 @@ while True:
   xs.append(x) # observation
   hs.append(h) # hidden state
   y = 1 if action == 2 else 0 # a "fake label"
+  # nothing more than calculating derivate of the likehood manually
   dlogps.append(y - aprob) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
 
   # step the environment and get new measurements
@@ -120,7 +121,8 @@ while True:
       for k,v in model.items():
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
-        # TODO: shouldn't be -= ? , No. Pls see the comments at line 89
+        # TODO: shouldn't be -= ? ,  lecture in cs231n
+        # If the line was "dlogps.append( -1 * (y - aprob) )" or "dlogps.append( aprob - y )" , this should be `-=`
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 

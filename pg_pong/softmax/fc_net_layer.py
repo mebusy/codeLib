@@ -194,7 +194,7 @@ def affine_relu_forward(x, w, b):
     """
     a, fc_cache = affine_forward(x, w, b)
     out, relu_cache = relu_forward(a)
-    cache = (fc_cache, relu_cache)
+    cache = fc_cache + (relu_cache, )
     return out, cache
 
 
@@ -202,24 +202,24 @@ def affine_relu_backward(dout, cache):
     """
     Backward pass for the affine-relu convenience layer
     """
-    fc_cache, relu_cache = cache
+    x, w, b , relu_cache = cache
     da = relu_backward(dout, relu_cache)
-    dx, dw, db = affine_backward(da, fc_cache)
+    dx, dw, db = affine_backward(da, (x, w, b ) )
     return dx, dw, db
 
 
 def forwardpass_test():
     # ( ( x,w,b ), lru_x  )
-    _scores1, cache1 = affine_relu_forward(X, model["W1"], np.zeros( H ) )
-    # cache2: (s,w,b)
-    scores , cache2 = affine_forward( _scores1 , model["W2"], np.zeros( C )  )
+    _scores1, cache_fc_lelu = affine_relu_forward(X, model["W1"], np.zeros( [1,H] ) )
+    # cache_h_fc: (s,w,b)
+    scores , cache_h_fc = affine_forward( _scores1 , model["W2"], np.zeros( [1,C] )  )
 
     scores_softmax = softmax( scores, aggregate_axis=1 ) [0]
     for i in range(10):
         action = np.random.choice( C , p = scores_softmax )
         print (scores_softmax , action)
 
-    return scores, cache1, cache2
+    return scores, cache_fc_lelu, cache_h_fc
 
 
 def backpass_test( y ):
@@ -228,17 +228,20 @@ def backpass_test( y ):
 
     W1= model['W1']
     W2= model['W2']
+
+    # stack
+
     
-    loss, smx_grad = softmax_loss( g_scores, y )  # loss of score
+    loss, smx_grad = softmax_loss( ep_scores, y )  # loss of score
     # + loss of regularization
     # **loss won't be actually used in calculating gradients**
     loss += 0.5 * reg * ( (W1*W1).sum() + (W2*W2).sum() )
     
-    dx2, dw2, db2 = affine_backward(smx_grad, g_cache2 )
+    dx2, dw2, db2 = affine_backward(smx_grad, ep_cache_h_fc  )
     grads["W2"] = dw2 + reg * W2
     # grads["b2"] = db2   # ignore bias
 
-    dx1, dw1, db1 = affine_relu_backward( dx2, g_cache1 )
+    dx1, dw1, db1 = affine_relu_backward( dx2, ep_cache_fc_lelu )
     grads["W1"] = dw1 + reg * W1
     # grads["b1"] = db1   # ignore bias
     return loss, grads
@@ -255,13 +258,42 @@ if __name__ == '__main__':
     X = np.random.randn( D )
     X = X.reshape(  1, -1  ) # 1 sample
 
-    # forward test
-    for i in range(3):
-        scores, cache1, cache2 = forwardpass_test()
-        print(cache1)
+    g_scores = []
+    g_cache_fc_lelu = [ [],[],[],[] ]
+    g_cache_h_fc = [ [],[],[] ]
+
+    nSample = 3
+    # forward test , test 3 samples
+    for i in range(nSample):
+        scores, cache_fc_lelu, cache_h_fc = forwardpass_test()
+
+        g_scores.extend( scores )
+        print( "scores:{}".format( scores[0].shape ) )
+        for _i, _v in enumerate(cache_fc_lelu):
+            print( "cache_fc_lelu[{}]:{}".format( _i, cache_fc_lelu[_i].shape ) )
+            if _i == 1 : continue  # W
+            g_cache_fc_lelu[_i].extend( _v )
+        for _i, _v in enumerate(cache_h_fc):
+            print( "cache_h_fc[{}]:{}".format( _i, cache_h_fc[_i].shape ) )
+            if _i == 1 : continue  # W
+            g_cache_h_fc[_i].extend( _v )
+
+    ep_scores = np.vstack( g_scores )
+    print( "ep_scores:{}".format( ep_scores.shape ) )
+
+    ep_cache_fc_lelu = [ None, model['W1'], None, None  ] 
+    ep_cache_h_fc =  [ None, model['W2'], None ]
+    for _i, _v in enumerate(cache_fc_lelu):
+        if _i != 1 :
+            ep_cache_fc_lelu[_i] = np.vstack( g_cache_fc_lelu[_i] )
+        print( "ep_cache_fc_lelu[{}]:{}".format( _i, ep_cache_fc_lelu[_i].shape ) )
+    for _i, _v in enumerate(cache_h_fc):
+        if _i != 1 :
+            ep_cache_h_fc[_i]  = np.vstack( g_cache_h_fc[_i] )
+        print( "ep_cache_h_fc[{}]:{}".format( _i, ep_cache_h_fc[_i].shape ) )
 
     # backpass test
-    y = np.zeros( C, dtype=int )
+    y = np.zeros( nSample, dtype=int )
     loss, grads = backpass_test( y )
     print( loss, grads )
 
