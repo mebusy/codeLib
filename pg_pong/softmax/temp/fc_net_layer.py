@@ -224,7 +224,7 @@ def forwardpass_test():
 
 def backpass_test( y ):
     loss, grads = 0, {}
-    reg = 0.05
+    reg = 0.3
 
     W1= model['W1']
     W2= model['W2']
@@ -294,12 +294,7 @@ if __name__ == '__main__':
 
     # backpass test
     y = np.zeros( nSample, dtype=int )
-
-    # create fake data
-    y.resize( nSample+1 )
-
     loss, grads = backpass_test( y )
     print( loss, grads )
-    print(y)
 
 
