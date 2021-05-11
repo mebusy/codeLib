@@ -224,7 +224,7 @@ def forwardpass_test():
 
 def backpass_test( y ):
     loss, grads = 0, {}
-    reg = 0.3
+    reg = 0.05
 
     W1= model['W1']
     W2= model['W2']
