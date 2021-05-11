@@ -296,7 +296,7 @@ if __name__ == '__main__':
     y = np.zeros( nSample, dtype=int )
 
     # create fake data
-    y.resize( nSample+1 )
+    # y.resize( nSample+1 )
 
     loss, grads = backpass_test( y )
     print( loss, grads )
