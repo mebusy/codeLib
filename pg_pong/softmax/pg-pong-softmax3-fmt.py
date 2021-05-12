@@ -83,7 +83,7 @@ def policy_backward( smx_grad):
     # dW1 = np.dot(dh.T, epx)
 
     loss, grads = 0, {}
-    reg = 0.3
+    reg = 0.0
 
     W1 = model['W1']
     W2 = model['W2']
@@ -147,10 +147,9 @@ while True:
     y = action -2 
 
     # derivative of softmax
-    _N = C
     dx = probs.copy()
     dx[0, y] -= 1
-    dx /= _N
+
     dsmx.append( dx )
     # dlogps.append(y - aprob) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
 
