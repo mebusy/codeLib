@@ -6,6 +6,7 @@ import gym
 
 # hyperparameters
 H = 200  # number of hidden layer neurons
+C = 2
 batch_size = 10  # every how many episodes to do a param update?
 learning_rate = 1e-3
 gamma = 0.99  # discount factor for reward
@@ -22,21 +23,30 @@ if resume:
 else:
     model = {}
     model['W1'] = np.random.randn(H, D) / np.sqrt(D)  # "Xavier" initialization
-    model['W2'] = np.random.randn(H) / np.sqrt(H)
+    model['W2'] = np.random.randn(C, H) / np.sqrt(H)
 
 # update buffers that add up gradients over a batch
 grad_buffer = {k: np.zeros_like(v) for k, v in model.items()}
 rmsprop_cache = {k: np.zeros_like(v)
                  for k, v in model.items()}  # rmsprop memory
 
-
+"""
 def softmax(x):
   #if(len(x.shape)==1):
   #  x = x[np.newaxis,...]
   probs = np.exp(x - np.max(x, axis=1, keepdims=True))
   probs /= np.sum(probs, axis=1, keepdims=True)
   return probs
+"""
 
+def softmax( f, aggregate_axis = 0 ):
+    # instead: first shift the values of f so that the highest number is 0:
+    f_max = np.max(f, axis= aggregate_axis )
+    f -= f_max.reshape( f_max.shape + (1,) )
+    f_exp = np.exp(f)
+    f_sum = np.sum( f_exp, axis=aggregate_axis )
+    return f_exp / f_sum.reshape( f_sum.shape + (1,) )
+#"""
 
 def prepro(I):
     """ prepro 210x160x3 uint8 frame into 6400 (80x80) 1D float vector """
@@ -71,9 +81,13 @@ def policy_forward(x):
 
 def policy_backward(eph, epdlogp):
     """ backward pass. (eph is array of intermediate hidden states) """
-    dW2 = np.dot(eph.T, epdlogp).ravel()
-    dh = np.outer(epdlogp, model['W2'])
+    # print(eph.T.shape, epdlogp.shape )
+    dW2 = np.dot(epdlogp.T, eph)#.ravel()
+    # print( dW2.shape )
+    dh = np.dot(epdlogp, model['W2'])
+    # print( dh.shape, eph.shape )
     dh[eph <= 0] = 0  # backpro prelu
+    # print( dh.T.shape, epx.shape )
     dW1 = np.dot(dh.T, epx)
     return {'W1': dW1, 'W2': dW2}
 
@@ -96,12 +110,14 @@ while True:
 
     # forward the policy network and sample an action from the returned probability
     scores_softmax, h = policy_forward(x)
+    # print( scores_softmax.shape )
     # action = 2 if np.random.uniform() < aprob else 3  # roll the dice!
     aIdx = np.random.choice(C, p=scores_softmax)
     action = 2 + aIdx
 
     # record various intermediates (needed later for backprop)
     xs.append(x)  # observation
+    # print(h.shape)
     hs.append(h)  # hidden state
 
     # y = 1 if action == 2 else 0  # a "fake label"
@@ -110,7 +126,7 @@ while True:
     # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
     # dlogps.append(y - aprob)
     dlogsoftmax = scores_softmax.copy()
-    dlogsoftmax[0,aIdx] -= 1 #-discounted reward 
+    dlogsoftmax[aIdx] -= 1 #-discounted reward 
     dlogps.append(dlogsoftmax)
 
     # step the environment and get new measurements
@@ -140,6 +156,7 @@ while True:
         epdlogp *= discounted_epr
         grad = policy_backward(eph, epdlogp)
         for k in model:
+            # print( grad_buffer[k].shape, grad[k].shape )
             grad_buffer[k] += grad[k]  # accumulate grad over batch
 
         # perform rmsprop parameter update every batch_size episodes
