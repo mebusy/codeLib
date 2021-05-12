@@ -8,7 +8,7 @@ from fc_net_layer import *
 
 # hyperparameters
 H = 200  # number of hidden layer neurons
-C = 2  # for softmax
+C = 3  # for softmax
 
 batch_size = 10  # every how many episodes to do a param update?
 learning_rate = 1e-3  # 1e-4
@@ -140,11 +140,11 @@ while True:
 
     # pick action
     # action = 2 if np.random.uniform() < aprob else 3 # roll the dice!
-    action = 2 + np.random.choice(C, p=probs[0])
+    action = 1 + np.random.choice(C, p=probs[0])
 
     # record various intermediates (needed later for backprop)
     # y = 1 if action == 2 else 0 # a "fake label"
-    y = action -2 
+    y = action -1 
 
     # from the final output `probs`,  calculate the derivatives
     dsmx = probs.copy()
@@ -209,8 +209,8 @@ while True:
         # boring book-keeping
         running_reward = reward_sum if running_reward is None else running_reward * \
             0.99 + reward_sum * 0.01
-        print ('resetting env. episode reward total was %f. running mean: %f, total sample:%d' % (
-            reward_sum, running_reward, len( epdsmx ) )  )
+        print ('resetting env. episode reward total was %f. running mean: %f' % (
+            reward_sum, running_reward))
         # iter_values.append( (reward_sum, running_reward)   )
 
         if episode_number % 100 == 0:
