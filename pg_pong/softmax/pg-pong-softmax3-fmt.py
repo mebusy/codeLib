@@ -68,7 +68,7 @@ def policy_forward(x):
     scores, cache_h_fc = affine_forward(
         _scores1, model["W2"], np.zeros([1, C]))
 
-    # softmax, calculate the final output
+    # softmax, calculate the final output, for further using
     probs = np.exp( scores - np.max(scores, axis=1, keepdims=True))
     probs /= np.sum(probs, axis=1, keepdims=True)
 
@@ -106,7 +106,7 @@ def policy_backward( smx_grad):
 env = gym.make("Pong-v0")
 observation = env.reset()
 prev_x = None  # used in computing the difference frame
-dsmx, drs = [], []
+dsmxs, drs = [], []
 
 g_cache_fc_lelu = [[], [], [], []]
 g_cache_h_fc = [[], [], []]
@@ -146,11 +146,11 @@ while True:
     # y = 1 if action == 2 else 0 # a "fake label"
     y = action -2 
 
-    # derivative of softmax
-    dx = probs.copy()
-    dx[0, y] -= 1
+    # from the final output `probs`,  calculate the derivatives
+    dsmx = probs.copy()
+    dsmx[0, y] -= 1
 
-    dsmx.append( dx )
+    dsmxs.append( dsmx )
     # dlogps.append(y - aprob) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
 
     # step the environment and get new measurements
@@ -165,7 +165,7 @@ while True:
 
         # stack together all inputs, hidden states, action gradients, and rewards for this episode
         # epdlogp = np.vstack(dlogps)
-        epdsmx = np.vstack(dsmx)
+        epdsmx = np.vstack(dsmxs)
         epr = np.vstack(drs)
 
 
@@ -179,7 +179,7 @@ while True:
             if _i != 1:
                 ep_cache_h_fc[_i] = np.vstack(_v)
 
-        dsmx, drs = [], []  # reset array memory
+        dsmxs, drs = [], []  # reset array memory
 
         g_cache_fc_lelu = [[], [], [], []]
         g_cache_h_fc = [[], [], []]
