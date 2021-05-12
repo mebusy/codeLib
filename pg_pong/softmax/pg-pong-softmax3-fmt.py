@@ -67,10 +67,15 @@ def policy_forward(x):
     # cache_h_fc: (s,w,b)
     scores, cache_h_fc = affine_forward(
         _scores1, model["W2"], np.zeros([1, C]))
-    return scores, cache_fc_lelu, cache_h_fc
+
+    # softmax
+    probs = np.exp( scores - np.max(scores, axis=1, keepdims=True))
+    probs /= np.sum(probs, axis=1, keepdims=True)
+
+    return probs, cache_fc_lelu, cache_h_fc
 
 
-def policy_backward(y, discounted_epr):
+def policy_backward( smx_grad):
     """ backward pass. (eph is array of intermediate hidden states) """
     # dW2 = np.dot(eph.T, epdlogp).ravel()
     # dh = np.outer(epdlogp, model['W2'])
@@ -82,12 +87,6 @@ def policy_backward(y, discounted_epr):
 
     W1 = model['W1']
     W2 = model['W2']
-
-    # stack
-
-    loss, smx_grad = softmax_loss(ep_scores, y)  # loss of score
-    # hack
-    smx_grad *= discounted_epr
 
     # + loss of regularization
     # **loss won't be actually used in calculating gradients**
@@ -107,9 +106,8 @@ def policy_backward(y, discounted_epr):
 env = gym.make("Pong-v0")
 observation = env.reset()
 prev_x = None  # used in computing the difference frame
-fake_labels, drs = [], []
+dsmx, drs = [], []
 
-g_scores = []
 g_cache_fc_lelu = [[], [], [], []]
 g_cache_h_fc = [[], [], []]
 
@@ -129,10 +127,9 @@ while True:
     x = x.reshape(1, -1)
 
     # forward the policy network and sample an action from the returned probability
-    scores, cache_fc_lelu, cache_h_fc = policy_forward(x)
-    # handle cache
-    g_scores.extend(scores)
+    probs, cache_fc_lelu, cache_h_fc = policy_forward(x)
     for _i, _v in enumerate(cache_fc_lelu):
+    # handle cache
         if _i == 1:
             continue  # W
         g_cache_fc_lelu[_i].extend(_v)
@@ -141,16 +138,20 @@ while True:
             continue  # W
         g_cache_h_fc[_i].extend(_v)
 
-    # calc softmax
-    scores_softmax = softmax(scores, aggregate_axis=1)[0]  # only 1 result
-
     # pick action
     # action = 2 if np.random.uniform() < aprob else 3 # roll the dice!
-    action = 2 + np.random.choice(C, p=scores_softmax)
+    action = 2 + np.random.choice(C, p=probs[0])
 
     # record various intermediates (needed later for backprop)
     # y = 1 if action == 2 else 0 # a "fake label"
-    fake_labels.append(action - 2)
+    y = action -2 
+
+    # derivative of softmax
+    _N = C
+    dx = probs.copy()
+    dx[0, y] -= 1
+    dx /= _N
+    dsmx.append( dx )
     # dlogps.append(y - aprob) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
 
     # step the environment and get new measurements
@@ -165,10 +166,9 @@ while True:
 
         # stack together all inputs, hidden states, action gradients, and rewards for this episode
         # epdlogp = np.vstack(dlogps)
-        eplabels = np.vstack(fake_labels)
+        epdsmx = np.vstack(dsmx)
         epr = np.vstack(drs)
 
-        ep_scores = np.vstack(g_scores)
 
         ep_cache_fc_lelu = [None, model['W1'], None, None]
         ep_cache_h_fc = [None, model['W2'], None]
@@ -179,9 +179,8 @@ while True:
             if _i != 1:
                 ep_cache_h_fc[_i] = np.vstack(g_cache_h_fc[_i])
 
-        fake_labels, drs = [], []  # reset array memory
+        dsmx, drs = [], []  # reset array memory
 
-        g_scores = []
         g_cache_fc_lelu = [[], [], [], []]
         g_cache_h_fc = [[], [], []]
 
@@ -191,8 +190,8 @@ while True:
         discounted_epr -= np.mean(discounted_epr)
         discounted_epr /= np.std(discounted_epr)
 
-        # epdlogp *= discounted_epr # modulate the gradient with advantage (PG magic happens right here.)
-        grad = policy_backward(eplabels, discounted_epr)
+        epdsmx *= discounted_epr # modulate the gradient with advantage (PG magic happens right here.)
+        grad = policy_backward(epdsmx)
         for k in model:
             grad_buffer[k] += grad[k]  # accumulate grad over batch
 
