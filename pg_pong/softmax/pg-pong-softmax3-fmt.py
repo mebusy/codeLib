@@ -68,7 +68,7 @@ def policy_forward(x):
     scores, cache_h_fc = affine_forward(
         _scores1, model["W2"], np.zeros([1, C]))
 
-    # softmax
+    # softmax, calculate the final output
     probs = np.exp( scores - np.max(scores, axis=1, keepdims=True))
     probs /= np.sum(probs, axis=1, keepdims=True)
 
@@ -83,7 +83,7 @@ def policy_backward( smx_grad):
     # dW1 = np.dot(dh.T, epx)
 
     loss, grads = 0, {}
-    reg = 0.0
+    reg = 0.1
 
     W1 = model['W1']
     W2 = model['W2']
@@ -171,12 +171,13 @@ while True:
 
         ep_cache_fc_lelu = [None, model['W1'], None, None]
         ep_cache_h_fc = [None, model['W2'], None]
-        for _i, _v in enumerate(cache_fc_lelu):
+        
+        for _i, _v in enumerate(g_cache_fc_lelu):
             if _i != 1:
-                ep_cache_fc_lelu[_i] = np.vstack(g_cache_fc_lelu[_i])
-        for _i, _v in enumerate(cache_h_fc):
+                ep_cache_fc_lelu[_i] = np.vstack( _v )
+        for _i, _v in enumerate(g_cache_h_fc):
             if _i != 1:
-                ep_cache_h_fc[_i] = np.vstack(g_cache_h_fc[_i])
+                ep_cache_h_fc[_i] = np.vstack(_v)
 
         dsmx, drs = [], []  # reset array memory
 
