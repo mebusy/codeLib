@@ -283,24 +283,34 @@ if __name__ == '__main__':
 
     ep_cache_fc_lelu = [ None, model['W1'], None, None  ] 
     ep_cache_h_fc =  [ None, model['W2'], None ]
-    for _i, _v in enumerate(cache_fc_lelu):
+    for _i, _v in enumerate(g_cache_fc_lelu):
         if _i != 1 :
-            ep_cache_fc_lelu[_i] = np.vstack( g_cache_fc_lelu[_i] )
+            ep_cache_fc_lelu[_i] = np.vstack( _v )
         print( "ep_cache_fc_lelu[{}]:{}".format( _i, ep_cache_fc_lelu[_i].shape ) )
-    for _i, _v in enumerate(cache_h_fc):
+    for _i, _v in enumerate(g_cache_h_fc):
         if _i != 1 :
-            ep_cache_h_fc[_i]  = np.vstack( g_cache_h_fc[_i] )
+            ep_cache_h_fc[_i]  = np.vstack( _v )
         print( "ep_cache_h_fc[{}]:{}".format( _i, ep_cache_h_fc[_i].shape ) )
 
     # backpass test
     y = np.zeros( nSample, dtype=int )
 
-    # create fake data
-    # np.append( a , [a[0]], 0  )
-    # y.resize( nSample+1 )
+    # add more fake data
+    # np.append( a , [a[0]], 0  )  # 2.7 ?
+    y.resize( nSample+1 )
+
+    ep_scores = np.vstack( (ep_scores , [ep_scores[0]] ))
+    print( ">ep_scores:{}".format( ep_scores.shape ) )
+    for _i, _v in enumerate(ep_cache_fc_lelu):
+        if _i != 1 :
+            ep_cache_fc_lelu[_i] = np.vstack( (_v, [_v[0]]) )
+        print( ">ep_cache_fc_lelu[{}]:{}".format( _i, ep_cache_fc_lelu[_i].shape ) )
+    for _i, _v in enumerate(ep_cache_h_fc):
+        if _i != 1 :
+            ep_cache_h_fc[_i] = np.vstack( (_v, [_v[0]]) )
+        print( ">ep_cache_h_fc[{}]:{}".format( _i, ep_cache_h_fc[_i].shape ) )
 
     loss, grads = backpass_test( y )
-    print( loss, grads )
-    print(y)
+    # print( loss, grads )
 
 
