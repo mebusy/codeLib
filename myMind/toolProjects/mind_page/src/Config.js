@@ -1,7 +1,0 @@
-var BACKEND_IP="127.0.0.1"
-var BACKEND_PORT=7000
-
-
-export { BACKEND_IP , BACKEND_PORT } ;
-
-
