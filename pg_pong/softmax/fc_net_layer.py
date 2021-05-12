@@ -3,6 +3,8 @@ import numpy as np
 from layers import *
 from layer_utils import *
 
+from fc_test import *
+
 def softmax( f, aggregate_axis = 0 ):
     # instead: first shift the values of f so that the highest number is 0:
     f_max = np.max(f, axis= aggregate_axis )
@@ -15,9 +17,9 @@ def softmax( f, aggregate_axis = 0 ):
 # ===================
 
 
-def forwardpass_test():
+def forwardpass_test(x):
     # ( ( x,w,b ), lru_x  )
-    _scores1, cache_fc_lelu = affine_relu_forward(X, model["W1"], np.zeros( [1,H] ) )
+    _scores1, cache_fc_lelu = affine_relu_forward(x, model["W1"], np.zeros( [1,H] ) )
     # cache_h_fc: (s,w,b)
     scores , cache_h_fc = affine_forward( _scores1 , model["W2"], np.zeros( [1,C] )  )
 
@@ -31,7 +33,7 @@ def forwardpass_test():
 
 def backpass_test( y ):
     loss, grads = 0, {}
-    reg = 0.3
+    reg = 0.05
 
     W1= model['W1']
     W2= model['W2']
@@ -53,15 +55,8 @@ def backpass_test( y ):
     # grads["b1"] = db1   # ignore bias
     return loss, grads
 
-if __name__ == '__main__':
-    D = 80 * 80
-    H = 200 # number of hidden layer neurons
-    C = 2 # for softmax
-
-    model = {}
-    model['W1'] = np.random.randn(D,H) / np.sqrt(D) # "Xavier" initialization
-    model['W2'] = np.random.randn(H,C) / np.sqrt(H)
-
+def test0():
+    global ep_scores, ep_cache_fc_lelu, ep_cache_h_fc
     X = np.random.randn( D )
     X = X.reshape(  1, -1  ) # 1 sample
 
@@ -72,7 +67,7 @@ if __name__ == '__main__':
     nSample = 3
     # forward test , test 3 samples
     for i in range(nSample):
-        scores, cache_fc_lelu, cache_h_fc = forwardpass_test()
+        scores, cache_fc_lelu, cache_h_fc = forwardpass_test(X)
 
         g_scores.extend( scores )
         print( "scores:{}".format( scores[0].shape ) )
@@ -103,5 +98,22 @@ if __name__ == '__main__':
     y = np.zeros( nSample, dtype=int )
     loss, grads = backpass_test( y )
     print( loss, grads )
+
+
+
+if __name__ == '__main__':
+    affine_relu_check()
+    softmax_loss_test()
+
+    D = 80 * 80
+    H = 200 # number of hidden layer neurons
+    C = 2 # for softmax
+
+    model = {}
+    model['W1'] = np.random.randn(D,H) / np.sqrt(D) # "Xavier" initialization
+    model['W2'] = np.random.randn(H,C) / np.sqrt(H)
+
+    test0()
+    pass
 
 
