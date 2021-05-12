@@ -23,17 +23,17 @@ def forwardpass_test(x):
     # cache_h_fc: (s,w,b)
     scores , cache_h_fc = affine_forward( _scores1 , model["W2"], np.zeros( [1,C] )  )
 
-    scores_softmax = softmax( scores, aggregate_axis=1 ) [0]
-    for i in range(10):
-        action = np.random.choice( C , p = scores_softmax )
-        print (scores_softmax , action)
+    # scores_softmax = softmax( scores, aggregate_axis=1 ) [0]
+    # for i in range(10):
+    #     action = np.random.choice( C , p = scores_softmax )
+    #     print (scores_softmax , action)
 
     return scores, cache_fc_lelu, cache_h_fc
 
 
 def backpass_test( y ):
     loss, grads = 0, {}
-    reg = 0.05
+    reg = 0.1
 
     W1= model['W1']
     W2= model['W2']
@@ -109,11 +109,36 @@ if __name__ == '__main__':
     H = 200 # number of hidden layer neurons
     C = 2 # for softmax
 
+    np.random.seed(231)
+
+    batch_size = 10  # every how many episodes to do a param update?
+    learning_rate = 1e-3  # 1e-4
+    gamma = 0.99  # discount factor for reward
+    decay_rate = 0.99  # decay factor for RMSProp leaky sum of grad^2
+
     model = {}
     model['W1'] = np.random.randn(D,H) / np.sqrt(D) # "Xavier" initialization
     model['W2'] = np.random.randn(H,C) / np.sqrt(H)
+    rmsprop_cache = {k: np.zeros_like(v)
+                 for k, v in model.items()}  # rmsprop memory
 
-    test0()
-    pass
+    # test0()
+    x = np.random.randn(1,D)
+    
+    for i in range(10):
+        ep_scores, ep_cache_fc_lelu, ep_cache_h_fc = forwardpass_test(x)
+        scores_softmax = softmax( ep_scores, aggregate_axis=1 ) [0]
+        print( "score softmax:", scores_softmax, ep_scores )
+
+        y = np.array( [1] )
+        loss, grads = backpass_test( y )
+        print("loss:", loss)
+        for k, v in model.items():
+            g = grads[k]  # gradient
+            rmsprop_cache[k] = decay_rate * \
+                rmsprop_cache[k] + (1 - decay_rate) * g**2
+            model[k] -= learning_rate * g / \
+                (np.sqrt(rmsprop_cache[k]) + 1e-5)
+
 
 
