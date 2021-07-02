@@ -40,3 +40,8 @@ export PATH=$PATH:~/Library/Python/2.7/bin/
 # java_home, macosx only
 export JAVA_HOME=`/usr/libexec/java_home`
 
+# manim shortcut
+function manim() {
+    docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/manim manimcommunity/manim:stable manim $@
+}
+
