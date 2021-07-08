@@ -49,3 +49,15 @@ function manim() {
 function pytorch() {
     docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/workspace --pids-limit 16384 pytorch/pytorch:latest python3 $@
 }
+
+# t2s 
+function t2sgen() {
+    if [ "$#" -lt 3 ]; then
+        echo 'usage: t2sgen key body.json dst_file_name'
+    else
+        curl -sL -X POST -H "content-type:application/json" "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=$1" -d @$2  | python3 -c "import sys,json;print(json.loads(''.join([l for l in sys.stdin]))['audioContent'])" | base64 -D  > $3.mp3
+    fi
+}
+
+
+
