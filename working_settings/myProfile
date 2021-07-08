@@ -60,4 +60,15 @@ function t2sgen() {
 }
 
 
+function checkRetval() {
+    [[ "$0" == "$BASH_SOURCE" ]] && ret=exit || ret=return
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "error occur, exit"
+        $ret $retVal
+    fi
+}
+
+# protection for forbidden sh , while script need source
+# [[ "$0" == "$BASH_SOURCE" ]] && echo "need source!" &&  exit 1
 
