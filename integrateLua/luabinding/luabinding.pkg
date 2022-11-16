@@ -1,0 +1,20 @@
+//$#pragma warning(push) // Save warning settings.
+//$#pragma warning(disable : 4800) // Disable deprecated localtime/gmtime warning.
+
+
+/*-------------------------------------------------------------------------
+ * Data type definitions
+ *-----------------------------------------------------------------------*/
+
+// typedef unsigned int Onyx::u32 ;
+
+
+$#include "tolua_fix.h"
+$#include "FileUtils.h"
+$#include "AppUtils.h"
+
+$pfile "FileUtils.pkg"
+$pfile "AppUtils.pkg"
+
+
+//#pragma warning(pop) 

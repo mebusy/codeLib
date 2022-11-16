@@ -1,0 +1,32 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger HDA
+  description: >-
+    Caution: the URL is for dev only, it should be changed when publishing for
+    QA.
+host: '10.192.83.42:9000'
+basePath: /
+schemes:
+  - http
+tags:
+  - name: common
+    description: misc request
+paths:
+  /servertime:
+    post:
+      tags:
+        - common
+      summary: 'get server''s UTC-date, and seconds from epoch'
+      description: |-
+        *utc*: timestamp of UTC time, 
+         *time*: seconds from epoch
+      responses:
+        '200':
+          description: will return data in json format
+          schema:
+            properties:
+              utc:
+                type: string
+              time:
+                type: integer

@@ -1,0 +1,78 @@
+{
+  "configurations": {
+    "[node] attach (debugger port)": {
+      "adapter": "vscode-node",
+      // "default": true,
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "configuration": {
+        "name": "Attaching to a process ID",
+        "type": "node",
+        "request": "attach",
+        "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
+        // provide default port
+        "port": "${port:9229}",
+        "processId": "$(lsof -ti:${port})"
+      }
+    },
+    "[node] run (cur opened file)": {
+      "adapter": "vscode-node",
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "configuration": {
+        "name": "Launch Program",
+        "type": "node",
+        "request": "launch",
+        "stopOnEntry": true,
+        "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
+        "program": "${file}"
+      }
+    },
+    "[go] run (cur opened file)": {
+      "adapter": "vscode-go",
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${file}",
+        // ask user to profice the arguments
+        "args": ["*${CommandLineArgs}"],
+        "mode": "debug",
+        "trace": true,
+        "env": { "GO111MODULE": "on" },
+        "cwd": "${cwd}"
+      }
+    }, // end [go] run
+
+    "[python] run (cur opened file)": {
+      "adapter": "debugpy",
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${file}",
+        "stopOnEntry": true,
+        // ask user to profice the arguments
+        // "args": ["*${CommandLineArgs}"]
+        "cwd": "${cwd}"
+      }
+    } // end python run
+  }
+}

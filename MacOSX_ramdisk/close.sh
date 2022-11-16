@@ -1,0 +1,5 @@
+source ./CreateRamDisk.sh 
+
+shutdown 
+
+

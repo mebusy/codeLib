@@ -1,0 +1,33 @@
+#ignore .DS_Store file in all folder
+.DS_Store
+
+#ignore folder in current folder folder
+#/Temp/
+
+#ignore special file in current folder
+#/*.csproj
+#/*.sln
+
+*.pyc
+
+/Brogue v1.7.4/rogueSharp/rogueSharp/bin
+/Brogue v1.7.4/rogueSharp/rogueSharp/obj
+/Brogue v1.7.4/Res/all_tiles/
+
+/Brogue v1.7.4/ANSIC_parser/*.out
+/Brogue v1.7.4/ANSIC_parser/lex.yy.c
+/Brogue v1.7.4/ANSIC_parser/y.tab.*
+
+*.class
+*.out
+*.tablereg.db
+
+github.com/
+golang.org/
+
+*.swp
+
+nand2tetris/tools/bin/Virtual\ Machine\ Emulator.dat
+
+save.p
+

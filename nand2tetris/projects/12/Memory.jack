@@ -1,0 +1,141 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */ 
+class Memory {
+
+    static Array ram;
+    static int heap_base ;
+
+    /** Initializes the class. */
+    function void init() {
+        // don't use math lib here
+        let ram = 0 ; // Jack is weak typed
+
+        let heap_base = 2048 ;
+        let ram[ heap_base ] = 0 ;
+        let ram[ heap_base + 1] = 16384 - heap_base - 2 ;
+        return ;
+    }
+
+    /** Returns the RAM value at the given address. */
+    function int peek(int address) {
+        return ram[address] ;
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value ; 
+        return ;
+    }
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. */
+    function int alloc(int size) {
+        var int block_addr ;
+        var int freeList ; 
+        var int nextBlock ; 
+        var int curBlockSize ; 
+        var int block_addr ; 
+
+        let freeList = heap_base ; 
+        while ( true ) {
+            let nextBlock = ram[freeList]  ;
+            let curBlockSize = ram[freeList+1]   ;
+            if ( curBlockSize < (size+2) )  {
+                // not enought block size
+
+                if ( nextBlock > 0 ) {
+                    // seek next block
+                    let freeList = nextBlock  ;
+                } else {
+                    // end , return error
+                    do Sys.error(5);
+                    return -1 ;
+                }
+            } else {
+                // carve memory from heap bottom
+
+                let block_addr = freeList + 2 + curBlockSize - (size+2)  ; 
+                let ram[freeList+1] =  ram[freeList+1] - (size+2) ; 
+
+                let ram[block_addr] = 0   ;
+                let ram[block_addr+1] = size ;
+                return block_addr+2 ; 
+            }
+        }
+        do Sys.error(6);
+        return -1 ;
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) {
+        var int obj_addr ; 
+        var int freeList ; 
+        var int nextBlock ; 
+        var boolean b2Insert ; 
+
+        let obj_addr = o-2  ; 
+        let freeList = heap_base ;
+
+        while (true) {
+            let nextBlock = ram[freeList] ; 
+
+            let b2Insert = false ;
+            if (nextBlock = 0) {
+                let b2Insert = true ; 
+            }
+            if ( nextBlock > 0 ) { 
+                if ( obj_addr < nextBlock ) {
+                    let b2Insert = true ; 
+                }
+            }
+
+            if ( b2Insert ) {
+                let ram[freeList] = obj_addr ;
+                let ram[obj_addr] = nextBlock  ;
+
+                do Memory.merge( freeList, obj_addr , nextBlock  ) ;
+
+                return ; 
+            } else {
+                let freeList = nextBlock ;
+            }
+        }
+        return ;
+    }    
+    
+    function void merge(int addr1, int addr2 , int addr3 ) {
+        var int block_addr ; 
+        var int block_next ; 
+        var int block_addr_2nd ; 
+
+        let block_addr = addr1  ;
+        let block_next = addr2  ;
+
+        let block_addr_2nd = addr2 ;
+        
+        if ( (block_addr + 2 + ram[block_addr+1]) = ram[block_addr] ) {
+            let ram[block_addr] = ram[ram[block_addr]];
+            let ram[block_addr+1] = ram[block_addr+1] + ( ram[block_next+1]+2 ) ;
+            let block_addr_2nd = block_addr; 
+        }
+        
+        if ( ~(addr3 = 0) ) {
+            let block_addr = block_addr_2nd  ; 
+            let block_next = addr3 ;
+            if ( (block_addr + 2 + ram[block_addr+1]) = ram[block_addr]) {
+                let ram[block_addr] = ram[ram[block_addr]] ; 
+                let ram[block_addr+1] = ram[block_addr+1] + ( ram[block_next+1]+2 ) ;
+            }
+        }
+        return ;
+    }
+}

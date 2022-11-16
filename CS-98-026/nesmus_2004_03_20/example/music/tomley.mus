@@ -1,0 +1,14 @@
+; "the adventures of tomley kleene"
+; intro song
+t120
+
+;melody
+channel 2
+v15l8o4cd
+e l4c <l8g> l4fg l2f l8f p8 p4
+
+;bass
+channel 0
+v31l8o2ed
+l4c<g>defcf
+

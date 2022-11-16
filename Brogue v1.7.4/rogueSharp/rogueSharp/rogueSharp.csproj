@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{A0CF7457-A233-47DF-B92A-BC6D6DBE198B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>rogueSharp</RootNamespace>
+    <AssemblyName>rogueSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="brogue\levelData.cs" />
+    <Compile Include="brogue\RogueH.cs" />
+    <Compile Include="brogue\pcell.cs" />
+    <Compile Include="brogue\randomRange.cs" />
+    <Compile Include="brogue\item.cs" />
+    <Compile Include="brogue\creature.cs" />
+    <Compile Include="brogue\cellDisplayBuffer.cs" />
+    <Compile Include="brogue\color.cs" />
+    <Compile Include="brogue\keyLocationProfile.cs" />
+    <Compile Include="brogue\RogueMain.cs" />
+    <Compile Include="brogue\playerCharacter.cs" />
+    <Compile Include="brogue\commonFunc.cs" />
+    <Compile Include="brogue\Architect.cs" />
+    <Compile Include="brogue\dungeonFeature.cs" />
+    <Compile Include="brogue\creatureType.cs" />
+    <Compile Include="brogue\Global.cs" />
+    <Compile Include="brogue\Random.cs" />
+    <Compile Include="brogue\Monsters.cs" />
+    <Compile Include="brogue\Grid.cs" />
+    <Compile Include="brogue\enum_monster.cs" />
+    <Compile Include="Singleton.cs" />
+    <Compile Include="brogue\Items.cs" />
+    <Compile Include="brogue\enum_item.cs" />
+    <Compile Include="brogue\itemTable.cs" />
+    <Compile Include="brogue\feat.cs" />
+    <Compile Include="brogue\monsterClass.cs" />
+    <Compile Include="ObjectCopier.cs" />
+    <Compile Include="brogue\flare.cs" />
+    <Compile Include="brogue\lightSource.cs" />
+    <Compile Include="brogue\Light.cs" />
+    <Compile Include="brogue\IO.cs" />
+    <Compile Include="brogue\Movement.cs" />
+    <Compile Include="brogue\Time.cs" />
+    <Compile Include="brogue\tcell.cs" />
+    <Compile Include="brogue\MyTerrain.cs" />
+    <Compile Include="brogue\floorTileType.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="brogue\dungeonProfile.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

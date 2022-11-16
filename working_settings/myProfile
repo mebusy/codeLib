@@ -1,0 +1,77 @@
+export LC_ALL=en_US.UTF-8
+
+# git branch prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export -f parse_git_branch > /dev/null
+
+# detect shell env
+if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
+    # echo "It's in" $0 
+    # Git branch in prompt.
+    export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+else
+    # autoload -U colors && colors
+    # export PROMPT="%n@ %c%{$fg[cyan]%}$(parse_git_branch)%{$reset_color%} $ "
+    setopt PROMPT_SUBST
+    export PROMPT='%n@%m %c%{%F{cyan}%}$(parse_git_branch)%{%F{none}%} $ '
+fi
+
+
+# to use , vi ~/.profile, add...
+# myProfile=~/".myProfile" 
+# if [ -L "$myProfile" ]
+# then
+#     source $myProfile
+# fi
+
+
+# ios Debug
+if [ -L "/Applications/Xcode.app" ]
+then
+    export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
+    alias symbolicatecrash="/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash"
+fi 
+
+# python user
+export PATH=$PATH:~/Library/Python/2.7/bin/
+
+# java_home, macosx only
+export JAVA_HOME=`/usr/libexec/java_home`
+
+# brew, avoid cleanup
+# export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+
+# manim shortcut
+function manim() {
+    docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/manim manimcommunity/manim:stable manim $@
+}
+
+# pytotch
+function pytorch() {
+    docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/workspace --pids-limit 16384 pytorch/pytorch:latest python3 $@
+}
+
+# t2s 
+function t2sgen() {
+    if [ "$#" -lt 3 ]; then
+        echo 'usage: t2sgen key body.json dst_file_name'
+    else
+        curl -sL -X POST -H "content-type:application/json" "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=$1" -d @$2  | python3 -c "import sys,json;print(json.loads(''.join([l for l in sys.stdin]))['audioContent'])" | base64 -D  > $3.mp3
+    fi
+}
+
+
+function checkRetval() {
+    [[ "$0" == "$BASH_SOURCE" ]] && ret=exit || ret=return
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "error occur, exit"
+        $ret $retVal
+    fi
+}
+
+# protection for forbidden sh , while script need source
+# [[ "$0" == "$BASH_SOURCE" ]] && echo "need source!" &&  exit 1
+

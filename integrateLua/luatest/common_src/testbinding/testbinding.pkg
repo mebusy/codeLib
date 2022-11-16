@@ -1,0 +1,27 @@
+//$#pragma warning(push) // Save warning settings.
+//$#pragma warning(disable : 4800) // Disable deprecated localtime/gmtime warning.
+
+
+/*-------------------------------------------------------------------------
+ * Data type definitions
+ *-----------------------------------------------------------------------*/
+
+// typedef unsigned int Onyx::u32 ;
+
+
+$#include "tolua_fix.h"
+$#include "ScriptHandlerSample.h"
+
+class ScriptHandlerSample {
+public:
+	ScriptHandlerSample(void);
+    virtual void registerScriptHandler(LUA_FUNCTION  handler);
+    virtual void unregisterScriptHandler(void);
+    int getScriptHandler()  ;
+
+    void calLuaHandleTest() ;
+} ;
+
+
+
+//#pragma warning(pop) 

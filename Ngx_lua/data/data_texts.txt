@@ -1,0 +1,2291 @@
+{
+ "1":{
+  "TEXT":"There's no one  there.[END]"
+ },
+ "10":{
+  "TEXT":"[OFFICER] used[ITEM-4].[END]"
+ },
+ "100":{
+  "TEXT":"I'm sorry. We don't deal in  that.[END]"
+ },
+ "101":{
+  "TEXT":"We don't have a chance without  [OFFICER].[END]"
+ },
+ "102":{
+  "TEXT":"I don't think  [T-VALUE]is  aware of our[>] army's approach.[END]"
+ },
+ "103":{
+  "TEXT":"We were caught off guard.[END]"
+ },
+ "104":{
+  "TEXT":"We captured a general named [OFFICER].[>] What should we do with him?[END]"
+ },
+ "105":{
+  "TEXT":"[OFFICER] was released.[END]"
+ },
+ "106":{
+  "TEXT":"I might be  convinced to join  your side for[>] [VALUE] [LVL-SLDR-AMT] gold coins.[END]"
+ },
+ "107":{
+  "TEXT":"You might win my  services with an especially good[>] horse.[END]"
+ },
+ "108":{
+  "TEXT":"I'm no traitor. I serve only my master![END]"
+ },
+ "109":{
+  "TEXT":"[OFFICER] has joined our army.[END]"
+ },
+ "11":{
+  "TEXT":"But nothing  happened.[END]"
+ },
+ "110":{
+  "TEXT":"That's not enough to buy my  loyalty.[END]"
+ },
+ "111":{
+  "TEXT":"I don't work for  cheapskates.[END]"
+ },
+ "112":{
+  "TEXT":"Do you think I'm  a fool? You haven't got any[>] good horses.[END]"
+ },
+ "113":{
+  "TEXT":"Good morning, [OFFICER-3]sir. What can I do for[>] you today? [EVENT-651E]"
+ },
+ "114":{
+  "TEXT":"You need [VALUE]dP experience points to advance to the[>] next level. Shall  I record your  current status?[END]"
+ },
+ "115":{
+  "TEXT":"I have recorded your status.[END]"
+ },
+ "116":{
+  "TEXT":"It doesn't seem proper to fire [OFFICER].[END]"
+ },
+ "117":{
+  "TEXT":"OK.[END]"
+ },
+ "118":{
+  "TEXT":"Liu Bei has  arrived.[END]"
+ },
+ "119":{
+  "TEXT":"Yes my lord.[END]"
+ },
+ "12":{
+  "TEXT":"[OFFICER] has been injured and can't move.[END]"
+ },
+ "120":{
+  "TEXT":"This is  Tao Qian's Castle. It would[>] be unseemly to bring troops inside.[END]"
+ },
+ "121":{
+  "TEXT":"Liu Bei is in the  palace.[END]"
+ },
+ "122":{
+  "TEXT":"There is no  palace in this  castle to[>] entertain Liu Bei in.[END]"
+ },
+ "123":{
+  "TEXT":"Sorry  [OFFICER]. There must be a[>] river nearby to  do that.[END]"
+ },
+ "124":{
+  "TEXT":"[VALUE][ITEM-5][T-VALUE] was used.[END]"
+ },
+ "125":{
+  "TEXT":"Tactical Ability increased to [VALUE] [LVL-SLDR-AMT].[END]"
+ },
+ "128":{
+  "TEXT":"Although we were born on different days, we hope to[>] die in the same  hour of the same  day of the same[>] year. On our very  souls, we pledge that this will be[>] true.[END]"
+ },
+ "129":{
+  "TEXT":"Liu Bei, listen! A group of  rebels, known as[>] the  Yellow Scarves is  terrorizing the[>] local people. You  are the direct descendant of the[>] Emperor of the  Han Dynasty. It falls to you to[>] bring justice back to the land. To the west is[>] the Castle of  Tao Qian. I hear he is recruiting[>] volunteer soldiers to subdue these[>] insurrectionists. [EVENT-1EF1]"
+ },
+ "13":{
+  "TEXT":"[OFFICER-2] can't carry anymore.[END]"
+ },
+ "130":{
+  "TEXT":"Tao Qian will  need leaders for[>] his volunteers. I made sure you had the best[>] training. Now its time to use what  you know to bring[>] civilization back  to this land and  carve out your[>] place in history.[END]"
+ },
+ "131":{
+  "TEXT":"Oh, son. You've come home safely. I knew you[>] couldn't fail. You are destined to be a great[>] ruler. Go and settle this land  as your[>] grandfathers did before you.[END]"
+ },
+ "132":{
+  "TEXT":"Go now, son.[END]"
+ },
+ "133":{
+  "TEXT":"[LEADER], you  would do well to  support Liu Bei[>] in his attack  against the rebels.[END]"
+ },
+ "134":{
+  "TEXT":"Hurrah! Liu Bei.[END]"
+ },
+ "135":{
+  "TEXT":"Neigh...[END]"
+ },
+ "136":{
+  "TEXT":"Yellow Scarves... Someone must stop  those butchers.[END]"
+ },
+ "137":{
+  "TEXT":"I wish I was like  Liu Bei.[END]"
+ },
+ "138":{
+  "TEXT":"Cui Zhouping is  never home.[END]"
+ },
+ "139":{
+  "TEXT":"Hello. I'm  Zhang Shiping. I've heard of[>] your aspiration. I am no warrior but a simple[>] merchant who's had some good  fortune. If it[>] will further your cause I want you  to accept this[>] small gift so you  can buy weapons and prepare for[>] Battle. You received 200 gold coins and[>] 1000 rations. [EVENT-AF21]"
+ },
+ "14":{
+  "TEXT":"[OFFICER] handed[ITEM-4] over to[>] [OFFICER-2].[END]"
+ },
+ "140":{
+  "TEXT":"You're fame will  spread throughout  the land.[END]"
+ },
+ "141":{
+  "TEXT":"Are you Liu Bei? My name is  [VALUE][CUROFF-1][>] and this is  [VALUE][CUROFF-2]. We would be[>] honored to enter your service. [EVENT-0222]"
+ },
+ "142":{
+  "TEXT":"We will serve you  faithfully.[END]"
+ },
+ "143":{
+  "TEXT":"We hope that you  will accept our  services at a[>] later date.[END]"
+ },
+ "144":{
+  "TEXT":"This is [XuZhou] Castle, home of  Tao Qian.[END]"
+ },
+ "145":{
+  "TEXT":"You can't use  weapons that are  packed away. You[>] have to equip yourself with  your weapons[>] before you can  use them.[END]"
+ },
+ "146":{
+  "TEXT":"You must have  provisions to  keep your[>] soldiers healthy.[END]"
+ },
+ "147":{
+  "TEXT":"You must recruit  stronger warlords if you want the[>] final victory.[END]"
+ },
+ "148":{
+  "TEXT":"Put your strong  warlords on the  front line and[>] the weaker ones behind them.[END]"
+ },
+ "149":{
+  "TEXT":"My family was  murdered by the  Yellow Scarves.[>] Please avenge their deaths.[END]"
+ },
+ "15":{
+  "TEXT":"[OFFICER] can't use it.[END]"
+ },
+ "150":{
+  "TEXT":"[QingZhou] Castle, in the north, is  still occupied by[>] Zhang Liang and  his  Yellow Scarves.[END]"
+ },
+ "151":{
+  "TEXT":"They say the  Yellow Scarves  have three[>] strongholds.[END]"
+ },
+ "152":{
+  "TEXT":"My name is  [OFFICER-SELF-2]. I'd like to join you in[>] your fight  against the Yellow Scarves.[>] [EVENT-E91C]"
+ },
+ "153":{
+  "TEXT":"Liu Bei, your  name precedes you. I hear you[>] intend to eliminate the rebels known as[>] Yellow Scarves. I have wanted to do that for years[>] but I fear I am in my final years and lack the[>] strength. As you see, I'm sick and without an heir.[>] If you succeed in  dispatching the Yellow Scarves, I[>] will make you my  heir.[END]"
+ },
+ "154":{
+  "TEXT":"Please crush the  Yellow Scarves in  my stead.[END]"
+ },
+ "155":{
+  "TEXT":"Liu Bei, my son. You did what I have long been[>] too weak to do. I am tired of  trying to rule.[>] Please take this  burden from me. [EVENT-8822]"
+ },
+ "156":{
+  "TEXT":"Zzzzzz.....[END]"
+ },
+ "157":{
+  "TEXT":"My people will be  pleased. I'm  afraid my failing[>] health has had everyone worried. Finally I can[>] rest.[END]"
+ },
+ "158":{
+  "TEXT":"Please  reconsider.[END]"
+ },
+ "159":{
+  "TEXT":"Liu Bei. Welcome.[END]"
+ },
+ "16":{
+  "TEXT":"[T-VALUE]is  equipped with [ITEM-2].[END]"
+ },
+ "160":{
+  "TEXT":"Please accept our  lord's request.[END]"
+ },
+ "161":{
+  "TEXT":"The man in the  back of the room is Tao Qian.[END]"
+ },
+ "163":{
+  "TEXT":"Liu Bei. Tao Qian's condition has[>] deteriorated. He  lacks even the  energy to stand.[END]"
+ },
+ "164":{
+  "TEXT":"Please tell him  of your victory so he can stop[>] worrying.[END]"
+ },
+ "165":{
+  "TEXT":"Why not report your victory?[END]"
+ },
+ "166":{
+  "TEXT":"Ha, ha, ha. You  insolent fool. You think you can[>] threaten us with such a small force? We'll[>] crush you in one  breath.[END]"
+ },
+ "167":{
+  "TEXT":"A member of the  Yellow Scarves, Ma Yuan Yi, is[>] hiding in this  town. Be careful.[END]"
+ },
+ "168":{
+  "TEXT":"A rebel at Mt. [DaXing] named Zhang Bao is said[>] to know black magic.[END]"
+ },
+ "169":{
+  "TEXT":"According to  prophecy, Liu Bei must tame the[>] five tigers before he can  conquer the[>] dragon.[END]"
+ },
+ "17":{
+  "TEXT":"[OFFICER] has stowed [ITEM-2].[END]"
+ },
+ "170":{
+  "TEXT":"This is [QingZhou] Castle. It was occupied by the[>] Yellow Scarves.[END]"
+ },
+ "171":{
+  "TEXT":"Hey boy! I'm [OFFICER-SELF-2]. If you are foolish[>] enough to attack  the  Yellow Scarves,[>] you will find  your impertinence very costly. Go[>] ahead! Attack! [EVENT-4923]"
+ },
+ "172":{
+  "TEXT":"Zhang Bao should  be at Mt. [DaXing].[END]"
+ },
+ "173":{
+  "TEXT":"I admit, you have  bested me. Let me  live and I will[>] give you some  information. Go south-west and[>] you will find Mt. [DaXing], the  citadel of the[>] Yellow Scarves. Zhang Bao and his  rebels are there.[END]"
+ },
+ "174":{
+  "TEXT":"I've had word of  your coming. I heard you routed[>] my brother. He  always was a sniveling fool.[>] At my hand you  will die![END]"
+ },
+ "175":{
+  "TEXT":"We don't need to  be afraid of the  Yellow Scarves.[END]"
+ },
+ "176":{
+  "TEXT":"The weather is good.  Wheat  should grow well.[END]"
+ },
+ "177":{
+  "TEXT":"What a beautiful day. I think I'll  go home and spend[>] the day with my  wife.[END]"
+ },
+ "178":{
+  "TEXT":"A messenger from  Cao Cao has  arrived for[>] Tao Qian. Return to the castle at  once.[END]"
+ },
+ "179":{
+  "TEXT":"I hear you are  raising troops to  destroy the[>] Yellow Scarves. My son Chen Deng is a martial arts[>] master. Allow him to join you and  you will never[>] regret it. [EVENT-2023]"
+ },
+ "18":{
+  "TEXT":"You'd better keep it. We'll need it  later.[END]"
+ },
+ "180":{
+  "TEXT":"Has my son done  well?[END]"
+ },
+ "181":{
+  "TEXT":"I'm [OFFICER-SELF-2]. I am happy to  serve.[END]"
+ },
+ "182":{
+  "TEXT":"My name is  [OFFICER-SELF-2].[END]"
+ },
+ "183":{
+  "TEXT":"Your Imperial army seems obsessed with[>] death. Do Battle with me and I'll  give them a free[>] lesson.[END]"
+ },
+ "184":{
+  "TEXT":"Go south and you  will find a fortress called[>] [TieMenXia].[END]"
+ },
+ "185":{
+  "TEXT":"[TieMenXia] is a natural fortress, surrounded by[>] mountains.[END]"
+ },
+ "186":{
+  "TEXT":"Zhang Bao and  Zhang Liang have  a brother named[>] Zhang Jao.[END]"
+ },
+ "188":{
+  "TEXT":"The leader of the  Yellow Scarves  rebels is[>] Zhang Jao. His  citadel is [TieMenXia].[END]"
+ },
+ "189":{
+  "TEXT":"Tao Qian must be  so pleased.[END]"
+ },
+ "19":{
+  "TEXT":"[OFFICER] has dropped [ITEM-2].[END]"
+ },
+ "190":{
+  "TEXT":"I hear [OFFICER-3]is  coming. I wonder[>] if he's cute.[END]"
+ },
+ "191":{
+  "TEXT":"Yuan Shu, Yuan Shao and  Dong Zhuo have[>] joined Cao Cao in  the effort to destroy the[>] Yellow Scarves. But I think those three are hardly[>] better than their enemy.[END]"
+ },
+ "193":{
+  "TEXT":"Everyone listen! The  Yellow Scarves[>] have returned to [QingZhou] Castle.[END]"
+ },
+ "194":{
+  "TEXT":"As long as  Zhang Jao is  still free, we[>] don't dare relax.[END]"
+ },
+ "195":{
+  "TEXT":"It's high time we eliminate the Yellow Scarves.[END]"
+ },
+ "196":{
+  "TEXT":"Until the Scarves are completely destroyed, no one[>] is truly safe.[END]"
+ },
+ "197":{
+  "TEXT":"Hurrah![END]"
+ },
+ "198":{
+  "TEXT":"This town will be  peaceful again.[END]"
+ },
+ "199":{
+  "TEXT":"If this town were any more peaceful, I'd[>] probably die of  boredom.[END]"
+ },
+ "2":{
+  "TEXT":"[LEADER] searched.[END]"
+ },
+ "20":{
+  "TEXT":"[T-VALUE]is  carrying [ITEM-2][>] differently.[END]"
+ },
+ "202":{
+  "TEXT":"Retreat! They are too strong.[END]"
+ },
+ "204":{
+  "TEXT":"Guan Yu, Zhang Fei. I now have a castle and[>] a people to  protect. With my responsibility to[>] these people, I can't be  constantly[>] endangering my  life in Battle. From now on,[>] please do your best on my  behalf.[END]"
+ },
+ "205":{
+  "TEXT":"A messenger from  Cao Cao has  arrived. I wonder[>] what's going on.[END]"
+ },
+ "206":{
+  "TEXT":"Liu Bei is going to [VALUE][PLACE][T-VALUE]...[END]"
+ },
+ "207":{
+  "TEXT":"[LEADER]. Your support has  been crucial to[>] my victory. I must go to  [VALUE][PLACE][T-VALUE]. Please[>] accompany me.[END]"
+ },
+ "209":{
+  "TEXT":"I've come here as  a messenger of  Cao Cao. You know[>] what Dong Zhuo is  doing in [LuoYang]? If it[>] continues, our  country will be  ruined. We are[>] determined to put  together an army and stop[>] Dong Zhuo. Generals Guan Yu and Zhang Fei,[>] please join us.[END]"
+ },
+ "21":{
+  "TEXT":"[T-VALUE]is  the acting tactician.[END]"
+ },
+ "210":{
+  "TEXT":"I've come here as  a messenger of  Cao Cao.[END]"
+ },
+ "211":{
+  "TEXT":"Liu Bei! Was your  pledge really so  halfhearted. You[>] are descended from the great  Han Dynasty[>] itself! You must  rise again and  destroy the[>] murderous Yellow Scarves.[END]"
+ },
+ "212":{
+  "TEXT":"[LEADER]! I'm disappointed in  you. You know you[>] can't restore the Han Dynasty  unless you[>] protect the  people. As long as you breathe,[>] you must rise again and defeat  the rebels.[END]"
+ },
+ "213":{
+  "TEXT":"Who challenges me? Oh, Liu Bei again! I'll[>] destroy you this  time. [EVENT-7923]"
+ },
+ "214":{
+  "TEXT":"Zhang Jao, Zhang Bao and  Zhang Liang were[>] killed. Peace was  restored.[END]"
+ },
+ "215":{
+  "TEXT":"If Yuan Shu is  supposed to be an ally, why didn't[>] he even send provisions to  Sun Ce?[END]"
+ },
+ "216":{
+  "TEXT":"I hear [HuLaoGuan] is  protected by a[>] great warlord named Lu Bu.[END]"
+ },
+ "217":{
+  "TEXT":"Cao Cao is  attacking [HuLaoGuan]. But[>] Lu Bu is strong.[END]"
+ },
+ "218":{
+  "TEXT":"Yuan Shao and  Yuan Shu never go  to the front[>] line. I wonder why?[END]"
+ },
+ "219":{
+  "TEXT":"If you go west, you'll come to  [HuLaoGuan].[END]"
+ },
+ "22":{
+  "TEXT":"[OFFICER] resigned as tactician.[END]"
+ },
+ "220":{
+  "TEXT":"This is  [FanShuiGuan]. It used to be[>] occupied by  Dong Zhuo.[END]"
+ },
+ "221":{
+  "TEXT":"Yuan Shao and  Yuan Shu are vile cowards.[END]"
+ },
+ "222":{
+  "TEXT":"This country has  been saved.[END]"
+ },
+ "223":{
+  "TEXT":"Did you meet  Cao Cao?[END]"
+ },
+ "224":{
+  "TEXT":"Oh, we meet again.[END]"
+ },
+ "225":{
+  "TEXT":"Liu Bei. This is  not a base of the  Yellow Scarves.[END]"
+ },
+ "226":{
+  "TEXT":"Dong Zhuo has  gone to defeat  the[>] Yellow Scarves.[END]"
+ },
+ "227":{
+  "TEXT":"This is the  fortress known as [HuLaoGuan].[END]"
+ },
+ "228":{
+  "TEXT":"[LEADER]. I'm  [OFFICER-SELF-2] and I'm  leading the[>] Imperial Army. We couldn't catch Dong Zhuo. But we[>] occupied [HuLaoGuan], thanks to your[>] support. Yuan Shu and commander-in- chief Yuan Shao[>] have gone to  [LuoYang]. I should go to[>] [LuoYang] at once. I hope you will  join us there.[>] Now I must say goodbye. [EVENT-8B24]"
+ },
+ "229":{
+  "TEXT":"If you go west from this fort, you will reach[>] [LuoYang].[END]"
+ },
+ "23":{
+  "TEXT":"[OFFICER] has been injured and can't move.[END]"
+ },
+ "230":{
+  "TEXT":"As long as Lu Bu supports Dong Zhuo, you[>] can't possibly win.[END]"
+ },
+ "231":{
+  "TEXT":"I'm Wang Yun. Look in my house  and you'll find[>] the [GEMSWORD].[END]"
+ },
+ "232":{
+  "TEXT":"Lu Bu only serves Dong Zhuo for  money. If we give[>] him the [GEMSWORD], he might switch sides.[END]"
+ },
+ "233":{
+  "TEXT":"Young man, did  you come here to  listen to[>] [CHITUMA]'s story? [EVENT-A624]"
+ },
+ "234":{
+  "TEXT":"[CHITUMA] is the  King of horses. He can run 1000[>] miles a day without even getting tired.[END]"
+ },
+ "235":{
+  "TEXT":"Your loss.[END]"
+ },
+ "236":{
+  "TEXT":"Is Cao Cao okay?[END]"
+ },
+ "237":{
+  "TEXT":"The Han Dynasty  and it's capitol, [LuoYang], lie in[>] ruin.[END]"
+ },
+ "238":{
+  "TEXT":"Oh, it's locked. I forget where I put the key.[END]"
+ },
+ "239":{
+  "TEXT":"An insurgent, Dong Zhuo ended his 54 years on[>] the blade of a sword.[END]"
+ },
+ "24":{
+  "TEXT":"[OFFICER] transferred [ITEM]to[>] [OFFICER-2].[END]"
+ },
+ "240":{
+  "TEXT":"[LuoYang], the  capital of Han, was burnt down.[END]"
+ },
+ "241":{
+  "TEXT":"General Lu Bu was  looking for something.[END]"
+ },
+ "242":{
+  "TEXT":"General Lu Bu killed his father-in-law,[>] Ding Yuan, and  joined Dong Zhuo. Don't trust him[>] at all.[END]"
+ },
+ "243":{
+  "TEXT":"There is a fine sword in  Wang Yun's house.[>] If we could only find the key...[END]"
+ },
+ "244":{
+  "TEXT":"There are 5 men known as Tigers. Generals Guan Yu[>] and Zhang Fei are  two of them. You  must find the[>] other three.[END]"
+ },
+ "245":{
+  "TEXT":"It's rumored that General Lu Bu has  long been seeking[>] a very special sword.[END]"
+ },
+ "246":{
+  "TEXT":"Are you  [OFFICER-3]of  Liu Bei's army? I[>] am[OFFICER-SELF], the  commander-in- chief of the[>] volunteer army. Our capital [LuoYang] has been[>] burned and broken. We can't defeat Dong Zhuo.[>] We don't even have food to eat. We must return to[>] [BoHai] once more, and join our  comrades. So[>] long. [EVENT-1A25]"
+ },
+ "247":{
+  "TEXT":"Cao Cao pursued Dong Zhuo.[END]"
+ },
+ "248":{
+  "TEXT":"Dong Zhuo's army went to [ChangAn], the western[>] capital.[END]"
+ },
+ "249":{
+  "TEXT":"We will rebuild [LuoYang] just as  it was.[END]"
+ },
+ "25":{
+  "TEXT":"[OFFICER-2] took[ITEM-4] from[>] [OFFICER].[END]"
+ },
+ "250":{
+  "TEXT":"Let's restore the castle to its former glory.[END]"
+ },
+ "251":{
+  "TEXT":"Were the rebels  arrested?[END]"
+ },
+ "252":{
+  "TEXT":"Hurrah [LEADER]![END]"
+ },
+ "253":{
+  "TEXT":"Why do I complain? No one listens anyway.[END]"
+ },
+ "254":{
+  "TEXT":"I've joined Cao Cao's army. How about you?[END]"
+ },
+ "255":{
+  "TEXT":"Is Dong Zhuo really dead? Our dream has come[>] true.[END]"
+ },
+ "256":{
+  "TEXT":"This is [YangZhou] Castle, built on the highest hill[>] in the region. We can see [LuoYang] and [ChangAn] from[>] here.[END]"
+ },
+ "257":{
+  "TEXT":"Next we must go  to [ChangAn]. The  rebellious[>] Dong Zhuo is  there.[END]"
+ },
+ "258":{
+  "TEXT":"I heard the  Emperor is in the  castle dungeon.[>] Please rescue him.[END]"
+ },
+ "259":{
+  "TEXT":"I saw the emperor in the dungeon.[END]"
+ },
+ "26":{
+  "TEXT":"[LEADER] transferred [ITEM]from[>] [T-VALUE]to  [OFFICER-2].[END]"
+ },
+ "260":{
+  "TEXT":"Dong Zhuo must be  defeated before he causes any[>] more mischief.[END]"
+ },
+ "261":{
+  "TEXT":"Oh, [LEADER]. I'm [OFFICER-SELF-2]. My  men and I chased[>] Dong Zhuo, but we were caught in an ambush and barely[>] escaped with our  lives. I'm sorry. I'll see to the[>] Emperor. If you want to  chase Dong Zhuo,[>] he ran away toward [ChangAn].[END]"
+ },
+ "262":{
+  "TEXT":"I'll go back to  [LuoYang] with  Cao Cao to[>] rebuild the  capital. I love [LuoYang] very[>] much.[END]"
+ },
+ "263":{
+  "TEXT":"[LEADER], do you think you can  occupy [ChangAn][>] with such a small detachment? I laugh at your[>] folly.[END]"
+ },
+ "264":{
+  "TEXT":"We killed Dong Zhuo. Now  peace will return[>] to [ChangAn]. [EVENT-4325]"
+ },
+ "265":{
+  "TEXT":"We can finally  live without fear of Dong Zhuo.[END]"
+ },
+ "266":{
+  "TEXT":"By the way, if you go 8 yards west and 1 yard[>] south, you can  find my horse, [CHITUMA]. If you[>] like, you can  ride him.[END]"
+ },
+ "267":{
+  "TEXT":"If you head due north, you'll  find the palace.[END]"
+ },
+ "268":{
+  "TEXT":"Do you know  Yuan Shu? He is  said to be a very[>] cruel man.[END]"
+ },
+ "269":{
+  "TEXT":"Yuan Shu calls himself the  Emperor.[END]"
+ },
+ "27":{
+  "TEXT":"[LEADER] transferred [ITEM]from[>] [OFFICER] back to  [OFFICER-2].[END]"
+ },
+ "270":{
+  "TEXT":"First Dong Zhuo, now Yuan Shu. What's going on[>] here?[END]"
+ },
+ "271":{
+  "TEXT":"Yuan Shu is the  brother of  Yuan Shao.[END]"
+ },
+ "272":{
+  "TEXT":"If Yuan Shu and  Yuan Shao cooperate,[>] they'll be very  strong.[END]"
+ },
+ "273":{
+  "TEXT":"I've never seen such a big castle. With so[>] much to drink and  so many women, this must be[>] paradise.[END]"
+ },
+ "274":{
+  "TEXT":"Wow! Beautiful girls![END]"
+ },
+ "275":{
+  "TEXT":"Yuan Shu left  this castle and  is now in[>] [NanYang] castle.[END]"
+ },
+ "276":{
+  "TEXT":"Oh! Stay away from me, you  brute![END]"
+ },
+ "277":{
+  "TEXT":"What's that?[END]"
+ },
+ "278":{
+  "TEXT":"I'm Yang Jin. I am a pirate but I've heard about[>] [OFFICER-3]so  I've been waiting here. Please[>] allow me to join  you. [EVENT-7224]"
+ },
+ "279":{
+  "TEXT":"I'm [OFFICER-SELF-2]. I'm  good with powder. I'd like to offer[>] my services. [EVENT-E91C]"
+ },
+ "28":{
+  "TEXT":"[OFFICER-3]had [OFFICER] drop [ITEM-2].[END]"
+ },
+ "280":{
+  "TEXT":"I'm [OFFICER-SELF-2]. I hear you are  building an army[>] to defeat  Dong Zhuo. Let me  join you. [EVENT-E724]"
+ },
+ "281":{
+  "TEXT":"I'm [OFFICER-SELF-2]. May I join in  your struggle?[>] [EVENT-E91C]"
+ },
+ "282":{
+  "TEXT":"Fight your best.[END]"
+ },
+ "283":{
+  "TEXT":"Han Dynasty for  1000 years![END]"
+ },
+ "284":{
+  "TEXT":"Welcome [LEADER].[END]"
+ },
+ "285":{
+  "TEXT":"Guan Yu and  Zhang Fei, you  have served me[>] well. Please rest  here.[>] [EVENT-8525]"
+ },
+ "286":{
+  "TEXT":"Excuse me  [LEADER]. I'm  sorry to wake you[>] up so early but a messenger from  Cao Cao has just[>] arrived. [EVENT-FA20]"
+ },
+ "287":{
+  "TEXT":"As you heard, we must retrieve the Imperial Seal.[END]"
+ },
+ "288":{
+  "TEXT":"Guan Yu... Guan Yu... Liu Bei is[>] calling you. Zhang Fei. Wake up. Liu Bei is[>] waiting.[END]"
+ },
+ "289":{
+  "TEXT":"The great General  Yuan Shu of  [NanYang] has[>] somehow acquired the Imperial Seal  and now calls[>] himself the  Emperor. We can't  allow him to keep[>] it. [EVENT-7825]"
+ },
+ "29":{
+  "TEXT":"[OFFICER-3]left  [ITEM]where  it was.[END]"
+ },
+ "290":{
+  "TEXT":"The Imperial Seal  is the proof of  royalty. If it[>] falls into the  wrong hands...[END]"
+ },
+ "291":{
+  "TEXT":"You want to  attack Dong Zhuo? Ha! I, Hua Xiong,[>] will dispatch you myself.[END]"
+ },
+ "292":{
+  "TEXT":"I'm Lu Bu. I don't believe you  will find me as[>] feeble as Hua Xiong.[END]"
+ },
+ "293":{
+  "TEXT":"Guan Yu, Zhang Fei, today  you have defeated[>] me but soon I will return the  favor.[END]"
+ },
+ "294":{
+  "TEXT":"Such a weak army  doesn't stand a chance against me[>] and Lu Bu. Did  you really think  you could just[>] march in and  occupy [LuoYang]. What lunacy.[END]"
+ },
+ "295":{
+  "TEXT":"Unbelievable. Retreat back to  [ChangAn] and[>] regroup.[END]"
+ },
+ "296":{
+  "TEXT":"Why do you keep hounding me. I'll teach you to[>] regret it.[END]"
+ },
+ "297":{
+  "TEXT":"Is that the  [GEMSWORD]? I would give much for[>] that sword...[>] [END]"
+ },
+ "298":{
+  "TEXT":"You're giving it to me? You are  too kind. With[>] Dong Zhuo I had almost forgotten the meaning of[>] kindness. How  about letting me join your side?[>] [END]"
+ },
+ "299":{
+  "TEXT":"Alright. How may I serve.[END]"
+ },
+ "3":{
+  "TEXT":"But found nothing.[END]"
+ },
+ "30":{
+  "TEXT":"Which general  will carry it?[END]"
+ },
+ "300":{
+  "TEXT":"I guess kindness is overrated. Take this![END]"
+ },
+ "301":{
+  "TEXT":"I'm [OFFICER-SELF-2]. I attacked [FanShuiGuan] to[>] defeat Dong Zhuo. But Yuan Shu didn't send us[>] food. We were defeated, betrayed by our[>] own side. [EVENT-5824]"
+ },
+ "302":{
+  "TEXT":"You are too late. While you were at  [HuLaoGuan],[>] Lu Bu came here  and trounced us. Look! If[>] Dong Zhuo and  Lu Bu cooperate, we don't stand a[>] chance. I'm going home. I should have known better[>] than to ally with idiots! [EVENT-0025][END]"
+ },
+ "303":{
+  "TEXT":"This is [Yuan] Castle. People  here have[>] suffered greatly from Yuan Shu's cruel reign.[END]"
+ },
+ "304":{
+  "TEXT":"Yuan Shu ran off with all of our  young girls. What[>] will we do?[END]"
+ },
+ "305":{
+  "TEXT":"If you go south along the river, you'll find[>] [HuaiNan] castle.[END]"
+ },
+ "306":{
+  "TEXT":"Yuan Shu assigned Ji Ling to defend [HuaiNan] castle.[END]"
+ },
+ "307":{
+  "TEXT":"He calls himself the Emperor? That's[>] ridiculous.[END]"
+ },
+ "308":{
+  "TEXT":"I can't stand  what Yuan Shu has  done.[END]"
+ },
+ "309":{
+  "TEXT":"Don't take too many chances.[END]"
+ },
+ "31":{
+  "TEXT":"What will he  leave behind?[END]"
+ },
+ "310":{
+  "TEXT":"My wife was  saved. Words can never express my[>] thanks.[END]"
+ },
+ "311":{
+  "TEXT":"Thank you very  much.[END]"
+ },
+ "312":{
+  "TEXT":"Did you defeat  Ji Ling?[END]"
+ },
+ "313":{
+  "TEXT":"Finally I have returned home. Thank you.[END]"
+ },
+ "314":{
+  "TEXT":"This is [HuaiNan] Castle.[END]"
+ },
+ "315":{
+  "TEXT":"Zhao Yun at the  bar is one of the  Tigers.[END]"
+ },
+ "316":{
+  "TEXT":"That's a young girl! I thought Yuan Shu had[>] kidnaped all the  girls around here.[END]"
+ },
+ "317":{
+  "TEXT":"Are you  [LEADER]? [EVENT-B726]"
+ },
+ "318":{
+  "TEXT":"My wife has  something to tell  you.[END]"
+ },
+ "319":{
+  "TEXT":"Sorry, my  mistake.[END]"
+ },
+ "32":{
+  "TEXT":"[OFFICER] dropped [ITEM]and[>] took [VALUE][CHEST-ITEM][T-VALUE].[END]"
+ },
+ "320":{
+  "TEXT":"The west gate of [NanYang] Castle  is under[>] construction. If you attack now, you can probably[>] break it easily.[END]"
+ },
+ "321":{
+  "TEXT":"Did you see a young girl?[END]"
+ },
+ "322":{
+  "TEXT":"Thank you. My  wife doesn't hide herself away[>] anymore.[END]"
+ },
+ "323":{
+  "TEXT":"Did attacking the wall work?[END]"
+ },
+ "324":{
+  "TEXT":"This is  [ChenCang]. No one's here but[>] me.[END]"
+ },
+ "325":{
+  "TEXT":"[LEADER], this is a letter of introduction[>] for you to give  to Sima Hui. Go to him and he[>] will help you. [OFFICER-3]has  a letter. [EVENT-CC26]"
+ },
+ "326":{
+  "TEXT":"Have you met Sima Hui?[END]"
+ },
+ "327":{
+  "TEXT":"Hey barkeep! Get me another drink.[END]"
+ },
+ "328":{
+  "TEXT":"I'm Zhao Yun. May  I join you. [EVENT-E526]"
+ },
+ "329":{
+  "TEXT":"Thank you. I currently have an obligation to[>] Gongsun Zan, so  I will have to  wait until after[>] the Battle to  join your force.[END]"
+ },
+ "33":{
+  "TEXT":"[OFFICER-3]took [ITEM]from  [OFFICER][>] and gave him  [VALUE][CHEST-ITEM][T-VALUE].[END]"
+ },
+ "330":{
+  "TEXT":"After the war, I'll be back  here.[END]"
+ },
+ "332":{
+  "TEXT":"He is very busy. He can't meet  anyone.[END]"
+ },
+ "333":{
+  "TEXT":"That letter is from Xu Yuanzhi? I'm sorry sir.[>] Come right in. [EVENT-1827]"
+ },
+ "334":{
+  "TEXT":"Come in please. [EVENT-1827]"
+ },
+ "335":{
+  "TEXT":"So, you know  Xu Yuanzhi? Then I give you my[>] advice freely. If you use Wo Long  or Feng Chu as[>] your strategist, no one can stand  before you. [EVENT-2D27]"
+ },
+ "336":{
+  "TEXT":"They're names are Wo Long and  Feng Chu. You'll[>] meet them soon.[END]"
+ },
+ "337":{
+  "TEXT":"You decided to stand by the  general? I think[>] you made the right decision.[END]"
+ },
+ "338":{
+  "TEXT":"This is [NanYang] Castle. Yuan Shu was killed and we[>] were freed.[END]"
+ },
+ "339":{
+  "TEXT":"All of our girls have returned.[END]"
+ },
+ "340":{
+  "TEXT":"My wife was  returned to me. You are our[>] savior.[END]"
+ },
+ "341":{
+  "TEXT":"[LEADER]! Yuan Shao in  [BoHai] is[>] preparing to go  to war to avenge his brother's[>] death. Be careful.[END]"
+ },
+ "342":{
+  "TEXT":"Didn't I just see  Yuan Shu right outside the[>] castle.[END]"
+ },
+ "343":{
+  "TEXT":"I've already got the Imperial Seal  to prove myself[>] Emperor, yet you  side against me. Oh, you are[>] Guan Yu. Everybody, kill him![END]"
+ },
+ "344":{
+  "TEXT":"You are very  strong. But when strength fails,[>] running is a good strategy. Goodbye Guan Yu.[>] [EVENT-4D27]"
+ },
+ "345":{
+  "TEXT":"But Yuan Shu was  surrounded by  Zhang Fei.[END]"
+ },
+ "346":{
+  "TEXT":"You dare defy me? I am the Emperor. Let me go.[END]"
+ },
+ "347":{
+  "TEXT":"Yuan Shu ran away to [BoHai]. His  brother Yuan Shao[>] was waiting there.[END]"
+ },
+ "348":{
+  "TEXT":"Zhao Yun's sister was captured by  Yuan Shao.[END]"
+ },
+ "349":{
+  "TEXT":"Yuan Shu was  executed and his  ambitions came to[>] naught. Peace  returned to [NanYang].[END]"
+ },
+ "35":{
+  "TEXT":"That can't be  used here.[END]"
+ },
+ "350":{
+  "TEXT":"[LEADER]. I've been waiting for you. I'm[>] [OFFICER], the  lord of [BoHai] Castle. I'll kill[>] you and redeem my brother's glory. Prepare to die![END]"
+ },
+ "351":{
+  "TEXT":"Go home, Liu Bei. You're obviously no threat to me.[END]"
+ },
+ "352":{
+  "TEXT":"This is [BoHai] Castle.[END]"
+ },
+ "353":{
+  "TEXT":"Yuan Shao is said  to be in [JiZhou] Castle. Where is[>] [JiZhou] anyway? In the east?[END]"
+ },
+ "354":{
+  "TEXT":"Be wary of Yan Liang and  Wen Hun. They are[>] very powerful.[END]"
+ },
+ "355":{
+  "TEXT":"Xu Zhe, Xu Zhe, Xu Zhe. That's all she thinks[>] about.  She  stands there all  day long blocking[>] the bridge so no  one can cross.[END]"
+ },
+ "356":{
+  "TEXT":"I hear Yuan Shao has a new fortress in the[>] east.[END]"
+ },
+ "357":{
+  "TEXT":"Have you been to the cave in the  west? [EVENT-0A28]"
+ },
+ "358":{
+  "TEXT":"Did you meet  Dan Fu?[END]"
+ },
+ "359":{
+  "TEXT":"Oh, that's good.[END]"
+ },
+ "36":{
+  "TEXT":"[T-VALUE]is  exhausted.[END]"
+ },
+ "360":{
+  "TEXT":"I think it would be a good idea.[END]"
+ },
+ "361":{
+  "TEXT":"A man called Dan Fu is said to  live there.[END]"
+ },
+ "362":{
+  "TEXT":"Yuan Shu ran away to [JiZhou] Castle.[END]"
+ },
+ "363":{
+  "TEXT":"Yuan Shao swears he will redeem his brothers[>] honor.[END]"
+ },
+ "364":{
+  "TEXT":"In the end, Yuan Shu came  back here to beg[>] for Yuan Shao's help. He can't do anything by[>] himself.[END]"
+ },
+ "365":{
+  "TEXT":"Yuan Shao is  angry.  His Army  is ready to[>] attack.[END]"
+ },
+ "366":{
+  "TEXT":"Xu Zhe, my love. Where are you?[END]"
+ },
+ "367":{
+  "TEXT":"Xu Zhe! Oh, I'm  blocking the  bridge.  I'm[>] sorry, go on  across. [EVENT-4E28]"
+ },
+ "368":{
+  "TEXT":"[LEADER]. Do you remember me? Sima Hui. By the[>] way, did you go  to the cave yet? [EVENT-8728]"
+ },
+ "369":{
+  "TEXT":"You should seek Xu Zhe.[END]"
+ },
+ "37":{
+  "TEXT":"Liu Bei's army has been totally destroyed.[END]"
+ },
+ "370":{
+  "TEXT":"You should go  now.[END]"
+ },
+ "371":{
+  "TEXT":"You are seeking  Xu Zhe? He's a wanted man so now[>] he goes by the  name of Dan Fu.[END]"
+ },
+ "372":{
+  "TEXT":"The road is blocked by debris, isn't it?[>] Use this powder to clear a pass. [LEADER][>] received black powder.[END]"
+ },
+ "373":{
+  "TEXT":"I'm Dan Fu, a martial arts devotee. I'm on a[>] quest. May I travel with you? [EVENT-E91C]"
+ },
+ "374":{
+  "TEXT":"Help me![END]"
+ },
+ "375":{
+  "TEXT":"Don't kill me![END]"
+ },
+ "376":{
+  "TEXT":"Die you dogs of Yuan Shao.  Oh, you are with[>] Liu Bei? Sorry.[END]"
+ },
+ "377":{
+  "TEXT":"This is  [GuangZong] Castle.[END]"
+ },
+ "378":{
+  "TEXT":"It still has  Yuan Shao's stench about it.[>] I bet he still has spies skulking around[>] in here  somewhere.[END]"
+ },
+ "379":{
+  "TEXT":"[LEADER]! Have you set your life in order?[>] You will go to  meet them now. [EVENT-1229]"
+ },
+ "38":{
+  "TEXT":"Liu Bei's army cannot support any more men.[END]"
+ },
+ "380":{
+  "TEXT":"You are too strong. I'll come  back and kill you[>] later.[END]"
+ },
+ "381":{
+  "TEXT":"I heard a story from the two wise men at the cave[>] in the west.[END]"
+ },
+ "382":{
+  "TEXT":"Supposedly, if you go east you'll find[>] [JiZhou] Castle.[END]"
+ },
+ "383":{
+  "TEXT":"This is [JiZhou] Castle.[END]"
+ },
+ "384":{
+  "TEXT":"A shop there has  developed a new type of sword.[>] Maybe we can commission some.[END]"
+ },
+ "385":{
+  "TEXT":"We all pledge loyalty to  Liu Bei.[END]"
+ },
+ "386":{
+  "TEXT":"The treasures in the palace used to belong to us[>] anyway.[END]"
+ },
+ "387":{
+  "TEXT":"There is a wise priest near the  castle. You[>] should meet with  him.[END]"
+ },
+ "388":{
+  "TEXT":"Come in please.[END]"
+ },
+ "389":{
+  "TEXT":"An old swordsmith is coming. He's been looking for[>] you. He was  saying something  about some[>] swords.[END]"
+ },
+ "39":{
+  "TEXT":"[OFFICER-2]'s soldiers have recovered their[>] strength.[END]"
+ },
+ "390":{
+  "TEXT":"[LEADER]. I have a letter from Xu Zhe's[>] mother. Can you bring him here?[END]"
+ },
+ "391":{
+  "TEXT":"Good work, [LEADER].[END]"
+ },
+ "392":{
+  "TEXT":"I forgot to tell  you something. If you go south from[>] the cave I lived in, you'll find a bridge. Cross the[>] bridge and go  south to reach  Zhu Ge Liang's[>] inn. Sima Hui  called him Wo Long. Make him[>] your supporter. [EVENT-7B2D]"
+ },
+ "394":{
+  "TEXT":"[LEADER]. I'm  [OFFICER-SELF-2]. My  friends, Ma Liang[>] and Ma Su have  some information  for you. If you[>] go south from here, you'll find  their house. They[>] are waiting to meet you. [EVENT-A429]"
+ },
+ "395":{
+  "TEXT":"Maybe now the  people of  Jingzhou can[>] stop dieing in senseless wars.[END]"
+ },
+ "396":{
+  "TEXT":"Please don't say no. Our people  are perishing[>] needlessly.[END]"
+ },
+ "397":{
+  "TEXT":"Thanks for taking  the time to meet  with Ma Liang.[END]"
+ },
+ "398":{
+  "TEXT":"[LEADER]? I'm [OFFICER-SELF-2]. My brother  Ma Liang is[>] waiting for you  in a house south-east from[>] here. Please go  meet him and  listen to his[>] story.[END]"
+ },
+ "399":{
+  "TEXT":"[LEADER]? I'm Ma Liang. I was hoping I would[>] meet you soon. I have a favor to ask.[>]"
+ },
+ "4":{
+  "TEXT":"And found a treasure chest.[END]"
+ },
+ "40":{
+  "TEXT":"[OFFICER-2]'s wounds have  healed.[END]"
+ },
+ "400":{
+  "TEXT":"Four governors are fighting over Jingzhou. The[>] common man is  suffering for it. Please stabilize[>] Jingzhou and  release the  people from their[>] needless infighting.[END]"
+ },
+ "401":{
+  "TEXT":"[LEADER]. You  have done well. Real peace has[>] finally come to  the 4 counties of  Jingzhou. Our[>] work here is  finished. By the way, I'm somewhat[>] of a martial arts expert. If you'll  have me, I'd like[>] to join you. [EVENT-E91C]"
+ },
+ "403":{
+  "TEXT":"My name is  [OFFICER-SELF-2]. Let me join you.[>] [EVENT-E91C]"
+ },
+ "404":{
+  "TEXT":"My name is  [OFFICER-SELF-2]. Please let me[>] join you. [EVENT-E91C]"
+ },
+ "405":{
+  "TEXT":"This is [ChangSha] Castle.[END]"
+ },
+ "406":{
+  "TEXT":"Why does there  always have to be  war?[END]"
+ },
+ "407":{
+  "TEXT":"We should take  [GuiYang] Castle  next.[END]"
+ },
+ "408":{
+  "TEXT":"This is my pet tiger Wang. Sick 'em, Wang. Ha,[>] ha. Just kidding.[END]"
+ },
+ "409":{
+  "TEXT":"Grrrr...[END]"
+ },
+ "41":{
+  "TEXT":"[ITEM-2]'s effect has worn off.[END]"
+ },
+ "410":{
+  "TEXT":"Don't trust governor Zho Fan of [GuiYang][>] Castle.[END]"
+ },
+ "411":{
+  "TEXT":"My lord has sent me to welcome you  with open arms to[>] his humble castle. Our  simple[>] accommodations will surely be inadequate but we[>] are a modest folk.[END]"
+ },
+ "412":{
+  "TEXT":"Don't be  deceived. They are a treacherous[>] lot.[END]"
+ },
+ "413":{
+  "TEXT":"[OFFICER-3]my  friend, let me  show you to your[>] sleeping quarters. [EVENT-EE2A]"
+ },
+ "414":{
+  "TEXT":"[LEADER], you  dare return?! Men! Kill him![>] [EVENT-642B]"
+ },
+ "415":{
+  "TEXT":"Good night, then.[END]"
+ },
+ "416":{
+  "TEXT":"What's going on? This looks like a trap.[>] Wah ha ha! You fools. We've got you right where[>] we want you. Prepare to die.[END]"
+ },
+ "417":{
+  "TEXT":"Won't you reconsider?[END]"
+ },
+ "418":{
+  "TEXT":"You arrogant wretch. It's time  to teach you some[>] manners![END]"
+ },
+ "419":{
+  "TEXT":"I give up. Please spare me.[END]"
+ },
+ "42":{
+  "TEXT":"Liu Bei's army has advanced one skill level.[END]"
+ },
+ "420":{
+  "TEXT":"This is [GuiYang] Castle.[END]"
+ },
+ "421":{
+  "TEXT":"You must put the  four counties under your[>] control.[END]"
+ },
+ "422":{
+  "TEXT":"There is a very powerful man called[>] Xing Dao Rong in  [LingLing] Castle.[END]"
+ },
+ "423":{
+  "TEXT":"It's ironic that Jingzhou won't know peace until[>] it is conquered.[END]"
+ },
+ "424":{
+  "TEXT":"This is [LingLing] Castle.[END]"
+ },
+ "425":{
+  "TEXT":"Check the area around me.[END]"
+ },
+ "429":{
+  "TEXT":"Thanks to you, Jingzhou is  finally free from[>] war.[END]"
+ },
+ "43":{
+  "TEXT":"[OFFICER]'s army now has  [VALUE] [LVL-SLDR-AMT] soldiers.[END]"
+ },
+ "430":{
+  "TEXT":"I'm free from the  heavy land tax.[END]"
+ },
+ "431":{
+  "TEXT":"War has ravaged this land as long  as people can[>] remember. We starve to pay for  Battles we care[>] naught for. Now  the warring has  stopped? We are[>] free.[END]"
+ },
+ "432":{
+  "TEXT":"This is [WuLing] Castle.[END]"
+ },
+ "433":{
+  "TEXT":"It is said that  [ChangSha] castle  is inhabited by[>] an old tiger. Even though he's old, he is still[>] very powerful. Could he be one  of the five?[END]"
+ },
+ "434":{
+  "TEXT":"Would you settle [ChangSha] Castle  also?[END]"
+ },
+ "435":{
+  "TEXT":"In [LingLing] Castle is a great  wise man who[>] Sima Hui  referred to as  Feng Chu. He[>] answers to Pang Tong.[END]"
+ },
+ "436":{
+  "TEXT":"This is my tiger  Wang.[END]"
+ },
+ "437":{
+  "TEXT":"My brother  Zhu Ge Liang is  not home. He may[>] be in the house  of Cui Zhouping  in [LuoSang][>] Village. [EVENT-CA2A]"
+ },
+ "438":{
+  "TEXT":"You're looking for Zhu Ge Liang? He was here, but[>] he's already left. [EVENT-E62A]"
+ },
+ "439":{
+  "TEXT":"[LEADER]. My  brother was just here, but he[>] already went out  again. If he comes back, I'll[>] call on you at  [NanYang] Castle. Please wait[>] there.[END]"
+ },
+ "44":{
+  "TEXT":"[OFFICER][END]"
+ },
+ "440":{
+  "TEXT":"[LEADER], my  brother is  resting in the[>] next room. Please  come in.[END]"
+ },
+ "441":{
+  "TEXT":"[EVENT-482A]"
+ },
+ "442":{
+  "TEXT":"Zhu Ge Liang is  sleeping. Do you wake him up?[END]"
+ },
+ "443":{
+  "TEXT":"Who are you? Can't you see I'm  sleeping?! Is my[>] house on fire or something? No? Then we have[>] nothing to talk about. Get out of  here![END]"
+ },
+ "445":{
+  "TEXT":"I'm sorry. When he wakes up, I'll  tell him you[>] called.[END]"
+ },
+ "446":{
+  "TEXT":"[LEADER]? ...yawn... I'm  sorry to keep you[>] waiting. I heard your story from Xu Zhe. The[>] problem is I have a brother, Jin, who I must look[>] after. However, since you have  called on me so[>] many times and I support your  ideas, I can't[>] refuse you any  longer. I will join you.[>] Zhu Ge Liang has  joined them![>]"
+ },
+ "447":{
+  "TEXT":"[LEADER]. I'm  going to go to  [GuiYang] castle[>] to renew some acquaintances. I'll meet you[>] there.[END]"
+ },
+ "449":{
+  "TEXT":"Oh, you finally  made it. Listen, on the way here,[>] I ran into my  friend, Zhang Song. He[>] told me that in  Shu the cities are being raided[>] by rebels and the  borders are threatened by the[>] Han Zhong army. Since you are his  relative, the[>] governor, Liu Zheng, begs you to come to[>] his aid. If you will go, I will accompany you.[>] [EVENT-642D]"
+ },
+ "45":{
+  "TEXT":"learned the  [VALUE][ITEM-5][T-VALUE] tactic.[END]"
+ },
+ "450":{
+  "TEXT":"I must be on hand  for the Battle. Please let me go[>] with you. [EVENT-E91C]"
+ },
+ "451":{
+  "TEXT":"We meet again. I wish you luck in  restoring the Han[>] Dynasty.[END]"
+ },
+ "452":{
+  "TEXT":"Zhang Fei is  looking for you  at the palace.[END]"
+ },
+ "453":{
+  "TEXT":"Guan Yu is  looking for you  at the palace.[END]"
+ },
+ "454":{
+  "TEXT":"I heard [LingLing] castle was  occupied by[>] Lu Meng of Wu.[END]"
+ },
+ "455":{
+  "TEXT":"Wah! Soldiers of Wu will be here  any moment.[END]"
+ },
+ "456":{
+  "TEXT":"There are so many soldiers of Wu in  Jingzhou.[END]"
+ },
+ "457":{
+  "TEXT":"[LEADER]. [LingLing] Castle  and [WuLing][>] Castle were  captured by Wu. We must recapture[>] them.[END]"
+ },
+ "458":{
+  "TEXT":"Peace has come  once again.[END]"
+ },
+ "459":{
+  "TEXT":"I thought peace  would never  return.[END]"
+ },
+ "46":{
+  "TEXT":"Liu Bei's Army retreated.[END]"
+ },
+ "460":{
+  "TEXT":"Aaagh! Wu's soldiers killed my friend.[END]"
+ },
+ "461":{
+  "TEXT":"Zzz..Zzz..[END]"
+ },
+ "462":{
+  "TEXT":"I know many forms of martial arts. My talents are at[>] your disposal. [EVENT-E91C]"
+ },
+ "463":{
+  "TEXT":"You have  Yuan Shao's head. All of Yuan Shao[>] and Yuan Shu's egomaniacal plans have been undone.[>] Peace settles over the land. [EVENT-8029]"
+ },
+ "464":{
+  "TEXT":"I live here  alone.[END]"
+ },
+ "466":{
+  "TEXT":"Success![END]"
+ },
+ "467":{
+  "TEXT":"Failure.[END]"
+ },
+ "468":{
+  "TEXT":"The tactician has  not yet prepared any strategies.[END]"
+ },
+ "469":{
+  "TEXT":"There is no  tactician.[END]"
+ },
+ "47":{
+  "TEXT":"But they were  overtaken.[END]"
+ },
+ "470":{
+  "TEXT":"Insufficient tactical points.[END]"
+ },
+ "471":{
+  "TEXT":"[OFFICER] can't be a tactician.[END]"
+ },
+ "479":{
+  "TEXT":"You don't have  enough experience for the next[>] level yet but  since your cause  is just, I will[>] raise your level anyway. [EVENT-5829]"
+ },
+ "48":{
+  "TEXT":"[T-VALUE]is  approaching.[END]"
+ },
+ "480":{
+  "TEXT":"You have pacified this area. Go help Liu Bei[>] destroy the  rebels.[END]"
+ },
+ "481":{
+  "TEXT":"If you attack  [QingZhou] castle, it's better to do[>] it from the back. They won't be expecting it.[END]"
+ },
+ "482":{
+  "TEXT":"I tried to attack  [QingZhou] Castle  from the back,[>] but the river made it too difficult. Think[>] of some other  way.[END]"
+ },
+ "483":{
+  "TEXT":"Han Zhong, a general of the  Yellow Scarves[>] rebels, knows the mountain pass. Maybe we can get[>] him to join our  side.[END]"
+ },
+ "49":{
+  "TEXT":"[OFFICER] has suddenly appeared.[END]"
+ },
+ "5":{
+  "TEXT":"It was empty.[END]"
+ },
+ "50":{
+  "TEXT":"[OFFICER]'s attack.[END]"
+ },
+ "51":{
+  "TEXT":"The attack was  repelled.[END]"
+ },
+ "512":{
+  "TEXT":"I'm impressed by your tenacity but such a small army[>] can't possibly defeat us.[END]"
+ },
+ "513":{
+  "TEXT":"You routed my men. In all my  years of war, I[>] have never  suffered such a defeat. I would[>] be honored to fight at your  side if you'll[>] have me.[>] [EVENT-B731]"
+ },
+ "514":{
+  "TEXT":"[LEADER]! Liu Zheng has  been captured by[>] rebels and taken to [FuShui] Castle.[END]"
+ },
+ "515":{
+  "TEXT":"This is [FuShui] Castle.[END]"
+ },
+ "516":{
+  "TEXT":"Liu Zheng is  being held somewhere in this[>] Castle.[END]"
+ },
+ "517":{
+  "TEXT":"The famed general, Wu Yi of  Shu, is in [Luo][>] Castle.[END]"
+ },
+ "518":{
+  "TEXT":"There is a mountain in Shu  where good iron[>] can be found.[END]"
+ },
+ "519":{
+  "TEXT":"The last of the  five Tigers is in  Han Zhong's army.[END]"
+ },
+ "52":{
+  "TEXT":"[OFFICER] did heavy damage.[END]"
+ },
+ "520":{
+  "TEXT":"The rebels are  becoming very  violent.[END]"
+ },
+ "521":{
+  "TEXT":"I think this door is very old. If you ram into it,[>] it may break.[END]"
+ },
+ "522":{
+  "TEXT":"Thank you, [LEADER]. Someone must stop[>] these rebels from  ravaging the land.[END]"
+ },
+ "523":{
+  "TEXT":"This is [Luo] Castle.[END]"
+ },
+ "524":{
+  "TEXT":"Mt. Gang Tai? It's due south from here.[END]"
+ },
+ "525":{
+  "TEXT":"In the past, many fine weapons were made from iron[>] found in Mt. Gang Tai.[END]"
+ },
+ "526":{
+  "TEXT":"It is said that  an exceptional swordsmith is[>] living in Shu.[END]"
+ },
+ "527":{
+  "TEXT":"I'm no  swordsmith.[END]"
+ },
+ "528":{
+  "TEXT":"[MianZhuGuan] is  just beyond Mt. Gang Tai.[END]"
+ },
+ "529":{
+  "TEXT":"Liu Zheng has  betrayed Liu Bei, and joined the[>] Han Zhong Army. How could he do that after all[>] Liu Bei has done  for him?[END]"
+ },
+ "53":{
+  "TEXT":"[OFFICER-2] took heavy damage.[END]"
+ },
+ "530":{
+  "TEXT":"Be careful not to be found by  Liu Bei's Army.[END]"
+ },
+ "531":{
+  "TEXT":"I've been making  swords for 20 years and have[>] yet to be fully satisfied. The  only good iron in[>] the area is in  Mt. Gang Tai and that is very hard[>] to find. If you brought back some  of that ore, I[>] could make my  masterpiece.[END]"
+ },
+ "532":{
+  "TEXT":"Yes, this is fine  iron. Let me  begin at once.[END]"
+ },
+ "533":{
+  "TEXT":"It will take many days. You may want to attend to[>] other affairs while I work on  the swords.[END]"
+ },
+ "534":{
+  "TEXT":"Please forgive  me! I made 5 beautiful swords[>] from the ore you brought me and  named them [BOYE],[>] Nu Long, [QINGLONG], [QINGGUAN] and[>] [WANSHENG]. But a band of those Yellow Scarves[>] came and stole them. There was  nothing I could[>] do.[END]"
+ },
+ "535":{
+  "TEXT":"This is  [MianZhuGuan].[END]"
+ },
+ "536":{
+  "TEXT":"Traitor Liu Zheng is waiting in [ChengDu] Castle,[>] to fight Liu Bei.[END]"
+ },
+ "537":{
+  "TEXT":"Why has Liu Zheng turned on Liu Bei?[END]"
+ },
+ "538":{
+  "TEXT":"My husband went  to Mt. Gang Tai to find iron, but[>] that was over 3 years ago. I fear foul play.[END]"
+ },
+ "539":{
+  "TEXT":"There is no iron. I can't go home  empty-handed.[END]"
+ },
+ "54":{
+  "TEXT":"[T-VALUE]is  defending.[END]"
+ },
+ "540":{
+  "TEXT":"This is [ChengDu] Castle.[END]"
+ },
+ "541":{
+  "TEXT":"[ChengDu] Castle  is the capital of  Shu. Invite[>] Liu Bei to come  live here.[END]"
+ },
+ "542":{
+  "TEXT":"Liu Bei of Shu  has become nearly as powerful as[>] Cao Cao of Wei  and Sun Ce of Wu. It warms my heart[>] to see.[END]"
+ },
+ "543":{
+  "TEXT":"The stars show no  clear enemy yet  still chaos[>] threatens this temporary calm. Be ever alert for[>] unrest.[END]"
+ },
+ "544":{
+  "TEXT":"It is said that  Cao Cao has taken ill. There is[>] disquiet in Wei.[END]"
+ },
+ "545":{
+  "TEXT":"[EVENT-1D2F]"
+ },
+ "546":{
+  "TEXT":"Wu has invaded! Return to Jingzhou at[>] once.[END]"
+ },
+ "547":{
+  "TEXT":"This country is  too vast for me  to control alone.[>] Therefore I charge you, Guan Yu, with the[>] administration of  [ChangSha] Castle  and you,[>] Zhang Fei, with  [GuiYang] Castle. It is the only[>] way to insure peace in  Jingzhou.[END]"
+ },
+ "548":{
+  "TEXT":"Jingzhou is an important region. You are the only[>] two I can trust to govern it. Will you do it[>] for me?[END]"
+ },
+ "549":{
+  "TEXT":"Jingzhou is an important region  for Shu. We must[>] insure its stability. Guan Yu and[>] Zhang Fei left  for Jingzhou.[END]"
+ },
+ "55":{
+  "TEXT":"We defeated [VALUE] [LVL-SLDR-AMT] [VALUE][DFT-SLDR-AMT][T-VALUE] soldiers.[END]"
+ },
+ "550":{
+  "TEXT":"Cao Cao of Wei  took ill and died.[END]"
+ },
+ "551":{
+  "TEXT":"Sun Ce of Wu was  assassinated.[END]"
+ },
+ "552":{
+  "TEXT":"This is terrible news. Two peaceful rulers[>] dead at the same  time. This will  surely cause[>] unrest.[END]"
+ },
+ "553":{
+  "TEXT":"Wu's army is  attacking. Guan Yu and[>] Zhang Fei are  barely holding their own. If[>] they don't get  reinforcements soon, they will[>] surely fall.[END]"
+ },
+ "554":{
+  "TEXT":"Guan Yu and  Zhang Fei! You have defeated the[>] traitorous Liu Zheng and  redeemed my[>] family's honor.[END]"
+ },
+ "555":{
+  "TEXT":"[LEADER], you  have my thanks. A little longer and[>] this castle would have belonged to Wu. It has come[>] time for my son to join the  cause. I hope you[>] will take him  with you.[END]"
+ },
+ "556":{
+  "TEXT":"Zhang Fei has  gathered intelligence on[>] Wu.[END]"
+ },
+ "557":{
+  "TEXT":"I hope Zhang Fei still holds [GuiYang]. You[>] should contact him as soon as  possible.[END]"
+ },
+ "558":{
+  "TEXT":"It's hard to  believe but I heard that[>] Sun Quan of Wu  managed to get  the Imperial Seal[>] and calls himself the Emperor. But  there's more.[>] Cao Pi, eldest son of Cao Cao, has usurped the[>] throne and calls himself the Emperor, too.[>] Liu Bei wants to meet with you at [ChengDu] Castle[>] as soon as  possible.[END]"
+ },
+ "559":{
+  "TEXT":"[EVENT-2D31]"
+ },
+ "56":{
+  "TEXT":"[VALUE] [LVL-SLDR-AMT] of [OFFICER-2]'s soldiers were[>] defeated.[END]"
+ },
+ "560":{
+  "TEXT":"I'm [OFFICER-SELF-2]. My  father sent me to  join the active[>] fighting. [EVENT-E91C]"
+ },
+ "561":{
+  "TEXT":"This is [JianAn] Castle.[END]"
+ },
+ "562":{
+  "TEXT":"A canal was built from Lake [PoYang] to block the[>] southern pass.[END]"
+ },
+ "563":{
+  "TEXT":"Why don't you  just clog the canal.[END]"
+ },
+ "564":{
+  "TEXT":"Sun Ce was  assassinated.[END]"
+ },
+ "565":{
+  "TEXT":"You want to cross the canal? Everybody knows[>] how that can be  accomplished.[END]"
+ },
+ "566":{
+  "TEXT":"Do you want to  know how to clog the canal?[END]"
+ },
+ "567":{
+  "TEXT":"If you blast Mt. [PoYang] with a special powder,[>] the canal will be  filled in with  earth and sand.[>] Just mix pale saltpeter, an old branch which has[>] lived over 1000 years and my  sulfur. Go find[>] an old branch and some saltpeter and I'll make it[>] for you.[END]"
+ },
+ "568":{
+  "TEXT":"OK. Now a dash of this, a little of that... Here you[>] go. Blasting powder![END]"
+ },
+ "569":{
+  "TEXT":"Boom![END]"
+ },
+ "57":{
+  "TEXT":"[OFFICER] vanquished [OFFICER-2].[END]"
+ },
+ "570":{
+  "TEXT":"Suddenly, the  earth shook and the mountain[>] burst as if from the blow of some  mighty demon.[END]"
+ },
+ "571":{
+  "TEXT":"Good. Now you may pass.[END]"
+ },
+ "572":{
+  "TEXT":"You must go south from here but  Zhou Yu has built[>] a canal to block off the pass.[END]"
+ },
+ "573":{
+  "TEXT":"In the past, we found a lot of saltpeter in a[>] cave north of here.[END]"
+ },
+ "574":{
+  "TEXT":"You're looking for a 1000 year old tree? There's[>] one in my  backyard.[END]"
+ },
+ "575":{
+  "TEXT":"If you go south from here, you'll  find [HuiJi][>] fortress.[END]"
+ },
+ "576":{
+  "TEXT":"I see you clogged the canal. Am I smart or what?[END]"
+ },
+ "577":{
+  "TEXT":"Now it may be  crossed.[END]"
+ },
+ "578":{
+  "TEXT":"Good.[END]"
+ },
+ "579":{
+  "TEXT":"I take it you  found the  saltpeter.[END]"
+ },
+ "58":{
+  "TEXT":"[OFFICER-2] has been routed by[>] [OFFICER].[END]"
+ },
+ "580":{
+  "TEXT":"This is [HuiJi] fortress.[END]"
+ },
+ "581":{
+  "TEXT":"Wu Castle is  defended by Zhu Ge Liang's[>] brother, Zhu Ge Jin.[END]"
+ },
+ "582":{
+  "TEXT":"You're from  [JianAn] Castle? But how did you[>] cross the canal?[END]"
+ },
+ "583":{
+  "TEXT":"This is Wu  Castle.[END]"
+ },
+ "584":{
+  "TEXT":"There is a fortress nearby  called [PoYang].[END]"
+ },
+ "585":{
+  "TEXT":"To reach [PoYang], you must use the  tunnel under the[>] mountains.[END]"
+ },
+ "586":{
+  "TEXT":"I saw something  glowing in the  tunnel.[END]"
+ },
+ "587":{
+  "TEXT":"Many village people claim to have seen[>] something glowing in the tunnel.[END]"
+ },
+ "588":{
+  "TEXT":"It is said that  the glowing thing houses a demon.[END]"
+ },
+ "589":{
+  "TEXT":"I'm[OFFICER-3]of  Wu. If you invade, you will[>] fail. Leave at once![END]"
+ },
+ "59":{
+  "TEXT":"Liu Bei's Army has conquered [OFFICER-2].[END]"
+ },
+ "590":{
+  "TEXT":"Ahead something  is glowing. There  is a sudden[>] chill, as if from an evil presence. Upon examination,[>] you find it to be  a sword, glowing eerily like a[>] forsaken spirit. Zhang Bao got a sword.[END]"
+ },
+ "591":{
+  "TEXT":"This is [PoYang] fortress.[END]"
+ },
+ "592":{
+  "TEXT":"If you go  south-east, you'll find[>] [JinDu] Castle.[END]"
+ },
+ "593":{
+  "TEXT":"Zhang Bao. I'm  Lu Meng. Do you fail to[>] comprehend my warning? Stay out of Wu![END]"
+ },
+ "594":{
+  "TEXT":"Sun Quan was here  but he went back  to [JianYe] with[>] Lu Sun.[END]"
+ },
+ "595":{
+  "TEXT":"This is [JinDu] Castle.[END]"
+ },
+ "596":{
+  "TEXT":"You've had enough warning. Now I'll  teach you the[>] sharpness of my  sword! [EVENT-4333]"
+ },
+ "597":{
+  "TEXT":"You are stronger than I expected. But Tai Si Ci is[>] stronger still.[END]"
+ },
+ "598":{
+  "TEXT":"General  Zhang Bao. Brigands live in[>] an inn south of the Castle. Someone must[>] bring them to  justice. [EVENT-FB32]"
+ },
+ "599":{
+  "TEXT":"If you defeat  them, we will give you our town[>] treasure. Please  help us.[END]"
+ },
+ "6":{
+  "TEXT":"[VALUE],[ITEM-3] obtained.[END]"
+ },
+ "60":{
+  "TEXT":"Liu Bei's Army has been overcome  by[>] [OFFICER-2].[END]"
+ },
+ "600":{
+  "TEXT":"Then we are at  their mercy.[END]"
+ },
+ "601":{
+  "TEXT":"[EVENT-1033]"
+ },
+ "602":{
+  "TEXT":"You have our  everlasting loyalty.[END]"
+ },
+ "603":{
+  "TEXT":"After three generations, the  ruling family of[>] Wu appears at an end.[END]"
+ },
+ "604":{
+  "TEXT":"Sun Quan's Castle? It's north-east of[>] here.[END]"
+ },
+ "605":{
+  "TEXT":"What are you  doing here? You farmers don't[>] have a chance against us. Go home! [EVENT-A133]"
+ },
+ "606":{
+  "TEXT":"We'll give up  crime and become  farmers again.[END]"
+ },
+ "607":{
+  "TEXT":"We give up. It was the chaos and unrest that made[>] us brigands. We promise to change our ways.[END]"
+ },
+ "608":{
+  "TEXT":"[LEADER]. Wu  and Wei formed an alliance to[>] destroy Shu, after which I thought to[>] destroy Wei and  rule China. Your strength is[>] surprising but I am ready to die for my ambition.[>] Men! Attack![END]"
+ },
+ "609":{
+  "TEXT":"You have talent. I can see how you  overcame my weak[>] associates. But  you are mislead if you think that[>] means you can  defeat me. Your arrogance will[>] find you dead.[END]"
+ },
+ "61":{
+  "TEXT":"We got [VALUE]How   exp. points, [VALUE]Q[GLD-AMT] gold[>] coins and [VALUE][RTN-AMT][GLD-AMT] rations.[END]"
+ },
+ "610":{
+  "TEXT":"I assassinated Sun Ce. But I was deceived by[>] Cao Pi of Wei. I'm filled with guilt. I'll have[>] to face my brother in the  afterlife.[>] Waahhh... Sun Quan, the  last of his line,[>] has died. [EVENT-9433]"
+ },
+ "611":{
+  "TEXT":"To ease the people of Shu, ask Liu Bei to[>] come live in  [ChengDu] Castle.[END]"
+ },
+ "612":{
+  "TEXT":"Oh, is that so? When you feel like coming,[>] don't hesitate.[END]"
+ },
+ "613":{
+  "TEXT":"My lord, you have  a decision to  make. Cao Pi has[>] usurped the throne and made himself Emperor.[>] You have more right to that  title than he.[>] I don't want to  hear about it. But you are of[>] the line of the  Han Dynasty. You  should take the[>] throne. Shut up! Do you want me to go[>] down in history as a traitor, a usurper?![END]"
+ },
+ "614":{
+  "TEXT":"Our lord is  different from  Cao Pi and[>] Sun Quan. Cao Pi must be defeated. If we do nothing,[>] that means we accept the rule of Cao Pi and[>] Sun Quan. Our  effort to prevent rebels from[>] seizing the throne will have  been in vain.[END]"
+ },
+ "615":{
+  "TEXT":"Now I see I have been worrying about trivial[>] things. It is my  duty to the  people to stop[>] those pretenders and declare  myself Emperor.[>] In this way, Liu Bei declared his right to[>] succeed to the  throne in front of civil[>] officers.[END]"
+ },
+ "616":{
+  "TEXT":"Hey, I'm  Han Zhong. Isn't that bridge[>] finished yet? Working on it  now, sir.[END]"
+ },
+ "617":{
+  "TEXT":"[EVENT-C523]"
+ },
+ "618":{
+  "TEXT":"Liu Bei's army is  approaching. Come  across the bridge[>] and join us quickly.[END]"
+ },
+ "619":{
+  "TEXT":"Who are you? Are you with  Han Zhong?[END]"
+ },
+ "62":{
+  "TEXT":"We got [VALUE]How   exp. points and  [VALUE]Q[GLD-AMT] gold[>] coins.[END]"
+ },
+ "620":{
+  "TEXT":"Who are you? Leave at once or die.[END]"
+ },
+ "621":{
+  "TEXT":"Aren't you [OFFICER-3]of  Liu Bei's Army?[>] You killed my brother, Yuan Shu. I'll[>] take payment in your blood.[END]"
+ },
+ "622":{
+  "TEXT":"Ha, ha, ha. I'm  Yuan Shu. I'll  kill you this[>] time.[END]"
+ },
+ "623":{
+  "TEXT":"[LEADER]! In killing Yuan Shu, you have served[>] me well. But you  must be careful. Yuan Shu's[>] brother will  probably come  looking for[>] revenge. [EVENT-FA20]"
+ },
+ "624":{
+  "TEXT":"[LEADER]! You have brought peace back to[>] Shu. However, in  your arduous Battles, your[>] weapons have become worn out. There is[>] purported to be  an excellent swordsmith right[>] here in Shu. Go try to acquire his services.[END]"
+ },
+ "625":{
+  "TEXT":"This is [JianYe] Castle.[END]"
+ },
+ "626":{
+  "TEXT":"You are entering the land of Wei. Watch your back.[END]"
+ },
+ "627":{
+  "TEXT":"Sun Quan was a good man until he  was corrupted by[>] Cao Pi.[END]"
+ },
+ "628":{
+  "TEXT":"There will be  peace in Wu.[END]"
+ },
+ "629":{
+  "TEXT":"[GuangLing] Castle  of Wei is located north-east of[>] here.[END]"
+ },
+ "630":{
+  "TEXT":"Cao Pi scatters his family among his castles. He[>] has eyes everywhere.[END]"
+ },
+ "631":{
+  "TEXT":"We hope you can  bring down the  usurper king[>] before he ruins this land.[END]"
+ },
+ "633":{
+  "TEXT":"We must see to  the castle  defenses. You are[>] now in charge of the attack.[END]"
+ },
+ "634":{
+  "TEXT":"[EVENT-A12D]"
+ },
+ "635":{
+  "TEXT":"Finally Jingzhou is united. You  have our[>] gratitude.[END]"
+ },
+ "636":{
+  "TEXT":"Now that we are free of the heavy taxes, we can eat[>] more often.[END]"
+ },
+ "637":{
+  "TEXT":"According to our  intelligence, Sun Ce of Wu[>] and Cao Pi of Wei  both claim the title of Emperor.[>] The fact that they expelled the Emperor means the[>] collapse of the  Han Dynasty. [EVENT-BD30]"
+ },
+ "638":{
+  "TEXT":"[LEADER]. We must send an army against Wu[>] and Wei at once![END]"
+ },
+ "639":{
+  "TEXT":"You don't have  enough money to  buy the key.[END]"
+ },
+ "64":{
+  "TEXT":"Welcome! You may stay here for  [VALUE][INN-CST][INN-CST-2] gold coins per[>] night. Shall I prepare your  room? [EVENT-5991]"
+ },
+ "640":{
+  "TEXT":"To the Battlefield! Destroy Liu Bei's[>] army![END]"
+ },
+ "641":{
+  "TEXT":"Prepare to fight  [OFFICER].[END]"
+ },
+ "642":{
+  "TEXT":"Where's my enemy?[END]"
+ },
+ "643":{
+  "TEXT":"Crush them![END]"
+ },
+ "644":{
+  "TEXT":"Run home and tell  Liu Bei how  terrible[>] [OFFICER] is.[END]"
+ },
+ "645":{
+  "TEXT":"Take them out now  before they are  ready.[END]"
+ },
+ "646":{
+  "TEXT":"I am [OFFICER]. Let's fight.[END]"
+ },
+ "647":{
+  "TEXT":"Prepare to die![END]"
+ },
+ "648":{
+  "TEXT":"I'm glad to see  that you've returned safely.[>] After you've rested, we need your help to[>] defeat Dong Zhuo.[END]"
+ },
+ "649":{
+  "TEXT":"[LEADER], we can't let  Yuan Shu run[>] free.[END]"
+ },
+ "65":{
+  "TEXT":"OK. But you won't find anything  cheaper.[END]"
+ },
+ "650":{
+  "TEXT":"[LEADER], you  must make a decision. Will[>] you pursue Yuan Shao or stay and settle[>] Jingzhou?[END]"
+ },
+ "651":{
+  "TEXT":"[LEADER]. A young boy named Jin came here. He[>] said his brother  had returned so you should go to[>] his home. [EVENT-A42E]"
+ },
+ "652":{
+  "TEXT":"[EVENT-FA31]"
+ },
+ "653":{
+  "TEXT":"[LEADER]. We are now attacked from all sides.[>] It's dangerous. Liu Zheng and I belong to the[>] same tribe. Please defeat  the rebels and[>] restore peace.[END]"
+ },
+ "654":{
+  "TEXT":"[LEADER]. Sun Quan and  Cao Pi have[>] entered into an alliance to take  Jingzhou. We[>] must protect our  people. Attack Sun Quan first.[END]"
+ },
+ "655":{
+  "TEXT":"Guan Xing. There  are many powerful warlords in Wei.[>] Be careful.[END]"
+ },
+ "656":{
+  "TEXT":"Defeat Si Ma Yi to rebuild the  Han Dynasty.[END]"
+ },
+ "657":{
+  "TEXT":"I'm sorry. But  history book [VALUE]0A is[>] blank.[END]"
+ },
+ "658":{
+  "TEXT":"Which history do you continue?[END]"
+ },
+ "659":{
+  "TEXT":"Set word speed.[END]"
+ },
+ "66":{
+  "TEXT":"You're a bit  short of money. This is an inn,[>] not a stable.[END]"
+ },
+ "660":{
+  "TEXT":"Which history book do you begin?[END]"
+ },
+ "661":{
+  "TEXT":"Which history book do you erase?[END]"
+ },
+ "662":{
+  "TEXT":"Are you sure?[END]"
+ },
+ "663":{
+  "TEXT":"Which history book do you copy?[END]"
+ },
+ "664":{
+  "TEXT":"Which book do you copy to?[END]"
+ },
+ "665":{
+  "TEXT":"Between Cao Pi of  Wei and Sun Quan of Wu, the land[>] will surely be unstable again.[END]"
+ },
+ "666":{
+  "TEXT":"Oh! Cao Cao has  died?[END]"
+ },
+ "67":{
+  "TEXT":"Good night.[END]"
+ },
+ "672":{
+  "TEXT":"OK.[END]"
+ },
+ "673":{
+  "TEXT":"Good work, [LEADER].[>] But Jingzhou  must still be  settled.[>]"
+ },
+ "674":{
+  "TEXT":"We must stop the  infighting in Jingzhou as soon[>] as possible. [EVENT-FA20]"
+ },
+ "675":{
+  "TEXT":"Jingzhou is at  peace! Now we can concentrate on[>] Yuan Shao in  [BoHai] Castle."
+ },
+ "676":{
+  "TEXT":"Stop Yuan Shao.[END]"
+ },
+ "677":{
+  "TEXT":"Yuan Shao is  holding Zhao Yun's sister[>] hostage to secure his loyalty. Save his sister and[>] Zhao Yun will  probably change sides.[END]"
+ },
+ "678":{
+  "TEXT":"Is that so? She  was saved?[END]"
+ },
+ "679":{
+  "TEXT":"I don't know you  but please help me. You need a[>] silver key to  unlock the gate.[END]"
+ },
+ "68":{
+  "TEXT":"Good morning. I hope you rested well.[END]"
+ },
+ "680":{
+  "TEXT":"Oh, thank you. If you meet Zhao Yun in [GuangZong][>] Castle, give him  this letter so he  knows I am safe.[>] [OFFICER-3]took the letter. [EVENT-CB28]"
+ },
+ "681":{
+  "TEXT":"Thank you.[END]"
+ },
+ "682":{
+  "TEXT":"[LEADER]. I don't want to  have to fight[>] you. Please leave at once.[END]"
+ },
+ "683":{
+  "TEXT":"A letter from my  sister? She is  really free? Now[>] I will make  Yuan Shao regret the day he was[>] born! I wish to defect. Agreed? [EVENT-E91C]"
+ },
+ "684":{
+  "TEXT":"General. I have a very special key  to sell you. I[>] know you'll need it. It's yours for just... 4000[>] gold pieces. [EVENT-B327]"
+ },
+ "685":{
+  "TEXT":"Have you found the lock to that  key yet?[END]"
+ },
+ "686":{
+  "TEXT":"You'll thank me  later.[END]"
+ },
+ "687":{
+  "TEXT":"Your loss.[END]"
+ },
+ "688":{
+  "TEXT":"[LEADER], now  that Sun Quan is  dead, we must[>] stop Cao Pi. True peace cannot come until he is[>] either dead or chained to a wall. You must be[>] weary from so  many Battles. But  defeat Cao Pi and[>] all China may actually be at  peace once more.[>] Attack Wei from  [JianYe] Castle of  Wu, northeast of[>] here. [EVENT-FA20]"
+ },
+ "689":{
+  "TEXT":"This is  [GuangLing] castle.[END]"
+ },
+ "69":{
+  "TEXT":"Welcome. May I sell you some  provisions? [EVENT-6792]"
+ },
+ "690":{
+  "TEXT":"Is Zhu Ge Liang here? [EVENT-C533]"
+ },
+ "691":{
+  "TEXT":"I'm[OFFICER-3]of  Wei. Zhu Ge Liang is a true master[>] of strategy. I have come, hoping to learn from him[>] if he'll have me.[END]"
+ },
+ "692":{
+  "TEXT":"My dream has just died.[END]"
+ },
+ "694":{
+  "TEXT":"I'll go fight, too. Ha, Ha....[END]"
+ },
+ "695":{
+  "TEXT":"Ouch, I cut my foot on something  under that tree.[END]"
+ },
+ "696":{
+  "TEXT":"Oh no! I think I lost my sword. It's one I stole[>] from some  thieves.[END]"
+ },
+ "697":{
+  "TEXT":"[LEADER]. Liu Bei, once a mere merchant,[>] now has the  audacity to declare himself[>] Emperor and  attack me. Well, I was planning to[>] attack Shu  anyway. I'll just have to crush him[>] earlier than I'd planned.[END]"
+ },
+ "698":{
+  "TEXT":"You are stronger than I thought but I'll be back[>] with more men. I recommend you take the[>] opportunity to run.[END]"
+ },
+ "699":{
+  "TEXT":"This is [HeFei] fortress.[END]"
+ },
+ "7":{
+  "TEXT":"[VALUE],[ITEM-3] found.[END]"
+ },
+ "70":{
+  "TEXT":"Thank you, sir.[END]"
+ },
+ "700":{
+  "TEXT":"[RuNan] Castle is  southwest of this  fortress.[END]"
+ },
+ "701":{
+  "TEXT":"[RuNan] Castle is  protected by general[>] Cao Zhang. I heard he was a mighty general.[>] Don't  underestimate him.[END]"
+ },
+ "702":{
+  "TEXT":"We meet again but  this time I'm  ready for you.[END]"
+ },
+ "703":{
+  "TEXT":"Si Ma Yi's army has arrived.[END]"
+ },
+ "704":{
+  "TEXT":"Si Ma Yi, welcome. I'm glad you finally[>] arrived.[>] [END]"
+ },
+ "705":{
+  "TEXT":"Cao Pi. I must explain why we didn't join you[>] sooner.[END]"
+ },
+ "706":{
+  "TEXT":"Si Ma Yi attacks![END]"
+ },
+ "707":{
+  "TEXT":"Oh, Si Ma Yi. You....[>] [END]"
+ },
+ "708":{
+  "TEXT":"You betrayed me...[>] [END]"
+ },
+ "709":{
+  "TEXT":"Treachery! Retreat.[END]"
+ },
+ "71":{
+  "TEXT":"I'm sorry. You  don't have enough  money for that.[END]"
+ },
+ "710":{
+  "TEXT":"You can't run. You die here.[END]"
+ },
+ "711":{
+  "TEXT":"But... Why?...[END]"
+ },
+ "712":{
+  "TEXT":"[LEADER]. I have killed Cao Pi. I'll give[>] you his head, but  I claim Wei for  my own. Take the[>] head back to  [JianYe] Castle.[END]"
+ },
+ "713":{
+  "TEXT":"You can't defend against Si Ma Yi's[>] thunder.[END]"
+ },
+ "714":{
+  "TEXT":"Where are we? We witnessed Si Ma Yi's coup[>] and he attacked us with thunder. But I don't[>] remember anything  after that.[END]"
+ },
+ "715":{
+  "TEXT":"[LEADER], are  you all right?[>]"
+ },
+ "716":{
+  "TEXT":"Guan Suo, son of Guan Yu, found you unconscious[>] and brought you back here. You  should go to[>] [ChangSha] Castle  to thank him. You  might even learn[>] something about  Si Ma Yi's magic. [EVENT-4134]"
+ },
+ "717":{
+  "TEXT":"It's very  important that you take[>] Zhu Ge Liang with  you.[END]"
+ },
+ "718":{
+  "TEXT":"[LEADER], are  you alright?[END]"
+ },
+ "719":{
+  "TEXT":"Si Ma Yi's thunder tactic is  one of the[>] tactics in Sun Zi's book. I know the[>] counter-spell. Up, up, down, down, left,[>] right, up, down. Do this when he's calling the[>] thunder and it  will be negated.[END]"
+ },
+ "72":{
+  "TEXT":"Well, when I can help you, you  know where I am.[END]"
+ },
+ "720":{
+  "TEXT":"Liu Bei's army. You can't stand  against my[>] thunder.[END]"
+ },
+ "721":{
+  "TEXT":"Oh no! What can  we do?[END]"
+ },
+ "722":{
+  "TEXT":"My thunder  failed?! Then brute force will[>] suffice.[END]"
+ },
+ "723":{
+  "TEXT":"You've penetrated much further than I thought[>] possible but it's not over yet! [EVENT-4934]"
+ },
+ "724":{
+  "TEXT":"This is [RuNan] Castle.[END]"
+ },
+ "725":{
+  "TEXT":"That is Chin  Castle but there  is neither road[>] nor pass that goes there.[END]"
+ },
+ "726":{
+  "TEXT":"I remember an old story about a tunnel which[>] leads to Chin  Castle.[END]"
+ },
+ "727":{
+  "TEXT":"There are two tunnels leading to Chin Castle.[END]"
+ },
+ "728":{
+  "TEXT":"Who are you? Oh [LEADER]. You  will regret[>] opposing me.[END]"
+ },
+ "729":{
+  "TEXT":"Oh no![END]"
+ },
+ "73":{
+  "TEXT":"Welcome. I have many fine weapons. What can[>] I sell you? [EVENT-248E]"
+ },
+ "730":{
+  "TEXT":"This is [ChenLiu] fortress.[END]"
+ },
+ "731":{
+  "TEXT":"Si Ma Yi has 2 strong sons.[END]"
+ },
+ "732":{
+  "TEXT":"Since Cao Cao died, there has  been nothing but[>] misery in Wei.[END]"
+ },
+ "733":{
+  "TEXT":"Isn't that a Shu accent you have.[END]"
+ },
+ "734":{
+  "TEXT":"We will never  give up this  castle.[END]"
+ },
+ "735":{
+  "TEXT":"We are no match for you. [EVENT-5134]"
+ },
+ "736":{
+  "TEXT":"This is Chin  castle.[END]"
+ },
+ "737":{
+  "TEXT":"They say Si Ma Yi holds [LuoYang] Castle with[>] millions of soldiers.[END]"
+ },
+ "738":{
+  "TEXT":"Si Ma Yi is a true tactician. The road to[>] [LuoYang] is  probably littered with his men.[END]"
+ },
+ "739":{
+  "TEXT":"In the past, [LuoYang] was  burnt by[>] Dong Zhuo. But  now it's been rebuilt. It's the[>] biggest Castle in  Wei.[END]"
+ },
+ "74":{
+  "TEXT":"And who will be  carrying that?[END]"
+ },
+ "740":{
+  "TEXT":"Si Ma Yi's sons are Si Ma Zhao and Si Ma Shi.[>] They are said to  be brilliant men.[END]"
+ },
+ "741":{
+  "TEXT":"Wei will be taken by Si Ma Yi's army.[END]"
+ },
+ "742":{
+  "TEXT":"If we kill Si Ma Yi, our  struggle will be[>] near its end.[END]"
+ },
+ "743":{
+  "TEXT":"You've gone far enough. It ends here.[>] [END]"
+ },
+ "744":{
+  "TEXT":"You are strong. But you can't  stand against my[>] attack.[>] [END]"
+ },
+ "745":{
+  "TEXT":"How much does Liu Bei pay you  to throw your[>] lives away?[>] [END]"
+ },
+ "746":{
+  "TEXT":"If you serve us, we can pay you  well.[>] [END]"
+ },
+ "747":{
+  "TEXT":"If you stand by  us, we will treat  you very well.[>] [END]"
+ },
+ "748":{
+  "TEXT":"How could you  have withstood our attack?[END]"
+ },
+ "749":{
+  "TEXT":"[LEADER]. My  destiny is to  conquer the whole[>] land. You can't  prevent it.[END]"
+ },
+ "75":{
+  "TEXT":"[OFFICER] can't carry any  more.[END]"
+ },
+ "750":{
+  "TEXT":"I didn't think defeat would come  so quickly after[>] my victory over Cao Pi. But if I am to die, I[>] would have  preferred it to  be by Liu Bei's[>] own hand, not one of his  henchmen's. At[>] least the land is  finally united. Si Ma Yi has[>] died. [EVENT-6C34]"
+ },
+ "751":{
+  "TEXT":"This is [LuoYang], Han's capital.[END]"
+ },
+ "752":{
+  "TEXT":"Si Ma Yi's soldier's were routed. There[>] will be peace.[END]"
+ },
+ "753":{
+  "TEXT":"Liu Bei should  see the rebuilt [LuoYang] Castle.[END]"
+ },
+ "754":{
+  "TEXT":"Oh. Peace.[END]"
+ },
+ "755":{
+  "TEXT":"We have enough  food.[END]"
+ },
+ "756":{
+  "TEXT":"We don't need to  be soldiers anymore.[END]"
+ },
+ "757":{
+  "TEXT":"Can peace really  last?[END]"
+ },
+ "758":{
+  "TEXT":"[VALUE][ENDEVT-1] [VALUE][ENDEVT-2] [VALUE][ENDEVT-3][>] [VALUE][ENDEVT-4] [VALUE][ENDEVT-5] [VALUE][ENDEVT-6][>] [VALUE][ENDEVT-7] My People. Finally peace[>] reigns again. I thank you all  for your devoted[>] effort. Through this great trial, I have gained[>] much wisdom. I will rule fairly but with an iron[>] hand so that no  uprising can threaten peace[>] again.[>] [EVENT-9D34]"
+ },
+ "76":{
+  "TEXT":"Thank you. Anything else?[END]"
+ },
+ "760":{
+  "TEXT":"Guan Yu. I will serve Yuan Shao.[END]"
+ },
+ "761":{
+  "TEXT":"You traitor.[END]"
+ },
+ "762":{
+  "TEXT":"Oh my life comes to an end. My  life was an essay[>] in betrayal. [EVENT-F231]"
+ },
+ "768":{
+  "TEXT":"[LEADER], this castle will  be very difficult[>] to conquer.[END]"
+ },
+ "769":{
+  "TEXT":"Aaahhhggg....[END]"
+ },
+ "77":{
+  "TEXT":"What can I get you? [EVENT-248E]"
+ },
+ "770":{
+  "TEXT":"[OFFICER],[END]"
+ },
+ "773":{
+  "TEXT":"Pang Tong? He went out with his  soldiers.[>] [EVENT-902E]"
+ },
+ "774":{
+  "TEXT":"You dare invade Jingzhou? Take this![END]"
+ },
+ "775":{
+  "TEXT":"You fight to  settle Jingzhou and restore peace[>] here? Let me join  you. Pang Tong joined[>] our army. [EVENT-B72E]"
+ },
+ "776":{
+  "TEXT":"[LEADER], [OFFICER] came to reinforce[>] Cao Pi.[END]"
+ },
+ "777":{
+  "TEXT":"If you want safe  passage through the tunnel,[>] surrender all of  your belongings. [EVENT-E628]"
+ },
+ "778":{
+  "TEXT":"Wait. Who goes  there? I'm [LEADER].[>] Oh, sorry. I'm  [OFFICER-SELF-2]. I've  come here to join[>] Liu Bei's army. Let me join you.[END]"
+ },
+ "779":{
+  "TEXT":"You are a general of Liu Bei's army? I heard you[>] entered this cave. I've come  to see if I can[>] join you. [EVENT-E91C]"
+ },
+ "78":{
+  "TEXT":"Come in, come in. I'm a merchant. Are you buying[>] or selling? [EVENT-B08E]"
+ },
+ "780":{
+  "TEXT":"I found a small keyhole.[END]"
+ },
+ "781":{
+  "TEXT":"I'm [OFFICER-SELF-2]. I want to fight the  rebels on behalf[>] of my father. Allow me to join  you.[>] [EVENT-E91C]"
+ },
+ "782":{
+  "TEXT":"Please grant the request of the  King.[END]"
+ },
+ "783":{
+  "TEXT":"The King is in  the back room.[END]"
+ },
+ "784":{
+  "TEXT":"Peace has  returned to Jingzhou.[>] [EVENT-712E]"
+ },
+ "785":{
+  "TEXT":"[LEADER]. I received a letter from Xu Zhe's[>] mother. Please  see that he gets it.[>] Xu Zhe got the letter. My mother is ill.[>] I should return to the capital to  take care of her.[>] Of course. Leave immediately. Thank you.[END]"
+ },
+ "787":{
+  "TEXT":"[EVENT-2E2C]"
+ },
+ "788":{
+  "TEXT":"This is  Zhu Ge Liang's house. It seems[>] empty.[END]"
+ },
+ "789":{
+  "TEXT":"[LEADER]. I'm  glad you're back. Zhu Ge Liang has[>] some information  for you.[END]"
+ },
+ "79":{
+  "TEXT":"Who is carrying the merchandise?[END]"
+ },
+ "790":{
+  "TEXT":"As you heard, Liu Zheng is my  blood relative.[>] [LEADER], please depart for  Shu at once.[END]"
+ },
+ "791":{
+  "TEXT":"Shu was settled by Liu Bei's army. [EVENT-152F]"
+ },
+ "792":{
+  "TEXT":"[EVENT-182D]"
+ },
+ "793":{
+  "TEXT":"This is  Zhang Fei's castle. No one[>] can be invited.[END]"
+ },
+ "794":{
+  "TEXT":"Tell Liu Bei that  Wei has an alliance with Wu. [EVENT-9931]"
+ },
+ "795":{
+  "TEXT":"You may have  recaptured this  castle but the[>] final victory will be Wu's. [EVENT-7831]"
+ },
+ "796":{
+  "TEXT":"[EVENT-ED2E]"
+ },
+ "797":{
+  "TEXT":"[LEADER]. Liu Zheng has  been captured and[>] is being held in [FuShui] Castle.[END]"
+ },
+ "798":{
+  "TEXT":"Beyond this point, you will  be in Liu Zheng's[>] peaceful land of  Shu.[END]"
+ },
+ "799":{
+  "TEXT":"[LEADER]. Shu  is in chaos, just as Zhang Song[>] told Zhu Ge Liang. Someone must[>] suppress the  rebels and  restore peace to[>] Shu.[END]"
+ },
+ "8":{
+  "TEXT":"But Liu Bei's Army can't carry anymore.[>] Something else will have to be  left behind.[END]"
+ },
+ "80":{
+  "TEXT":"Which item?[END]"
+ },
+ "800":{
+  "TEXT":"Liu Bei's defensive rating has increased.[END]"
+ },
+ "801":{
+  "TEXT":"[OFFICER]'s defensive rating has increased.[END]"
+ },
+ "803":{
+  "TEXT":"Protection  against fire tactics has[>] increased.[END]"
+ },
+ "805":{
+  "TEXT":"Protection  against water tactics has[>] increased.[END]"
+ },
+ "807":{
+  "TEXT":"The effect of the  enemies tactic has worn off.[END]"
+ },
+ "809":{
+  "TEXT":"The effect of the  enemies tactic has worn off.[END]"
+ },
+ "81":{
+  "TEXT":"[OFFICER] has nothing to  sell.[END]"
+ },
+ "810":{
+  "TEXT":"The castle's defensive rating decreased.[END]"
+ },
+ "811":{
+  "TEXT":"The castle's defensive rating increased.[END]"
+ },
+ "812":{
+  "TEXT":"We caused [OFFICER-2] to distrust his[>] allies.[END]"
+ },
+ "813":{
+  "TEXT":"[OFFICER-2] distrusts his allies.[END]"
+ },
+ "814":{
+  "TEXT":"We caused [OFFICER-2] to split with his[>] allies.[END]"
+ },
+ "815":{
+  "TEXT":"[OFFICER-2] is attacking his allies.[END]"
+ },
+ "817":{
+  "TEXT":"[OFFICER-2]'s agility increased.[END]"
+ },
+ "818":{
+  "TEXT":"The effect of  [OFFICER-2]'s strategy is[>] countered.[END]"
+ },
+ "819":{
+  "TEXT":"Liu Bei's army countered all opposing[>] strategies.[END]"
+ },
+ "82":{
+  "TEXT":"[ITEM-2]... I'll give you  [VALUE] [LVL-SLDR-AMT] gold coins.[>] Deal?[END]"
+ },
+ "820":{
+  "TEXT":"[OFFICER] took [OFFICER-2]'s[>] head.[END]"
+ },
+ "821":{
+  "TEXT":"[OFFICER-2]'s head was taken by  [OFFICER].[END]"
+ },
+ "823":{
+  "TEXT":"[OFFICER-2]'s attack power was  increased.[END]"
+ },
+ "825":{
+  "TEXT":"[OFFICER] got new supporters.[END]"
+ },
+ "826":{
+  "TEXT":"Liu Bei's army retreated.[END]"
+ },
+ "827":{
+  "TEXT":"[OFFICER]'s army retreated.[END]"
+ },
+ "828":{
+  "TEXT":"Liu Bei's army retreated.[END]"
+ },
+ "829":{
+  "TEXT":"[OFFICER]'s army retreated.[END]"
+ },
+ "83":{
+  "TEXT":"Do you have  anything else to  sell?[END]"
+ },
+ "830":{
+  "TEXT":"Hidden soldiers' attack.[END]"
+ },
+ "831":{
+  "TEXT":"[OFFICER] voided [VALUE][ITEM-5][T-VALUE]'s effect.[END]"
+ },
+ "832":{
+  "TEXT":"[OFFICER]'s Ce Mian strategy wore off.[END]"
+ },
+ "833":{
+  "TEXT":"Liu Bei's Ce Mian strategy wore off.[END]"
+ },
+ "834":{
+  "TEXT":"[OFFICER]'s Ji Mian strategy wore off.[END]"
+ },
+ "835":{
+  "TEXT":"Liu Bei's Ji Mian strategy wore off.[END]"
+ },
+ "84":{
+  "TEXT":"Well then, is there anything  else you would[>] like to sell?[END]"
+ },
+ "840":{
+  "TEXT":"There will be  peace in  Jingzhou and[>] Shu. Cao Cao supports the Emperor in Wei,[>] Sun Ce is ruling Wu and I rule Shu. We must[>] maintain the  balance of power  to preserve[>] peace.[END]"
+ },
+ "841":{
+  "TEXT":"Thank you for  defeating the brigands. This is[>] a reward. We got it from brigands. It's a sword[>] named [QINGLONG]. Use it for good  purposes.[END]"
+ },
+ "842":{
+  "TEXT":"As you heard, Guan Yu and  Zhang Fei, my[>] oath brothers, are under attack. Go to Jingzhou[>] at once.[END]"
+ },
+ "843":{
+  "TEXT":"[EVENT-4D2D]"
+ },
+ "844":{
+  "TEXT":"Shall I record the result of  today's Battles?[END]"
+ },
+ "85":{
+  "TEXT":"Nice doing business with you.[END]"
+ },
+ "86":{
+  "TEXT":"[LEADER]. What can I do for you? [EVENT-CD92]"
+ },
+ "87":{
+  "TEXT":"Who's profile would you like to  see?[END]"
+ },
+ "88":{
+  "TEXT":"No one is  registered.[END]"
+ },
+ "89":{
+  "TEXT":"Who would you  like to add?[END]"
+ },
+ "895":{
+  "TEXT":"rShall I record the result of  today's Battles?[END]00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+ },
+ "9":{
+  "TEXT":"[OFFICER] doesn't have  anything.[END]"
+ },
+ "90":{
+  "TEXT":"Liu Bei's party is too big to add any more people.[END]"
+ },
+ "91":{
+  "TEXT":"Who would you  like to leave behind?[END]"
+ },
+ "92":{
+  "TEXT":"We can only support 64 warlords here.[>] There is no more room.[END]"
+ },
+ "93":{
+  "TEXT":"Whom would you  like to fire?[END]"
+ },
+ "94":{
+  "TEXT":"You want to fire [OFFICER]?[END]"
+ },
+ "95":{
+  "TEXT":"[T-VALUE]is  still young and he shows a great[>] deal of talent. Don't give up on  him so easily.[END]"
+ },
+ "96":{
+  "TEXT":"OK.[END]"
+ },
+ "97":{
+  "TEXT":"[OFFICER] has joined the traveling party.[END]"
+ },
+ "98":{
+  "TEXT":"[OFFICER] went to the  reserve.[END]"
+ },
+ "99":{
+  "TEXT":"[OFFICER] has left our  side.[END]"
+ }
+}

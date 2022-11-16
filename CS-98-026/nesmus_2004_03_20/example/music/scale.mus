@@ -1,0 +1,23 @@
+t120
+channel 0
+v15 o2 l4 cdefgab>c
+
+loop 2
+channel 1
+v15 o2 l8 cdefgab>c
+channel 2
+v15 o3 l8 cdefgab>c
+end
+
+loop 3
+channel 1
+v15 o2 l8 gfedcded
+channel 2
+v15 o3 l8 babfgfed
+end
+
+channel 1
+l8 gfedcdl4c
+channel 2
+l8 gagfedl4c
+

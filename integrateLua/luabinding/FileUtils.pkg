@@ -1,0 +1,13 @@
+class FileUtils
+{
+public:
+    static FileUtils* sharedFileUtils();
+
+    // endswith "/"
+    virtual std::string getResourcePath() ;
+    // endswith "/"
+    virtual std::string getWritablePath() ;
+    
+    bool isFileExist(const std::string& strFilePath) ;
+    unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
+} ;

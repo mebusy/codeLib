@@ -1,0 +1,41 @@
+# nes-py
+
+	https://pypi.org/project/nes-py/
+
+# nes disasm
+
+最近打算玩一下nes游戏，重拾一下6502汇编。
+
+摸索了几天，觉得下面这个反汇编的流程比较好：
+
+用 fceux 载入游戏，选择debug菜单Code/Data Logger，点击Start，稍微玩一下，点击Save as保存cdl
+
+使用 dasm6 反汇编，加上刚才导出的cdl  : https://forums.nesdev.com/viewtopic.php?t=7466
+
+生成的asm源码可以直接用 asm6 编译:  https://github.com/parasyte/asm6
+
+使用hex编辑器把后面的数据拼进去，生成nes文件
+
+
+disasm6 file.nes -cdl file.cdl -r -l user.label
+
+
+# fceux
+
+D – B
+F – A
+Enter – Start
+S – Select
+Keypad up – Up
+Keypad left – Left
+Keypad down – Down
+Keypad right – Right
+
+
+
+# Automatic Mapping of NES Games with Mappy
+
+https://arxiv.org/pdf/1707.03908.pdf
+
+
+

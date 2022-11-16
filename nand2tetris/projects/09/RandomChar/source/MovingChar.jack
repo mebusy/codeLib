@@ -1,0 +1,105 @@
+class MovingChar {
+    field int type ;  // 0 left-> ,1 <- right, 2 top v , 3 bottom ^
+    field char character ; // which char to display
+    field int movingDistance ; // how far moved so far
+    field int velocity ; // moving speed , s/20 = 1 cell
+    field int status ; // 1: active , 0 : deactive 
+    field int x ;
+    field int y ;
+    
+    constructor MovingChar new() {
+        let status = 0 ; 
+        return this ;
+    }    
+
+    /** Disposes this game. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method boolean  isActive() {
+        return status = 1 ;
+    }
+    
+    method void reActive () {
+        let character = 65+Random.randn(26) ;
+        let movingDistance = 0 ;
+        let velocity = Random.randn(10);
+        let status = 1;
+        let type = Random.randn(40)/10 ;
+
+        if ( type = 0 ) {
+            let x = 0 ;
+            let y = Random.randn(23) ;    
+        }
+        if ( type = 1 ) {
+            let x = 63 ;
+            let y = Random.randn(23) ;    
+        }
+        if ( type = 2 ) {
+            let x = Random.randn(64) ;
+            let y = 0 ;
+        }
+        if ( type = 3 ) {
+            let x = Random.randn(64)  ;
+            let y = 22 ;
+        }
+
+
+        return  ;
+    }
+
+    method void update() {
+        var int cell_moved ;
+        var int old_x ;
+        var int old_y ; 
+
+        if ( status = 0 ) {
+            return ;
+        }
+
+        let old_x = x; 
+        let old_y = y;
+
+        //if ( status = 1) {
+            
+            let movingDistance = movingDistance + velocity ;
+            let cell_moved = movingDistance / 20 ;
+            let movingDistance = movingDistance - ( cell_moved * 20 ) ;
+
+            if ( type = 0 ) {
+                let x = x + (  cell_moved ) ;
+            }
+            if ( type = 1 ) {
+                let x = x - ( cell_moved)  ;
+            }
+            if ( type = 2 ) {
+                let y = y + ( cell_moved ) ;
+            }
+            if ( type = 3 ) {
+                let y = y - (  cell_moved )  ;
+            }
+
+            if ( ( x < 0 ) | ( x > 63 ) | ( y < 0  )| ( y > 22 )  ) {
+                let status = 0 ;    
+            } 
+        // }
+
+        // draw
+        if ( cell_moved > 0 & status = 1 ) {
+            do Output.moveCursor(old_y,old_x) ;
+            do Output.printChar( 32  ) ;
+            do Output.moveCursor(y,x) ;
+            do Output.printChar( character  ) ;
+        }
+        if ( status = 0 ) {
+            do Output.moveCursor(old_y,old_x) ;
+            do Output.printChar( 32  ) ;
+        }
+
+        return ;
+    } // end update
+}
+
+

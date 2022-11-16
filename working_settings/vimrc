@@ -1,0 +1,343 @@
+set encoding=utf-8
+
+if has('gui_running')
+    " GUI colors
+    colorscheme elflord
+    if has('gui_macvim')
+        set guifont=Andale\ Mono:h16  " change font size to 14
+    endif
+else
+    " Non-GUI (terminal) colors
+    colorscheme default
+endif
+
+" set mouse=a
+
+" Configuration file for vim
+set modelines=0		" CVE-2007-2438
+
+" Normally we use vim-extensions. If you want true vi-compatibility
+" remove change the following statements
+set nocompatible	" Use Vim defaults instead of 100% vi compatibility
+set backspace=2		" more powerful backspacing
+
+" Don't write backup file if vim is being called by "crontab -e"
+au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
+" Don't write backup file if vim is being called by "chpass"
+au BufWrite /private/etc/pw.* set nowritebackup nobackup
+
+" 开启语法高亮功能
+syntax enable
+" " 允许用指定语法高亮配色方案替换默认方案
+syntax on
+
+set number
+set relativenumber
+
+
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+
+" Define bundles via Github repos
+" 使用Vundle来管理Vundle
+Bundle 'gmarik/vundle'
+
+Bundle 'majutsushi/tagbar'
+" systastic is used by java complete, and python syntax check
+Bundle 'scrooloose/syntastic'
+
+" auto add `end` for if, def, etc...
+Bundle 'tpope/vim-endwise'  
+" automatic closing of quotes, parenthesis, brackets, etc
+Bundle "Raimondi/delimitMate"
+
+" import for git status
+Bundle 'tpope/vim-fugitive'
+" ds cs ys 
+Bundle 'tpope/vim-surround'   
+Bundle 'vim-ruby/vim-ruby'
+" uses exuberant ctags to build the list of tags for the current file
+" Bundle 'vim-scripts/ctags.vim'
+Bundle 'vim-scripts/tComment'
+" html tag auto complete , html:5_ , when type  <c-y>, (Ctrl y ,)
+Bundle "mattn/emmet-vim"  
+" show css color
+Bundle "ap/vim-css-color"
+Bundle "Lokaltog/vim-powerline"
+
+" Bundle "othree/html5.vim"
+
+Bundle "chr4/nginx.vim"
+Bundle "Lokaltog/vim-easymotion"
+Bundle "ycm-core/YouCompleteMe"
+" Bundle "artur-shaik/vim-javacomplete2"
+
+" lua , Ctrl + a to show keyword promote
+Bundle "xolox/vim-misc"
+Bundle "xolox/vim-lua-ftplugin"
+
+" The tabular plugin must come before vim-markdown.
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
+
+Bundle 'github/copilot.vim'
+" extra installation: `./install_gadget.py --all`
+Bundle 'puremourning/vimspector'
+
+"auto format
+" Bundle 'vim-autoformat/vim-autoformat'
+Bundle 'sbdchd/neoformat'
+" after plug install:  yarn install
+Bundle 'prettier/vim-prettier'
+
+set smartindent  
+set tabstop=4  
+set shiftwidth=4  
+set expandtab  
+set softtabstop=4  
+
+
+
+" 定义快捷键的前缀，即<Leader>
+let mapleader=";"
+
+" 开启文件类型侦测
+filetype on
+" " 根据侦测到的不同类型加载对应的插件
+filetype plugin on
+
+
+
+" 总是显示状态栏
+set laststatus=2
+" " 显示光标当前位置
+set ruler
+" " 开启行号显示
+set number
+
+
+" " 高亮显示当前行/列
+" 注意 不要开下面四句，会导致 auto complete 看不见
+" set cursorline
+" set cursorcolumn
+" hi CursorLine   cterm=NONE ctermbg=234
+" hi CursorColumn cterm=NONE ctermbg=234
+
+
+" " 高亮显示搜索结果
+set hlsearch
+
+" incremental search and highlight all matches
+set is hls
+
+
+
+" ============== TIPS =================
+" FINDING FILES:
+
+" Serch Down into subfolders
+" Provides tab-completion for all file-related tasks
+" e.g: :find mat.go
+set path+=**
+" Display all matching files when we tab complete
+" e.g: :find *.go (don't hit enter),press tab, it will popup a menu to show
+" all satisfied files
+set wildmenu
+
+" TAG JUMPING
+" run !ctags -R .   (bind it to you :w command ?)
+" note: ctags shipped with OSX is not exuberant ctags, brew install ctags
+" Now we can 
+"   - use ^] to jump to tag under cursor
+"   - g^] for ambiguous tags , it will show a list
+"   - ^t  to jump back the tag stack
+
+" AUTOCOMPLETE:
+" The good stuff is documented in |ins-completion|
+"   - ^x^n for JUST this file ( ^a^b means hold ctrl  )
+"   - ^x^f for filenames (works with our path trick!)
+"   - ^x^] for tags only
+"   - ^n for anything specified by the 'complete' option
+
+" FILE BROWSING:
+" Tweaks for browsing
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+" open splits to the right
+let g:netrw_altv=1
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+" netrw windows size
+let g:netrw_winsize=20
+
+
+
+" - :edit a folder to open a file browser
+" - <CR>/v/t to open in an h-split/v-split/tab
+" - check |netrw-browse-maps| for more mappings
+
+" 查看工程文件。设置快捷键，速记：file list
+nmap <Leader>fl :Lex<CR>
+
+" SNIPPETS:
+" Read an empty HTML template and move cursor to title
+" nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
+
+" en_us,de_de
+" set spelllang=en_us
+" set spell
+
+" ============== PLUGINS  =================
+
+" Go to definition else declaration
+nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" don't show Maximum number of diagnostics exceeded
+let g:ycm_max_diagnostics_to_display = 0
+" just to new tab
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+" " 主动调用补全
+let g:ycm_key_invoke_completion = '<C-a>'
+
+let g:ycm_confirm_extra_conf=0 " not ask to allow load ...
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+
+" markdown chrome browse
+autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
+
+" use python3 as checker , or you can try flake8, or pylint
+" python -m pip install pylint
+let g:syntastic_python_checkers = ['flake8', 'python3']
+let g:syntastic_python_python_exec = 'python3'
+
+let g:syntastic_python_flake8_args = '--max-line-length=120 --ignore=E203'
+" let g:syntastic_python_flake8_args='--ignore=E,W,F401'
+" let g:syntastic_python_flake8_args='--ignore=W391,E501,E201,E202,E203,E221,E222,E225,E226,E231,E251,F841'
+" let g:syntastic_python_flake8_args='--ignore=W291,W293,W391,E201,E202,E203,E211,E221,E222,E231,E241,E251,E261,E262,E265,E272,E301,E302,E303,E501,F405'
+
+" syntastic java 
+let g:syntastic_java_javac_config_file_enabled=1
+" :SyntasticJavacEditClasspath  , run in vim
+" external lib support for java completeme
+" let g:JavaComplete_LibsPath=".:/usr/local/algs4/algs4.jar"
+
+" java complete
+" autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" Youcompleteme Java , manually disable Syntastic Java diagnostics.
+let g:syntastic_java_checkers = []  
+" manually disable Eclim Java diagnostics.
+let g:EclimFileTypeValidate = 0
+
+"  color 
+highlight Comment ctermfg=darkgray
+" colors for promt menu
+" highlight Pmenu ctermfg=14 ctermbg=0 guifg=#ffffff guibg=#000000
+" highlight PmenuSel ctermfg=9 ctermbg=0 guifg=#ffffff guibg=#000000
+
+" ycm Diagnostic error color
+highlight  YcmErrorSection  ctermfg=15   ctermbg=1
+
+hi MatchParen cterm=none ctermbg=none ctermfg=brown
+
+" show table
+set list
+set listchars=tab:>·
+
+" lua support
+let g:lua_complete_dynamic = 0 
+let g:lua_complete_omni = 1
+
+" markdown
+""" disable folding
+let g:vim_markdown_folding_disabled = 1
+""" Set header folding level
+let g:vim_markdown_folding_level = 4
+let g:vim_markdown_toc_autofit = 1
+
+" visualize text , then Ctrl-C if your vim doesn't support clipboard
+" map <C-c> y:e ~/clipsongzboard<CR>P:w !pbcopy<CR><CR>:bdelete!<CR>
+
+" debug
+" let g:ycm_keep_logfiles = 1
+" let g:ycm_log_level = 'debug'
+
+" YCM uses is the omnifunc that Vim provides for CSS
+let g:ycm_semantic_triggers = {
+    \   'css': [ 're!^\s+', ': ' ],
+    \ }
+
+" tagbar =======================================
+"
+"    $ brew install ctags
+"    for golang tagbar, you need gotags
+"    $ brew install gotags
+"
+nmap <F9> :TagbarToggle<CR>
+" If you want to open it only if you're opening Vim with a supported file/files use this instead:
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+" ============= end tagbar =====================
+
+
+" coploit
+let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
+if $http_proxy != ""
+    let g:copilot_proxy = 'localhost:3128'
+endif
+
+" vim-inspector
+let g:vimspector_enable_mappings = 'HUMAN'
+" F9: add breakpoint
+" <leader>F9: add conditional breakpoint
+" <leader>F8: run to Cursor
+
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
+
+nnoremap <Leader>dd :call vimspector#Launch() \| set mouse=a<CR>
+" end vim-inspector
+nnoremap <Leader>de :call vimspector#Reset()  \| set mouse-=a<CR>
+
+" toggle break point
+nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
+" clean all break points
+nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+
+
+" vimgrep
+set wildignore+=node_modules/**,.git/**
+
+" eslint check: install eslint via brew or npm
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_always_populate_loc_list = 1
+
+" shortcut key to swith syntastic checker
+function! ToggleSyntastic()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            lclose
+            return
+        endif
+    endfor
+    SyntasticCheck | Errors
+endfunction
+nnoremap <F2> :call ToggleSyntastic()<CR>
+
+" Neoformat more languages support : https://github.com/sbdchd/neoformat#supported-filetypes
+" Neoformat js: install prettier via npm or brew
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html  Neoformat
+" In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
+" let g:neoformat_try_node_exe = 1
+
+" Neoformat Python :  brew install black
+" Neoformat Go : gofmt
+autocmd BufWritePre *.py,*.go Neoformat
+" for c/c++ : clang-format:  brew install clang-format
+autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
+
+
