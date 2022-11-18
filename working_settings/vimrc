@@ -340,4 +340,5 @@ autocmd BufWritePre *.py,*.go Neoformat
 " for c/c++ : clang-format:  brew install clang-format
 autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
 
-
+" for rust:  brew install rustfmt
+autocmd BufWritePre *.rs  Neoformat
