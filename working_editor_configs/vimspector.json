@@ -73,6 +73,36 @@
         // "args": ["*${CommandLineArgs}"]
         "cwd": "${cwd}"
       }
-    } // end python run
-  }
+    }, // end python run
+
+    "[c++ cpptools ] build & debug 'test'": {
+      "adapter": "vscode-cpptools",
+      "variables": {
+        "BUILDME": {
+          "shell": [
+            "/bin/bash",
+            "-c",
+            "g++ -o test -g -std=c++17 *.cpp"
+           ]
+        },
+        "arch": {
+          "shell": "uname -m"
+        }
+      },
+      "configuration": {
+        "cwd": "${cwd}",
+        "request": "launch",
+        "program": "${cwd}/test",
+        "stopAtEntry": true,
+        "MIMode": "lldb",
+        "MIDebuggerPath": "$HOME/.vim/vimspector-conf/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi",
+        "logging": {
+          "engineLogging": true
+        },
+        "targetArchitecture": "${arch}"
+      }
+    } // end cpptools (lldb)
+
+
+  } // end configurations
 }
