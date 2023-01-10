@@ -284,6 +284,9 @@ nmap <F9> :TagbarToggle<CR>
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 " ============= end tagbar =====================
 
+let g:ycm_key_detailed_diagnostics = '<leader>e'
+let g:ycm_show_detailed_diag_in_popup = 1
+let g:ycm_always_populate_location_list = 1
 
 " coploit
 let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
@@ -351,8 +354,31 @@ autocmd BufWritePre *.py,*.go Neoformat
 " 注意需要设置 错误聚合，才能同时显示两个 checker 的错误：
 " let syntastic_aggregate_errors = 1
 
+
+
+" let g:neoformat_cpp_clangformat = {
+"     \ 'exe': 'clang-format',
+"     \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 120}"'],
+" \}
+
+let g:neoformat_enabled_cpp = ['clangformat']
+
+for lang in ["c", "cpp", "cs"]
+    let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
+            \ . "'exe': 'clang-format',"
+            \ . "'args': ['--style=\"{IndentWidth: 4, ColumnLimit: 120}\"'], "
+            \ . "}"
+    execute cmd
+
+    let cmd="let g:neoformat_enabled_" . lang . " = ['clangformat']"
+    execute cmd
+endfor
+
+
+
 " for c/c++ : clang-format:  brew install clang-format
 autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
 
 " for rust:  brew install rustfmt
 autocmd BufWritePre *.rs  Neoformat
+
