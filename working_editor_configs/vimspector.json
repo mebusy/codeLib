@@ -102,7 +102,7 @@
         "program": "${cwd}/dbg",
         "stopAtEntry": true,
         "MIMode": "lldb",
-        "MIDebuggerPath": "$HOME/.vim/bundle/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi ",
+        "MIDebuggerPath": "$HOME/.vim/bundle/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi",
         "logging": {
           "engineLogging": true
         },
@@ -114,10 +114,11 @@
       "adapter": "custom-codelldb",
       "breakpoints": {
         "exception": {
-          "cpp_throw": "N",
-          "cpp_catch": "N"
+          "cpp_throw": "", // use default settting
+          "cpp_catch": ""
         }
       },
+      "filetypes": ["cpp"],
       "variables": {
         "BUILDME": {
           "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++17 *.cpp"]
