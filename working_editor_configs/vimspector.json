@@ -86,7 +86,7 @@
       }
     }, // end python run
 
-    "[c++ lldb ] build & debug 'dbg'": {
+    "[c++ lldb]": {
       "adapter": "vscode-cpptools",
       "variables": {
         "BUILDME": {
@@ -136,6 +136,18 @@
         },
         "targetArchitecture": "${arch}"
       }
-    } // end cpptools (gdb)
+    }, // end CodeLLDB
+
+    "[c++ CodeLLDB] a.out": {
+      "extends": "[c++ CodeLLDB]",
+      "variables": {
+        "BUILDME": {
+          "shell": ["/bin/sh", "-c", "echo 'no build'"]
+        }
+      },
+      "configuration": {
+        "program": "${cwd}/a.out"
+      }
+    }
   } // end configurations
 }
