@@ -1,4 +1,15 @@
 {
+  "adapters": {
+    "custom-codelldb": {
+      "extends": "CodeLLDB",
+      "command": [
+        "$HOME/.vim/bundle/vimspector/gadgets/macos/CodeLLDB/adapter/codelldb",
+        "--port",
+        "${unusedLocalPort}"
+      ]
+    }
+  },
+
   "configurations": {
     "[node] attach (debugger port)": {
       "adapter": "vscode-node",
@@ -75,7 +86,7 @@
       }
     }, // end python run
 
-    "[c++ cpptools ] build & debug 'dbg'": {
+    "[c++ lldb ] build & debug 'dbg'": {
       "adapter": "vscode-cpptools",
       "variables": {
         "BUILDME": {
@@ -91,12 +102,40 @@
         "program": "${cwd}/dbg",
         "stopAtEntry": true,
         "MIMode": "lldb",
-        "MIDebuggerPath": "$HOME/.vim/vimspector-conf/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi",
+        "MIDebuggerPath": "$HOME/.vim/bundle/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi ",
         "logging": {
           "engineLogging": true
         },
         "targetArchitecture": "${arch}"
       }
-    } // end cpptools (lldb)
+    }, // end cpptools (lldb)
+
+    "[c++ CodeLLDB]": {
+      "adapter": "custom-codelldb",
+      "breakpoints": {
+        "exception": {
+          "cpp_throw": "N",
+          "cpp_catch": "N"
+        }
+      },
+      "variables": {
+        "BUILDME": {
+          "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++17 *.cpp"]
+        },
+        "arch": {
+          "shell": "uname -m"
+        }
+      },
+      "configuration": {
+        "cwd": "${cwd}",
+        "request": "launch",
+        "program": "${cwd}/dbg",
+        "stopAtEntry": true,
+        "logging": {
+          "engineLogging": true
+        },
+        "targetArchitecture": "${arch}"
+      }
+    } // end cpptools (gdb)
   } // end configurations
 }
