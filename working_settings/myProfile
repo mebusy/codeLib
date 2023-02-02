@@ -72,6 +72,8 @@ myfind() {
 }
 
 
+# ========================== JAVA =================================
+
 # Multiple JAVA versions
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
@@ -85,5 +87,8 @@ alias java17='export JAVA_HOME=$JAVA_17_HOME'
 #default java17
 export JAVA_HOME=$JAVA_17_HOME
 
+# ========================== PROXY =================================
+
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
