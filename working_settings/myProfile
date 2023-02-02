@@ -64,7 +64,9 @@ myfind() {
         done
 
         # echo 'opts:' "$_opt", 'pattern:' "$_pattern", 'path:' "$_path"
-        grep  -rinI -m 1  --exclude-dir=node_modules  $_opt $_pattern $_path
+        grep  -rinI -m 1  \
+            --exclude-dir=node_modules\
+            $_opt $_pattern $_path
     fi
 }
 
