@@ -66,6 +66,7 @@ myfind() {
         # echo 'opts:' "$_opt", 'pattern:' "$_pattern", 'path:' "$_path"
         grep  -rinI -m 1  \
             --exclude-dir=node_modules\
+            --exclude=\*.{log,} \
             $_opt $_pattern $_path
     fi
 }
