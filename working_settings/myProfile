@@ -86,3 +86,4 @@ alias java17='export JAVA_HOME=$JAVA_17_HOME'
 export JAVA_HOME=$JAVA_17_HOME
 
 
+# PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
