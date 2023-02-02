@@ -1,23 +1,4 @@
-export LC_ALL=en_US.UTF-8
-
-# git branch prompt
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export -f parse_git_branch > /dev/null
-
-# detect shell env
-if [ "bash" = "$0"  ] || [ "-bash" = "$0" ]  ; then
-    # echo "It's in" $0 
-    # Git branch in prompt.
-    export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-else
-    # autoload -U colors && colors
-    # export PROMPT="%n@ %c%{$fg[cyan]%}$(parse_git_branch)%{$reset_color%} $ "
-    setopt PROMPT_SUBST
-    export PROMPT='%n@%m %c%{%F{cyan}%}$(parse_git_branch)%{%F{none}%} $ '
-fi
-
+#!/bin/bash
 
 # to use , vi ~/.profile, add...
 # myProfile=~/".myProfile" 
@@ -26,35 +7,17 @@ fi
 #     source $myProfile
 # fi
 
+# check your bash script:  https://www.shellcheck.net/
 
-# ios Debug
-if [ -L "/Applications/Xcode.app" ]
-then
-    export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
-    alias symbolicatecrash="/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash"
-fi 
-
-# python user
-export PATH=$PATH:~/Library/Python/2.7/bin/
-
-# java_home, macosx only
-export JAVA_HOME=`/usr/libexec/java_home`
-
-# brew, avoid cleanup
-# export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+export LC_ALL=en_US.UTF-8
 
 # manim shortcut
-function manim() {
+manim() {
     docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/manim manimcommunity/manim:stable manim $@
 }
 
-# pytotch
-function pytorch() {
-    docker run --rm -it  --user="$(id -u):$(id -g)" -v "$(pwd)":/workspace --pids-limit 16384 pytorch/pytorch:latest python3 $@
-}
-
 # t2s 
-function t2sgen() {
+t2sgen() {
     if [ "$#" -lt 3 ]; then
         echo 'usage: t2sgen key body.json dst_file_name'
     else
@@ -62,16 +25,46 @@ function t2sgen() {
     fi
 }
 
+# use grep simulate mdfind
+myfind() {
+    if [ "$#" -lt 1 ]; then
+        echo 'usage: myfind [options] "pattern" [path]'
+    else
+        local  _opt="" 
+        local _path="."
+        local _pattern=""
 
-function checkRetval() {
-    [[ "$0" == "$BASH_SOURCE" ]] && ret=exit || ret=return
-    retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo "error occur, exit"
-        $ret $retVal
+        # check all parameters one by one
+        while [ $# != 0 ]
+        do
+            # if parameter startswith `-` 
+            if [[ $1 == -* ]] ; then
+                if [[ $1 != *=* ]] ; then
+                    # if not contains `=`, then shift and read its value
+                    _opt="$_opt $1"
+                    shift
+                    # quote it
+                    _opt="${_opt} "`printf "%q\n" "$1"`
+                else
+                    # if contains `=`
+                    # string before `=` and `=`
+                    _opt="$_opt ${1%%=*}="
+                    # quote string after `=`
+                    _opt="${_opt}"`printf "%q\n" "${1#*=}"`
+                fi
+            else
+                if [ -z "$_pattern" ]; then
+                    _pattern=`printf "%q\n" "$1"`
+                else
+                    _path=`printf "%q\n" "$1"`
+                fi
+            fi
+
+            shift
+        done
+
+        # echo 'opts:' "$_opt", 'pattern:' "$_pattern", 'path:' "$_path"
+        grep  -rinI -m 1  --exclude-dir=node_modules  $_opt $_pattern $_path
     fi
 }
-
-# protection for forbidden sh , while script need source
-# [[ "$0" == "$BASH_SOURCE" ]] && echo "need source!" &&  exit 1
 
