@@ -88,6 +88,24 @@ alias java17='export JAVA_HOME=$JAVA_17_HOME'
 export JAVA_HOME=$JAVA_17_HOME
 
 # ========================== PROXY =================================
+ret=`lsof -i:3128`
+if [ -n "$ret" ] ; then
+    # proxy tunnel is running
+    export _proxy=127.0.0.1:3128
+
+    export  http_proxy=http://$_proxy
+    export https_proxy=http://$_proxy
+    export  HTTP_PROXY=$http_proxy
+    export HTTPS_PROXY=$https_proxy
+
+    #u3d proxy ?
+    export  HTTP_proxy=$http_proxy
+    export HTTPS_proxy=$https_proxy
+
+    export NO_PROXY="localhost,127.0.0.1,10.192.*,192.168.*,kubernetes.docker.internal"
+    export no_proxy=$NO_PROXY
+fi
+
 
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
