@@ -114,7 +114,6 @@ export GO111MODULE=on
 # ========================== BREW =================================
 # sbin
 export PATH="$PATH:/usr/local/sbin"
-export PATH="$PATH:/usr/local/opt"
 
 
 # ========================== MISC =================================
