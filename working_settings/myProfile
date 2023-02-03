@@ -106,7 +106,15 @@ if [ -n "$ret" ] ; then
     export no_proxy=$NO_PROXY
 fi
 
+# ========================== GO =================================
+export PATH="$HOME/go/bin":$PATH
+export GO111MODULE=on
 
+# ========================== BREW =================================
+# sbin
+export PATH="/usr/local/sbin:$PATH"
+# pyenv
+export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
