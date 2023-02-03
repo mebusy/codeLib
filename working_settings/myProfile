@@ -107,12 +107,13 @@ if [ -n "$ret" ] ; then
 fi
 
 # ========================== GO =================================
-export PATH="$HOME/go/bin":$PATH
+export GOROOT="$(brew --prefix openvpn)/libexec"
+export PATH=$PATH:"$HOME/go/bin"
 export GO111MODULE=on
 
 # ========================== BREW =================================
 # sbin
-export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:/usr/local/sbin"
 # pyenv
 export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 
