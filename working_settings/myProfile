@@ -29,6 +29,7 @@ t2sgen() {
 myfind() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [options] "pattern" [path]'
+        echo 'grep options supported'
     else
         local  _opt="" 
         local _path="."
@@ -66,6 +67,7 @@ myfind() {
         # echo 'opts:' "$_opt", 'pattern:' "$_pattern", 'path:' "$_path"
         bash -c "grep --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
+            --exclude-dir=.git \
             --exclude=\*.{log,} \
             $_opt -e $_pattern $_path"
     fi
