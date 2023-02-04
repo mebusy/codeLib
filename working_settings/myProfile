@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # to use , vi ~/.profile, add...
 # myProfile=~/".myProfile" 
