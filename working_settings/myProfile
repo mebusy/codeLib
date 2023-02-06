@@ -109,7 +109,7 @@ if [ -n "$ret" ] ; then
 fi
 
 # ========================== GO =================================
-export GOROOT="$(brew --prefix openvpn)/libexec"
+export GOROOT="$(brew --prefix go)/libexec"
 export PATH=$PATH:"$HOME/go/bin"
 export GO111MODULE=on
 
