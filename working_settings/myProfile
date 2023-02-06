@@ -68,6 +68,7 @@ myfind() {
         bash -c "grep --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
             --exclude-dir=.git \
+            --exclude-dir=.\*_output \
             --exclude=\*.{log,} \
             $_opt -e $_pattern $_path"
     fi
