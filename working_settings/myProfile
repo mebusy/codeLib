@@ -70,6 +70,7 @@ myfind() {
             --exclude-dir=.git \
             --exclude-dir=.\*_output \
             --exclude=\*.{log,} \
+            --exclude=\*.min.{js,} \
             $_opt -e $_pattern $_path"
     fi
 }
