@@ -26,10 +26,17 @@ au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
-" 开启语法高亮功能
-syntax enable
-" " 允许用指定语法高亮配色方案替换默认方案
-syntax on
+" The ":syntax enable" command will keep your current color settings.  This
+" allows using ":highlight" commands to set your preferred colors before or
+" after using this command.  If you want Vim to overrule your settings with the
+" defaults, use: > :syntax on
+"
+if !exists("g:syntax_on")
+    " 开启语法高亮功能
+    syntax enable
+endif
+" 允许用指定语法高亮配色方案替换默认方案
+" syntax on
 
 set number
 set relativenumber
@@ -153,6 +160,10 @@ set wildmenu
 "   - use ^] to jump to tag under cursor
 "   - g^] for ambiguous tags , it will show a list
 "   - ^t  to jump back the tag stack
+
+" ctags只需要在项目根目录下生成tag文件，通过以下配置，可以在任意子目录下打开
+" 递归向上层寻找tags文件
+set tags=tags;/
 
 " AUTOCOMPLETE:
 " The good stuff is documented in |ins-completion|
