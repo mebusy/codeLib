@@ -102,6 +102,8 @@ Bundle 'prettier/vim-prettier'
 Bundle 'christoomey/vim-tmux-navigator'
 " maxmize current window, default F3
 Bundle 'szw/vim-maximizer'
+" show git status
+Bundle 'airblade/vim-gitgutter.git'
 
 
 set smartindent  
@@ -408,3 +410,12 @@ autocmd BufWritePre *.rs  Neoformat
 " solve conflict with Netrw and tmux-navigator
 " Freed <C-l> in Netrw
 nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
+
+" for gitgutter update, override vim updatetime
+" set updatetime=400
+" or update the signs when you save a file
+autocmd BufWritePost * GitGutter
+
+
+
+
