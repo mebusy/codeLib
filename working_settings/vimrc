@@ -98,6 +98,9 @@ Bundle 'puremourning/vimspector'
 Bundle 'sbdchd/neoformat'
 " after plug install:  yarn install
 Bundle 'prettier/vim-prettier'
+" CTRL + hjkl to move between windows
+Bundle 'christoomey/vim-tmux-navigator'
+
 
 set smartindent  
 set tabstop=4  
@@ -398,7 +401,7 @@ autocmd BufWritePre *.rs  Neoformat
 " nnoremap <Leader>sv <C-w>s
 " nnoremap <Leader>sh <C-w>v
 " nnoremap <Leader>se <C-w>e
-nnoremap <Leader>sx :close<CR>
+" nnoremap <Leader>sx :close<CR>
 
 
 
