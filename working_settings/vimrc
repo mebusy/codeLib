@@ -100,6 +100,8 @@ Bundle 'sbdchd/neoformat'
 Bundle 'prettier/vim-prettier'
 " CTRL + hjkl to move between windows
 Bundle 'christoomey/vim-tmux-navigator'
+" maxmize current window, default F3
+Bundle 'szw/vim-maximizer'
 
 
 set smartindent  
