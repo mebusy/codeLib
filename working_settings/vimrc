@@ -405,6 +405,6 @@ autocmd BufWritePre *.rs  Neoformat
 " nnoremap <Leader>se <C-w>e
 " nnoremap <Leader>sx :close<CR>
 
-
-
-
+" solve conflict with Netrw and tmux-navigator
+" Freed <C-l> in Netrw
+nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
