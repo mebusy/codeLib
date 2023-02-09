@@ -394,3 +394,12 @@ autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
 " for rust:  brew install rustfmt
 autocmd BufWritePre *.rs  Neoformat
 
+" split window
+" nnoremap <Leader>sv <C-w>s
+" nnoremap <Leader>sh <C-w>v
+" nnoremap <Leader>se <C-w>e
+nnoremap <Leader>sx :close<CR>
+
+
+
+
