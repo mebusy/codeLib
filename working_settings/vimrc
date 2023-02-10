@@ -132,13 +132,11 @@ set ruler
 set number
 
 
-" " 高亮显示当前行/列
+" 高亮显示当前行/列
 " 注意 不要开下面四句，会导致 auto complete 看不见
-" set cursorline
+set cursorline
+:hi CursorLine cterm=bold ctermbg=black
 " set cursorcolumn
-" hi CursorLine   cterm=NONE ctermbg=234
-" hi CursorColumn cterm=NONE ctermbg=234
-
 
 " " 高亮显示搜索结果
 set hlsearch
@@ -256,13 +254,11 @@ let g:EclimFileTypeValidate = 0
 "  color 
 highlight Comment ctermfg=darkgray
 " colors for promt menu
-" highlight Pmenu ctermfg=14 ctermbg=0 guifg=#ffffff guibg=#000000
-" highlight PmenuSel ctermfg=9 ctermbg=0 guifg=#ffffff guibg=#000000
 
 " ycm Diagnostic error color
 highlight  YcmErrorSection  ctermfg=15   ctermbg=1
 
-hi MatchParen cterm=none ctermbg=none ctermfg=brown
+hi MatchParen cterm=none ctermbg=black ctermfg=brown
 
 " show table
 set list
