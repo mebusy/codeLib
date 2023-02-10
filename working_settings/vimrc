@@ -251,14 +251,17 @@ let g:syntastic_java_checkers = []
 " manually disable Eclim Java diagnostics.
 let g:EclimFileTypeValidate = 0
 
-"  color 
+" ========= COLORs ================
 highlight Comment ctermfg=darkgray
-" colors for promt menu
 
 " ycm Diagnostic error color
 highlight  YcmErrorSection  ctermfg=15   ctermbg=1
 
 hi MatchParen cterm=none ctermbg=black ctermfg=brown
+
+" ========= END COLORs ================
+
+
 
 " show table
 set list
