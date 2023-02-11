@@ -31,12 +31,12 @@ au BufWrite /private/etc/pw.* set nowritebackup nobackup
 " after using this command.  If you want Vim to overrule your settings with the
 " defaults, use: > :syntax on
 "
+" 允许用指定语法高亮配色方案替换默认方案
+" syntax on
 if !exists("g:syntax_on")
     " 开启语法高亮功能
     syntax enable
 endif
-" 允许用指定语法高亮配色方案替换默认方案
-" syntax on
 
 set number
 set relativenumber
@@ -133,9 +133,10 @@ set number
 
 
 " 高亮显示当前行/列
-" 注意 不要开下面四句，会导致 auto complete 看不见
 set cursorline
-:hi CursorLine cterm=bold ctermbg=black
+" !!!注意!!! 不要设置CursorLine 的 ctermbg 为黑色系颜色，
+" 会导致 YCMD 的api提示看不见
+:hi CursorLine cterm=bold 
 " set cursorcolumn
 
 " " 高亮显示搜索结果
