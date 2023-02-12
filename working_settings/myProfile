@@ -26,10 +26,12 @@ t2sgen() {
 }
 
 # use grep simulate mdfind
-myfind() {
+# case sensitive
+myfindc() {
     if [ "$#" -lt 1 ]; then
-        echo 'usage: myfind [options] "pattern" [path]'
+        echo 'usage: myfind [opts-with-value]* "pattern" [path] [-opts-no-value]'
         echo 'grep options supported'
+        echo e.g. 'myfind -m 4 -C 2 "ab test" -wh'
     else
         local  _opt="" 
         local _path="."
@@ -43,9 +45,12 @@ myfind() {
                 if [[ $1 != *=* ]] ; then
                     # if not contains `=`, then shift and read its value
                     _opt="$_opt $1"
-                    shift
-                    # quote it
-                    _opt="${_opt} "`printf "%q\n" "$1"`
+                    # if $# > 1, then
+                    if [ $# -gt 1 ]; then
+                        shift
+                        # quote it
+                        _opt="${_opt} "`printf "%q\n" "$1"`
+                    fi
                 else
                     # if contains `=`
                     # string before `=` and `=`
@@ -64,8 +69,8 @@ myfind() {
             shift
         done
 
-        # echo 'opts:' "$_opt", 'pattern:' "$_pattern", 'path:' "$_path"
-        bash -c "grep --color=always -rinI -m 1 \
+        # echo 'opts:' "$_opt" #, 'pattern:' "$_pattern", 'path:' "$_path"
+        bash -c "grep --color=always -rnI -m 1 \
             --exclude-dir=node_modules \
             --exclude-dir=.git \
             --exclude-dir=.\*_output \
@@ -75,6 +80,10 @@ myfind() {
     fi
 }
 
+# case insensitive
+myfind() {
+    myfindc "$@" -i
+}
 
 # ========================== JAVA =================================
 
