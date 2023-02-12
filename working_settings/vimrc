@@ -133,11 +133,18 @@ set number
 
 
 " 高亮显示当前行/列
-set cursorline
+set cursorline!
 " !!!注意!!! 不要设置CursorLine 的 ctermbg 为黑色系颜色，
 " 会导致 YCMD 的api提示看不见
 :hi CursorLine cterm=bold 
 " set cursorcolumn
+
+" set cursor line will cause mouse scroll very slow, 
+" the following 3 lines is about to solve this problem
+set lazyredraw
+set synmaxcol=128
+syntax sync minlines=256
+
 
 " " 高亮显示搜索结果
 set hlsearch
