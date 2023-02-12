@@ -122,6 +122,7 @@ export PATH="$PATH:/usr/local/sbin"
 
 # ========================== MISC =================================
 # pyenv
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
