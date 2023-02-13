@@ -136,3 +136,6 @@ export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
+alias so="source ~/.profile"
+
+
