@@ -423,6 +423,6 @@ nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
 " or update the signs when you save a file
 autocmd BufWritePost * GitGutter
 
-
-
+" let vim call function/alias defined in shell
+set shell=bash\ --login
 
