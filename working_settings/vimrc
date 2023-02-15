@@ -227,6 +227,7 @@ let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 let g:ycm_key_invoke_completion = '<C-a>'
 
 let g:ycm_confirm_extra_conf=0 " not ask to allow load ...
+" fallback
 if filereadable("/Volumes/WORK/.ycm_extra_conf.py")
     let g:ycm_global_ycm_extra_conf = "/Volumes/WORK/.ycm_extra_conf.py"
 else
