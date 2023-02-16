@@ -307,7 +307,13 @@ let g:ycm_semantic_triggers = {
 "
 nnoremap <Leader>t :TagbarToggle<CR>
 " If you want to open it only if you're opening Vim with a supported file/files use this instead:
-autocmd VimEnter * nested :call tagbar#autoopen(1)
+" if ctags is installed
+if executable('ctags')
+    " if ctags is not installed, tagbar will not be loaded
+    " and this autocmd will not be defined
+    autocmd VimEnter * nested :call tagbar#autoopen(1)
+endif
+
 " ============= end tagbar =====================
 
 " we also have F2 for diagnostics
