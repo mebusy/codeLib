@@ -132,7 +132,8 @@ export PATH="$PATH:/usr/local/sbin"
 # ========================== MISC =================================
 # pyenv
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
-export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
+# export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
+export PATH="$HOME/.pyenv/shims":$PATH
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
