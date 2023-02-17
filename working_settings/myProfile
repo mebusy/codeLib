@@ -140,12 +140,12 @@ export PATH="$HOME/.pyenv/shims":$PATH
 alias so="source ~/.profile"
 
 # x11
-local display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
-# if display_number is not empty, then set DISPLAY
-if [ -n "$display_number" ]; then
-    local _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
+_display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
+# if _display_number is not empty, then set DISPLAY
+if [ -n "$_display_number" ]; then
+     _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
     xhost + $_ip  &> /dev/null
-    export DISPLAY=$_ip$display_number
+    export DISPLAY=$_ip$_display_number
 else
     unset DISPLAY
 fi
