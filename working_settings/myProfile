@@ -146,7 +146,8 @@ if [ -n "$_display_number" ]; then
      _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
     xhost + $_ip  &> /dev/null
     export DISPLAY=$_ip$_display_number
+    unset _ip
 else
     unset DISPLAY
 fi
-
+unset _display_number
