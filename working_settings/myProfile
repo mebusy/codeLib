@@ -146,7 +146,7 @@ if [ -n "$display_number" ]; then
     local _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
     xhost + $_ip  > /dev/null
     local display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
-    export DISPLAY=$_ip:$display_number
+    export DISPLAY=$_ip$display_number
 else
     unset DISPLAY
 fi
