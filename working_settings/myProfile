@@ -87,18 +87,21 @@ myfind() {
 
 # ========================== JAVA =================================
 
-# Multiple JAVA versions
-export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
+# if OS is darwin
+if [ "$(uname)" = "Darwin" ]; then
+    # Multiple JAVA versions
+    export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+    export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+    export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
 
-# can switch java version by alias easily
-alias java8='export JAVA_HOME=$JAVA_8_HOME'
-alias java11='export JAVA_HOME=$JAVA_11_HOME'
-alias java17='export JAVA_HOME=$JAVA_17_HOME'
+    # can switch java version by alias easily
+    alias java8='export JAVA_HOME=$JAVA_8_HOME'
+    alias java11='export JAVA_HOME=$JAVA_11_HOME'
+    alias java17='export JAVA_HOME=$JAVA_17_HOME'
 
-#default java17
-export JAVA_HOME=$JAVA_17_HOME
+    #default java17
+    export JAVA_HOME=$JAVA_17_HOME
+fi
 
 # ========================== PROXY =================================
 ret=`lsof -i:3128`
@@ -140,14 +143,18 @@ export PATH="$HOME/.pyenv/shims":$PATH
 alias so="source ~/.profile"
 
 # x11
-_display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
-# if _display_number is not empty, then set DISPLAY
-if [ -n "$_display_number" ]; then
-     _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
-    xhost + $_ip  &> /dev/null
-    export DISPLAY=$_ip$_display_number
-    unset _ip
-else
-    unset DISPLAY
+if [ "$(uname)" = "Darwin" ]; then
+
+    _display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
+    # if _display_number is not empty, then set DISPLAY
+    if [ -n "$_display_number" ]; then
+         _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
+        xhost + $_ip  &> /dev/null
+        export DISPLAY=$_ip$_display_number
+        unset _ip
+    else
+        unset DISPLAY
+    fi
+    unset _display_number
+
 fi
-unset _display_number
