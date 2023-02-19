@@ -140,7 +140,7 @@ export PATH="$PATH:/usr/local/sbin"
 # pyenv
 if [ "$(uname)" = "Darwin" ]; then
     export PYTHON_CONFIGURE_OPTS="--enable-framework"
-if
+fi
 # export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 export PATH="$HOME/.pyenv/shims":$PATH
 
