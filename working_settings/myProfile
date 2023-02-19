@@ -138,7 +138,9 @@ export PATH="$PATH:/usr/local/sbin"
 
 # ========================== MISC =================================
 # pyenv
-export PYTHON_CONFIGURE_OPTS="--enable-framework"
+if [ "$(uname)" = "Darwin" ]; then
+    export PYTHON_CONFIGURE_OPTS="--enable-framework"
+if
 # export PATH="$HOME/.pyenv/versions/`cat $HOME/.pyenv/version`/bin":$PATH
 export PATH="$HOME/.pyenv/shims":$PATH
 
@@ -162,3 +164,4 @@ if [ "$(uname)" = "Darwin" ]; then
     unset _display_number
 
 fi
+
