@@ -51,59 +51,60 @@ call vundle#rc()
 " 使用Vundle来管理Vundle
 Bundle 'gmarik/vundle'
 
+" ------ syntax ------------------------
 Bundle 'majutsushi/tagbar'
 " systastic is used by java complete, and python syntax check
 Bundle 'scrooloose/syntastic'
+Bundle "ycm-core/YouCompleteMe"
 
-" auto add `end` for if, def, etc...
-Bundle 'tpope/vim-endwise'  
-" automatic closing of quotes, parenthesis, brackets, etc
-Bundle "Raimondi/delimitMate"
-
-" import for git status
-Bundle 'tpope/vim-fugitive'
-" ds cs ys 
-Bundle 'tpope/vim-surround'   
+" ------ language ----------------------
 Bundle 'vim-ruby/vim-ruby'
-" uses exuberant ctags to build the list of tags for the current file
-" Bundle 'vim-scripts/ctags.vim'
-Bundle 'vim-scripts/tComment'
-" html tag auto complete , html:5_ , when type  <c-y>, (Ctrl y ,)
+" html5 tag auto complete , html:5_ , when type  <c-y>, (Ctrl y ,)
 Bundle "mattn/emmet-vim"  
 " show css color
 Bundle "ap/vim-css-color"
-Bundle "Lokaltog/vim-powerline"
-
-" Bundle "othree/html5.vim"
-
 Bundle "chr4/nginx.vim"
-Bundle "Lokaltog/vim-easymotion"
-Bundle "ycm-core/YouCompleteMe"
-" Bundle "artur-shaik/vim-javacomplete2"
-
 " lua , Ctrl + a to show keyword promote
 Bundle "xolox/vim-misc"
 Bundle "xolox/vim-lua-ftplugin"
-
 " The tabular plugin must come before vim-markdown.
 Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
 
+" ------ assistant -------------------------
 Bundle 'github/copilot.vim'
 " extra installation: `./install_gadget.py --all`
 Bundle 'puremourning/vimspector'
 
 "auto format
-" Bundle 'vim-autoformat/vim-autoformat'
 Bundle 'sbdchd/neoformat'
 " after plug install:  yarn install
 Bundle 'prettier/vim-prettier'
+
+
+" ------ edit -----------------------------------
+" auto add `end` for if, def, etc...
+Bundle 'tpope/vim-endwise'  
+" automatic closing of quotes, parenthesis, brackets, etc
+Bundle "Raimondi/delimitMate"
+" ds cs ys 
+Bundle 'tpope/vim-surround'   
+Bundle 'vim-scripts/tComment'
+Bundle "Lokaltog/vim-easymotion"
 " CTRL + hjkl to move between windows
 Bundle 'christoomey/vim-tmux-navigator'
-" maxmize current window, default F3
+" maxmize current window, default F3, conflict with vim-inspector...
 Bundle 'szw/vim-maximizer'
-" show git status
+
+" ------ status -------------------------
+" git status in status line
+Bundle 'tpope/vim-fugitive'
+" git edit status
 Bundle 'airblade/vim-gitgutter.git'
+" Bundle "Lokaltog/vim-powerline"
+Bundle "vim-airline/vim-airline"
+
+
 
 
 set smartindent  
