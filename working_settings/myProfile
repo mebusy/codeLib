@@ -129,6 +129,8 @@ fi
 # ========================== GO =================================
 if command -v brew &> /dev/null; then
     export GOROOT="$(brew --prefix go)/libexec"
+elif [ "$(uname)" = "Linux" ]; then
+    export GOROOT="/usr/lib/golang"
 fi
 
 export PATH=$PATH:"$HOME/go/bin"
