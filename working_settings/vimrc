@@ -49,7 +49,7 @@ call vundle#rc()
 
 " Define bundles via Github repos
 " 使用Vundle来管理Vundle
-Bundle 'gmarik/vundle'
+Bundle 'mebusy/vundle'
 
 " ------ syntax ------------------------
 Bundle 'majutsushi/tagbar'
