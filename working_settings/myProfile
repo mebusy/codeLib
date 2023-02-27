@@ -47,9 +47,7 @@ t2sgen() {
     fi
 }
 
-# use grep simulate mdfind
-# case sensitive
-myfindc() {
+myfind() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [opts-with-value]* "pattern" [path] [-opts-no-value]'
         echo 'grep options supported'
@@ -92,7 +90,7 @@ myfindc() {
         done
 
         # echo 'opts:' "$_opt" #, 'pattern:' "$_pattern", 'path:' "$_path"
-        bash -c "grep --color=always -rnI -m 1 \
+        bash -c "grep --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
             --exclude-dir=.git \
             --exclude-dir=.\*_output \
@@ -100,11 +98,6 @@ myfindc() {
             --exclude=\*.min.{js,} \
             $_opt -e $_pattern $_path"
     fi
-}
-
-# case insensitive
-myfind() {
-    myfindc "$@" -i
 }
 
 # ========================== JAVA =================================
