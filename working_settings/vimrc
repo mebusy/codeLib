@@ -100,6 +100,8 @@ Bundle 'szw/vim-maximizer'
 " git status in status line
 Bundle 'tpope/vim-fugitive'
 " git edit status
+" will cover vimspector's break point sign
+" solution: set vimspector sign with higher priroty
 Bundle 'airblade/vim-gitgutter.git'
 " Bundle "Lokaltog/vim-powerline"
 Bundle "vim-airline/vim-airline"
@@ -328,6 +330,16 @@ if $http_proxy != ""
     let g:copilot_proxy = 'localhost:3128'
 endif
 
+
+" adjust the sign priority, to prevent them from being hidden by other's
+let g:vimspector_sign_priority = {
+  \    'vimspectorBP':         999,
+  \    'vimspectorBPCond':     999,
+  \    'vimspectorBPLog':      999,
+  \    'vimspectorBPDisabled': 999,
+  \    'vimspectorPC':         999,
+  \ }
+
 " vim-inspector
 let g:vimspector_enable_mappings = 'HUMAN'
 " F9: add breakpoint
@@ -426,10 +438,13 @@ autocmd BufWritePre *.rs  Neoformat
 " Freed <C-l> in Netrw
 nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
 
-" for gitgutter update, override vim updatetime
-" set updatetime=400
-" or update the signs when you save a file
-autocmd BufWritePost * GitGutter
+" check whether have Bundle vim-gitgutter
+if exists('g:loaded_gitgutter')
+    " for gitgutter update, override vim updatetime
+    " set updatetime=400
+    " or update the signs when you save a file
+    autocmd BufWritePost * GitGutter
+endif
 
 " let vim call function/alias defined in shell
 set shell=bash\ --login
