@@ -401,23 +401,23 @@ autocmd BufWritePre *.py,*.go Neoformat
 " let syntastic_aggregate_errors = 1
 
 
-
+" example:
 " let g:neoformat_cpp_clangformat = {
 "     \ 'exe': 'clang-format',
 "     \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 120}"'],
 " \}
 " let g:neoformat_enabled_cpp = ['clangformat']
 
-for lang in ["c", "cpp"]
-    let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
-            \ . "'exe': 'clang-format',"
-            \ . "'args': ['--style=\"{IndentWidth: 4, ColumnLimit: 120}\"'], "
-            \ . "}"
-    execute cmd
-
-    let cmd="let g:neoformat_enabled_" . lang . " = ['clangformat']"
-    execute cmd
-endfor
+" for lang in ["c", "cpp"]
+"     let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
+"             \ . "'exe': 'clang-format',"
+"             \ . "'args': ['--style=\"{IndentWidth: 4, ColumnLimit: 120}\"'], "
+"             \ . "}"
+"     execute cmd
+"
+"     let cmd="let g:neoformat_enabled_" . lang . " = ['clangformat']"
+"     execute cmd
+" endfor
 
 
 
