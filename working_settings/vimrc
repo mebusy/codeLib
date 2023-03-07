@@ -406,8 +406,7 @@ autocmd BufWritePre *.py,*.go Neoformat
 "     \ 'exe': 'clang-format',
 "     \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 120}"'],
 " \}
-
-let g:neoformat_enabled_cpp = ['clangformat']
+" let g:neoformat_enabled_cpp = ['clangformat']
 
 for lang in ["c", "cpp", "cs"]
     let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
