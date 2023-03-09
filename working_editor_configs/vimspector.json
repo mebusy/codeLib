@@ -143,18 +143,19 @@
         "BUILDME": {
           "shell": ["/bin/bash", "-c", "dotnet build"]
         },
-        "absProg": {
+        "relProg": {
           "shell": [
             "/bin/bash",
             "-c",
-            "ls ${cwd}/*.sln | awk -F '[./]'  'NR==1{print $(NF-1)}' | xargs -I zzz find ${cwd}/bin/Debug/ -maxdepth 2 -type f -name zzz.dll"
+            "ls *.sln | sed 's|sln|dll|' | xargs -I f001 find bin/Debug/ -maxdepth 2 -type f -name f001"
           ]
         }
       },
       "configuration": {
         "cwd": "${cwd}",
         "request": "launch",
-        "program": "${absProg}",
+        "program": "${cwd}/${relProg}",
+        //"program": "/Volumes/WORK/WORK/JD/jd-socket/test/client/bin/Debug/net6.0/client.dll",
         "args": [],
         "stopAtEntry": true
       }

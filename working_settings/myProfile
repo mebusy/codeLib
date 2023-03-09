@@ -132,8 +132,6 @@ export GO111MODULE=on
 # ========================== BREW =================================
 # sbin
 export PATH="$PATH:/usr/local/sbin"
-# dotnet
-export PATH="/usr/local/opt/dotnet@6/bin:$PATH"
 
 
 # ========================== MISC =================================
