@@ -134,6 +134,30 @@
         "MIMode": "lldb",
         "MIDebuggerPath": "$HOME/.vim/bundle/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb/bin/lldb-mi"
       }
-    } // end lldb a.out
+    }, // end lldb a.out
+
+    "[c# launch]": {
+      // :VimspectorInstall netcoredbg
+      "adapter": "netcoredbg",
+      "variables": {
+        "BUILDME": {
+          "shell": ["/bin/bash", "-c", "dotnet build"]
+        },
+        "absProg": {
+          "shell": [
+            "/bin/bash",
+            "-c",
+            "ls ${cwd}/*.sln | awk -F '[./]'  'NR==1{print $(NF-1)}' | xargs -I zzz find ${cwd}/bin/Debug/ -maxdepth 2 -type f -name zzz.dll"
+          ]
+        }
+      },
+      "configuration": {
+        "cwd": "${cwd}",
+        "request": "launch",
+        "program": "${absProg}",
+        "args": [],
+        "stopAtEntry": true
+      }
+    } // end csharp
   } // end configurations
 }
