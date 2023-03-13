@@ -332,7 +332,7 @@ endif
 
 " do not override other signs
 let g:gitgutter_sign_allow_clobber = 0
-
+let g:gitgutter_sign_priority = 0
 
 " adjust the sign priority, to prevent them from being hidden by other's
 " let g:vimspector_sign_priority = {
