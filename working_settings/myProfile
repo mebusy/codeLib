@@ -49,7 +49,7 @@ t2sgen() {
 
 myfind() {
     if [ "$#" -lt 1 ]; then
-        echo 'usage: myfind [opts-with-value]* "pattern" [path] [-opts-no-value]'
+        echo 'usage: myfind [-opts]* "pattern" [path] [-opts]'
         echo 'grep options supported'
         echo e.g. 'myfind -m 4 -C 2 "ab test" -wh'
     else
