@@ -48,12 +48,16 @@
       }
     },
     "[go] run (cur opened file)": {
-      "adapter": "vscode-go",
+      "adapter": "delve",
       "breakpoints": {
         "exception": {
           "all": "N",
           "uncaught": "N"
         }
+      },
+      "variables": {
+        // to disable version check
+        "dlvFlags": "--check-go-version=false"
       },
       "configuration": {
         "request": "launch",
