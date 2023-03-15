@@ -133,6 +133,8 @@ set laststatus=2
 set ruler
 " " 开启行号显示
 set number
+" 增加cmdline的行数，有时候YCMD 很长的错误信息显示不下的时候，很恼人
+" set cmdheight=2
 
 
 " 高亮显示当前行/列
