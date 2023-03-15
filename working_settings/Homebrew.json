@@ -103,9 +103,11 @@
   "Disable Window Resizing" : true,
   "Screen" : -1,
   "Selection Color" : {
-    "Green Component" : 0.8353000283241272,
+    "Red Component" : 0.70980392156862748,
+    "Color Space" : "sRGB",
     "Blue Component" : 1,
-    "Red Component" : 0.70980000495910645
+    "Alpha Component" : 1,
+    "Green Component" : 0.83529411764705885
   },
   "Mouse Reporting" : true,
   "Columns" : 80,
@@ -125,9 +127,11 @@
   "Use Bold Font" : true,
   "Option Key Sends" : 0,
   "Selected Text Color" : {
-    "Green Component" : 0,
+    "Red Component" : 0,
+    "Color Space" : "sRGB",
     "Blue Component" : 0,
-    "Red Component" : 0
+    "Alpha Component" : 1,
+    "Green Component" : 0
   },
   "Background Color" : {
     "Red Component" : 0,
@@ -337,9 +341,11 @@
   },
   "Name" : "Homebrew",
   "Cursor Text Color" : {
-    "Green Component" : 1,
-    "Blue Component" : 1,
-    "Red Component" : 1
+    "Red Component" : 0.66274509803921566,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0,
+    "Alpha Component" : 1,
+    "Green Component" : 0.43026409559774254
   },
   "Minimum Contrast" : 0,
   "Shortcut" : "",
@@ -398,10 +404,10 @@
   },
   "Horizontal Spacing" : 1.05,
   "Ansi 3 Color" : {
-    "Red Component" : 0.66383612155914307,
+    "Red Component" : 0.66274509803921566,
     "Color Space" : "sRGB",
     "Blue Component" : 0,
     "Alpha Component" : 1,
-    "Green Component" : 0.65436583757400513
+    "Green Component" : 0.65490196078431373
   }
 }
