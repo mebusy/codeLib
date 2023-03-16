@@ -1,4 +1,4 @@
-#!bash
+#!/bin/sh
 
 # to format .json
 # python -m json.tool --sort-keys Homebrew.json Homebrew.json
