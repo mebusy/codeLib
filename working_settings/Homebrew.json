@@ -34,7 +34,7 @@
         "Blue Component": 1,
         "Color Space": "sRGB",
         "Green Component": 0.1983414590358734,
-        "Red Component": 0.016841916367411613
+        "Red Component": 0.01684191636741162
     },
     "Ansi 13 Color": {
         "Alpha Component": 1,
@@ -372,6 +372,7 @@
     "Rows": 25,
     "Screen": -1,
     "Scrollback Lines": 1000,
+    "Scrollback in Alternate Screen": false,
     "Selected Text Color": {
         "Alpha Component": 1,
         "Blue Component": 0,
