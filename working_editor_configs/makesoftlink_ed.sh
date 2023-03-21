@@ -12,8 +12,14 @@ fi
 # for-loop get files in current directory
 
 for file in *; do
-    # if file is not a bash file, and not a directory
-    if [[ ! $file == *.sh ]] && [[ ! -d $file ]]; then
+    # if file name is "ctags"
+    if [[ $file == ctags ]]; then
+        target_file=~/.ctags
+        # force solftlink to target file
+        ln -sf $PWD/$file $target_file
+        ls -l $target_file
+    elif [[ ! $file == *.sh ]] && [[ ! -d $file ]]; then
+        # if file is not a bash file, and not a directory
         target_file=${TARGET_DIR}/.$file
         # force solftlink to target file
         ln -sf $PWD/$file $target_file
