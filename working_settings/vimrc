@@ -183,6 +183,9 @@ set wildmenu
 " ctags只需要在项目根目录下生成tag文件，通过以下配置，可以在任意子目录下打开
 " 递归向上层寻找tags文件
 set tags=tags;/
+" Open tag in new tab
+nnoremap <C-]> <C-w><C-]><C-w>T
+set switchbuf=usetab
 
 " AUTOCOMPLETE:
 " The good stuff is documented in |ins-completion|
