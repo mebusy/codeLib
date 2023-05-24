@@ -411,7 +411,7 @@ nnoremap <F2> :call ToggleSyntastic()<CR>
 
 " Neoformat more languages support : https://github.com/sbdchd/neoformat#supported-filetypes
 " Neoformat js: install prettier via npm or brew
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html,*.java  Neoformat
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html,*.java,*.lua  Neoformat
 " In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
 " let g:neoformat_try_node_exe = 1
 
