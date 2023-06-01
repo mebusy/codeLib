@@ -47,11 +47,21 @@ t2sgen() {
     fi
 }
 
+
+# grep  implies grep -G
+# egrep implies grep -E
+#
+# There are two interpretations of the syntax in regex patterns. The difference is in the behavior of a few special characters, ?, +, (), {}, and |.
+#
+# BRE (Basic Regular Expression) – these characters do not have special meaning unless prefixed with a backslash \.
+# ERE (Extended Regular Expression) – these characters are special, unless prefixed with a backslash \.
+
 myfind() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [-opts]* "pattern" [path] [-opts]'
         echo 'grep options supported'
         echo e.g. 'myfind -m 4 -C 2 "ab test" -wh'
+        echo 'use -E to switch egrep mode no MacOSX'
     else
         local  _opt="" 
         local _path="."
