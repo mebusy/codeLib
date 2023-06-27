@@ -11,6 +11,9 @@
 
 export LC_ALL=en_US.UTF-8
 
+# gnu coreutils
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 
 # ========================== PROXY =================================
 ret=`lsof -i:3128`
@@ -173,4 +176,6 @@ if [ "$(uname)" = "Darwin" ]; then
     unset _display_number
 
 fi
+
+
 
