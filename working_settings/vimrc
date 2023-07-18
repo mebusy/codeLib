@@ -247,8 +247,11 @@ endif
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
 
 " use python3 as checker , or you can try flake8, or pylint
-" python -m pip install pylint
-let g:syntastic_python_checkers = ['flake8', 'python3']
+"   python -m pip install pylint
+"   python -m pip show -f flake8  # find flake8 path
+" for python3 annotation type check
+"   python -m pip install mypy
+let g:syntastic_python_checkers = ['flake8', 'python3', 'mypy']
 let g:syntastic_python_python_exec = 'python3'
 
 let g:syntastic_python_flake8_args = '--max-line-length=120 --ignore=E203'
