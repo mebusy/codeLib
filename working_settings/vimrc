@@ -254,7 +254,7 @@ autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!
 let g:syntastic_python_checkers = ['flake8', 'python3', 'mypy']
 let g:syntastic_python_python_exec = 'python3'
 
-let g:syntastic_python_flake8_args = '--max-line-length=120 --ignore=E203'
+let g:syntastic_python_flake8_args = '--max-line-length=120 --ignore=E203,E501'
 " let g:syntastic_python_flake8_args='--ignore=E,W,F401'
 " let g:syntastic_python_flake8_args='--ignore=W391,E501,E201,E202,E203,E221,E222,E225,E226,E231,E251,F841'
 " let g:syntastic_python_flake8_args='--ignore=W291,W293,W391,E201,E202,E203,E211,E221,E222,E231,E241,E251,E261,E262,E265,E272,E301,E302,E303,E501,F405'
