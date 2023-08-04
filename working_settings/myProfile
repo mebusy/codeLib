@@ -165,7 +165,9 @@ if [ "$(uname)" = "Darwin" ]; then
     if [ -n "$_display_number" ]; then
          _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
         xhost + $_ip  &> /dev/null
+        xhost + localhost &> /dev/null
         export DISPLAY=$_ip$_display_number
+        export DISPLAY_L=host.docker.internal$_display_number
         unset _ip
     else
         unset DISPLAY
