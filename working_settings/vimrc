@@ -72,6 +72,8 @@ Bundle "xolox/vim-lua-ftplugin"
 Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
 
+Plugin 'tikhomirov/vim-glsl'
+
 " ------ assistant -------------------------
 Bundle 'github/copilot.vim'
 " extra installation: `./install_gadget.py --all`
@@ -481,3 +483,5 @@ endif
 " let vim call function/alias defined in shell
 set shell=bash\ --login
 
+" GSGL
+autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
