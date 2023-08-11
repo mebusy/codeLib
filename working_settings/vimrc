@@ -92,7 +92,7 @@ Bundle 'tpope/vim-endwise'
 Bundle "Raimondi/delimitMate"
 " ds cs ys 
 Bundle 'tpope/vim-surround'   
-Bundle 'vim-scripts/tComment'
+Bundle 'tomtom/tcomment_vim'
 Bundle "Lokaltog/vim-easymotion"
 " CTRL + hjkl to move between windows
 Bundle 'christoomey/vim-tmux-navigator'
