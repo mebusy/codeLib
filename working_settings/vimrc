@@ -253,7 +253,7 @@ autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!
 "   python -m pip show -f flake8  # find flake8 path
 " for python3 annotation type check
 "   python -m pip install mypy
-let g:syntastic_python_checkers = ['flake8', 'python3', 'mypy']
+let g:syntastic_python_checkers = ['flake8', 'python3'] # , 'mypy'
 let g:syntastic_python_python_exec = 'python3'
 
 let g:syntastic_python_flake8_args = '--max-line-length=120 --ignore=E203,E501'
