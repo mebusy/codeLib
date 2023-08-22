@@ -105,7 +105,7 @@ Bundle 'tpope/vim-fugitive'
 " git edit status
 " will cover vimspector's break point sign
 " solution: set vimspector sign with higher priroty
-Bundle 'airblade/vim-gitgutter.git'
+Bundle 'airblade/vim-gitgutter'
 " Bundle "Lokaltog/vim-powerline"
 Bundle "vim-airline/vim-airline"
 
