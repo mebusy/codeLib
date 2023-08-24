@@ -29,8 +29,7 @@ done
 
 
 for file in eslint_prettier/JS/.*; do
-    if [[ ! $file == *.sh ]] && [[ ! -d $file ]]; then
-        # if file is not a bash file, and not a directory
+    if [[ ! $file == *.sh ]] && [[ ! $file == *.eslintrc.js ]]  && [[ ! -d $file ]]; then
         # remove path from $file
         fileName=${file##*/}
         target_file=${TARGET_DIR}/$fileName
