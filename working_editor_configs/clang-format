@@ -1,4 +1,25 @@
-IndentWidth: 4
-AccessModifierOffset: -4
-ColumnLimit: 0
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+---
+BasedOnStyle: LLVM
 
+AccessModifierOffset: -4
+IndentWidth: 4
+UseTab: Never
+
+AlignEscapedNewlines: Left
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+AlwaysBreakTemplateDeclarations: true
+BreakConstructorInitializers: BeforeComma
+IndentPPDirectives: AfterHash
+
+ColumnLimit: 135
+
+---
+Language: Cpp
+Standard: Cpp11
+PointerAlignment: Left
+
+---
+Language: CSharp
+BreakBeforeBraces: Allman
