@@ -4,8 +4,43 @@ import tkinter as tk
 from functools import partial
 from random import sample
 import time
-
 import os
+import uuid
+import sqlite3
+
+
+db_path = os.path.expanduser("~/Desktop/mathQuiz.db")
+
+
+def initDB():
+    # create a sqlite3 database in '~/Desktop/mathQuiz.db'
+    # create a table quiz
+    # {
+    #   id , # number, unique  autoIncreament
+    #   quizId, # text
+    #   question,  # text
+    #   answer, # number
+    #   correct, # number
+    #   timeElapse , # number
+    #   date, # text
+    # }
+    #
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute(
+        """CREATE TABLE IF NOT EXISTS quiz (
+        id integer PRIMARY KEY AUTOINCREMENT,
+        quizId text NOT NULL,
+        question text NOT NULL,
+        answer integer NOT NULL,
+        correct BOOLEAN NOT NULL,
+        timeElapse integer NOT NULL,
+        date text NOT NULL
+        ) """
+    )
+
+
+initDB()
 
 
 def say(msg="Finish"):
@@ -19,6 +54,8 @@ nQuestion = 20
 score = 0
 questionIndex = 0
 startTime = 0
+questionStartTime = 0
+quizId = 0
 
 # window
 win = tk.Tk()
@@ -29,6 +66,8 @@ screen_height = win.winfo_screenheight()
 
 WIDTH = screen_width * 3 // 4
 HEIGHT = screen_height * 5 // 6
+
+WIDTH, HEIGHT = 400, 320  # debug
 win.geometry(f"{WIDTH}x{HEIGHT}")
 
 
@@ -46,23 +85,27 @@ btn_answers = []
 
 
 def init():
-    global score, questionIndex, startTime
+    global score, questionIndex, startTime, quizId, questionStartTime
     score = 0
     questionIndex = 0
     startTime = time.time()
+    questionStartTime = startTime
+    quizId = uuid.uuid4().hex
     for btn in btn_answers:
         # disable btn
         btn.config(state="disabled")
 
 
 def finishQuiz():
-    question.config(text=f"你的得分是:{score}\n共用时:{time.time()-startTime:.2f}秒")
+    question.config(text=f"你的得分是:{score}\n共用时:{time.time() - startTime:.2f}秒")
     for btn in btn_answers:
         # disable btn
         btn.config(state="disabled")
 
 
 def newQuestion():
+    global questionIndex, questionStartTime
+
     subTitle.config(text=f"{questionIndex+1}/{nQuestion}")
 
     # operand1 op1 operand2 op2 operand3 = result
@@ -97,6 +140,8 @@ def newQuestion():
             fakeAnswers = [result - 2, result - 1, result + 1, result + 2]
             if result > 10:
                 fakeAnswers += [result - 10, result - 9, result - 11]
+            elif result < 10:
+                fakeAnswers += [result + 10, result + 9, result + 11]
 
             if result in fakeAnswers:
                 fakeAnswers.remove(result)
@@ -104,12 +149,20 @@ def newQuestion():
             # remove negative answer
             fakeAnswers = [x for x in fakeAnswers if x >= 0]
 
+            if len(fakeAnswers) < len(btn_answers):
+                continue
+
+            # set questionStartTime
+            questionStartTime = time.time()
+
             answer_options = sample(list(set(fakeAnswers)), 3)
             answer_options.append(result)
             # print(answer_options)
             # assign answer_options to 4 bottons
+
             for i in range(4):
                 btn_answers[i].config(text=answer_options[i])
+
             break
     pass
 
@@ -118,7 +171,8 @@ def newQuestion():
 def answer_click(btn_index):
     global score, questionIndex
 
-    correct_answer = eval(question.cget("text")[:-3])
+    q = question.cget("text")[:-3]
+    correct_answer = eval(q)
     picked_answer = int(btn_answers[btn_index].cget("text"))
 
     correct = correct_answer == picked_answer
@@ -131,6 +185,22 @@ def answer_click(btn_index):
         question.config(text=":(")
         voices = ["Keep Going.", "Try Again.", "You Can Do It.", "Don't Give Up."]
         say(sample(voices, 1)[0])
+
+    # save to db
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute(
+        "INSERT INTO quiz ( quizId, question, answer, correct, timeElapse, date) VALUES (?, ?, ?, ?, ?, ?)",
+        (
+            quizId,
+            q,
+            picked_answer,
+            correct,
+            time.time() - questionStartTime,
+            time.strftime("%Y-%m-%d %H:%M:%S"),
+        ),
+    )
+    conn.commit()
 
     questionIndex += 1
 
