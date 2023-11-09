@@ -1,6 +1,7 @@
 #!python3
 
 import tkinter as tk
+from tkinter.messagebox import showinfo
 from functools import partial
 from random import sample
 import time
@@ -67,7 +68,9 @@ screen_height = win.winfo_screenheight()
 WIDTH = screen_width * 3 // 4
 HEIGHT = screen_height * 5 // 6
 
-WIDTH, HEIGHT = 400, 320  # debug
+# WIDTH, HEIGHT = 400, 320  # debug
+# nQuestion = 2  # debug
+
 win.geometry(f"{WIDTH}x{HEIGHT}")
 
 
@@ -96,12 +99,34 @@ def init():
         btn.config(state="disabled")
 
 
+def showlast20records():
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute(
+        "SELECT id, question, answer, correct, timeElapse FROM quiz ORDER BY id DESC LIMIT 20"
+    )
+    records = c.fetchall()
+    records.reverse()
+
+    qs = []
+    for i, record in enumerate(records):
+        id, question, answer, correct, timeElapse = record
+        mark = "✔️" if correct else "❌"
+        qs.append(f"{i+1:2d}:  {question} = {answer}  {mark}  用时:{timeElapse:.2f}")
+
+    showinfo("last 20 records", "\n".join(qs))
+
+    # now you can re-start the quiz
+    btn_start.config(state="normal")
+
+
 def finishQuiz():
     question.config(text=f"你的得分是:{score}\n共用时:{time.time() - startTime:.2f}秒")
     for btn in btn_answers:
         # disable btn
         btn.config(state="disabled")
-    btn_start.config(state="normal")
+
+    win.after(1000, showlast20records)
 
 
 def newQuestion():
@@ -135,7 +160,7 @@ def newQuestion():
         if result >= 0 and result < 20:
             # show question
             question.config(
-                text=f"{operand1} {op1} {operand2} {op2} {operand3} = ?",
+                text=f"{operand1:2d} {op1} {operand2:2d} {op2} {operand3:2d} = ?",
                 bg="white",
             )
             fakeAnswers = [result - 2, result - 1, result + 1, result + 2]
@@ -158,9 +183,11 @@ def newQuestion():
 
             answer_options = sample(list(set(fakeAnswers)), 3)
             answer_options.append(result)
+            # shuffle answer_options
+            answer_options = sample(answer_options, 4)
+
             # print(answer_options)
             # assign answer_options to 4 bottons
-
             for i in range(4):
                 btn_answers[i].config(text=answer_options[i], state="normal")
 
@@ -246,6 +273,7 @@ btn_start = tk.Button(
 btn_start.place(x=0, rely=0.03)
 
 init()
+
 
 # mainloop
 win.mainloop()
