@@ -101,6 +101,7 @@ def finishQuiz():
     for btn in btn_answers:
         # disable btn
         btn.config(state="disabled")
+    btn_start.config(state="normal")
 
 
 def newQuestion():
@@ -161,7 +162,7 @@ def newQuestion():
             # assign answer_options to 4 bottons
 
             for i in range(4):
-                btn_answers[i].config(text=answer_options[i])
+                btn_answers[i].config(text=answer_options[i], state="normal")
 
             break
     pass
@@ -170,6 +171,10 @@ def newQuestion():
 # 4 bottons for 4 answers
 def answer_click(btn_index):
     global score, questionIndex
+
+    # disable btn_answers
+    for btn in btn_answers:
+        btn.config(state="disabled")
 
     q = question.cget("text")[:-3]
     correct_answer = eval(q)
@@ -226,6 +231,8 @@ def start_click():
     for btn in btn_answers:
         # enable btn
         btn.config(state="normal")
+    btn_start.config(state="disabled")
+
     newQuestion()
 
 
