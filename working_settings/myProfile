@@ -179,3 +179,11 @@ if [ "$(uname)" = "Darwin" ]; then
 
 fi
 
+# shinker.py 
+if [ "$(uname)" = "Darwin" ]; then
+    pathShinker=`mdfind -onlyin /Volumes/WORK  -name shinker.py 2>/dev/null`
+    if [ -n "$pathShinker" ]; then
+        alias shinker="python3 $pathShinker"
+    fi
+fi
+
