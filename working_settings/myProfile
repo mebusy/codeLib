@@ -16,6 +16,13 @@ export LC_ALL=en_US.UTF-8
 ret=`lsof -i:3128`
 if [ -n "$ret" ] ; then
     # proxy tunnel is running
+    # for authenticate proxy
+    #   use cntlm 
+    # for non-auth proxy
+    #   brew install samuong/alpaca/alpaca
+    #   brew services start alpaca  
+    #   launchd: ~/Library/LaunchAgents/homebrew.mxcl.alpaca.plist
+    #   log: /usr/local/var/log/alpaca.log
     export _proxy=127.0.0.1:3128
 
     export  http_proxy=http://$_proxy
@@ -27,7 +34,7 @@ if [ -n "$ret" ] ; then
     export  HTTP_proxy=$http_proxy
     export HTTPS_proxy=$https_proxy
 
-    export NO_PROXY="localhost,127.0.0.1,10.192.*,192.168.*,kubernetes.docker.internal"
+    export NO_PROXY="localhost,127.0.0.1,10.192.*,192.168.*,10.242.*,kubernetes.docker.internal,wpad"
     export no_proxy=$NO_PROXY
 fi
 
