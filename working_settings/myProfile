@@ -125,7 +125,7 @@ myfind() {
 # if OS is darwin
 if [ "$(uname)" = "Darwin" ]; then
     # Multiple JAVA versions
-    export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8.0)
+    export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8.0_)
     export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
     export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
 
