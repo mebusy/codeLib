@@ -47,7 +47,7 @@
         "program": "${file}"
       }
     },
-    "[go] run (cur opened file)": {
+    "[go] run (cur dir)": {
       "adapter": "delve",
       "breakpoints": {
         "exception": {
@@ -61,7 +61,7 @@
       },
       "configuration": {
         "request": "launch",
-        "program": "${file}",
+        "program": "${fileDirname}",
         // ask user to profice the arguments
         "args": ["*${CommandLineArgs}"],
         "mode": "debug",
@@ -70,6 +70,30 @@
         "cwd": "${cwd}"
       }
     }, // end [go] run
+
+    "[go] test": {
+      "adapter": "delve",
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "variables": {
+        // to disable version check
+        "dlvFlags": "--check-go-version=false"
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${fileDirname}",
+        // ask user to profice the arguments
+        "args": ["*${CommandLineArgs}"],
+        "mode": "test",
+        "trace": true,
+        "env": { "GO111MODULE": "on" },
+        "cwd": "${cwd}"
+      }
+    }, // end [go] test
 
     "[python] run (cur opened file)": {
       "adapter": "debugpy",
