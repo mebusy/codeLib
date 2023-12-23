@@ -12,7 +12,7 @@
 
   "configurations": {
     "[node] attach (debugger port)": {
-      "adapter": "vscode-node",
+      "adapter": "js-debug",
       // "default": true,
       "breakpoints": {
         "exception": {
@@ -20,18 +20,20 @@
           "uncaught": "N"
         }
       },
+      "variables": {
+        "debug_port": "${debug_port:9229}"
+      },
       "configuration": {
         "name": "Attaching to a process ID",
-        "type": "node",
+        "type": "pwa-node",
         "request": "attach",
         "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
-        // provide default port
-        "port": "${port:9229}",
-        "processId": "$(lsof -ti:${port})"
+        "port": "${debug_port}"
+        // "processId": "$(lsof -ti:\"${debug_port}\")"
       }
     },
     "[node] run (cur opened file)": {
-      "adapter": "vscode-node",
+      "adapter": "js-debug",
       "breakpoints": {
         "exception": {
           "all": "N",
@@ -40,7 +42,7 @@
       },
       "configuration": {
         "name": "Launch Program",
-        "type": "node",
+        "type": "pwa-node",
         "request": "launch",
         "stopOnEntry": true,
         "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
