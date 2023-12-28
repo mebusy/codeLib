@@ -425,6 +425,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " Neoformat Go : gofmt
 autocmd BufWritePre *.py,*.go Neoformat
 " Neoformat lua : brew install stylua
+" ignore stylua:  -- stylua: ignore start  /  -- stylua: ignore end
 autocmd BufWritePre *.lua Neoformat
 
 " check cpp syntax : cpplint, currently can work with YCMD
