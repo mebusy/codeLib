@@ -487,3 +487,14 @@ set shell=bash\ --login
 
 " GSGL
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
+
+
+if !exists('g:lasttab')
+  let g:lasttab = 1
+endif
+" override normal <C-o> behavior (switch between buffers) to switch between tabs
+map <C-o> :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+
