@@ -205,8 +205,8 @@ let g:netrw_altv=1
 let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-" netrw windows size
-let g:netrw_winsize=20
+" netrw new windows size , in percent
+let g:netrw_winsize=25
 
 
 
@@ -215,7 +215,15 @@ let g:netrw_winsize=20
 " - check |netrw-browse-maps| for more mappings
 
 " 查看工程文件。设置快捷键，速记：file list
-nmap <Leader>fl :Lex<CR>
+" nmap <Leader>fl :Lex<CR>
+" nmap <Leader>fl if &filetype == 'netrw' | :bd | endif
+nmap <expr> <Leader>fl  &filetype == 'netrw'  ? '' : ':Lex<CR>' 
+" other netrw commands
+" ctrl+w J  This moves the current window to fill the bottom of the screen
+" ctrl+w r  This 'rotates' the windows in the current row, leaving you with:
+" ctrl+w H  This moves the current window to fill the left of the screen
+
+
 
 " SNIPPETS:
 " Read an empty HTML template and move cursor to title
@@ -471,7 +479,7 @@ autocmd BufWritePre *.rs  Neoformat
 " nnoremap <Leader>sx :close<CR>
 
 " solve conflict with Netrw and tmux-navigator
-" Freed <C-l> in Netrw
+" just Freed <C-l> in Netrw, so as to use <C-l> in tmux-navigator
 nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
 
 " check whether have Bundle vim-gitgutter
@@ -489,6 +497,7 @@ set shell=bash\ --login
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 
+" tab naviagor: Ctrl + o  jump to last active tab
 if !exists('g:lasttab')
   let g:lasttab = 1
 endif
@@ -496,5 +505,10 @@ endif
 map <C-o> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+" tab navigator
+if has('macunix')
+    map t<Left> :tabprevious<CR>
+    map t<Right> :tabnext<CR>
+endif
 
 
