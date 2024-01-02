@@ -68,7 +68,6 @@ myfind() {
         echo 'usage: myfind [-opts]* "pattern" [path] [-opts]'
         echo 'grep options supported'
         echo e.g. 'myfind -m 4 -C 2 "ab test" -wh'
-        echo 'use -E to switch egrep mode on MacOSX'
     else
         local  _opt="" 
         local _path="."
@@ -111,7 +110,9 @@ myfind() {
         #
         # --exclude-dir='./.*'  is to ignore all hidden folders starts with `.`
         # echo 'opts:' "$_opt" #, 'pattern:' "$_pattern", 'path:' "$_path"
-        bash -c "grep --color=always -rinI -m 1 \
+        #
+        #  'use -E to switch egrep mode on MacOSX'
+        bash -c "grep -E --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
             --exclude-dir='./.*'    \
             --exclude=\*.{log,} \
