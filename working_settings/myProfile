@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 # to use , vi ~/.profile, add...
 # myProfile=~/".myProfile" 
 # if [ -L "$myProfile" ]
@@ -63,7 +64,8 @@ t2sgen() {
 # BRE (Basic Regular Expression) – these characters do not have special meaning unless prefixed with a backslash \.
 # ERE (Extended Regular Expression) – these characters are special, unless prefixed with a backslash \.
 
-myfind() {
+# deprecated, use myfind instead
+myfind2() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [-opts]* "pattern" [path] [-opts]'
         echo 'grep options supported'
@@ -193,5 +195,13 @@ if [ "$(uname)" = "Darwin" ]; then
     if [ -n "$pathShinker" ]; then
         alias shinker="python3 $pathShinker"
     fi
+fi
+
+
+
+myProfileGrep=~/".myProfileGrep"
+if [ -L "$myProfileGrep" ]
+then
+    source $myProfileGrep
 fi
 

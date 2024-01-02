@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# do NOT put `#` in pythong code
+_pyArgStr='
+import sys
+import re
+
+RE_DOULB_UNDERLINE_ARG = re.compile(r"^(--[a-zA-Z0-9-]+=)(.*)?$")
+
+if __name__ == "__main__":
+    args = []
+    patterns = []
+    i = 1
+    while i < len(sys.argv):
+        arg = sys.argv[i]
+        if arg.startswith("--"):
+            if "=" not in arg:
+                args.append(arg)
+            elif RE_DOULB_UNDERLINE_ARG.match(arg):
+                # repr() the capture group to escape backslashes
+                args.append(
+                    RE_DOULB_UNDERLINE_ARG.sub(
+                        lambda m: m.group(1) + repr(m.group(2)), arg
+                    )
+                )
+
+        elif arg.startswith("-"):
+            args.append(arg)
+            nextArg = i + 1 < len(sys.argv) and sys.argv[i + 1] or None
+            if nextArg is not None and not nextArg.startswith("-"):
+                args.append(nextArg)
+                i += 1
+        else:
+            patterns.append(repr(arg))
+
+        i += 1
+
+    print("", " ".join(args), " ".join(patterns))
+'
+
+
+# grep  implies grep -G
+# egrep implies grep -E
+#
+# There are two interpretations of the syntax in regex patterns. The difference is in the behavior of a few special characters, ?, +, (), {}, and |.
+#
+# BRE (Basic Regular Expression) – these characters do not have special meaning unless prefixed with a backslash \.
+# ERE (Extended Regular Expression) – these characters are special, unless prefixed with a backslash \.
+
+myfind() {
+    if [ "$#" -lt 1 ]; then
+        echo 'usage: myfind [grep-ops]* "pattern" [path]'
+        echo e.g. 'myfind -m 4 -C 2  -wh' "ab test"
+    else
+        grep -E --color=always -rinI -m 1 \
+            --exclude-dir=node_modules \
+            --exclude-dir='./.*'    \
+            --exclude=\*.{log,} \
+            --exclude=\*.min.{js,} \
+            "$@"
+    fi
+}
