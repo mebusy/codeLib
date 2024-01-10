@@ -46,6 +46,7 @@
         "request": "launch",
         "stopOnEntry": true,
         "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
+        "cwd": "${workspaceRoot}",
         "program": "${file}"
       }
     },
