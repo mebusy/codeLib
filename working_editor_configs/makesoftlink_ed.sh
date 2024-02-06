@@ -9,6 +9,11 @@ if [ "$(uname)" = "Linux" ]; then
     TARGET_DIR=~/WORK
 fi
 
+# if exsit $1
+if [ -n "$1" ]; then
+    TARGET_DIR=$1
+fi
+
 # for-loop get files in current directory
 
 for file in *; do
