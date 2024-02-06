@@ -2,14 +2,13 @@
 
 set -e 
 
-# if os is Darwin, then ...
 if [ `uname` != "Darwin" ];
 then
-    WORKING="/Volumes/WORK/WORK"
-else
     WORKING="/mnt/d/WORK"  # wsl2
     echo 'only support macos'
     exit 1
+else
+    WORKING="/Volumes/WORK/WORK"
 fi
 
 
@@ -56,11 +55,17 @@ fi
 # if pyenv has not installed python 3.11, then install python 3.11
 if ! pyenv versions | grep 3.11 &> /dev/null
 then
-   echo install python 3.11...
+    echo install python 3.11...
 
-   pyenv install 3.11.6
-   pyenv global 3.11.6
-   brew install python-tk@3.11
+    if [ `uname` != "Darwin" ];
+    then
+        brew uninstall pyenv
+        brew install python@3.12
+    else
+        pyenv install 3.11.6
+        pyenv global 3.11.6
+        brew install python-tk@3.11        
+    fi
 fi
 
 echo upgrade pip
