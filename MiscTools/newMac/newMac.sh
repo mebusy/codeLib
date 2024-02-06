@@ -143,7 +143,7 @@ vim +BundleInstall +qall
 # vim +BundleUpdate +qall
 
 echo execute follow commands...
-echo "( cd ~/.vim/bundle/YouCompleteMe && ./install.py --all )"
+echo "( cd ~/.vim/bundle/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
 echo "( cd ~/.vim/bundle/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
 echo "( cd ~/.vim/bundle/vimspector && ./install_gadget.py --all )"
 echo "( cd ~/.vim/bundle/vim-prettier && yarn install --frozen-lockfile --production )"
