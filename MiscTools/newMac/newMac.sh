@@ -58,13 +58,13 @@ if ! pyenv versions | grep 3.11 &> /dev/null
 then
    echo install python 3.11...
 
-   pyenv install 3.11.4
-   pyenv global 3.11.4
+   pyenv install 3.11.6
+   pyenv global 3.11.6
    brew install python-tk@3.11
 fi
 
 echo upgrade pip
-alias python='$(pyenv root)/versions/3.11.4/bin/python'
+alias python='$(pyenv root)/versions/3.11.6/bin/python'
 python -m pip install --upgrade pip
 
 # 3. Oh-my-zsh
