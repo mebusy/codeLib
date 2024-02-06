@@ -5,9 +5,11 @@ set -e
 # if os is Darwin, then ...
 if [ `uname` != "Darwin" ];
 then
-WORKING="/Volumes/WORK/WORK"
+    WORKING="/Volumes/WORK/WORK"
 else
-WORKING="/mnt/d/WORK"  # wsl2
+    WORKING="/mnt/d/WORK"  # wsl2
+    echo 'only support macos'
+    exit 1
 fi
 
 
