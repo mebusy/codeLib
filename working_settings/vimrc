@@ -93,6 +93,7 @@ Bundle "Raimondi/delimitMate"
 " ds cs ys 
 Bundle 'tpope/vim-surround'   
 Bundle 'tomtom/tcomment_vim'
+" <Leader> <Leader> f
 Bundle "Lokaltog/vim-easymotion"
 " CTRL + hjkl to move between windows
 Bundle 'christoomey/vim-tmux-navigator'
