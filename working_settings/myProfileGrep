@@ -51,6 +51,10 @@ myfind() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [grep-ops]* "pattern" [path]'
         echo e.g. 'myfind -m 4 -C 2  -wh' "ab test"
+        echo 'adv 1: find files include both pattern A and B'
+        echo '  myfind A -l | xargs  grep --color=always -m 1 -n B'
+        echo 'adv 2: find lines include both pattern A and B'
+        echo '  myfind A | grep B'
     else
         grep -E --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
