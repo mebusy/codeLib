@@ -99,6 +99,8 @@ Bundle "Lokaltog/vim-easymotion"
 Bundle 'christoomey/vim-tmux-navigator'
 " maxmize current window, default F3, conflict with vim-inspector...
 Bundle 'szw/vim-maximizer'
+" rainbow parentheses
+Bundle "kien/rainbow_parentheses.vim"
 
 " ------ status -------------------------
 " git status in status line
@@ -513,4 +515,8 @@ if has('macunix')
     map <C-m> :tabnext<CR>
 endif
 
-
+" rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
