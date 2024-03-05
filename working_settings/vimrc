@@ -545,5 +545,7 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
+" How deep to colour (repeating the colour list if necessary) before giving up; 
+" limited for performance reasons.
 let g:rbpt_max = 15
 
