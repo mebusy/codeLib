@@ -131,7 +131,8 @@ filetype on
 " " 根据侦测到的不同类型加载对应的插件
 filetype plugin on
 
-
+" greatest remap ever: paste over without overwriting register
+xnoremap <Leader>p "_dP
 
 " 总是显示状态栏
 set laststatus=2
