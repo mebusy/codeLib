@@ -82,6 +82,13 @@ plugins=(
     # git
     # macos
 )
+# append zsh-autosuggestions to plugins
+_zsh_autosuggestions=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [[ -d $_zsh_autosuggestions ]]; then
+    plugins+=(zsh-autosuggestions)
+fi
+# to install zsh-autosuggestions, run the following command in terminal:
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 source $ZSH/oh-my-zsh.sh
 
