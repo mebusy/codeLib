@@ -368,7 +368,7 @@ let g:ycm_show_detailed_diag_in_popup = 1
 let g:ycm_always_populate_location_list = 1
 
 " coploit
-let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
+" let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
 let g:copilot_ignore_node_version = v:true  " ignore PATH node version check
 if $http_proxy != ""
     let g:copilot_proxy = 'localhost:3128'
