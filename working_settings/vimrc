@@ -371,7 +371,8 @@ let g:ycm_always_populate_location_list = 1
 " let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
 let g:copilot_ignore_node_version = v:true  " ignore PATH node version check
 if $http_proxy != ""
-    let g:copilot_proxy = 'localhost:3128'
+    " do not use localhost if your proxy is not support ipv6
+    let g:copilot_proxy = 'http://127.0.0.1:3128'
 endif
 
 " do not override other signs
