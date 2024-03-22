@@ -60,7 +60,9 @@ Bundle "ycm-core/YouCompleteMe"
 
 " ------ language ----------------------
 Bundle 'vim-ruby/vim-ruby'
-" html5 tag auto complete , html:5_ , when type  <c-y>, (Ctrl y ,)
+" html5 tag auto complete
+" to auto generate html5 template, 
+"   input `html:5`, then press <c-y> followed by , in 2 seconds ( if you hear a beep, you are too slow and failed)
 Bundle "mattn/emmet-vim"  
 " show css color
 Bundle "ap/vim-css-color"
