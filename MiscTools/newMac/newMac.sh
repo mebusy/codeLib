@@ -28,7 +28,10 @@ fi
 echo install development skds...
 # if brew not installed git, then ...
 brew list git &> /dev/null  || brew install git cmake \
-    go rust typescript node@16 mono openjdk@8 openjdk@17
+    go rustup-init typescript node@16 mono openjdk@8 openjdk@17
+
+# TODO
+rustup-init
 
 # if `/Library/Java/JavaVirtualMachines/openjdk-8.jdk` not exist, then ...
 if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-8.jdk" ]; then
