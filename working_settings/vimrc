@@ -55,7 +55,9 @@ Bundle 'mebusy/vundle'
 Bundle 'majutsushi/tagbar'
 Bundle 'ludovicchabant/vim-gutentags'
 " systastic is used by java complete, and python syntax check
-Bundle 'scrooloose/syntastic'
+" Bundle 'scrooloose/syntastic'
+" :ALEInfo
+Plugin 'dense-analysis/ale'
 Bundle "ycm-core/YouCompleteMe"
 
 " ------ language ----------------------
