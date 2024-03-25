@@ -54,10 +54,10 @@ Bundle 'mebusy/vundle'
 " ------ syntax ------------------------
 Bundle 'majutsushi/tagbar'
 Bundle 'ludovicchabant/vim-gutentags'
-" systastic is used by java complete, and python syntax check
-" Bundle 'scrooloose/syntastic'
 " :ALEInfo   "if this comand not work, means you may not install right checkers
 Plugin 'dense-analysis/ale'
+" systastic is used by java complete, and python syntax check
+" Bundle 'scrooloose/syntastic'
 Bundle "ycm-core/YouCompleteMe"
 
 " ------ language ----------------------
@@ -367,7 +367,9 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " ============= end tagbar =====================
 
 " we also have F2 for diagnostics
-let g:ycm_key_detailed_diagnostics = '<leader>e'
+
+" commented since we use ale instead of syntastic
+" let g:ycm_key_detailed_diagnostics = '<leader>e'
 let g:ycm_show_detailed_diag_in_popup = 1
 let g:ycm_always_populate_location_list = 1
 
@@ -420,18 +422,19 @@ set wildignore+=node_modules/**,.git/**
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 
+" commented since we use ale instead of syntastic
 " shortcut key to swith syntastic checker
-function! ToggleSyntastic()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            lclose
-            return
-        endif
-    endfor
-    SyntasticCheck | Errors
-endfunction
-nnoremap <F2> :call ToggleSyntastic()<CR>
+" function! ToggleSyntastic()
+"     for i in range(1, winnr('$'))
+"         let bnum = winbufnr(i)
+"         if getbufvar(bnum, '&buftype') == 'quickfix'
+"             lclose
+"             return
+"         endif
+"     endfor
+"     SyntasticCheck | Errors
+" endfunction
+" nnoremap <F2> :call ToggleSyntastic()<CR>
 
 " Neoformat more languages support : https://github.com/sbdchd/neoformat#supported-filetypes
 " Neoformat js: install prettier via npm or brew
