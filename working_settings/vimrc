@@ -477,7 +477,7 @@ autocmd BufWritePre *.lua Neoformat
 " for c/c++ : clang-format:  brew install clang-format
 autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
 
-" for rust:  brew install rustfmt
+" for rust:  brew install rustfmt -- deprecated, rustup-init will take care of it
 autocmd BufWritePre *.rs  Neoformat
 
 " split window
