@@ -294,8 +294,6 @@ let g:EclimFileTypeValidate = 0
 " ========= ALE ===================
 let g:ale_python_flake8_options = '--ignore=E501'
 
-let g:ale_warn_about_trailing_whitespace = 0
-
 " ========= COLORs ================
 highlight Comment ctermfg=darkgray
 
