@@ -291,6 +291,9 @@ let g:syntastic_java_checkers = []
 " manually disable Eclim Java diagnostics.
 let g:EclimFileTypeValidate = 0
 
+" ========= ALE ===================
+let g:ale_python_flake8_options = '--ignore=E501'
+
 " ========= COLORs ================
 highlight Comment ctermfg=darkgray
 
