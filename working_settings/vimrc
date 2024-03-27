@@ -553,3 +553,17 @@ let g:rbpt_colorpairs = [
 " limited for performance reasons.
 let g:rbpt_max = 15
 
+" Other Language for YCMD
+" 1. clone https://github.com/ycm-core/lsp-examples
+" 2. follows the guide, install the language server
+" 3. add following codes in .vimrc
+" :source a path stored in a variable in Vimscript is tricky
+" because :source is an ex commands and does not expect an expression
+let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
+if filereadable( $_otherLSP )
+    source $_otherLSP
+endif
+
+" NOTE:
+" as document said, lua completion not work
+"
