@@ -100,7 +100,8 @@ Plug 'puremourning/vimspector'
 
 "auto format
 Plug 'sbdchd/neoformat'
-" after plug install: rm yarn.lock && yarn install
+" after plug install: yarn install --frozen-lockfile
+" sometimes you may need  rm yarn.lock
 Plug 'prettier/vim-prettier'
 
 
