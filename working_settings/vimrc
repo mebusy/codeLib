@@ -55,7 +55,9 @@ Bundle 'mebusy/vundle'
 " :ALEInfo   "if this comand not work, means you may not install right checkers
 Plugin 'dense-analysis/ale'
 " systastic is used by java complete, and python syntax check
+" deprecated, use ale instead
 " Bundle 'scrooloose/syntastic'
+
 Bundle "ycm-core/YouCompleteMe"
 
 " ------ language ----------------------
