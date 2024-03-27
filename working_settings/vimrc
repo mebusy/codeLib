@@ -95,7 +95,7 @@ Plug 'puremourning/vimspector'
 
 "auto format
 Plug 'sbdchd/neoformat'
-" after plug install:  yarn install
+" after plug install: rm yarn.lock && yarn install
 Plug 'prettier/vim-prettier'
 
 
