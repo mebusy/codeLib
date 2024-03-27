@@ -69,6 +69,11 @@ Plug 'dense-analysis/ale'
 " Plug 'scrooloose/syntastic'
 
 Plug 'ycm-core/YouCompleteMe'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" To customize npm registry for coc.nvim add coc.nvim:registry in your
+" ~/.npmrc, like:
+"         coc.nvim:registry=https://registry.mycompany.org/
+
 
 " ------ language ----------------------
 Plug 'vim-ruby/vim-ruby'
@@ -580,3 +585,5 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 " NOTE:
 " as document said, lua completion not work
 "
+
+
