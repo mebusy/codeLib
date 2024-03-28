@@ -11,6 +11,7 @@ else
     colorscheme default
 endif
 
+
 " set mouse=a
 
 " Configuration file for vim
@@ -131,6 +132,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
+
+Plug 'vim-scripts/SyntaxAttr.vim'
 
 
 " Initialize plugin system
@@ -319,12 +322,18 @@ let g:EclimFileTypeValidate = 0
 let g:ale_python_flake8_options = '--ignore=E501'
 
 " ========= COLORs ================
+
+" h cterm-colors
+
 highlight Comment ctermfg=darkgray
 
 " ycm Diagnostic error color
 highlight  YcmErrorSection  ctermfg=15   ctermbg=1
 
 hi MatchParen cterm=none ctermbg=black ctermfg=brown
+
+" ale error
+highlight ALEError ctermbg=DarkGray
 
 " ========= END COLORs ================
 
@@ -586,6 +595,8 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 
 " NOTE:
 " as document said, lua completion not work
-"
 
+" ================= SyntaxAttr.vim =================
+" Helper
+nnoremap <F2> :call SyntaxAttr()<CR>
 
