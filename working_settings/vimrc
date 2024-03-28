@@ -384,6 +384,7 @@ let g:ycm_semantic_triggers = {
 
 " commented since we use ale instead of syntastic
 " let g:ycm_key_detailed_diagnostics = '<leader>e'
+
 let g:ycm_show_detailed_diag_in_popup = 1
 let g:ycm_always_populate_location_list = 1
 
