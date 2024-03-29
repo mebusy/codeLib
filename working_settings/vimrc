@@ -325,6 +325,7 @@ let g:ale_python_flake8_options = '--ignore=E501'
 
 " h cterm-colors
 
+" take comments in gray
 highlight Comment ctermfg=darkgray
 
 " ycm Diagnostic error color
@@ -332,8 +333,12 @@ highlight  YcmErrorSection  ctermfg=15   ctermbg=1
 
 hi MatchParen cterm=none ctermbg=black ctermfg=brown
 
-" ale error
-highlight ALEError ctermbg=DarkGray
+" you can change the color of ale virtual error text, but not necessary
+" highlight ALEVirtualTextError ctermbg=DarkCyan
+
+let g:ale_set_highlights = 0
+" ale error syntax group, no effect after turn ale_set_highlights to 0...
+" highlight ALEError ctermbg=DarkGray
 
 " ========= END COLORs ================
 
@@ -599,4 +604,11 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 " ================= SyntaxAttr.vim =================
 " Helper
 nnoremap <F2> :call SyntaxAttr()<CR>
+
+" ======================== ALE ==================================
+" g:ale_virtualtext_prefix        
+"   Default: '%comment% %type%: '
+" change to  '%type%: '
+let g:ale_virtualtext_prefix = '<<< %type%: '
+
 
