@@ -58,6 +58,7 @@ myfind() {
     else
         grep -E --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
+            --exclude-dir=.nyc_output \
             --exclude-dir='./.*'    \
             --exclude=\*.{log,} \
             --exclude=\*.min.{js,} \
