@@ -217,6 +217,9 @@
           "shell": ["/bin/bash", "-c", "cargo build"]
         },
         // Variables should start with upper-case letters
+        "PackagePath": {
+          "shell": ["/bin/bash", "-c", "cargo pkgid | sed 's/.*file:\\/\\/\\(.*\\)#.*/\\1/'"]
+        },
         "PackageName": {
           "shell": ["/bin/bash", "-c", "cargo pkgid | awk -F '[#@/]' '{print $$(NF-1)}'"]
         }
@@ -224,7 +227,8 @@
 
       "configuration": {
         "request": "launch",
-        "program": "${cwd}/target/debug/${PackageName}",
+        // "program": "${cwd}/target/debug/${PackageName}",
+        "program": "${PackagePath}/target/debug/${PackageName}",
         "expressions": "native"
       }
     }
