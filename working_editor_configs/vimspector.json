@@ -186,7 +186,7 @@
         "BUILDME": {
           "shell": ["/bin/bash", "-c", "dotnet build"]
         },
-        "relProg": {
+        "RelProg": {
           "shell": [
             "/bin/bash",
             "-c",
@@ -197,7 +197,7 @@
       "configuration": {
         "cwd": "${cwd}",
         "request": "launch",
-        "program": "${cwd}/${relProg}",
+        "program": "${cwd}/${RelProg}",
         //"program": "/Volumes/WORK/WORK/JD/jd-socket/test/client/bin/Debug/net6.0/client.dll",
         "args": [],
         "stopAtEntry": true
