@@ -11,15 +11,18 @@
   },
 
   "configurations": {
-    "[node] attach (debugger port)": {
-      "adapter": "js-debug",
-      // "default": true,
+    "_base": {
       "breakpoints": {
         "exception": {
           "all": "N",
           "uncaught": "N"
         }
-      },
+      }
+    },
+
+    "[node] attach (debugger port)": {
+      "extends": "_base",
+      "adapter": "js-debug",
       "variables": {
         "debug_port": "${debug_port:9229}"
       },
@@ -33,13 +36,8 @@
       }
     },
     "[node] run (cur opened file)": {
+      "extends": "_base",
       "adapter": "js-debug",
-      "breakpoints": {
-        "exception": {
-          "all": "N",
-          "uncaught": "N"
-        }
-      },
       "configuration": {
         "name": "Launch Program",
         "type": "pwa-node",
@@ -51,13 +49,8 @@
       }
     },
     "[go] run (cur dir)": {
+      "extends": "_base",
       "adapter": "delve",
-      "breakpoints": {
-        "exception": {
-          "all": "N",
-          "uncaught": "N"
-        }
-      },
       "variables": {
         // to disable version check
         "dlvFlags": "--check-go-version=false"
@@ -75,13 +68,8 @@
     }, // end [go] run
 
     "[go] test": {
+      "extends": "_base",
       "adapter": "delve",
-      "breakpoints": {
-        "exception": {
-          "all": "N",
-          "uncaught": "N"
-        }
-      },
       "variables": {
         // to disable version check
         "dlvFlags": "--check-go-version=false"
@@ -99,14 +87,8 @@
     }, // end [go] test
 
     "[python] run (cur opened file)": {
+      "extends": "_base",
       "adapter": "debugpy",
-      "breakpoints": {
-        "exception": {
-          "raised": "N",
-          "uncaught": "",
-          "userUnhandled": ""
-        }
-      },
       "configuration": {
         "request": "launch",
         "program": "${file}",
@@ -122,14 +104,8 @@
       // python -m debugpy --listen 5678 <you-script>.py
       // To wait until the client attaches
       // python -m debugpy --listen 5678 --wait-for-client <you-script>.py
+      "extends": "_base",
       "adapter": "multi-session",
-      "breakpoints": {
-        "exception": {
-          "raised": "N",
-          "uncaught": "",
-          "userUnhandled": ""
-        }
-      },
       "configuration": {
         "request": "attach",
         "pathMappings": [
