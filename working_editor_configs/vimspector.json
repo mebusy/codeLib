@@ -30,8 +30,11 @@
       }
     },
     "_gorun": {
+      // if go-delve version is too old, you can install the latest version by
+      //   $ go install github.com/go-delve/delve/cmd/dlv@latest
+      // and then change adapter from `delve` to `vscode-go` &&  set `dlvToolPath`
       "extends": "_base",
-      "adapter": "delve",
+      "adapter": "vscode-go",
       "variables": {
         // to disable version check
         "dlvFlags": "--check-go-version=false"
@@ -43,7 +46,8 @@
         "args": ["*${CommandLineArgs}"],
         "trace": true,
         "env": { "GO111MODULE": "on" },
-        "cwd": "${cwd}"
+        "cwd": "${cwd}",
+        "dlvToolPath": "$HOME/go/bin/dlv"
       }
     },
 
@@ -71,7 +75,6 @@
     },
     "[go] run (cur dir)": {
       "extends": "_gorun",
-      "filetypes": ["go"],
       "configuration": {
         "mode": "debug"
       }
@@ -79,7 +82,6 @@
 
     "[go] test": {
       "extends": "_gorun",
-      "filetypes": ["go"],
       "configuration": {
         "mode": "test"
       }
