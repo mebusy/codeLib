@@ -208,9 +208,12 @@
       "extends": "_codelldb",
       "filetypes": ["rust"],
       "variables": {
+        "BUILDME": {
+          "shell": ["/bin/bash", "-c", "cargo build"]
+        },
         // Variables should start with upper-case letters
         "PackageName": {
-          "shell": ["/bin/bash", "-c", "cargo pkgid | awk -F '[#@/]' '{print $(NF-1)}'"]
+          "shell": ["/bin/bash", "-c", "cargo pkgid | awk -F '[#@/]' '{print $$(NF-1)}'"]
         }
       },
 
