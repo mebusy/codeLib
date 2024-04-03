@@ -16,7 +16,7 @@
         "exception": {
           "all": "N",
           "uncaught": "N",
-          "raised": "N", // python
+          "raised": "N", // for python
           "userUnhandled": "N"
         }
       }
@@ -29,9 +29,27 @@
         "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"]
       }
     },
+    "_gorun": {
+      "extends": "_base",
+      "adapter": "delve",
+      "variables": {
+        // to disable version check
+        "dlvFlags": "--check-go-version=false"
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${fileDirname}",
+        // ask user to profice the arguments
+        "args": ["*${CommandLineArgs}"],
+        "trace": true,
+        "env": { "GO111MODULE": "on" },
+        "cwd": "${cwd}"
+      }
+    },
 
     "[node] attach (debugger port)": {
       "extends": "_node",
+      "filetypes": ["javascript"],
       "variables": {
         "debug_port": "${debug_port:9229}"
       },
@@ -43,6 +61,7 @@
     },
     "[node] run (cur opened file)": {
       "extends": "_node",
+      "filetypes": ["javascript"],
       "configuration": {
         "request": "launch",
         "stopOnEntry": true,
@@ -51,46 +70,25 @@
       }
     },
     "[go] run (cur dir)": {
-      "extends": "_base",
-      "adapter": "delve",
-      "variables": {
-        // to disable version check
-        "dlvFlags": "--check-go-version=false"
-      },
+      "extends": "_gorun",
+      "filetypes": ["go"],
       "configuration": {
-        "request": "launch",
-        "program": "${fileDirname}",
-        // ask user to profice the arguments
-        "args": ["*${CommandLineArgs}"],
-        "mode": "debug",
-        "trace": true,
-        "env": { "GO111MODULE": "on" },
-        "cwd": "${cwd}"
+        "mode": "debug"
       }
-    }, // end [go] run
+    },
 
     "[go] test": {
-      "extends": "_base",
-      "adapter": "delve",
-      "variables": {
-        // to disable version check
-        "dlvFlags": "--check-go-version=false"
-      },
+      "extends": "_gorun",
+      "filetypes": ["go"],
       "configuration": {
-        "request": "launch",
-        "program": "${fileDirname}",
-        // ask user to profice the arguments
-        "args": ["*${CommandLineArgs}"],
-        "mode": "test",
-        "trace": true,
-        "env": { "GO111MODULE": "on" },
-        "cwd": "${cwd}"
+        "mode": "test"
       }
-    }, // end [go] test
+    },
 
     "[python] run (cur opened file)": {
       "extends": "_base",
       "adapter": "debugpy",
+      "filetypes": ["python"],
       "configuration": {
         "request": "launch",
         "program": "${file}",
@@ -108,6 +106,7 @@
       // python -m debugpy --listen 5678 --wait-for-client <you-script>.py
       "extends": "_base",
       "adapter": "multi-session",
+      "filetypes": ["python"],
       "configuration": {
         "request": "attach",
         "pathMappings": [
