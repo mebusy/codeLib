@@ -65,7 +65,7 @@
       "configuration": {
         "request": "launch",
         "stopOnEntry": true,
-        "cwd": "${workspaceRoot}",
+        "cwd": "${cwd}", // ${workspaceRoot}
         "program": "${file}"
       }
     },
