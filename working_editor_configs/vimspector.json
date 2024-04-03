@@ -50,6 +50,15 @@
         "dlvToolPath": "$HOME/go/bin/dlv"
       }
     },
+    "_codelldb": {
+      "adapter": "CodeLLDB",
+      "breakpoints": {
+        "exception": {
+          "cpp_throw": "", // use default settting
+          "cpp_catch": ""
+        }
+      }
+    },
 
     "[node] attach (debugger port)": {
       "extends": "_node",
@@ -193,6 +202,23 @@
         "args": [],
         "stopAtEntry": true
       }
-    } // end csharp
+    }, // end csharp
+
+    "[rust] run": {
+      "extends": "_codelldb",
+      "filetypes": ["rust"],
+      "variables": {
+        // Variables should start with upper-case letters
+        "PackageName": {
+          "shell": ["/bin/bash", "-c", "cargo pkgid | awk -F '[#@/]' '{print $(NF-1)}'"]
+        }
+      },
+
+      "configuration": {
+        "request": "launch",
+        "program": "${cwd}/target/debug/${PackageName}",
+        "expressions": "native"
+      }
+    }
   } // end configurations
 }
