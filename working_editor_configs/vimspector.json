@@ -130,7 +130,8 @@
 
     "[c++ CodeLLDB]": {
       // :VimspectorInstall CodeLLDB
-      "adapter": "custom-codelldb",
+      // "adapter": "custom-codelldb",
+      "adapter": "CodeLLDB",
       "filetypes": ["cpp", "c"],
       "breakpoints": {
         "exception": {
@@ -158,8 +159,10 @@
       }
     }, // end CodeLLDB
 
+    // must built with `-g`
     "[c++ CodeLLDB] a.out": {
       "extends": "[c++ CodeLLDB]",
+      "filetypes": ["cpp", "c"],
       "variables": {
         "BUILDME": {
           "shell": ["/bin/sh", "-c", "echo 'no build'"]
@@ -172,6 +175,7 @@
 
     "[c++ lldb] a.out (bug on osx)": {
       "extends": "[c++ CodeLLDB] a.out", // extend from CodeLLDB, only few config is different
+      "filetypes": ["cpp", "c"],
       "adapter": "vscode-cpptools",
       "configuration": {
         "MIMode": "lldb",
