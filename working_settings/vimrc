@@ -321,6 +321,14 @@ let g:EclimFileTypeValidate = 0
 " ========= ALE ===================
 let g:ale_python_flake8_options = '--ignore=E501'
 
+" g:ale_virtualtext_prefix        
+"   Default: '%comment% %type%: '
+" change to  '%type%: '
+let g:ale_virtualtext_prefix = '<<< %type%: '
+
+" use particular linters only
+let g:ale_linters = { 'python': ['flake8'] }
+
 " ========= COLORs ================
 
 " h cterm-colors
@@ -605,10 +613,5 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 " Helper
 nnoremap <F2> :call SyntaxAttr()<CR>
 
-" ======================== ALE ==================================
-" g:ale_virtualtext_prefix        
-"   Default: '%comment% %type%: '
-" change to  '%type%: '
-let g:ale_virtualtext_prefix = '<<< %type%: '
 
 
