@@ -117,6 +117,27 @@
       }
     }, // end python run
 
+    "[python] Attach": {
+      // pip install debugpy
+      // python -m debugpy --listen 5678 <you-script>.py
+      // To wait until the client attaches
+      // python -m debugpy --listen 5678 --wait-for-client <you-script>.py
+      "adapter": "multi-session",
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      },
+      "configuration": {
+        "request": "attach",
+        "pathMappings": [
+          // mappings here (optional)
+        ]
+      }
+    }, // end python attach
+
     "[c++ CodeLLDB]": {
       // :VimspectorInstall CodeLLDB
       "adapter": "custom-codelldb",
