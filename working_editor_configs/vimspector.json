@@ -182,6 +182,7 @@
     "[c# launch]": {
       // :VimspectorInstall netcoredbg
       "adapter": "netcoredbg",
+      "filetypes": ["cs"],
       "variables": {
         "BUILDME": {
           "shell": ["/bin/bash", "-c", "dotnet build"]
