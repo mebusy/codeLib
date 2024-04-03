@@ -15,35 +15,37 @@
       "breakpoints": {
         "exception": {
           "all": "N",
-          "uncaught": "N"
+          "uncaught": "N",
+          "raised": "N", // python
+          "userUnhandled": "N"
         }
+      }
+    },
+    "_node": {
+      "extends": "_base",
+      "adapter": "js-debug",
+      "configuration": {
+        "type": "pwa-node",
+        "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"]
       }
     },
 
     "[node] attach (debugger port)": {
-      "extends": "_base",
-      "adapter": "js-debug",
+      "extends": "_node",
       "variables": {
         "debug_port": "${debug_port:9229}"
       },
       "configuration": {
-        "name": "Attaching to a process ID",
-        "type": "pwa-node",
         "request": "attach",
-        "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
         "port": "${debug_port}"
         // "processId": "$(lsof -ti:\"${debug_port}\")"
       }
     },
     "[node] run (cur opened file)": {
-      "extends": "_base",
-      "adapter": "js-debug",
+      "extends": "_node",
       "configuration": {
-        "name": "Launch Program",
-        "type": "pwa-node",
         "request": "launch",
         "stopOnEntry": true,
-        "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"],
         "cwd": "${workspaceRoot}",
         "program": "${file}"
       }
