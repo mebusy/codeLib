@@ -275,6 +275,7 @@ nmap <expr> <Leader>fl  &filetype == 'netrw'  ? '' : ':Lex<CR>'
 
 " Go to definition else declaration
 nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>r :YcmCompleter GoToReferences<CR>
 
 " don't show Maximum number of diagnostics exceeded
 let g:ycm_max_diagnostics_to_display = 0
