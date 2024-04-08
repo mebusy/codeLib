@@ -223,6 +223,8 @@ set wildmenu
 " TAG JUMPING deprecated  END
 
 set switchbuf=usetab
+" quickfix list may be affected by `usetab` setting
+autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
 
 " AUTOCOMPLETE:
 " The good stuff is documented in |ins-completion|
@@ -612,6 +614,5 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 " ================= SyntaxAttr.vim =================
 " Helper
 nnoremap <F2> :call SyntaxAttr()<CR>
-
 
 
