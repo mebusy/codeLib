@@ -222,9 +222,10 @@ set wildmenu
 " nnoremap <C-]> <C-w><C-]><C-w>T
 " TAG JUMPING deprecated  END
 
-set switchbuf=usetab
-" quickfix list may be affected by `usetab` setting
-autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
+" usetab
+set switchbuf=useopen,usetab,newtab
+" quickfix list may be not work if C-m is mapped
+" autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
 
 " AUTOCOMPLETE:
 " The good stuff is documented in |ins-completion|
@@ -560,8 +561,8 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 " tab navigator
 if has('macunix')
-    map <C-n> :tabprevious<CR>
-    map <C-m> :tabnext<CR>
+    map <C-b> :tabprevious<CR>
+    map <C-n> :tabnext<CR>
 endif
 
 " rainbow parentheses
