@@ -3,6 +3,17 @@
 """
 This script is used to modify unity3d project files to be compatible with omnisharp.
 It will remove the <ProjectReference> in <ItemGroup> from .csproj files
+
+BUT this solution is not good enough...
+The most simple and better way is
+0. delete the .sln file
+1. dotnet new sln --name mySolution
+2. dotnet sln add <the most important>.csproj
+3. edit that .csproj,
+    remove all <Compile Include="xxx" />
+    add <Compile Include="Assets/Scripts/**/*.cs" />
+
+    delete all <ProjectReference>
 """
 
 import os
