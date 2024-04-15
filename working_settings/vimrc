@@ -287,6 +287,32 @@ let g:ycm_key_invoke_completion = '<C-a>'
 
 let g:ycm_confirm_extra_conf=0 " not ask to allow load ...
 
+
+" debug
+" let g:ycm_keep_logfiles = 1
+" let g:ycm_log_level = 'debug'
+
+" YCM uses is the omnifunc that Vim provides for CSS
+let g:ycm_semantic_triggers = {
+    \   'css': [ 're!^\s+', ': ' ],
+    \ }
+
+" we also have F2 for diagnostics
+
+" commented since we use ale instead of syntastic
+" let g:ycm_key_detailed_diagnostics = '<leader>e'
+
+let g:ycm_show_detailed_diag_in_popup = 1
+let g:ycm_always_populate_location_list = 1
+
+" === ycm inlay hints ====
+" remove all inlay hints when entering insert mode
+" let g:ycm_clear_inlay_hints_in_insert_mode=1
+" let g:ycm_enable_inlay_hints=1
+" to enable for only buff: let b:ycm_enable_inlay_hints=1
+" manually trigger
+nnoremap <silent> <Leader>h <Plug>(YCMToggleInlayHints)
+
 " fallback
 " if filereadable("/Volumes/WORK/.ycm_extra_conf.py")
 "     let g:ycm_global_ycm_extra_conf = "/Volumes/WORK/.ycm_extra_conf.py"
@@ -375,15 +401,6 @@ let g:vim_markdown_toc_autofit = 1
 " visualize text , then Ctrl-C if your vim doesn't support clipboard
 " map <C-c> y:e ~/clipsongzboard<CR>P:w !pbcopy<CR><CR>:bdelete!<CR>
 
-" debug
-" let g:ycm_keep_logfiles = 1
-" let g:ycm_log_level = 'debug'
-
-" YCM uses is the omnifunc that Vim provides for CSS
-let g:ycm_semantic_triggers = {
-    \   'css': [ 're!^\s+', ': ' ],
-    \ }
-
 
 " ============= gutentags start =====================
 " " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
@@ -407,13 +424,6 @@ let g:ycm_semantic_triggers = {
 "
 " ============= gutentags end =====================
 
-" we also have F2 for diagnostics
-
-" commented since we use ale instead of syntastic
-" let g:ycm_key_detailed_diagnostics = '<leader>e'
-
-let g:ycm_show_detailed_diag_in_popup = 1
-let g:ycm_always_populate_location_list = 1
 
 " coploit
 " let g:copilot_node_command = "/usr/local/opt/node@16/bin/node"
