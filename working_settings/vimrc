@@ -499,7 +499,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
 " let g:neoformat_try_node_exe = 1
 
-" Neoformat Python :  brew install black
+" Neoformat Python :  pip install --upgrade autopep8
 " Neoformat Go : gofmt
 autocmd BufWritePre *.py,*.go Neoformat
 " Neoformat lua : brew install stylua
