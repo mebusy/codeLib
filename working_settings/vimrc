@@ -632,4 +632,3 @@ let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
 " Helper
 nnoremap <F2> :call SyntaxAttr()<CR>
 
-
