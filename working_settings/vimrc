@@ -324,10 +324,9 @@ nnoremap <silent> <Leader>h <Plug>(YCMToggleInlayHints)
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
 
 " use python3 as checker , or you can try flake8, or pylint
-"   python -m pip install pylint
-"   python -m pip show -f flake8  # find flake8 path
-" for python3 annotation type check
-"   python -m pip install mypy
+"   brew install pylint
+"   brew install flake8 
+" for python3 annotation type check:  mypy
 let g:syntastic_python_checkers = ['flake8', 'python3'] " , 'mypy'
 let g:syntastic_python_python_exec = 'python3'
 
@@ -499,7 +498,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
 " let g:neoformat_try_node_exe = 1
 
-" Neoformat Python :  pip install --upgrade autopep8
+" Neoformat Python :  brew install autopep8
 " Neoformat Go : gofmt
 autocmd BufWritePre *.py,*.go Neoformat
 " Neoformat lua : brew install stylua
