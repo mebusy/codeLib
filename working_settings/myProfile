@@ -208,3 +208,6 @@ then
     source $myProfileGrep
 fi
 
+
+. "$HOME/.cargo/env"
+
