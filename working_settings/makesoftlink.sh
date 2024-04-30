@@ -12,7 +12,7 @@ set -e
 
 for file in *; do
     # if file is not a bash file, and not a .bak file  echo file
-    if [[ $file != *.sh ]] && [[ $file != *.bak ]] && [[ $file != Homebrew.json ]]; then
+    if [[ $file != *.sh ]] && [[ $file != *.py ]] && [[ $file != *.bak ]] && [[ $file != Homebrew.json ]]; then
         # echo $file
         target_file=~/.$file
         # force solftlink to target file

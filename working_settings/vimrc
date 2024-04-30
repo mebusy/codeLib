@@ -539,6 +539,7 @@ autocmd BufWritePre *.lua Neoformat
 autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
 
 " for rust:  brew install rustfmt -- deprecated, rustup-init will take care of it
+" brew uninstall rust && brew install rustup-init && rustup-init
 autocmd BufWritePre *.rs  Neoformat
 
 " split window
