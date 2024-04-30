@@ -209,7 +209,7 @@ set wildmenu
 "    $ brew install ctags gotags  # deprecated
 "
 " run !ctags -R .   (bind it to you :w command ?)
-" note: ctags shipped with OSX is not exuberant ctags, brew install ctags
+" note: ctags shipped with OSX is not exuberant ctags, brew install ctags # deprecated
 " Now we can 
 "   - use ^] to jump to tag under cursor
 "   - g^] for ambiguous tags , it will show a list
@@ -469,7 +469,7 @@ nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
 " vimgrep
 set wildignore+=node_modules/**,.git/**
 
-" eslint check: install eslint via brew or npm
+" eslint check: brew install eslint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 
@@ -493,7 +493,7 @@ let g:syntastic_always_populate_loc_list = 1
 "   clang-format:  // clang-format off   // clang-format on
 "   prettier:  // prettier-ignore 
 "
-" Neoformat js: install prettier via npm or brew
+" Neoformat js: brew install prettier
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html,*.java  Neoformat
 " In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
 " let g:neoformat_try_node_exe = 1
