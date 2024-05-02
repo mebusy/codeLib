@@ -209,5 +209,12 @@ then
 fi
 
 
-. "$HOME/.cargo/env"
+# if exists "$HOME/.cargo/env", source it, else echo warning
+if [ -f "$HOME/.cargo/env" ]; then
+   source "$HOME/.cargo/env"
+else
+  echo "Warning: $HOME/.cargo/env not found."
+  echo "Please install rustup-init"
+fi
+
 
