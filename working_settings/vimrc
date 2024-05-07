@@ -498,7 +498,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
 " let g:neoformat_try_node_exe = 1
 
-" Neoformat Python :  brew install autopep8
+" Neoformat Python :  brew install black
 " Neoformat Go : gofmt
 autocmd BufWritePre *.py,*.go Neoformat
 " Neoformat lua : brew install stylua
@@ -514,6 +514,9 @@ autocmd BufWritePre *.lua Neoformat
 " 注意需要设置 错误聚合，才能同时显示两个 checker 的错误：
 " let syntastic_aggregate_errors = 1
 
+
+" python formater: black only
+let g:neoformat_enabled_python = ['black']
 
 " example:
 " let g:neoformat_cpp_clangformat = {
