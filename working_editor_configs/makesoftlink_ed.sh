@@ -23,6 +23,8 @@ for file in *; do
         # force solftlink to target file
         ln -sf $PWD/$file $target_file
         ls -l $target_file
+    elif [[ $file == "ycm_extra_conf.py" ]]; then
+        echo skip $file
     elif [[ ! $file == *.sh ]] && [[ ! -d $file ]]; then
         # if file is not a bash file, and not a directory
         target_file=${TARGET_DIR}/.$file
