@@ -384,6 +384,8 @@ let g:ale_set_highlights = 0
 
 " show table
 set list
+" fix E834: Conflicts with value of 'listchars'
+set ambiwidth=single
 set listchars=tab:>·
 
 " lua support
