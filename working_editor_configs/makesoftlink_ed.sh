@@ -35,7 +35,7 @@ for file in *; do
 done
 
 
-for file in eslint_prettier/JS/.*; do
+for file in eslint_prettier/JS/*; do
     if [[ ! $file == *.sh ]] && [[ ! $file == *.eslintrc.js ]]  && [[ ! -d $file ]]; then
         # remove path from $file
         fileName=${file##*/}

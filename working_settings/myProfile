@@ -217,4 +217,4 @@ else
   echo "Please install rustup-init"
 fi
 
-
+alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
