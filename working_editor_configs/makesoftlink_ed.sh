@@ -43,6 +43,15 @@ for file in eslint_prettier/JS/*; do
         # force solftlink to target file
         ln -sf $PWD/$file $target_file
         ls -l $target_file
+
+        # if the file is not starts with dot ".", then hidden it's target file
+        if [[ ! $fileName == .* ]]; then
+            # if is Darwin
+            if [ "$(uname)" = "Darwin" ]; then
+                # use -h to hidden a symbol link
+                chflags -h hidden $target_file
+            fi
+        fi
     fi
 done
 
