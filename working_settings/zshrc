@@ -137,4 +137,9 @@ fi
 # do NOT shared history
 unsetopt share_history
 
+# disable to nomatch handling 
+unsetopt nomatch
+
+
+
 
