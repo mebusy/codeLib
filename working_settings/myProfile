@@ -208,6 +208,14 @@ then
     source $myProfileGrep
 fi
 
+myProfileYtdl=~/".myProfileYtdl"
+if [ -L "$myProfileYtdl" ]
+then
+    source $myProfileYtdl
+fi
+
+
+
 
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then

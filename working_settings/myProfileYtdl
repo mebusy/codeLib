@@ -1,0 +1,19 @@
+#!/bin/sh
+
+myytdl() {
+    if [ "$#" -lt 1 ]; then
+        echo 'usage: myytdl url [sub-language] '
+        echo e.g. 'myytdl  https://xxxx en'
+    else
+        # if $2 is not empty, then set sub-lang to $2
+        sub_lang=""
+        if [ -n "$2" ]; then
+            sub_lang="--sub-lang=$2"
+        fi
+
+        yt-dlp --ignore-errors --rm-cache-dir -c --write-auto-sub  \
+            -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'  \
+            -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' --cookies-from-browser chrome $1
+
+    fi
+}
