@@ -42,6 +42,9 @@ endif
 set number
 set relativenumber
 
+" prevent add newline at the end of file
+set nofixeol
+
 
 " Place the following code in your .vimrc before plug#begin() call
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
