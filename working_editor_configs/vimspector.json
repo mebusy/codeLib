@@ -16,6 +16,7 @@
         "exception": {
           "all": "N",
           "uncaught": "N",
+          "caught": "N", // for java
           "raised": "N", // for python
           "userUnhandled": "N"
         }
@@ -232,6 +233,27 @@
         "program": "${PackagePath}/target/debug/${PackageName}",
         "expressions": "native"
       }
-    }
+    },
+
+    "Java Launch": {
+      // should compiled with `-g`
+      "extends": "_base",
+      "adapter": "vscode-java",
+      "filetypes": ["java"],
+      "configuration": {
+        "request": "launch",
+        "cwd": "${cwd}",
+        "sourcePaths": ["${cwd}/src/main/java", "${cwd}"],
+        "stopOnEntry": true,
+        "stepFilters": {
+          "skipClasses": ["$$JDK"]
+        },
+        // the followings is 'launch' only
+        "mainClass": "${mainClass:Main}",
+        "classPaths": ["${cwd}/target/classes", "${cwd}"],
+        // "args": ["*${CommandLineArgs}"], // will break debugger
+        "console": "integratedTerminal"
+      }
+    } // end Java Lanuch
   } // end configurations
 }
