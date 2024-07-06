@@ -243,14 +243,14 @@
       "configuration": {
         "request": "launch",
         "cwd": "${cwd}",
-        "sourcePaths": ["${cwd}/src/main/java", "${cwd}"],
+        "sourcePaths": ["${cwd}/src/main/java"],
         "stopOnEntry": true,
         "stepFilters": {
           "skipClasses": ["$$JDK"]
         },
         // the followings is 'launch' only
         "mainClass": "${mainClass:Main}",
-        "classPaths": ["${cwd}/target/classes", "${cwd}"],
+        "classPaths": ["${cwd}/target/classes"],
         "args": "${CommandLineArgs}", // no LIST !!!
         "console": "integratedTerminal"
       }
