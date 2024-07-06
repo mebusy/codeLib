@@ -251,7 +251,7 @@
         // the followings is 'launch' only
         "mainClass": "${mainClass:Main}",
         "classPaths": ["${cwd}/target/classes", "${cwd}"],
-        // "args": ["*${CommandLineArgs}"], // will break debugger
+        "args": "${CommandLineArgs}", // no LIST !!!
         "console": "integratedTerminal"
       }
     } // end Java Lanuch
