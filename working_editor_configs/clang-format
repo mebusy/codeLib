@@ -8,7 +8,7 @@ AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: None
 AlignOperands: Align
 AllowAllArgumentsOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: true
+# AllowAllConstructorInitializersOnNextLine: true   # deprecated
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
@@ -91,4 +91,10 @@ BreakBeforeBraces: Allman
 NamespaceIndentation: All
 IndentWidth: 4
 
-
+---
+Language: Java
+BreakBeforeBraces: Attach  # no break for function, class, namespace definition etc.
+NamespaceIndentation: All
+IndentWidth: 4
+AllowShortFunctionsOnASingleLine: false   # no one-line short function
+SortIncludes: false  # do not reorder import 
