@@ -123,6 +123,20 @@ myfind2() {
     fi
 }
 
+# ========================== BREW =================================
+
+# sbin
+export PATH="$PATH:/usr/local/sbin"
+# brew path
+if [ "$(uname)" = "Linux" ]; then
+    _brewBin="/home/linuxbrew/.linuxbrew/bin"
+    # if exists 
+    if [ -d "$_brewBin" ]; then
+        export PATH=$PATH:"$_brewBin"
+    fi
+fi
+
+
 # ========================== JAVA =================================
 
 # if OS is darwin
@@ -149,10 +163,6 @@ fi
 
 export PATH=$PATH:"$HOME/go/bin"
 export GO111MODULE=on
-
-# ========================== BREW =================================
-# sbin
-export PATH="$PATH:/usr/local/sbin"
 
 
 # ========================== MISC =================================
