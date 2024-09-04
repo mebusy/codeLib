@@ -130,9 +130,9 @@ export PATH="$PATH:/usr/local/sbin"
 # brew path
 if [ "$(uname)" = "Linux" ]; then
     _brewBin="/home/linuxbrew/.linuxbrew/bin"
-    # if exists 
-    if [ -d "$_brewBin" ]; then
-        export PATH=$PATH:"$_brewBin"
+    # if exists $_brewBin, and not in $PATH, then add it
+    if [ -d "$_brewBin" ] && [[ ":$PATH:" != *":$_brewBin:"* ]]; then
+        export PATH="$_brewBin":$PATH
     fi
 fi
 
