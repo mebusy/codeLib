@@ -1,4 +1,4 @@
-#!/bin/sh
+#!bash
 
 myytdl() {
     if [ "$#" -lt 1 ]; then

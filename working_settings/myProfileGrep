@@ -1,4 +1,4 @@
-#!/bin/sh
+#!bash
 
 # do NOT put `#` in pythong code
 _pyArgStr='

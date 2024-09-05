@@ -1,4 +1,4 @@
-#!/bin/sh
+#!bash
 
 
 # to use , vi ~/.profile, add...
@@ -136,6 +136,9 @@ if [ "$(uname)" = "Linux" ]; then
     fi
 fi
 
+# Linux, let /usr/local/bin has higher priority than /homebrew
+export PATH="/usr/local/bin:$PATH"
+
 
 # ========================== JAVA =================================
 
@@ -153,6 +156,23 @@ if [ "$(uname)" = "Darwin" ]; then
 
     #default java17
     export JAVA_HOME=$JAVA_17_HOME
+else
+    # if exists $_jenv_bin, and not in $PATH, then add it
+    if command -v jenv &> /dev/null; then
+        eval "$(jenv init -)"
+        # for jdk in openjdk@8 openjdk@11 openjdk@17 , print brew --prefix $jdk
+        for jdk in openjdk@8 openjdk@11 openjdk@17
+        do
+            _jdkpath="$(brew --prefix $jdk)"
+            # if jdk is not added in jenv versions
+            # then add it
+            if [ -d "$_jdkpath" ]; then
+                jenv add $_jdkpath > /dev/null
+            fi
+            unset _jdkpath
+        done
+        jenv global 17
+    fi
 fi
 
 
@@ -232,6 +252,7 @@ else
   echo "Warning: $HOME/.cargo/env not found."
   echo "Please install rustup-init"
 fi
+
 
 alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
