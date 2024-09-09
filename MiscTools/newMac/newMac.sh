@@ -128,22 +128,17 @@ fi
 echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
 
 # 6 YCMD
-# if `which vim` is not equal `/usr/local/bin/vim`, then exits
-if [ `which vim` != "/usr/local/bin/vim" ];
-then
-    echo "vim is not installed by brew, please install vim by brew"
-    exit 1
-fi
+echo please open vim to install vim-plugin
+exit 1
 
 echo install vim plugins...
-vim +BundleInstall +qall
-# vim +BundleUpdate +qall
+vim +PlugUpdate +qall
 
 echo execute follow commands...
-echo "( cd ~/.vim/bundle/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
-echo "( cd ~/.vim/bundle/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
-echo "( cd ~/.vim/bundle/vimspector && ./install_gadget.py --all )"
-echo "( cd ~/.vim/bundle/vim-prettier && yarn install --frozen-lockfile --production )"  # may remove yarn.lock
+echo "( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
+echo "( cd ~/.vim/plugged/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
+echo "( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )"
+echo "( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )"  # may remove yarn.lock
 
 if [ `uname` != "Darwin" ];
 then
