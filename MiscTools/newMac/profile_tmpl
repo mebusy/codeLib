@@ -1,14 +1,8 @@
-myProfile=~/".myProfile" 
+myProfile=~/".myProfile"
 if [ -L "$myProfile" ]
 then
     source $myProfile
 fi
-
-# if [ "zsh" = "$0"  ] || [ "-zsh" = "$0" ]  ; then
-# fi
-
-
-
 
 # golang
 # export GOPROXY="https://goproxy.io,direct"
@@ -25,35 +19,11 @@ export NDK=/Volumes/WORK/_Y/AndroidDev/android-ndk-r10e
 # export NDK=/Volumes/WORK/_Y/AndroidDev/android-ndk-r20
 export PATH=$PATH:${NDK}
 
-# Gradel
-export GRADLE_HOME=/Volumes/WORK/_Y/gradle-2.10
-export PATH=${PATH}:$GRADLE_HOME/bin
-
-# export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
-
-# py tools
-export PATH=$PATH:/Volumes/WORK/WORK/_pyProject/src_python/Tools
-
-# node
-# export NODE_PATH=`npm root --global`
 
 # vim 
 alias vi=vim
 
-
 alias pdfc="python /Volumes/WORK/WORK/mebusy_git_codelib/MiscTools/pdf_compressor.py"
-
-
-# k8s
-# export KUBECONFIG=/Volumes/WORK/WORK/k8s/umc-k8s.conf
-# alias kubectl="/Volumes/WORK/WORK/k8s/kubectl"
-
 
 # gcloud
 export GOOGLE_APPLICATION_CREDENTIALS="/Volumes/WORK/gcloud/gcloud_version_api.json"
-
-
-
-
-
-
