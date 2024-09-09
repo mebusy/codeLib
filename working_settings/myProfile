@@ -21,7 +21,8 @@ if [ -n "$ret" ] ; then
     #   use cntlm 
     # for non-auth proxy
     #   brew install samuong/alpaca/alpaca
-    #   brew services start alpaca  
+    #     optinal: build your own alpaca , and mv to /usr/local/bin/alpaca
+    #   brew services start alpaca
     #   launchd: ~/Library/LaunchAgents/homebrew.mxcl.alpaca.plist
     #   log: /usr/local/var/log/alpaca.log
     export _proxy=127.0.0.1:3128

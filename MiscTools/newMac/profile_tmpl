@@ -23,6 +23,11 @@ export PATH=$PATH:${NDK}
 # vim 
 alias vi=vim
 
+# nvm
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+
 alias pdfc="python /Volumes/WORK/WORK/mebusy_git_codelib/MiscTools/pdf_compressor.py"
 
 # gcloud
