@@ -30,8 +30,12 @@ echo install development skds...
 brew list git &> /dev/null  || brew install git cmake \
     go rustup-init typescript node@16 mono openjdk@8 openjdk@17
 
-# TODO
-rustup-init
+# if rustup not initialized, then ...
+if [ ! -d "$HOME/.cargo" ];
+then
+    echo install rustup...
+    rustup-init
+fi
 
 # if `/Library/Java/JavaVirtualMachines/openjdk-8.jdk` not exist, then ...
 if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-8.jdk" ]; then
