@@ -72,7 +72,7 @@ then
 fi
 
 echo upgrade pip
-# alias python='$(pyenv root)/versions/3.12.6/bin/python'
+alias python='$(pyenv root)/versions/3.12.6/bin/python'
 python -m pip install --upgrade pip
 
 # 3. Oh-my-zsh
