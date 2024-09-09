@@ -132,8 +132,12 @@ fi
 echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
 
 # 6 YCMD
-echo please open vim to install vim-plugin
-exit 1
+# if vim plugin not installed, then ...
+if [ ! -d "$HOME/.vim/plugged" ];
+then
+    echo please open vim to install vim-plugin
+    exit 1
+fi
 
 echo install vim plugins...
 vim +PlugUpdate +qall
