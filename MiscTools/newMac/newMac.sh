@@ -30,8 +30,12 @@ echo install development skds...
 brew list git &> /dev/null  || brew install git cmake \
     go rustup-init typescript node@16 mono openjdk@8 openjdk@17
 
-# TODO
-rustup-init
+# if rustup not initialized, then ...
+if [ ! -d "$HOME/.cargo" ];
+then
+    echo install rustup...
+    rustup-init
+fi
 
 # if `/Library/Java/JavaVirtualMachines/openjdk-8.jdk` not exist, then ...
 if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-8.jdk" ]; then
@@ -54,26 +58,27 @@ then
 fi
 
 
-# 2.1 python 3.11
-# if pyenv has not installed python 3.11, then install python 3.11
-if ! pyenv versions | grep 3.11 &> /dev/null
+# 2.1 python 3.12
+# if pyenv has not installed python 3.12, then install python 3.12
+if ! pyenv versions | grep 3.12 &> /dev/null
 then
-    echo install python 3.11...
+    echo install python 3.12...
 
     if [ `uname` != "Darwin" ];
     then
         brew uninstall pyenv
         brew install python@3.12
     else
-        pyenv install 3.11.6
-        pyenv global 3.11.6
-        brew install python-tk@3.11        
+        pyenv install 3.12
+        pyenv global 3.12
+        # brew install python-tk@3.12   necessary?
     fi
 fi
 
 echo upgrade pip
-alias python='$(pyenv root)/versions/3.11.6/bin/python'
+alias python='$(pyenv root)/versions/3.12.6/bin/python'
 python -m pip install --upgrade pip
+
 
 # 3. Oh-my-zsh
 # if oh-my-zsh not installed , then install oh-my-zsh
@@ -96,18 +101,12 @@ fi
 if ! brew list vim &> /dev/null
 then
     echo install vim tools...
-    brew install vim yarn ctags gotags flake8 eslint prettier black stylua cpplint clang-format 
+    brew install vim yarn ctags gotags flake8 eslint prettier black stylua cpplint clang-format pylint luacheck  
 fi
 
 # TODO: rustfmt conflicts with rust's cargo-fmt
 
-# 5 vim pre-requisites
-# if vundle not installed , then install vundle
-if [ ! -d "$HOME/.vim/bundle/vundle" ];
-then
-   echo install vundle...
-   git clone https://github.com/mebusy/vundle.git ~/.vim/bundle/vundle
-fi
+
 
 # if not exist fold $WORKING/mebusy_git_codelib
 if [ ! -d "$WORKING/mebusy_git_codelib" ];
@@ -134,22 +133,23 @@ fi
 echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
 
 # 6 YCMD
-# if `which vim` is not equal `/usr/local/bin/vim`, then exits
-if [ `which vim` != "/usr/local/bin/vim" ];
+# if vim plugin not installed, then ...
+if [ ! -d "$HOME/.vim/plugged" ];
 then
-    echo "vim is not installed by brew, please install vim by brew"
+    echo please open vim to install vim-plugin
     exit 1
 fi
 
 echo install vim plugins...
-vim +BundleInstall +qall
-# vim +BundleUpdate +qall
+vim +PlugUpdate +qall
+
+python -m pip install setuptools # for YCMD
 
 echo execute follow commands...
-echo "( cd ~/.vim/bundle/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
-echo "( cd ~/.vim/bundle/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
-echo "( cd ~/.vim/bundle/vimspector && ./install_gadget.py --all )"
-echo "( cd ~/.vim/bundle/vim-prettier && yarn install --frozen-lockfile --production )"  # may remove yarn.lock
+echo "( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
+echo "( cd ~/.vim/plugged/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
+echo "( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )"
+echo "( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )"  # may remove yarn.lock
 
 if [ `uname` != "Darwin" ];
 then
