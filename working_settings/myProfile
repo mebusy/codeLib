@@ -139,6 +139,13 @@ fi
 # Linux, let /usr/local/bin has higher priority than /homebrew
 export PATH="/usr/local/bin:$PATH"
 
+# brew clang-format keg only
+_clangformat_path="$(brew --prefix clang-format)/bin"
+# if exists and not in $PATH, then add it
+if [ -d "$_clangformat_path" ] && [[ ":$PATH:" != *":$_clangformat_path:"* ]]; then
+    export PATH="$_clangformat_path":$PATH
+fi
+unset _clangformat_path
 
 # ========================== JAVA =================================
 
