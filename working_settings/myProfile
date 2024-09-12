@@ -202,13 +202,18 @@ fi
 
 alias so="source ~/.profile"
 
+# IP address
+if [ "$(uname)" = "Darwin" ]; then
+    export HOST_IP=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
+fi
+
 # x11
 if [ "$(uname)" = "Darwin" ]; then
 
     _display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
     # if _display_number is not empty, then set DISPLAY
     if [ -n "$_display_number" ]; then
-         _ip=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
+        _ip=$HOST_IP
         xhost + $_ip  &> /dev/null
         xhost + localhost &> /dev/null
         export DISPLAY=$_ip$_display_number
