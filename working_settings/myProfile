@@ -36,7 +36,7 @@ if [ -n "$ret" ] ; then
     export  HTTP_proxy=$http_proxy
     export HTTPS_proxy=$https_proxy
 
-    export NO_PROXY="localhost,127.0.0.1,10.192.*,192.168.*,10.242.*,kubernetes.docker.internal,wpad"
+    export NO_PROXY="localhost,127.0.0.*,10.192.*,192.168.*,kubernetes.docker.internal,wpad"
     export no_proxy=$NO_PROXY
 fi
 
@@ -215,6 +215,13 @@ alias so="source ~/.profile"
 # IP address
 if [ "$(uname)" = "Darwin" ]; then
     export HOST_IP=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
+    
+    # set max open files
+    ulimit -n 8192
+    # change somaxconn
+    # sudo visudo
+    # add:  <username> ALL=(ALL) NOPASSWD: /usr/sbin/sysctl
+    # sudo sysctl -w kern.ipc.somaxconn=8192 > /dev/null
 fi
 
 # x11
