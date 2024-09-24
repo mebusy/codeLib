@@ -51,7 +51,6 @@ end
 
 
 function exec()
-    --getstatus( "https://uat-public-ubiservices.ubi.com/v2/profiles/sessions" )
     getstatus( "https://github.com/ericjjj/coursera" )
     while nthreads > 0 do
         print ( "handler:step()" )
