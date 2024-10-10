@@ -36,7 +36,7 @@ if [ -n "$ret" ] ; then
     export  HTTP_proxy=$http_proxy
     export HTTPS_proxy=$https_proxy
 
-    export NO_PROXY="localhost,127.0.0.*,10.192.*,192.168.*,kubernetes.docker.internal,wpad"
+    export NO_PROXY="localhost,127.0.0.*,10.192.*,192.168.*,kubernetes.docker.internal,wpad,172.16.0.0/12,172.17.0.0/16"
     export no_proxy=$NO_PROXY
 fi
 
