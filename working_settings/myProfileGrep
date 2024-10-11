@@ -55,6 +55,7 @@ myfind() {
         echo '  myfind A -l | xargs  grep --color=always -m 1 -n B'
         echo 'adv 2: find lines include both pattern A and B'
         echo '  myfind A | grep -i B'
+        echo 'provide -G if you want to use BRE'
     else
         grep -E --color=always -rinI -m 1 \
             --exclude-dir=node_modules \
