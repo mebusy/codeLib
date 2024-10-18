@@ -323,8 +323,13 @@ nnoremap <silent> <Leader>h <Plug>(YCMToggleInlayHints)
 "     let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 " endif
 
-" markdown chrome browse
-autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :!"/Volumes/WORK/Tools/Google Chrome.app/Contents/MacOS/Google Chrome" "%:p"<CR>
+
+" init a local variable to store the path of chrome app
+if has('macunix')
+    " markdown chrome browse
+    " autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :! $chrome_app"/Contents/MacOS/Google Chrome" "%:p"<CR>
+    autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>md :! open -a "Google Chrome" "%:p"<CR>
+endif
 
 " use python3 as checker , or you can try flake8, or pylint
 "   brew install pylint
