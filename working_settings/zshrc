@@ -140,6 +140,19 @@ unsetopt share_history
 # disable to nomatch handling 
 unsetopt nomatch
 
+# if fzf is installed, set up fzf key bindings and fzf completion
+# usage: 1. fzf  2. ctrl + t 3. vi **<TAB>  4. kill -9 **<TAB>
+# 查找命令	匹配类型	说明
+# sbtrkt	模糊匹配	匹配 sbtrkt
+# ^music	前缀精确匹配	以 music 开头
+# .mp3^	    后缀精确匹配	以.mp3 结尾
+# 'wild	    精确匹配 (quoted)	精确包含 wild
+# !fire	    inverse-exact-match	不包含 fire
+# !.mp3$	inverse-suffix-exact-match	不以.mp3 结尾
+
+if command -v fzf &> /dev/null; then
+    eval "$(fzf --zsh)"
+fi
 
 
 
