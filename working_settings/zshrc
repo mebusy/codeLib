@@ -152,6 +152,13 @@ unsetopt nomatch
 
 if command -v fzf &> /dev/null; then
     eval "$(fzf --zsh)"
+
+    # --- setup fzf theme ---
+    purple="#BF50FF"
+    blue="#066CE4"
+    cyan="#2CF9ED"
+
+    export FZF_DEFAULT_OPTS="--color=hl:${purple},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 fi
 
 
