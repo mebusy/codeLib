@@ -676,3 +676,8 @@ endfunction
 nnoremap <silent> <buffer> <Leader><F5> :call <SID>StartDebugging()<CR>
 " ================= YCM Java END =================
 
+" ================= Misc Tools =================
+" brew install fzf bat tlrc
+"    bat --list-themes | fzf --preview="bat --theme={} --color=always app.js"
+"    tlrc: tldr rust client
+"

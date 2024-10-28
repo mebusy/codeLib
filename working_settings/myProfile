@@ -281,3 +281,8 @@ alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && r
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
 alias mdfind='mdfind 2> /dev/null '
 
+
+# --------- Bat Theme ------------
+export BAT_THEME="GitHub"
+
+
