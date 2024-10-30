@@ -32,7 +32,9 @@ for i in ${!tools[@]}; do
         make clean && make
     fi
 
-    ln -s ./$dirname/${tools[$i]} ~/bin/
+    ln -sf `pwd`/${tools[$i]} ~/bin/
+
+    cd ..
 done
 
 echo "exec dwm" > ~/.xinitrc
