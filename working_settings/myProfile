@@ -231,8 +231,9 @@ if [ "$(uname)" = "Darwin" ]; then
     # if _display_number is not empty, then set DISPLAY
     if [ -n "$_display_number" ]; then
         _ip=$HOST_IP
-        xhost + $_ip  &> /dev/null
-        xhost + localhost &> /dev/null
+        # xhost + $_ip  &> /dev/null
+        # xhost + localhost &> /dev/null
+        xhost + &> /dev/null # allow all ?
         export DISPLAY=$_ip$_display_number
         export DISPLAY_L=host.docker.internal$_display_number
         unset _ip
