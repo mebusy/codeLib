@@ -32,6 +32,8 @@ if [ $instStep -le 2 ]; then
     # font & alacritty
     sudo pacman --noconfirm -S noto-fonts-cjk wqy-zenhei adobe-source-han-sans-otc-fonts
     sudo pacman --noconfirm -S alacritty picom fcitx fcitx-googlepinyin fcitx-configtool
+    wget https://raw.githubusercontent.com/FortAwesome/Font-Awesome/refs/heads/4.x/fonts/fontawesome-webfont.ttf
+    sudo mv -f fontawesome-webfont.ttf /usr/share/fonts/
     sudo fc-cache -fv
 fi
 
