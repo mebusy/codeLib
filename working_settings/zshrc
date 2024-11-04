@@ -123,6 +123,8 @@ export LC_ALL=en_US.UTF-8
 # if exists, source ~/.profile
 if [[ -f ~/.profile ]]; then
     source ~/.profile
+elif [[ -f ~/.bash_profile ]]; then
+    source ~/.bash_profile
 fi
 
 # fix powerlevel10k path issue
