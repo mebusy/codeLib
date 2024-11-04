@@ -49,7 +49,22 @@ if [ $instStep -le 4 ]; then
     sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
  
 fi
+
+if [ $instStep -le 5 ]; then
+    # install paru
+    sudo pacman --noconfirm -S rustup neofetch
+    neofetch
+    rustup default stable
+ 
+    ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
+fi
+
+
+
 # invoke ./i3wmConf/makeSoftLink.sh
 ./i3wmConf/makeSoftLink.sh
+
+echo run fcitx-configtool to config input method
+echo run lxappearance to change theme
 
 
