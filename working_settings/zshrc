@@ -122,6 +122,7 @@ export LC_ALL=en_US.UTF-8
 
 source ~/.profile
 
+# fix powerlevel10k path issue
 if command -v brew &> /dev/null; then
     p10k_theme=$(brew --prefix powerlevel10k)/powerlevel10k.zsh-theme
     # if not exists, try $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
@@ -160,6 +161,4 @@ if command -v fzf &> /dev/null; then
 
     export FZF_DEFAULT_OPTS="--color=hl:${purple},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 fi
-
-
 
