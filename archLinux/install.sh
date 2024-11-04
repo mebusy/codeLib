@@ -43,6 +43,12 @@ if [ $instStep -le 3 ]; then
 fi
 
 
+# display, gtk, file explorer, dmenu->rofi, sound control
+if [ $instStep -le 4 ]; then
+    # lxappearance to change gtk font size / theme
+    sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
+ 
+fi
 # invoke ./i3wmConf/makeSoftLink.sh
 ./i3wmConf/makeSoftLink.sh
 
