@@ -1,0 +1,10 @@
+# vi ./config/alacritty/alacritty.toml
+
+# https://alacritty.org/config-alacritty.html#s12
+# config change will affect UI right now
+[font]
+size=8
+
+[window]
+opacity=0.9
+
