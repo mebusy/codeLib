@@ -201,6 +201,7 @@ exec chromium
 # customize shortcut key, like MacOS
 bindsym $mod+Ctrl+q exec i3lock --color=000000
 
-
+# wallpaper
+exec_always feh --bg-scale ~/.wallpaper/snowMountain.jpg
 
 
