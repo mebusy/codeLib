@@ -140,8 +140,8 @@ fi
 # Linux, let /usr/local/bin has higher priority than /homebrew
 export PATH="/usr/local/bin:$PATH"
 
-# if is Linux
-if [ "$(uname)" = "Linux" ]; then
+# for WSL2 brew clang-format
+if [ "$(uname)" = "Linux" ] && command -v brew &> /dev/null; then
     # brew clang-format keg only
     _clangformat_path="$(brew --prefix clang-format)/bin"
     # if exists and not in $PATH, then add it
@@ -168,7 +168,7 @@ if [ "$(uname)" = "Darwin" ]; then
     #default java17
     export JAVA_HOME=$JAVA_17_HOME
 else
-    # if exists $_jenv_bin, and not in $PATH, then add it
+    # for linux with jenv
     if command -v jenv &> /dev/null; then
         eval "$(jenv init -)"
         # for jdk in openjdk@8 openjdk@11 openjdk@17 , print brew --prefix $jdk
@@ -210,23 +210,32 @@ fi
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
-alias so="source ~/.profile"
+# if exists `~/.profile`
+if [ -f ~/.profile ]; then
+    alias so="source ~/.profile"
+fi
+
+if [ -f ~/.bash_profile ]; then
+    alias so="source ~/.bash_profile"
+fi
 
 # IP address
 if [ "$(uname)" = "Darwin" ]; then
     export HOST_IP=`ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'` 
     
-    # set max open files
-    ulimit -n 8192
     # change somaxconn
     # sudo visudo
     # add:  <username> ALL=(ALL) NOPASSWD: /usr/sbin/sysctl
     # sudo sysctl -w kern.ipc.somaxconn=8192 > /dev/null
 fi
 
+# set max open files
+if [ "$(ulimit -n)" -lt 8192 ]; then
+    ulimit -n 8192
+fi
+
 # x11
 if [ "$(uname)" = "Darwin" ]; then
-
     _display_number=`ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $9; }'`
     # if _display_number is not empty, then set DISPLAY
     if [ -n "$_display_number" ]; then
@@ -266,22 +275,21 @@ then
     source $myProfileYtdl
 fi
 
-
-
-
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then
    source "$HOME/.cargo/env"
 else
   echo "Warning: $HOME/.cargo/env not found."
-  echo "Please install rustup-init"
+  echo "Please install rustup[-init]"
 fi
 
 
 alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
-alias mdfind='mdfind 2> /dev/null '
 
+if [ "$(uname)" = "Darwin" ]; then
+    alias mdfind='mdfind 2> /dev/null '
+fi
 
 # --------- Bat Theme ------------
 export BAT_THEME="GitHub"
