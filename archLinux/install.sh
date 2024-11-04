@@ -60,10 +60,27 @@ if [ $instStep -le 5 ]; then
     ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
 fi
 
+if [ $instStep -le 6 ]; then
+   # dev tools
+   sudo pacman --noconfirm -S cmake go typescript mono
+fi
+
+if [ $instStep -le 7 ]; then
+   # nvm, will modify ~/.bashrc
+   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+   nvm install 18
+   nvm use 18
+fi
+
+
 
 
 # invoke ./i3wmConf/makeSoftLink.sh
 ./i3wmConf/makeSoftLink.sh
+
+echo ===================== done ===========================
 
 echo run fcitx-configtool to config input method
 echo run lxappearance to change theme
