@@ -51,21 +51,24 @@ fi
 if [ $instStep -le 4 ]; then
     # lxappearance to change gtk font size / theme
     sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
- 
+
+    sudo pacman --noconfirm -S neofetch
+    neofetch
 fi
 
 if [ $instStep -le 5 ]; then
     # install paru
-    sudo pacman --noconfirm -S rustup neofetch
-    neofetch
-    rustup default stable
+
+    # rustup default stable
+    echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    sudo pacman --noconfirm -S rustup
  
     ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
 fi
 
 if [ $instStep -le 6 ]; then
     # dev tools
-    sudo pacman --noconfirm -S cmake go typescript mono
+    sudo pacman --noconfirm -S cmake go typescript mono lsof
 fi
 
 if [ $instStep -le 7 ]; then
@@ -131,7 +134,6 @@ if [ $instStep -le 13 ]; then
     ( cd ../working_settings && sh makesoftlink.sh ) 
 fi
 
-
 # invoke ./i3wmConf/makeSoftLink.sh
 ./i3wmConf/makeSoftLink.sh
 
@@ -139,5 +141,6 @@ echo ===================== done ===========================
 
 echo run fcitx-configtool to config input method
 echo run lxappearance to change theme
+
 
 
