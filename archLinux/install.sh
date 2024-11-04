@@ -94,6 +94,10 @@ if [ $instStep -le 9 ]; then
     pyenv exec pip  install --upgrade pip
 fi
 
+export PATH="$HOME/.pyenv/shims":$PATH
+export PATH=`pyenv prefix`/bin:$PATH
+echo ! PYTHON version: `which python`
+
 if [ $instStep -le 10 ]; then
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ];
@@ -114,10 +118,18 @@ if [ $instStep -le 11 ]; then
     fi
 fi
 
+if [ $instStep -le 12 ]; then
+    # vim
+    sudo pacman --noconfirm -S vim yarn ctags  flake8 eslint prettier stylua cpplint luacheck python-pylint
+    echo 1 | paru --skipreview gotags
+    echo 1 | paru --skipreview clang-format-all-git
+    paru --skipreview python-black  # can not 'echo 1 | ... ' dunno why
+    echo 1 | paru --skipreview tlrc
+fi
 
-export PATH="$HOME/.pyenv/shims":$PATH
-export PATH=`pyenv prefix`/bin:$PATH
-echo cur python versions: `which python`
+if [ $instStep -le 13 ]; then
+    ( cd ../working_settings && sh makesoftlink.sh ) 
+fi
 
 
 # invoke ./i3wmConf/makeSoftLink.sh
