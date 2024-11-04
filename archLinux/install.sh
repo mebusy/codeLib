@@ -61,20 +61,39 @@ if [ $instStep -le 5 ]; then
 fi
 
 if [ $instStep -le 6 ]; then
-   # dev tools
-   sudo pacman --noconfirm -S cmake go typescript mono
+    # dev tools
+    sudo pacman --noconfirm -S cmake go typescript mono
 fi
 
 if [ $instStep -le 7 ]; then
-   # nvm, will modify ~/.bashrc
-   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-   export NVM_DIR="$HOME/.nvm"
-   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-   nvm install 18
-   nvm use 18
+    # nvm, will modify ~/.bashrc
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    nvm install 18
+    nvm use 18
 fi
 
 
+if [ $instStep -le 8 ]; then
+    # java
+    sudo pacman --noconfirm -S jdk8-openjdk jdk17-openjdk java-runtime-common
+    # set 17 as default version
+    sudo archlinux-java set java-17-openjdk
+    java -version
+fi
+
+if [ $instStep -le 9 ]; then
+    # python
+    sudo pacman --noconfirm -S pyenv tk
+    pyenv install 3.12
+    pyenv global 3.12
+    pyenv exec pip  install --upgrade pip
+fi
+
+export PATH="$HOME/.pyenv/shims":$PATH
+export PATH=`pyenv prefix`/bin:$PATH
+echo cur python versions: `which python`
 
 
 # invoke ./i3wmConf/makeSoftLink.sh
