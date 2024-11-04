@@ -39,7 +39,7 @@ fi
 if [ $instStep -le 3 ]; then
     sudo pacman --noconfirm -S feh
     mkdir -p ~/.wallpaper
-    wget -O ~/.wallpaper/snowMountain.jpg blob:https://github.com/6848b5c7-96e6-4fc4-bbcd-c5adab933e92
+    wget -O ~/.wallpaper/snowMountain.jpg https://github.com/dharmx/walls/blob/main/mountain/a_snowy_mountain_tops_with_a_grey_sky.jpg?raw=true
 fi
 
 
