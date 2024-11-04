@@ -104,6 +104,16 @@ if [ $instStep -le 10 ]; then
     fi
 fi
 
+if [ $instStep -le 11 ]; then
+    # powerlevel10k
+    if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ];
+    then
+        echo install powerlevel10k...
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+            ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    fi
+fi
+
 
 export PATH="$HOME/.pyenv/shims":$PATH
 export PATH=`pyenv prefix`/bin:$PATH
