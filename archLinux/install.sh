@@ -39,6 +39,6 @@ fi
 
 
 # invoke ./i3wmConf/makeSoftLink.sh
-source ./i3wmConf/makeSoftLink.sh
+./i3wmConf/makeSoftLink.sh
 
 
