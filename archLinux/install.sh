@@ -2,6 +2,9 @@
 
 set -e
 
+echo if paru build failed, try NOT run this script in a SSH session.
+
+
 # the 1st param is instStep, default is 0
 instStep=${1:-0}
 
