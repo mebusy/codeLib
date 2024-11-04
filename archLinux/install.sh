@@ -1,18 +1,16 @@
-#!bash
+#!/usr/bin/bash
 
 set -e
 
 # the 1st param is instStep, default is 0
 instStep=${1:-0}
 
-
-
-
 # if instStep <= 0
 if [ $instStep -le 0 ]; then
     # step 0
     # update pacman
     sudo pacman -Syyu --noconfirm
+    sudo ln -sf /usr/bin/vim /usr/bin/vi
 fi
 
 
