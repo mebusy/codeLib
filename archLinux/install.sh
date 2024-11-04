@@ -32,6 +32,7 @@ if [ $instStep -le 2 ]; then
     # font & alacritty
     sudo pacman --noconfirm -S noto-fonts-cjk wqy-zenhei adobe-source-han-sans-otc-fonts
     sudo pacman --noconfirm -S alacritty picom fcitx fcitx-googlepinyin fcitx-configtool
+    sudo fc-cache -fv
 fi
 
 
