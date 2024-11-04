@@ -38,3 +38,7 @@ if [ $instStep -le 2 ]; then
 fi
 
 
+# invoke ./i3wmConf/makeSoftLink.sh
+source ./i3wmConf/makeSoftLink.sh
+
+
