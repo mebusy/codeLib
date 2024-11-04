@@ -22,6 +22,7 @@ if [ $instStep -le 1 ]; then
     sudo pacman --noconfirm -S git less
     git config --global user.name "mebusy"
     git config --global user.email "golden_slime@hotmail.com"
+    git config --global pull.rebase false
     # if is linux
     if [ -f /etc/lsb-release ]; then
         git --config credential.helper store
