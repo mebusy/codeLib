@@ -193,5 +193,14 @@ bar {
 # alacrity transparent
 exec --no-startup-id picom -f --xrender-sync-fence
 
+# workspace
+assign [class="Chromium"] $ws2
+# lanuch program when login
+exec chromium
+
+# customize shortcut key, like MacOS
+bindsym $mod+Ctrl+q exec i3lock --color=000000
+
+
 
 
