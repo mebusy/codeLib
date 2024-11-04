@@ -12,8 +12,11 @@ if [ $instStep -le 0 ]; then
     # update pacman
     sudo pacman -Syyu --noconfirm
     sudo ln -sf /usr/bin/vim /usr/bin/vi
-fi
 
+    # create initial user folders
+    sudo pacman --noconfirm -S xdg-user-dirs
+    xdg-user-dirs-update
+fi
 
 if [ $instStep -le 1 ]; then
     # step 1
@@ -90,6 +93,17 @@ if [ $instStep -le 9 ]; then
     pyenv global 3.12
     pyenv exec pip  install --upgrade pip
 fi
+
+if [ $instStep -le 10 ]; then
+    # oh-my-zsh
+    if [ ! -d "$HOME/.oh-my-zsh" ];
+    then
+        sudo pacman --noconfirm -S zsh
+        echo install oh-my-zsh...
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
+fi
+
 
 export PATH="$HOME/.pyenv/shims":$PATH
 export PATH=`pyenv prefix`/bin:$PATH
