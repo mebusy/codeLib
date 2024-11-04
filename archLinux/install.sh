@@ -56,6 +56,9 @@ if [ $instStep -le 4 ]; then
     neofetch
 fi
 
+# invoke ./i3wmConf/makeSoftLink.sh
+./i3wmConf/makeSoftLink.sh
+
 if [ $instStep -le 5 ]; then
     # install paru
 
@@ -128,14 +131,17 @@ if [ $instStep -le 12 ]; then
     echo 1 | paru --skipreview clang-format-all-git
     paru --skipreview python-black  # can not 'echo 1 | ... ' dunno why
     echo 1 | paru --skipreview tlrc
+    pyenv exec pip  install setuptools # for YCMD
 fi
 
 if [ $instStep -le 13 ]; then
     ( cd ../working_settings && sh makesoftlink.sh ) 
+    ( cd ../working_editor_configs && sh makesoftlink_ed.sh ) 
 fi
 
-# invoke ./i3wmConf/makeSoftLink.sh
-./i3wmConf/makeSoftLink.sh
+if [ $instStep -le 14 ]; then
+( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )
+fi
 
 echo ===================== done ===========================
 
