@@ -189,3 +189,9 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+# alacrity transparent
+exec --no-startup-id picom -f --xrender-sync-fence
+
+
+
