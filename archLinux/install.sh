@@ -36,6 +36,12 @@ if [ $instStep -le 2 ]; then
     sudo fc-cache -fv
 fi
 
+if [ $instStep -le 3 ]; then
+    sudo pacman --noconfirm -S feh
+    mkdir -p ~/.wallpaper
+    wget -O ~/.wallpaper/snowMountain.jpg blob:https://github.com/6848b5c7-96e6-4fc4-bbcd-c5adab933e92
+fi
+
 
 # invoke ./i3wmConf/makeSoftLink.sh
 ./i3wmConf/makeSoftLink.sh
