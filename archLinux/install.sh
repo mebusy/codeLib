@@ -122,6 +122,14 @@ if [ $instStep -le 11 ]; then
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
             ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     fi
+
+    
+    as_path=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    if [ ! -d $as_path ];
+    then
+        echo install zsh-autosugestions
+        git clone https://github.com/zsh-users/zsh-autosuggestions  $as_path
+    fi
 fi
 
 if [ $instStep -le 12 ]; then
@@ -141,6 +149,13 @@ fi
 
 if [ $instStep -le 14 ]; then
 ( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )
+fi
+
+if [ $instStep -le 15 ]; then
+    ( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )
+fi
+if [ $instStep -le 16 ]; then
+    ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
 fi
 
 echo ===================== done ===========================
