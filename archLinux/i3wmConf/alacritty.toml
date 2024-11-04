@@ -3,8 +3,10 @@
 # https://alacritty.org/config-alacritty.html#s12
 # config change will affect UI right now
 [font]
-size=8
+normal.family="DejaVu Sans Mono"
+size=10
 
 [window]
 opacity=0.9
+
 
