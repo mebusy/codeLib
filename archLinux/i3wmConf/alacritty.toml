@@ -3,8 +3,8 @@
 # https://alacritty.org/config-alacritty.html#s12
 # config change will affect UI right now
 [font]
-normal.family="DejaVu Sans Mono"
-size=10
+# normal.family="DejaVu Sans Mono"
+size=10  # won't affect by xrandr --dpi setting
 
 [window]
 opacity=0.9

@@ -207,4 +207,8 @@ bindsym $mod+Ctrl+q exec i3lock --color=000000
 # wallpaper
 exec_always feh --bg-scale ~/.wallpaper/snowMountain.jpg
 
+# HiDPI
+# default dpi is 96, change to 192
+# exec_always xrandr --dpi 192
+
 
