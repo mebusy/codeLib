@@ -64,6 +64,7 @@ if [ $instStep -le 5 ]; then
 
     # rustup default stable
     echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    # should remove pre-installed rustup ?
     # sudo pacman --noconfirm -S rustup
  
     # if paru is not installed
