@@ -14,7 +14,7 @@ if [ $instStep -le 0 ]; then
     sudo ln -sf /usr/bin/vim /usr/bin/vi
 
     # create initial user folders
-    sudo pacman --noconfirm -S xdg-user-dirs
+    sudo pacman --noconfirm -S xdg-user-dirs xss-lock
     xdg-user-dirs-update
 fi
 
