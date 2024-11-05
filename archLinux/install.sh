@@ -89,6 +89,9 @@ if [ $instStep -le 7 ]; then
     nvm use 18
 fi
 
+# re-source
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if [ $instStep -le 8 ]; then
     # java
