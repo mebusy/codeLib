@@ -64,7 +64,7 @@ if [ $instStep -le 5 ]; then
 
     # rustup default stable
     echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    sudo pacman --noconfirm -S rustup
+    # sudo pacman --noconfirm -S rustup
  
     # if paru is not installed
     if [ ! -x "$(command -v paru)" ]; then
