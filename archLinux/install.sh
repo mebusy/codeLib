@@ -64,9 +64,15 @@ if [ $instStep -le 5 ]; then
 
     # rustup default stable
     echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    sudo pacman --noconfirm -S rustup
+    # should remove pre-installed rustup ?
+    # sudo pacman --noconfirm -S rustup
  
-    ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
+    # if paru is not installed
+    if [ ! -x "$(command -v paru)" ]; then
+        echo install paru...
+        ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
+    fi
+
 fi
 
 if [ $instStep -le 6 ]; then
@@ -83,6 +89,9 @@ if [ $instStep -le 7 ]; then
     nvm use 18
 fi
 
+# re-source
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if [ $instStep -le 8 ]; then
     # java
@@ -145,6 +154,8 @@ fi
 if [ $instStep -le 13 ]; then
     ( cd ../working_settings && sh makesoftlink.sh ) 
     ( cd ../working_editor_configs && sh makesoftlink_ed.sh ) 
+
+    vim +PluginInstall +qall
 fi
 
 if [ $instStep -le 14 ]; then
