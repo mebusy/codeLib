@@ -66,7 +66,12 @@ if [ $instStep -le 5 ]; then
     echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     sudo pacman --noconfirm -S rustup
  
-    ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
+    # if paru is not installed
+    if [ ! -x "$(command -v paru)" ]; then
+        echo install paru...
+        ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
+    fi
+
 fi
 
 if [ $instStep -le 6 ]; then
