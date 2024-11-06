@@ -217,6 +217,10 @@ if [ $instStep -le 21 ]; then
     # 4. `kubectl get node -v10`  may help if you are under proxy
 fi
 
+if [ $instStep -le 22 ]; then
+    sudo pacman --noconfirm -S gimp libreoffice-fresh libreoffice-fresh-zh-CN vlc
+fi
+
 
 echo ===================== done ===========================
 
