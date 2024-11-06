@@ -198,21 +198,25 @@ if [ $instStep -le 20 ]; then
     docker --version
 fi
 
-# software: mail / file merge
-#
-# echo 1 | paru --skipreview sublime-text-4
-# sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
-# minikube start
-# # if you use a proxy, ensure you added proxy IP to no_proxy
-# minikube start [--listen-address=0.0.0.0]
 
-# minikube note:
-# 1. if you not provide --listen-address='0.0.0.0' 
-#   - `docker ps` to checkout cluster info
-#   - vi ~/.kube/config, change the ip to same one which docker container exposed
-# 2. docker port minikube  # checking  host -> container mapping port
-# 3. if you entirely in trouble, try `minikube delete --all --purge`
-# 4. `kubectl get node -v10`  may help if you are under proxy
+if [ $instStep -le 21 ]; then
+    # software: mail / file merge
+    #
+    echo 1 | paru --skipreview sublime-text-4
+    sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
+    # minikube start [--listen-address=0.0.0.0]
+    minikube start
+    # # if you use a proxy, ensure you added proxy IP to no_proxy
+
+    # minikube note:
+    # 1. if you not provide --listen-address='0.0.0.0' 
+    #   - `docker ps` to checkout cluster info
+    #   - vi ~/.kube/config, change the ip to same one which docker container exposed
+    # 2. docker port minikube  # checking  host -> container mapping port
+    # 3. if you entirely in trouble, try `minikube delete --all --purge`
+    # 4. `kubectl get node -v10`  may help if you are under proxy
+fi
+
 
 echo ===================== done ===========================
 
