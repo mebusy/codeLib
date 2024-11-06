@@ -204,13 +204,14 @@ fi
 # sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
 # minikube start
 # # if you use a proxy, ensure you added proxy IP to no_proxy
-# minikube start [--listen-address='0.0.0.0']
+# minikube start [--listen-address=0.0.0.0]
 
-# minikube note: (not necessary ?)
-# 1. `docker ps` to checkout cluster info
-# 2. vi ~/.kube/config, change the ip to same one which docker container exposed
-# 3. docker port minikube  # checking  host -> container mapping port
-# 4. if you entirely in trouble, try `minikube delete --all --purge`
+# minikube note:
+# 1. if you not provide --listen-address='0.0.0.0' 
+#   - `docker ps` to checkout cluster info
+#   - vi ~/.kube/config, change the ip to same one which docker container exposed
+# 2. docker port minikube  # checking  host -> container mapping port
+# 3. if you entirely in trouble, try `minikube delete --all --purge`
 
 echo ===================== done ===========================
 
