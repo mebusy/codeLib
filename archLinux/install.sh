@@ -196,7 +196,7 @@ fi
 
 # software: mail / file merge
 #
-# sudo pacman -S --noconfirm  thunderbird meld minikube
+# sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
 # minikube start
 # echo 1 | paru --skipreview sublime-text-4
 
