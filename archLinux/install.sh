@@ -143,7 +143,7 @@ fi
 
 if [ $instStep -le 12 ]; then
     # vim
-    sudo pacman --noconfirm -S vim yarn ctags  flake8 eslint prettier stylua cpplint luacheck python-pylint
+    sudo pacman --noconfirm -S tmux vim yarn ctags  flake8 eslint prettier stylua cpplint luacheck python-pylint
     echo 1 | paru --skipreview gotags
     echo 1 | paru --skipreview clang-format-all-git
     paru --skipreview python-black  # can not 'echo 1 | ... ' dunno why
