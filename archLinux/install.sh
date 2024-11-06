@@ -205,11 +205,11 @@ fi
 # minikube start
 # # if you use a proxy, ensure you added proxy IP to no_proxy
 # minikube start [--listen-address='0.0.0.0']
-# docker port minikube  # checking  host -> container mapping port
 
-# minikube note:
+# minikube note: (not necessary ?)
 # 1. `docker ps` to checkout cluster info
 # 2. vi ~/.kube/config, change the ip to same one which docker container exposed
+# 3. docker port minikube  # checking  host -> container mapping port
 
 echo ===================== done ===========================
 
