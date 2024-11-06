@@ -178,8 +178,9 @@ if [ $instStep -le 20 ]; then
         sudo usermod -aG docker $USER
         newgrp docker # to make the group change effective without logout
     fi
-    # if proxy is needed
-    # vi ~/.docker/daemon.json 
+    # docker can use proxy setting in the environment variables
+    # if registry mirror  is needed
+    # vi /etc/docker/daemon.json  (create if not exists yet)
     # {
     #   "registry-mirrors": [
     #     "https://docker.m.daocloud.io",
@@ -189,6 +190,7 @@ if [ $instStep -le 20 ]; then
     #   ]
     # }
     # systemctl restart docker
+    # `docker info`  to check
     docker --version
 fi
 
