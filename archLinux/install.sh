@@ -219,7 +219,7 @@ fi
 
 if [ $instStep -le 22 ]; then
     sudo pacman --noconfirm -S gimp libreoffice-fresh  vlc
-    sudo pacman --noconfirm -S adobe-source-sans-pro-fonts  languagetool 
+    sudo pacman --noconfirm -S adobe-source-sans-pro-fonts
 fi
 
 
