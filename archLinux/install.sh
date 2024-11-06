@@ -169,6 +169,19 @@ if [ $instStep -le 16 ]; then
     ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
 fi
 
+if [ $instStep -le 20 ]; then
+    # if docker not installed, intall it
+    if [ ! -x "$(command -v docker)" ]; then
+        sudo pacman --noconfirm -S docker
+        sudo systemctl enable docker
+        sudo systemctl start docker
+        sudo usermod -aG docker $USER
+        newgrp docker # to make the group change effective without logout
+    fi
+    docker --version
+fi
+
+
 echo ===================== done ===========================
 
 echo run fcitx-configtool to config input method
