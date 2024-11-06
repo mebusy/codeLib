@@ -195,7 +195,9 @@ if [ $instStep -le 20 ]; then
 fi
 
 # software: mail / file merge
-# sudo pacman -S --noconfirm  thunderbird meld 
+#
+# sudo pacman -S --noconfirm  thunderbird meld minikube
+# minikube start
 # echo 1 | paru --skipreview sublime-text-4
 
 
