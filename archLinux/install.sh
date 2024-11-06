@@ -210,6 +210,7 @@ fi
 # 1. `docker ps` to checkout cluster info
 # 2. vi ~/.kube/config, change the ip to same one which docker container exposed
 # 3. docker port minikube  # checking  host -> container mapping port
+# 4. if you entirely in trouble, try `minikube delete --all --purge`
 
 echo ===================== done ===========================
 
