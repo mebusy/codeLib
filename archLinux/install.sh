@@ -159,7 +159,7 @@ if [ $instStep -le 13 ]; then
     ( cd ../working_settings && sh makesoftlink.sh ) 
     ( cd ../working_editor_configs && sh makesoftlink_ed.sh ) 
 
-    vim +PluginInstall +qall
+    vim +PlugInstall +qall
 fi
 
 if [ $instStep -le 14 ]; then
