@@ -53,7 +53,7 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec "alacritty -e zsh -l"
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+x kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run

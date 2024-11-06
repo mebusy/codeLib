@@ -194,6 +194,8 @@ if [ $instStep -le 20 ]; then
     docker --version
 fi
 
+# software: mail / file merge
+# sudo pacman -S --noconfirm  thunderbird meld 
 
 echo ===================== done ===========================
 
