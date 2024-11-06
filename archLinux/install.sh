@@ -218,7 +218,7 @@ if [ $instStep -le 21 ]; then
 fi
 
 if [ $instStep -le 22 ]; then
-    sudo pacman --noconfirm -S gimp libreoffice-fresh libreoffice-fresh-zh-CN vlc
+    sudo pacman --noconfirm -S gimp libreoffice-fresh  vlc
     sudo pacman --noconfirm -S adobe-source-sans-pro-fonts  languagetool 
 fi
 
