@@ -178,6 +178,17 @@ if [ $instStep -le 20 ]; then
         sudo usermod -aG docker $USER
         newgrp docker # to make the group change effective without logout
     fi
+    # if proxy is needed
+    # vi ~/.docker/daemon.json 
+    # {
+    #   "experimental": false,
+    #   "registry-mirrors": [
+    #     "https://docker.m.daocloud.io",
+    #     "https://dockerproxy.com",
+    #     "https://docker.nju.edu.cn",
+    #     "https://docker.mirrors.ustc.edu.cn"
+    #   ]
+    # }
     docker --version
 fi
 
