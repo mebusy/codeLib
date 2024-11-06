@@ -212,6 +212,7 @@ fi
 #   - vi ~/.kube/config, change the ip to same one which docker container exposed
 # 2. docker port minikube  # checking  host -> container mapping port
 # 3. if you entirely in trouble, try `minikube delete --all --purge`
+# 4. `kubectl get node -v10`  may help if you are under proxy
 
 echo ===================== done ===========================
 
