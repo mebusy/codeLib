@@ -48,6 +48,7 @@ def memory_bandwidth_benchmark(device, size=1024 * 1024 * 256):  # 256MB
 
     print("size (GB), elapsed_time, bandwidth")
     for size in test_range:
+        print(size)
         elapsed_time = 0
         for _ in range(num_trails):
             size = int(size)
