@@ -200,9 +200,12 @@ fi
 
 # software: mail / file merge
 #
+# echo 1 | paru --skipreview sublime-text-4
 # sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
 # minikube start
-# echo 1 | paru --skipreview sublime-text-4
+# # if you use a proxy, ensure you added proxy IP to no_proxy
+# minikube start [--listen-address='0.0.0.0']
+# docker port minikube  # checking  host -> container mapping port
 
 # minikube note:
 # 1. `docker ps` to checkout cluster info
