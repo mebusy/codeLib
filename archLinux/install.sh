@@ -181,7 +181,6 @@ if [ $instStep -le 20 ]; then
     # if proxy is needed
     # vi ~/.docker/daemon.json 
     # {
-    #   "experimental": false,
     #   "registry-mirrors": [
     #     "https://docker.m.daocloud.io",
     #     "https://dockerproxy.com",
