@@ -146,6 +146,7 @@ fi
 
 if [ $instStep -le 12 ]; then
     # vim
+    sudo pacman --noconfirm -R vim
     sudo pacman --noconfirm -S tmux gvim yarn ctags  flake8 eslint prettier stylua cpplint luacheck python-pylint
     echo 1 | paru --skipreview gotags
     echo 1 | paru --skipreview clang-format-all-git
