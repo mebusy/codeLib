@@ -62,10 +62,13 @@ fi
 if [ $instStep -le 5 ]; then
     # install paru
 
-    # rustup default stable
-    echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    # should remove pre-installed rustup ?
-    # sudo pacman --noconfirm -S rustup
+    # if rust is not installed
+    if [ ! -x "$(command -v rustup)" ]; then
+        # rustup default stable
+        echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        # should remove pre-installed rustup ?
+        # sudo pacman --noconfirm -S rustup
+    fi
  
     # if paru is not installed
     if [ ! -x "$(command -v paru)" ]; then
