@@ -203,6 +203,9 @@ fi
 # minikube start
 # echo 1 | paru --skipreview sublime-text-4
 
+# minikube note:
+# 1. `docker ps` to checkout cluster info
+# 2. vi ~/.kube/config, change the ip to same one which docker container exposed
 
 echo ===================== done ===========================
 
