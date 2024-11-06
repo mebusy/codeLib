@@ -196,6 +196,8 @@ fi
 
 # software: mail / file merge
 # sudo pacman -S --noconfirm  thunderbird meld 
+# echo 1 | paru --skipreview sublime-text-4
+
 
 echo ===================== done ===========================
 
