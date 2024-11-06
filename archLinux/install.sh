@@ -189,6 +189,7 @@ if [ $instStep -le 20 ]; then
     #     "https://docker.mirrors.ustc.edu.cn"
     #   ]
     # }
+    # systemctl restart docker
     docker --version
 fi
 
