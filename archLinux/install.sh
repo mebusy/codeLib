@@ -200,6 +200,8 @@ fi
 
 
 if [ $instStep -le 21 ]; then
+    sudo pacman -Syyu --noconfirm
+
     # software: mail / file merge
     #
     echo 1 | paru --skipreview sublime-text-4
