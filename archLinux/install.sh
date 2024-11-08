@@ -37,6 +37,7 @@ if [ $instStep -le 2 ]; then
     sudo pacman --noconfirm -S alacritty picom fcitx fcitx-googlepinyin fcitx-configtool
     wget https://raw.githubusercontent.com/FortAwesome/Font-Awesome/refs/heads/4.x/fonts/fontawesome-webfont.ttf
     sudo mv -f fontawesome-webfont.ttf /usr/share/fonts/
+    sudo cp -f -R YosemiteSanFranciscoFont /usr/share/fonts/myFonts
     sudo fc-cache -fv
 fi
 
