@@ -51,6 +51,7 @@ fi
 if [ $instStep -le 4 ]; then
     # lxappearance to change gtk font size / theme
     sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
+    echo 1 | paru --skipreview gtk-theme-macos-mojave
 
     sudo pacman --noconfirm -S neofetch
     neofetch
