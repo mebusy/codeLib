@@ -6,9 +6,10 @@ echo make soft link
 
 src_path=$(cd "$(dirname ${BASH_SOURCE[0]} )" && pwd)/$(basename "$1")
 
-mkdir -p ~/.config/i3/
+mkdir -p ~/.config/i3/scripts/
 
 ln -sf ${src_path}/i3_config ~/.config/i3/config
+ln -sf ${src_path}/i3_initWorkSpace.sh ~/.config/i3/scripts/
 
 mkdir -p ~/.config/alacritty
 ln -sf ${src_path}/alacritty.toml ~/.config/alacritty/alacritty.toml
