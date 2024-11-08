@@ -14,7 +14,7 @@ export LC_ALL=en_US.UTF-8
 
 
 # ========================== PROXY =================================
-ret=`lsof -i:3128`
+ret=`lsof -i:3128 | grep LISTEN`
 if [ -n "$ret" ] ; then
     # proxy tunnel is running
     # for authenticate proxy
