@@ -20,6 +20,7 @@ if [ -n "$ret" ] ; then
     # for authenticate proxy
     #   use cntlm 
     # for non-auth proxy
+    #   brew tap samuong/alpaca
     #   brew install samuong/alpaca/alpaca
     #   launchd: ~/Library/LaunchAgents/homebrew.mxcl.alpaca.plist
     #      optinal:  build alpha, it will copy executable to `/usr/local/opt/alpaca/bin/alpaca`
