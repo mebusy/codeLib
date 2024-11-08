@@ -292,3 +292,6 @@ fi
 export BAT_THEME="GitHub"
 
 
+# tips 
+# literal json string to pretty print
+# pbpaste |  python -c "import sys,json; print(eval(sys.stdin.read()))" | python -m json.tool | pbcopy
