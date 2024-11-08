@@ -170,7 +170,11 @@ if [ $instStep -le 15 ]; then
     ( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )
 fi
 if [ $instStep -le 16 ]; then
-    ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
+    if [ -n "$http_proxy" ]; then
+        ( cd ~/.vim/plugged/vim-prettier && rm yarn.lock && yarn install --frozen-lockfile --production && git checkout . )
+    else
+        ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
+    fi
 fi
 
 if [ $instStep -le 20 ]; then
