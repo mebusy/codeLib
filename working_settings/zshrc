@@ -135,6 +135,11 @@ if command -v brew &> /dev/null; then
         p10k_theme=$(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
     fi
     source $p10k_theme
+else
+    # install from oh-my-zsh
+    source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+    # install from paru ?
+    # source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
