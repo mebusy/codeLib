@@ -197,9 +197,13 @@ bar {
 exec --no-startup-id picom -f --xrender-sync-fence
 
 # workspace
+assign [class="Alacritty"] $ws1
 assign [class="Chromium"] $ws2
+assign [class="thunderbird"] $ws3
 # lanuch program when login
-exec_always --no-startup-id "sh -c 'if ! pgrep -x \"chromium\" > /dev/null; then  exec --no-startup-id chromium; fi'"
+exec_always --no-startup-id "sh -c 'if ! pgrep -x \"alacritty\" > /dev/null; then exec alacritty; fi'"
+exec_always --no-startup-id "sh -c 'if ! pgrep -x \"chromium\" > /dev/null; then exec chromium; fi'"
+exec_always --no-startup-id "sh -c 'if ! pgrep -x \"thunderbird\" > /dev/null; then exec thunderbird; fi'"
 
 # customize shortcut key, like MacOS
 bindsym $mod+Ctrl+q exec i3lock --color=000000
