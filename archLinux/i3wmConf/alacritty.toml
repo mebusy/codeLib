@@ -10,3 +10,8 @@ size=10  # won't affect by xrandr --dpi setting
 opacity=0.9
 
 
+[cursor]
+style.blinking="Always"
+# blink_interval=750
+blink_timeout=0
+
