@@ -199,7 +199,8 @@ exec --no-startup-id picom -f --xrender-sync-fence
 # workspace
 assign [class="Chromium"] $ws2
 # lanuch program when login
-exec chromium
+# exec chromium
+exec_always --no-startup-id ~/.config/i3/scripts/initWorkSpace.sh
 
 # customize shortcut key, like MacOS
 bindsym $mod+Ctrl+q exec i3lock --color=000000
