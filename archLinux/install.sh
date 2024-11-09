@@ -56,7 +56,6 @@ fi
 if [ $instStep -le 4 ]; then
     # lxappearance to change gtk font size / theme
     sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
-    echo 1 | paru --skipreview gtk-theme-macos-mojave
 
     sudo pacman --noconfirm -S neofetch
     neofetch
@@ -82,6 +81,7 @@ if [ $instStep -le 5 ]; then
         ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
     fi
 
+    echo 1 | paru --skipreview gtk-theme-macos-mojave
 fi
 
 if [ $instStep -le 6 ]; then
