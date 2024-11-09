@@ -230,6 +230,28 @@ if [ $instStep -le 22 ]; then
     sudo pacman --noconfirm -S adobe-source-sans-pro-fonts languagetool
 fi
 
+if [ $instStep -le 22 ]; then
+    # bluetooth
+    sudo pacman --noconfirm -S bluez bluez-utils pipewire-pulse
+    # lsmod | grep btusb   -- check whether btusb module is loaded
+    #    if not:  modprobe btusb   -- to load it
+    sudo systemctl enable bluetooth && systemctl start bluetooth
+    #bluetoothctl # - best shell tool
+    # [bluetooth]# [CHG] Controller 40:A3:CC:E7:52:C9 Pairable: yes
+    # [bluetooth]# power on
+    # [bluetooth]# Changing power on succeeded
+    # [bluetooth]# agent on
+    # Agent is already registered
+    # [bluetooth]# default-agent    # auto-connect paired device
+    # [bluetooth]# Default agent request successful
+    # [bluetooth]# scan on          # scan devices
+    # next is to truct/pair/connect  mad-addr
+    # [bluetooth]# scan off         # stop scan
+    #
+    # to make bluetooth auto load after boot
+    # sudo vim /etc/bluetooth/main.conf
+    #      AutoEnable=true
+fi
 
 echo ===================== done ===========================
 
