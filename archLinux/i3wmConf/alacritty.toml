@@ -4,6 +4,7 @@
 # config change will affect UI right now
 [font]
 # normal.family="DejaVu Sans Mono"
+normal.family="Source Code Pro"
 size=10  # won't affect by xrandr --dpi setting
 
 [window]
