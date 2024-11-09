@@ -230,7 +230,7 @@ if [ $instStep -le 22 ]; then
     sudo pacman --noconfirm -S adobe-source-sans-pro-fonts languagetool
 fi
 
-if [ $instStep -le 22 ]; then
+if [ $instStep -le 23 ]; then
     # bluetooth
     sudo pacman --noconfirm -S bluez bluez-utils pipewire-pulse
     # lsmod | grep btusb   -- check whether btusb module is loaded
