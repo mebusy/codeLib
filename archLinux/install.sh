@@ -236,6 +236,7 @@ if [ $instStep -le 22 ]; then
     # lsmod | grep btusb   -- check whether btusb module is loaded
     #    if not:  modprobe btusb   -- to load it
     sudo systemctl enable bluetooth && systemctl start bluetooth
+    # https://wiki.archlinux.org/title/Bluetooth_headset
     #bluetoothctl # - best shell tool
     # [bluetooth]# [CHG] Controller 40:A3:CC:E7:52:C9 Pairable: yes
     # [bluetooth]# power on
