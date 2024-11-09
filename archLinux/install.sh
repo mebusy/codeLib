@@ -2,6 +2,10 @@
 
 set -e
 
+# TIPs
+# 1. change network setting, to take effect
+#    systemctl restart NetworkManager
+
 
 # the 1st param is instStep, default is 0
 instStep=${1:-0}
