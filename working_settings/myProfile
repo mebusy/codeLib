@@ -289,6 +289,11 @@ if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
 fi
 
+# if meld is installed, then alias it
+if command -v meld &> /dev/null; then
+    alias git-meld='git -c diff.tool=meld -c difftool.prompt=false difftool'
+fi
+
 # --------- Bat Theme ------------
 export BAT_THEME="GitHub"
 
