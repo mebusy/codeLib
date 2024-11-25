@@ -12,7 +12,7 @@ else
 endif
 
 " If your terminal uses a dark or light theme, let Vim know
-set background=dark
+" set background=dark   # not good homebrew color theme
 
 " set mouse=a
 
