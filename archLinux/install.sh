@@ -14,9 +14,6 @@ i3wm=false
 # if i3wm is installed
 if [ -x "$(command -v i3)" ]; then
     i3wm=true
-else
-    echo i3wm is not installed
-    exit 1
 fi
 
 # if instStep <= 0
@@ -26,9 +23,12 @@ if [ $instStep -le 0 ]; then
     sudo pacman -Syyu --noconfirm
     sudo ln -sf /usr/bin/vim /usr/bin/vi
 
-    # create initial user folders
-    sudo pacman --noconfirm -S xdg-user-dirs xss-lock
-    xdg-user-dirs-update
+    # if i3wm is installed
+    if [ $i3wm = true ]; then
+        # create initial user folders
+        sudo pacman --noconfirm -S xdg-user-dirs xss-lock
+        xdg-user-dirs-update
+    fi
 fi
 
 if [ $instStep -le 1 ]; then
@@ -43,7 +43,7 @@ if [ $instStep -le 1 ]; then
     git config --global credential.helper store
 fi
 
-if [ $instStep -le 2 ]; then
+if [ $instStep -le 2 ] && [ $i3wm = true ]; then
     # step 2
     # font & alacritty
     sudo pacman --noconfirm -S noto-fonts-cjk wqy-zenhei adobe-source-han-sans-otc-fonts
@@ -54,7 +54,7 @@ if [ $instStep -le 2 ]; then
     sudo fc-cache -fv
 fi
 
-if [ $instStep -le 3 ]; then
+if [ $instStep -le 3 ] && [ $i3wm = true ]; then
     sudo pacman --noconfirm -S feh
     mkdir -p ~/.wallpaper
     wget -O ~/.wallpaper/snowMountain.jpg https://github.com/dharmx/walls/blob/main/mountain/a_snowy_mountain_tops_with_a_grey_sky.jpg?raw=true
@@ -64,14 +64,18 @@ fi
 # display, gtk, file explorer, dmenu->rofi, sound control
 if [ $instStep -le 4 ]; then
     # lxappearance to change gtk font size / theme
-    sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
+    if [ $i3wm = true ]; then
+        sudo pacman --noconfirm -S arandr lxappearance arc-gtk-theme thunar rofi pavucontrol
+    fi
 
     sudo pacman --noconfirm -S neofetch
     neofetch
 fi
 
-# invoke ./i3wmConf/makeSoftLink.sh
-./i3wmConf/makeSoftLink.sh
+if [ $i3wm = true ]; then
+    # invoke ./i3wmConf/makeSoftLink.sh
+    ./i3wmConf/makeSoftLink.sh
+fi
 
 if [ $instStep -le 5 ]; then
     # install paru
@@ -90,7 +94,9 @@ if [ $instStep -le 5 ]; then
         ( rm -rf paru && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si  )
     fi
 
-    echo 1 | paru --skipreview gtk-theme-macos-mojave
+    if [ $i3wm = true ]; then
+        echo 1 | paru --skipreview gtk-theme-macos-mojave
+    fi
 fi
 
 if [ $instStep -le 6 ]; then
@@ -243,10 +249,12 @@ fi
 
 if [ $instStep -le 22 ]; then
     sudo pacman --noconfirm -S gimp libreoffice-fresh  vlc
-    sudo pacman --noconfirm -S adobe-source-sans-pro-fonts languagetool
+    if [ $i3wm = true ]; then
+        sudo pacman --noconfirm -S adobe-source-sans-pro-fonts languagetool
+    fi
 fi
 
-if [ $instStep -le 23 ]; then
+if [ $instStep -le 23 ] && [ $i3wm = true ]; then
     # bluetooth
     sudo pacman --noconfirm -S bluez bluez-utils pipewire-pulse
     # lsmod | grep btusb   -- check whether btusb module is loaded
