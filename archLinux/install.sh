@@ -228,12 +228,15 @@ fi
 
 
 if [ $instStep -le 21 ]; then
+    # software: mail / file merge
+    echo 1 | paru --skipreview sublime-text-4
+    sudo pacman -S --noconfirm  thunderbird meld 
+fi
+
+if [ $instStep -le 22 ]; then
     sudo pacman -Syyu --noconfirm
 
-    # software: mail / file merge
-    #
-    echo 1 | paru --skipreview sublime-text-4
-    sudo pacman -S --noconfirm  thunderbird meld minikube kubectl
+    sudo pacman -S --noconfirm  minikube kubectl
     # minikube start [--listen-address=0.0.0.0]
     minikube start
     # # if you use a proxy, ensure you added proxy IP to no_proxy
@@ -247,14 +250,14 @@ if [ $instStep -le 21 ]; then
     # 4. `kubectl get node -v10`  may help if you are under proxy
 fi
 
-if [ $instStep -le 22 ]; then
+if [ $instStep -le 23 ]; then
     sudo pacman --noconfirm -S gimp libreoffice-fresh  vlc
     if [ $i3wm = true ]; then
         sudo pacman --noconfirm -S adobe-source-sans-pro-fonts languagetool
     fi
 fi
 
-if [ $instStep -le 23 ] && [ $i3wm = true ]; then
+if [ $instStep -le 24 ] && [ $i3wm = true ]; then
     # bluetooth
     sudo pacman --noconfirm -S bluez bluez-utils pipewire-pulse
     # lsmod | grep btusb   -- check whether btusb module is loaded
