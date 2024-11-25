@@ -11,6 +11,8 @@ else
     colorscheme default
 endif
 
+" If your terminal uses a dark or light theme, let Vim know
+set background=dark
 
 " set mouse=a
 
