@@ -10,6 +10,15 @@ set -e
 # the 1st param is instStep, default is 0
 instStep=${1:-0}
 
+i3wm=false
+# if i3wm is installed
+if [ -x "$(command -v i3)" ]; then
+    i3wm=true
+else
+    echo i3wm is not installed
+    exit 1
+fi
+
 # if instStep <= 0
 if [ $instStep -le 0 ]; then
     # step 0
