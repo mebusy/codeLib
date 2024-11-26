@@ -15,6 +15,11 @@ for file in *; do
     if [[ $file != *.sh ]] && [[ $file != *.py ]] && [[ $file != *.bak ]] && [[ $file != Homebrew.json ]]; then
         # echo $file
         target_file=~/.$file
+        if [[ $file == kitty.conf ]]; then
+            mkdir -p ~/.config/kitty
+            target_file=~/.config/kitty/kitty.conf
+        fi
+
         # force solftlink to target file
         ln -sf $PWD/$file $target_file
         ls -l $target_file
