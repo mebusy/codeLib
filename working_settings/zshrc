@@ -152,7 +152,10 @@ unsetopt share_history
 unsetopt nomatch
 
 # if fzf is installed, set up fzf key bindings and fzf completion
-# usage: 1. fzf  2. ctrl + t 3. vi **<TAB>  4. kill -9 **<TAB>
+# fzf provide a preview function
+#   - fzf --preview="bat --color=always {}"
+# usage: 1. fzf (or 'ctrl + t') 2. vi **<TAB>  3. kill -9 **<TAB>
+#
 # 查找命令	匹配类型	说明
 # sbtrkt	模糊匹配	匹配 sbtrkt
 # ^music	前缀精确匹配	以 music 开头
