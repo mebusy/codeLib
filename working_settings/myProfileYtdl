@@ -17,3 +17,25 @@ myytdl() {
 
     fi
 }
+
+mov2mp4() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: $0 <dir or .mov>"
+        return
+    fi
+    
+    if [ -d "$1" ]; then
+        # list all .mov (ignore case)  files in the directory
+        for file in $(find "$1" -type f -iname "*.mov"); do
+            # convert .mov to .mp4
+            ffmpeg -i "$file" -c:v libx264  -c:a aac -movflags +faststart "${file%.*}.mp4"
+        done
+    elif [ -f "$1" ]; then
+        # convert .mov to .mp4
+        # -b:a 128k  -crf 23 -preset medium
+        ffmpeg -i "$1" -c:v libx264 -c:a aac -movflags +faststart "${1%.*}.mp4"
+    else
+        echo "$1 is not a valid file or directory"
+        return
+    fi
+}
