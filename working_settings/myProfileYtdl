@@ -32,8 +32,14 @@ mov2mp4() {
         done
     elif [ -f "$1" ]; then
         # convert .mov to .mp4
-        # -b:a 128k  -crf 23 -preset medium
-        ffmpeg -i "$1" -c:v libx264 -c:a aac -movflags +faststart "${1%.*}.mp4"
+        # -b:a 128k  
+        # if $1 is already a .mp4 or .MP4  file, add a extra suffix .mp4 to the output file
+        if [[ "$1" == *.mp4 ]] || [[ "$1" == *.MP4 ]]; then
+            # more agreesive compression: -crf 32  -preset fast 
+            ffmpeg -i "$1" -c:v libx264 -crf 23 -preset medium -c:a aac -movflags +faststart "${1%.*}.mp4.mp4"
+        else
+            ffmpeg -i "$1" -c:v libx264 -crf 23 -preset medium -c:a aac -movflags +faststart "${1%.*}.mp4"
+        fi
     else
         echo "$1 is not a valid file or directory"
         return
