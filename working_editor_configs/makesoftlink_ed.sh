@@ -5,6 +5,16 @@
 set -e
 
 TARGET_DIR=/Volumes/WORK
+
+# if args 1 is a path, overwrite TARGET_DIR
+if [ -n "$1" ]; then
+    # if $1 is a directory
+    if [ -d $1 ]; then
+        TARGET_DIR=$1
+    fi
+fi
+
+
 if [ "$(uname)" = "Linux" ]; then
     TARGET_DIR=~/WORK
 fi
