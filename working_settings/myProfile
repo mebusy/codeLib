@@ -200,13 +200,13 @@ export GO111MODULE=on
 
 # ========================== MISC =================================
 # pyenv
-if [ "$(uname)" = "Darwin" ]; then
-    export PYTHON_CONFIGURE_OPTS="--enable-framework"
-fi
+# if [ "$(uname)" = "Darwin" ]; then
+#     export PYTHON_CONFIGURE_OPTS="--enable-framework"
+# fi
 
-if command -v pyenv &> /dev/null; then
-    export PATH="$HOME/.pyenv/shims":$PATH
-fi
+# if command -v pyenv &> /dev/null; then
+#     export PATH="$HOME/.pyenv/shims":$PATH
+# fi
 
 # PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 

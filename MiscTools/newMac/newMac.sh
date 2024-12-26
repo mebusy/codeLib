@@ -49,40 +49,11 @@ if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-17.jdk" ]; then
     sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 fi
 
-# 2 python
-# if pyenv not installed , then install pyenv
-if ! command -v pyenv &> /dev/null
-then
-    echo install pyenv...
-    brew install pyenv
-fi
 
+# brew install python-tk@3.12   necessary?
+# brew install tcl-tk ?
+# python -m pip install --upgrade pip
 
-# 2.1 python 3.12
-# if pyenv has not installed python 3.12, then install python 3.12
-if ! pyenv versions | grep 3.11 &> /dev/null
-then
-    echo install python 3.12...
-
-    if [ `uname` != "Darwin" ];
-    then
-        brew uninstall pyenv
-        brew install python@3.11
-    else
-        # brew install python-tk@3.12   necessary?
-        brew install tcl-tk
-
-        env LDFLAGS="-L$(brew --prefix tcl-tk)/lib" \
-        CPPFLAGS="-I$(brew --prefix tcl-tk)/include" \
-        PKG_CONFIG_PATH="$(brew --prefix tcl-tk)/lib/pkgconfig" \
-        pyenv install 3.11
-
-        pyenv global 3.11
-    fi
-fi
-
-echo upgrade pip
-pyenv exec pip install --upgrade pip
 
 
 # 3. Oh-my-zsh
