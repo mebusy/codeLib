@@ -50,7 +50,8 @@ if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-17.jdk" ]; then
 fi
 
 
-# brew install python-tk@3.12   necessary?
+# brew install python-tk@3.12   !!! important
+#
 # brew install tcl-tk ?
 # python -m pip install --upgrade pip
 
@@ -119,7 +120,7 @@ fi
 echo install vim plugins...
 vim +PlugUpdate +qall
 
-brew install python-setuptools 
+brew install python-setuptools   # !important
 # python -m pip install setuptools # for YCMD
 
 echo execute follow commands...
