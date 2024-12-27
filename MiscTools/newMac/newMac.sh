@@ -119,7 +119,8 @@ fi
 echo install vim plugins...
 vim +PlugUpdate +qall
 
-python -m pip install setuptools # for YCMD
+brew install python-setuptools 
+# python -m pip install setuptools # for YCMD
 
 echo execute follow commands...
 echo "( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
