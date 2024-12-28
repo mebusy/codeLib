@@ -130,6 +130,22 @@ if [ $instStep -le 13 ]; then
     vim +PlugInstall +qall
 fi
 
+if [ $instStep -le 14 ]; then
+( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )
+fi
+
+if [ $instStep -le 15 ]; then
+    ( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )
+fi
+if [ $instStep -le 16 ]; then
+    if [ -n "$http_proxy" ]; then
+        ( cd ~/.vim/plugged/vim-prettier && rm yarn.lock && yarn install --frozen-lockfile --production && git checkout . )
+    else
+        ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
+    fi
+fi
+
+
 exit 99
 
 
@@ -143,25 +159,6 @@ then
 fi
 
 echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
-
-# 6 YCMD
-# if vim plugin not installed, then ...
-if [ ! -d "$HOME/.vim/plugged" ];
-then
-    echo please open vim to install vim-plugin
-    exit 1
-fi
-
-echo install vim plugins...
-vim +PlugUpdate +qall
-
-brew install    # !important
-
-echo execute follow commands...
-echo "( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
-echo "( cd ~/.vim/plugged/YouCompleteMe && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
-echo "( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )"
-echo "( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )"  # may remove yarn.lock
 
 if [ `uname` != "Darwin" ];
 then
