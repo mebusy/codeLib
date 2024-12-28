@@ -109,11 +109,11 @@ if [ $instStep -le 6 ]; then
 fi
 
 if [ $instStep -le 7 ]; then
-    # if brew not install zsh-autosuggestions, then install zsh-autosuggestions
-    if ! brew list zsh-autosuggestions &> /dev/null
+    as_path=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    if [ ! -d $as_path ];
     then
-        echo install zsh-autosuggestions...
-        brew install zsh-autosuggestions
+        echo install zsh-autosugestions
+        git clone https://github.com/zsh-users/zsh-autosuggestions  $as_path
     fi
 fi
 
