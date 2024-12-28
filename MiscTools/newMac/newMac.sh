@@ -168,4 +168,5 @@ fi
 
 # tools normally need install in /Applications/
 brew install rectangle xquartz
+brew install ffmpeg mitmproxy
 
