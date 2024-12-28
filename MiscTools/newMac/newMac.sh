@@ -156,18 +156,10 @@ if [ $instStep -le 16 ]; then
     fi
 fi
 
-exit 99
-
-
-
-
-echo $PWD
-
-
-echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
-
-if [ `uname` != "Darwin" ];
-then
-    echo :Copilot setup
+if [ $instStep -le 20 ]; then
+    if [ `uname` != "Darwin" ];
+    then
+        echo :Copilot setup
+    fi
 fi
 
