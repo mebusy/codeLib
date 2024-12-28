@@ -70,10 +70,14 @@ fi
 
 # 2.1. python
 if [ $instStep -le 4 ]; then
-    # python 3.11,  python-setuptools is need for YCMD
-    brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
-    ln -s -f /usr/local/bin/python3.11 /usr/local/bin/python
-    # python -m pip install --upgrade pip
+    # if brew not installed python@3.11, then install
+    if ! brew list python@3.11 &> /dev/null
+    then
+        # python 3.11,  python-setuptools is need for YCMD
+        brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
+        ln -s -f /usr/local/bin/python3.11 /usr/local/bin/python
+        # python -m pip install --upgrade pip
+    fi
 fi
 
 # TODO nvm
