@@ -28,21 +28,28 @@ if [ $instStep -le 0 ]; then
     fi
 fi
 
-exit 99
 
 
 # 1.1 development sdks
 echo install development skds...
-# if brew not installed git, then ...
-brew list git &> /dev/null  || brew install git cmake \
-    go rustup-init typescript node@16 mono openjdk@8 openjdk@17
 
-# if rustup not initialized, then ...
-if [ ! -d "$HOME/.cargo" ];
-then
-    echo install rustup...
-    rustup-init
+if [ $instStep -le 1 ]; then
+    # if brew not installed git, then ...
+    brew list git &> /dev/null  || brew install git cmake \
+        go rustup-init typescript node@18 mono openjdk@8 openjdk@17
 fi
+
+
+if [ $instStep -le 2 ]; then
+    # if rustup not initialized, then ...
+    if [ ! -d "$HOME/.cargo" ];
+    then
+        echo install rustup...
+        rustup-init
+    fi
+fi
+
+exit 99
 
 # if `/Library/Java/JavaVirtualMachines/openjdk-8.jdk` not exist, then ...
 if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-8.jdk" ]; then
