@@ -94,7 +94,7 @@ fi
 
 if [ $instStep -le 6 ]; then
     # if brew not install romkatv/powerlevel10k/powerlevel10k , then install powerlevel10k
-    if ! brew list romkatv/powerlevel10k/powerlevel10k &> /dev/null
+    if ! brew list powerlevel10k &> /dev/null
     then
         echo install powerlevel10k...
         brew install romkatv/powerlevel10k/powerlevel10k
