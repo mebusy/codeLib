@@ -37,6 +37,10 @@ if [ $instStep -le 1 ]; then
     # if brew not installed git, then ...
     brew list git &> /dev/null  || brew install git cmake \
         go rustup-init typescript node@18 mono openjdk@8 openjdk@17
+
+    git config --global user.name "mebusy"
+    git config --global user.email "golden_slime@hotmail.com"
+    git config --global pull.rebase false
 fi
 
 
@@ -72,6 +76,7 @@ if [ $instStep -le 4 ]; then
     # python -m pip install --upgrade pip
 fi
 
+# TODO nvm
 
 # 3. Oh-my-zsh
 # if oh-my-zsh not installed , then install oh-my-zsh
@@ -83,14 +88,26 @@ if [ $instStep -le 5 ]; then
     fi
 fi
 
+if [ $instStep -le 6 ]; then
+    # if brew not install romkatv/powerlevel10k/powerlevel10k , then install powerlevel10k
+    if ! brew list romkatv/powerlevel10k/powerlevel10k &> /dev/null
+    then
+        echo install powerlevel10k...
+        brew install romkatv/powerlevel10k/powerlevel10k
+    fi
+fi
+
+if [ $instStep -le 7 ]; then
+    # if brew not install zsh-autosuggestions, then install zsh-autosuggestions
+    if ! brew list zsh-autosuggestions &> /dev/null
+    then
+        echo install zsh-autosuggestions...
+        brew install zsh-autosuggestions
+    fi
+fi
+
 exit 99
 
-# if brew not install romkatv/powerlevel10k/powerlevel10k , then install powerlevel10k
-if ! brew list romkatv/powerlevel10k/powerlevel10k &> /dev/null
-then
-    echo install powerlevel10k...
-    brew install romkatv/powerlevel10k/powerlevel10k
-fi
 
 # 4. vim
 # if brew not installed vim, then install vim
