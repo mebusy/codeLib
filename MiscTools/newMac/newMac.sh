@@ -130,6 +130,16 @@ if [ $instStep -le 13 ]; then
     vim +PlugInstall +qall
 fi
 
+# if ~/.profile not exist, then ...
+if [ ! -f "$HOME/.profile" ];
+then
+    echo create  .profile template...
+    cp ./profile_tmpl $HOME/.profile
+fi
+
+exit 99
+
+
 if [ $instStep -le 14 ]; then
 ( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )
 fi
@@ -146,17 +156,11 @@ if [ $instStep -le 16 ]; then
 fi
 
 
-exit 99
+
 
 
 echo $PWD
 
-# if ~/.profile not exist, then ...
-if [ ! -f "$HOME/.profile" ];
-then
-    echo create  .profile template...
-    cp ./profile_tmpl $HOME/.profile
-fi
 
 echo now, cmd + T to open a new terminal window, and run `source ~/.profile` to apply the new settings
 
