@@ -64,7 +64,7 @@ if [ $instStep -le 3 ]; then
     done
 fi
 
-# 3. python
+# 2.1. python
 if [ $instStep -le 4 ]; then
     # python 3.11,  python-setuptools is need for YCMD
     brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
@@ -72,17 +72,18 @@ if [ $instStep -le 4 ]; then
     # python -m pip install --upgrade pip
 fi
 
-exit 99
-
 
 # 3. Oh-my-zsh
 # if oh-my-zsh not installed , then install oh-my-zsh
-if [ ! -d "$HOME/.oh-my-zsh" ];
-then
-    echo install oh-my-zsh...
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ $instStep -le 5 ]; then
+    if [ ! -d "$HOME/.oh-my-zsh" ];
+    then
+        echo install oh-my-zsh...
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
 fi
 
+exit 99
 
 # if brew not install romkatv/powerlevel10k/powerlevel10k , then install powerlevel10k
 if ! brew list romkatv/powerlevel10k/powerlevel10k &> /dev/null
