@@ -110,33 +110,21 @@ if [ $instStep -le 7 ]; then
     fi
 fi
 
-exit 99
-
 
 # 4. vim
-# if brew not installed vim, then install vim
-if ! brew list vim &> /dev/null
-then
-    echo install vim tools...
-    brew install vim yarn ctags gotags flake8 eslint prettier black stylua cpplint clang-format pylint luacheck  
+if [ $instStep -le 8 ]; then
+    # if brew not installed vim, then install vim
+    if ! brew list vim &> /dev/null
+    then
+        echo install vim tools...
+        brew install vim pylint flake8 eslint prettier black stylua luacheck cpplint clang-format rustup-init tlrc
+    fi
 fi
 
-# TODO: rustfmt conflicts with rust's cargo-fmt
+# rustfmt conflicts with rust's cargo-fmt
 
+exit 99
 
-
-# if not exist fold $WORKING/mebusy_git_codelib
-if [ ! -d "$WORKING/mebusy_git_codelib" ];
-then
-    echo clone mebusy_git_codelib...
-    git clone https://github.com/mebusy/codeLib.git $WORKING/mebusy_git_codelib
-else
-    echo pull mebusy_git_codelib...
-    ( cd $WORKING/mebusy_git_codelib && git pull )
-fi
-
-( cd $WORKING/mebusy_git_codelib/working_settings && sh makesoftlink.sh )
-( cd $WORKING/mebusy_git_codelib/working_editor_configs && sh makesoftlink_ed.sh )
 
 echo $PWD
 
