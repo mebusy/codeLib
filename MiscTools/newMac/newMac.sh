@@ -124,6 +124,7 @@ if [ $instStep -le 8 ]; then
     if ! brew list vim &> /dev/null
     then
         echo install vim tools...
+        brew install yarn
         brew install vim pylint flake8 eslint prettier black stylua luacheck cpplint clang-format rustup-init tlrc
     fi
 fi
