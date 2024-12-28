@@ -166,3 +166,6 @@ if [ $instStep -le 20 ]; then
     fi
 fi
 
+# tools normally need install in /Applications/
+brew install rectangle xquartz
+
