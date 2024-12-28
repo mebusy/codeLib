@@ -10,23 +10,20 @@ fi
 
 
 # android 
-export ANDROID_HOME=/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx
-export PATH=$PATH:/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx/platform-tools
-export PATH=$PATH:/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx/tools
+# export ANDROID_HOME=/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx
+# export PATH=$PATH:/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx/platform-tools
+# export PATH=$PATH:/Volumes/WORK/_Y/AndroidDev/android-sdk-macosx/tools
 
 # NDK
-export NDK=/Volumes/WORK/_Y/AndroidDev/android-ndk-r10e
-# export NDK=/Volumes/WORK/_Y/AndroidDev/android-ndk-r20
-export PATH=$PATH:${NDK}
-
+# export NDK=/Volumes/WORK/_Y/AndroidDev/android-ndk-r10e
+# export PATH=$PATH:${NDK}
 
 # vim 
 alias vi=vim
 
 # nvm
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
 
 alias pdfc="python /Volumes/WORK/WORK/mebusy_git_codelib/MiscTools/pdf_compressor.py"
 

@@ -25,6 +25,13 @@ if [ $instStep -le 0 ]; then
     then
         echo install brew...
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+        # if ~/.profile not exist, then ...
+        if [ ! -f "$HOME/.profile" ];
+        then
+            echo create  .profile template...
+            cp ./profile_tmpl $HOME/.profile
+        fi
     fi
 fi
 
@@ -130,14 +137,8 @@ if [ $instStep -le 13 ]; then
     vim +PlugInstall +qall
 fi
 
-# if ~/.profile not exist, then ...
-if [ ! -f "$HOME/.profile" ];
-then
-    echo create  .profile template...
-    cp ./profile_tmpl $HOME/.profile
-fi
 
-exit 99
+source ~/.profile
 
 
 if [ $instStep -le 14 ]; then
@@ -155,6 +156,7 @@ if [ $instStep -le 16 ]; then
     fi
 fi
 
+exit 99
 
 
 
