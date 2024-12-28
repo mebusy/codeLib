@@ -124,8 +124,8 @@ fi
 # rustfmt conflicts with rust's cargo-fmt
 
 if [ $instStep -le 13 ]; then
-    ( cd ../working_settings && sh makesoftlink.sh ) 
-    ( cd ../working_editor_configs && sh makesoftlink_ed.sh ) 
+    ( cd ../../working_settings && sh makesoftlink.sh ) 
+    ( cd ../../working_editor_configs && sh makesoftlink_ed.sh ) 
 
     vim +PlugInstall +qall
 fi
