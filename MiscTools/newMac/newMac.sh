@@ -4,24 +4,31 @@ set -e
 
 if [ `uname` != "Darwin" ];
 then
-    WORKING="/mnt/d/WORK"  # wsl2
     echo 'only support macos'
     exit 1
 else
     WORKING="/Volumes/WORK/WORK"
 fi
 
+# the 1st param is instStep, default is 0
+instStep=${1:-0}
 
-# 0
+# 0.0
 # xcode-select --install
+# 0.1
+# cd /Volumes/WORK/WORK/ && git clone https://github.com/mebusy/codeLib.git mebusy_git_codelib
 
-# 1 brew
-# if homebrew not installed , then install brew
-if ! command -v brew &> /dev/null
-then
-    echo install brew...
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ $instStep -le 0 ]; then
+    # 1 brew
+    # if homebrew not installed , then install brew
+    if ! command -v brew &> /dev/null
+    then
+        echo install brew...
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 fi
+
+exit 99
 
 
 # 1.1 development sdks
