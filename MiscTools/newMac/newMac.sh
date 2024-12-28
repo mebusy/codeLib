@@ -44,31 +44,35 @@ if [ $instStep -le 2 ]; then
     # if rustup not initialized, then ...
     if [ ! -d "$HOME/.cargo" ];
     then
-        echo install rustup...
+        echo install rustup... interaction needed !!!
         rustup-init
     fi
 fi
 
+
+# 2. java
+if [ $instStep -le 3 ]; then
+    # for jave 8 and 17
+    for javaVer in 8 17
+    do
+        # if `/Library/Java/JavaVirtualMachines/openjdk-${javaVer}.jdk` not exist, then ...
+        if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-${javaVer}.jdk" ]; then
+            echo softlink openjdk@${javaVer}...
+            sudo ln -sfn /usr/local/opt/openjdk@${javaVer}/libexec/openjdk.jdk \
+                /Library/Java/JavaVirtualMachines/openjdk-${javaVer}.jdk
+        fi
+    done
+fi
+
+# 3. python
+if [ $instStep -le 4 ]; then
+    # python 3.11,  python-setuptools is need for YCMD
+    brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
+    ln -s -f /usr/local/bin/python3.11 /usr/local/bin/python
+    # python -m pip install --upgrade pip
+fi
+
 exit 99
-
-# if `/Library/Java/JavaVirtualMachines/openjdk-8.jdk` not exist, then ...
-if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-8.jdk" ]; then
-    echo softlink openjdk@8...
-    sudo ln -sfn /usr/local/opt/openjdk@8/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-8.jdk
-fi
-
-# if `/Library/Java/JavaVirtualMachines/openjdk-17.jdk` not exist, then ...
-if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-17.jdk" ]; then
-    echo softlink openjdk@17...
-    sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
-fi
-
-
-# brew install python-tk@3.12   !!! important
-#
-# brew install tcl-tk ?
-# python -m pip install --upgrade pip
-
 
 
 # 3. Oh-my-zsh
@@ -134,8 +138,7 @@ fi
 echo install vim plugins...
 vim +PlugUpdate +qall
 
-brew install python-setuptools   # !important
-# python -m pip install setuptools # for YCMD
+brew install    # !important
 
 echo execute follow commands...
 echo "( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all )"  # linux: brew install gcc@11
