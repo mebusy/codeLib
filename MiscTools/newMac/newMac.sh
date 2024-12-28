@@ -135,10 +135,12 @@ if [ $instStep -le 13 ]; then
     ( cd ../../working_editor_configs && sh makesoftlink_ed.sh ) 
 
     vim +PlugInstall +qall
+
+    # source will stop the script
+    source ~/.profile
 fi
 
 
-source ~/.profile
 
 
 if [ $instStep -le 14 ]; then
