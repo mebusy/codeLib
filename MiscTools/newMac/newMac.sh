@@ -57,6 +57,11 @@ if [ $instStep -le 1 ]; then
     git config --global pull.rebase false
     
     # openjdk@8  # TODO
+    # if OS is not Darwin silicon
+    if [ `uname` != "Darwin" ] || [ `uname -m` != "arm64" ];
+    then
+        brew install openjdk@8
+    fi
 fi
 
 
@@ -72,9 +77,15 @@ fi
 
 # 2. java
 if [ $instStep -le 3 ]; then
-    # for javaVer in 8 17
-    for javaVer in 17 # TODO
+    # else  for javaVer in 8 17
+    for javaVer in 8 17 # TODO
     do
+        # if OS is Darwin silicon, and javaVer is 8, then skip
+        if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ] && [ $javaVer == 8 ];
+        then
+            continue
+        fi
+
         # if `/Library/Java/JavaVirtualMachines/openjdk-${javaVer}.jdk` not exist, then ...
         if [ ! -d "/Library/Java/JavaVirtualMachines/openjdk-${javaVer}.jdk" ]; then
             echo softlink openjdk@${javaVer}...
