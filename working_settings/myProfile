@@ -130,17 +130,21 @@ myfind2() {
 
 # sbin
 export PATH="$PATH:/usr/local/sbin"
-# brew path
-if [ "$(uname)" = "Linux" ]; then
-    _brewBin="/home/linuxbrew/.linuxbrew/bin"
-    # if exists $_brewBin, and not in $PATH, then add it
-    if [ -d "$_brewBin" ] && [[ ":$PATH:" != *":$_brewBin:"* ]]; then
-        export PATH="$_brewBin":$PATH
-    fi
+
+# if os is Darwin and arm64, then ...        
+if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ];
+then
+    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ `uname` == "Linux" ];
+then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 # Linux, let /usr/local/bin has higher priority than /homebrew
-export PATH="/usr/local/bin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
 
 # for WSL2 brew clang-format
 if [ "$(uname)" = "Linux" ] && command -v brew &> /dev/null; then

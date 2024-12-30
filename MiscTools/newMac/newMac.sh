@@ -34,13 +34,19 @@ if [ $instStep -le 0 ]; then
         echo install brew...
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-        # if os is Darwin and arm64, then ...        
-        if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ];
-        then
-            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        fi
     fi
+fi
+
+# if os is Darwin and arm64, then ...        
+if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ];
+then
+    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ `uname` == "Linux" ];
+then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 
