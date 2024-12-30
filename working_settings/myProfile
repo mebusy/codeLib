@@ -136,10 +136,12 @@ if [ `uname` = "Darwin" ] && [ `uname -m` = "arm64" ];
 then
     # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
     eval "$(/opt/homebrew/bin/brew shellenv)"
-# if exists  '/home/linuxbrew/.linuxbrew/
-elif [ -d "/home/linuxbrew/.linuxbrew/" ];
+elif [ `uname` = "Linux" ];
 then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if [ -d "/home/linuxbrew/.linuxbrew/" ];
+    then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
 else
     eval "$(/usr/local/bin/brew shellenv)"
 fi
