@@ -194,7 +194,7 @@ fi
 
 # tools normally need install in /Applications/
 brew install rectangle xquartz
-brew install ffmpeg mitmproxy
+brew install ffmpeg mitmproxy tmux graphviz
 
 if [ $instStep -le 20 ]; then
     if [ `uname` != "Darwin" ];
@@ -204,3 +204,5 @@ if [ $instStep -le 20 ]; then
 fi
 
 
+# go install github.com/codegangsta/gin@latest
+#
