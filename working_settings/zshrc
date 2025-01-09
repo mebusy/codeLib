@@ -175,3 +175,6 @@ if command -v fzf &> /dev/null; then
     export FZF_DEFAULT_OPTS="--color=hl:${purple},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 fi
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/qibinyi/.lmstudio/bin"
