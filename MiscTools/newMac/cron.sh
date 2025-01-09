@@ -2,6 +2,9 @@
 
 set -e
 
+# to show all route rules
+# netstat -rn
+
 # if not Darwin, then exit
 if [ "$(uname)" != "Darwin" ]; then
   echo "[WARN] This script is only for macOS"
