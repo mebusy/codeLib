@@ -26,6 +26,7 @@ github.com/
 golang.org/
 
 *.swp
+*.log
 
 nand2tetris/tools/bin/Virtual\ Machine\ Emulator.dat
 
