@@ -12,7 +12,7 @@ if [ "$(uname)" != "Darwin" ]; then
 fi
 
 porxyHost=localhost
-port=20170
+port=3127
 
 curDir=$(dirname $0)
 logPath=${curDir}/tun2socks.log
@@ -40,18 +40,27 @@ gateway=$(route -n get default | grep 'gateway' | awk '{print $2}')
 gatewayPrefix=$(echo ${gateway} | cut -d'.' -f1-2)
 # echo ${gatewayPrefix}
 
+
+tunNets="1.0.0.0/8 2.0.0.0/7 4.0.0.0/6 8.0.0.0/5 16.0.0.0/4 32.0.0.0/3 64.0.0.0/2 128.0.0.0/1 198.18.0.0/15"
+
 add_routes() {
   sudo route add -net 127.0.0.0/8 127.0.0.1 &> ${logPath} 
   echo "[INFO] add route  127.0.0.0/8 127.0.0.1" > ${logPath}
   sudo route add -net ${gatewayPrefix}.0.0/16 ${gateway} &> ${logPath}
   echo "[INFO] add route ${gatewayPrefix}.0.0/16 ${gateway}" > ${logPath}
+
+  for net in ${tunNets}; do
+    sudo route add -net ${net} 198.18.0.1 &> ${logPath}
+  done
 }
 
 clean_routes() {
+  for net in ${tunNets}; do
+    sudo route delete -net ${net} &> ${logPath}
+  done 
+
   sudo route delete 127.0.0.0/8  &> ${logPath}
   sudo route delete ${gatewayPrefix}.0.0/16  &> ${logPath}
-  sudo route get 127.0.0.0/8   &> ${logPath}
-  sudo route get ${gatewayPrefix}.0.0/16   &> ${logPath}
 }
 
 # if v2raya socks5 port ${port} is not listening, then exit
@@ -69,6 +78,8 @@ else
   kill_tun2socks
 
   ${curDir}/tun2socks/${tun2socks_bin} -device utun123  -interface en0 -proxy http://${porxyHost}:${port} > ${logPath}  &
+
+  sleep 3
 
   sudo ifconfig utun123 198.18.0.1 198.18.0.1 up
 
