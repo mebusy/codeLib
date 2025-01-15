@@ -104,13 +104,20 @@
       "extends": "_base",
       "adapter": "debugpy",
       "filetypes": ["python"],
+      "variables": {
+        "pythonPath": {
+          "shell": ["/bin/bash", "-c", "which python"]
+        }
+      },
       "configuration": {
         "request": "launch",
         "program": "${file}",
         "stopOnEntry": true,
         // ask user to profice the arguments
-        // "args": ["*${CommandLineArgs}"]
-        "cwd": "${cwd}"
+        "args": ["*${CommandLineArgs}"],
+        "console": "integratedTerminal",
+        "cwd": "${cwd}",
+        "python": "${pythonPath}"
       }
     }, // end python run
 
@@ -220,10 +227,18 @@
         },
         // Variables should start with upper-case letters
         "PackagePath": {
-          "shell": ["/bin/bash", "-c", "cargo pkgid | sed 's/.*file:\\/\\/\\(.*\\)#.*/\\1/'"]
+          "shell": [
+            "/bin/bash",
+            "-c",
+            "cargo pkgid | sed 's/.*file:\\/\\/\\(.*\\)#.*/\\1/'"
+          ]
         },
         "PackageName": {
-          "shell": ["/bin/bash", "-c", "cargo pkgid | awk -F '[#@/]' '{print $$(NF-1)}'"]
+          "shell": [
+            "/bin/bash",
+            "-c",
+            "cargo pkgid | awk -F '[#@/]' '{print $$(NF-1)}'"
+          ]
         }
       },
 
