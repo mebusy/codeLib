@@ -289,6 +289,7 @@ fi
 
 
 alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
+alias vimsp-install="( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )"
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
 
 if [ "$(uname)" = "Darwin" ]; then
