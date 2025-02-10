@@ -105,12 +105,18 @@ fi
 # 2.1. python
 if [ $instStep -le 4 ]; then
     # if brew not installed python@3.11, then install
-    if ! brew list python@3.11 &> /dev/null
+    # if ! brew list python@3.11 &> /dev/null
+    # then
+    #     # python 3.11,  python-setuptools is need for YCMD
+    #     brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
+    #     ln -s -f `brew --prefix`/bin/python3.11 `brew --prefix`/bin/python
+    #     # python -m pip install --upgrade pip
+    # fi
+    if ! brew list pyenv &> /dev/null
     then
-        # python 3.11,  python-setuptools is need for YCMD
-        brew install python@3.11 python-tk@3.11 tcl-tk python-setuptools
-        ln -s -f `brew --prefix`/bin/python3.11 `brew --prefix`/bin/python
-        # python -m pip install --upgrade pip
+        brew install pyenv
+        pyenv install 3.11
+        pyenv global 3.11
     fi
 fi
 
