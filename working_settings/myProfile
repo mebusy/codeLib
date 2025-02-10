@@ -164,17 +164,22 @@ fi
 
 # if OS is darwin
 if [ "$(uname)" = "Darwin" ]; then
+    for jdk in 8 11 17 21
+    do
+        _jdkpath="$(/usr/libexec/java_home -v$jdk)"
+        if [ -d "$_jdkpath" ]; then
+            export JAVA_${jdk}_HOME=$_jdkpath
+            alias java${jdk}='export JAVA_HOME=$JAVA_'${jdk}'_HOME;export PATH=$JAVA_HOME/bin:$PATH'
+        fi
+        unset _jdkpath
+    done
     # Multiple JAVA versions
-    export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8.0_)
-    export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-    export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
-    export JAVA_21_HOME=$(/usr/libexec/java_home -v21)
+    # export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8.0_)
+    # export JAVA_21_HOME=$(/usr/libexec/java_home -v21)
 
     # can switch java version by alias easily
-    alias java8='export JAVA_HOME=$JAVA_8_HOME;export PATH=$JAVA_HOME/bin:$PATH'
-    alias java11='export JAVA_HOME=$JAVA_11_HOME;export PATH=$JAVA_HOME/bin:$PATH'
-    alias java17='export JAVA_HOME=$JAVA_17_HOME;export PATH=$JAVA_HOME/bin:$PATH'
-    alias java21='export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH'
+    # alias java8='export JAVA_HOME=$JAVA_8_HOME;export PATH=$JAVA_HOME/bin:$PATH'
+    # alias java21='export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH'
 
     #default java21
     export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH
