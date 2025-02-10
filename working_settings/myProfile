@@ -168,14 +168,16 @@ if [ "$(uname)" = "Darwin" ]; then
     export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8.0_)
     export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
     export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
+    export JAVA_21_HOME=$(/usr/libexec/java_home -v21)
 
     # can switch java version by alias easily
     alias java8='export JAVA_HOME=$JAVA_8_HOME;export PATH=$JAVA_HOME/bin:$PATH'
     alias java11='export JAVA_HOME=$JAVA_11_HOME;export PATH=$JAVA_HOME/bin:$PATH'
     alias java17='export JAVA_HOME=$JAVA_17_HOME;export PATH=$JAVA_HOME/bin:$PATH'
+    alias java21='export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH'
 
-    #default java17
-    export JAVA_HOME=$JAVA_17_HOME;export PATH=$JAVA_HOME/bin:$PATH
+    #default java21
+    export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH
 else
     # for linux with jenv
     if command -v jenv &> /dev/null; then
