@@ -56,7 +56,7 @@ echo install development skds...
 if [ $instStep -le 1 ]; then
     # if brew not installed git, then ...
     brew list git &> /dev/null  || brew install git cmake make \
-        go rustup-init typescript node@18 mono openjdk@17
+        go rustup-init typescript node@18 mono openjdk@17 openjdk@21
 
     git config --global user.name "mebusy"
     git config --global user.email "golden_slime@hotmail.com"
@@ -84,7 +84,7 @@ fi
 # 2. java
 if [ $instStep -le 3 ]; then
     # else  for javaVer in 8 17
-    for javaVer in 8 17 # TODO
+    for javaVer in 8 17 21 # TODO
     do
         # if OS is Darwin silicon, and javaVer is 8, then skip
         if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ] && [ $javaVer == 8 ];
