@@ -84,6 +84,7 @@ Standard: c++11
 PointerAlignment: Left
 Cpp11BracedListStyle: true
 SpaceBeforeCpp11BracedList: false
+IndentWidth: 4
 
 ---
 Language: CSharp
