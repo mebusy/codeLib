@@ -76,7 +76,7 @@ TabWidth: 4
 UseTab: Never
 
 IndentWidth: 2
-ColumnLimit: 120
+ColumnLimit: 100   # balance between 80 and 120
 
 ---
 Language: Cpp
@@ -100,3 +100,5 @@ IndentWidth: 4
 AllowShortFunctionsOnASingleLine: false   # no one-line short function
 SortIncludes: false  # do not reorder import 
 AlignAfterOpenBracket: BlockIndent
+ColumnLimit: 120  # good for java
+
