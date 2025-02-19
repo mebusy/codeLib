@@ -99,3 +99,4 @@ NamespaceIndentation: All
 IndentWidth: 4
 AllowShortFunctionsOnASingleLine: false   # no one-line short function
 SortIncludes: false  # do not reorder import 
+AlignAfterOpenBracket: BlockIndent
