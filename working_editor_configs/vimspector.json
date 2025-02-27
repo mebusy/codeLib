@@ -250,6 +250,26 @@
       }
     },
 
+    "[rust] test": {
+      "extends": "_codelldb",
+      "filetypes": ["rust"],
+      "variables": {
+        "PackageBinPath": {
+          "shell": [
+            "/bin/bash",
+            "-c",
+            "cargo test 2>&1 | grep 'Running unittests' | sed 's/.*(\\(.*\\))/\\1/' "
+          ]
+        }
+      },
+
+      "configuration": {
+        "request": "launch",
+        "program": "${PackageBinPath}",
+        "expressions": "native"
+      }
+    },
+
     "Java Launch": {
       // should compiled with `-g`
       "extends": "_base",
