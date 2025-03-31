@@ -3,7 +3,7 @@
     "custom-codelldb": {
       "extends": "CodeLLDB", // strongly recommend on MacOS
       "command": [
-        "$HOME/.vim/plugged/vimspector/gadgets/macos/CodeLLDB/adapter/codelldb",
+        "$HOME/.local/share/nvim/lazy/vimspector/gadgets/macos/CodeLLDB/adapter/codelldb",
         "--port",
         "${unusedLocalPort}"
       ]
@@ -188,7 +188,7 @@
       "adapter": "vscode-cpptools",
       "configuration": {
         "MIMode": "lldb",
-        "MIDebuggerPath": "$HOME/.vim/plugged/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb/bin/lldb-mi"
+        "MIDebuggerPath": "$HOME/.local/share/nvim/lazy/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb/bin/lldb-mi"
       }
     }, // end lldb a.out
 
