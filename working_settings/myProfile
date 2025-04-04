@@ -204,9 +204,10 @@ fi
 
 
 # ========================== GO =================================
-if command -v brew &> /dev/null; then
-    export GOROOT="$(brew --prefix go)/libexec"
-fi
+# NOT NEEDED !!!
+# if command -v brew &> /dev/null; then
+#     export GOROOT="$(brew --prefix go)/libexec"
+# fi
 
 export PATH=$PATH:"$HOME/go/bin"
 export GO111MODULE=on
