@@ -150,7 +150,7 @@
       },
       "variables": {
         "BUILDME": {
-          "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++17 *.cpp"]
+          "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++20 *.cpp"]
         },
         "arch": {
           "shell": "uname -m"
@@ -164,12 +164,13 @@
         "logging": {
           "engineLogging": true
         },
+        "args": ["*${CommandLineArgs}"],
         "targetArchitecture": "${arch}"
       }
     }, // end CodeLLDB
 
     // must built with `-g`
-    "[c++ CodeLLDB] a.out": {
+    "[c++ CodeLLDB] a.out MUST -g": {
       "extends": "[c++ CodeLLDB]",
       "filetypes": ["cpp", "c"],
       "variables": {
