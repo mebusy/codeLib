@@ -161,6 +161,11 @@ if [ "$(uname)" = "Linux" ] && command -v brew &> /dev/null; then
 fi
 
 # ========================== JAVA =================================
+# compile & run java8 app with jdk17
+# compile:  javac --release 8 MyApp.java
+#               # --release 8 ==>  -source 8 -target 8
+# run:      java --add-opens java.base/java.lang=ALL-UNNAMED -jar your-app.jar
+#               #  --add-opens java.base/java.lang=ALL-UNNAMED  is used to allows reflection into the java.lang package for all unnamed modules
 
 # if OS is darwin
 if [ "$(uname)" = "Darwin" ]; then
