@@ -85,12 +85,14 @@ PointerAlignment: Left
 Cpp11BracedListStyle: true
 SpaceBeforeCpp11BracedList: false
 IndentWidth: 4
+ColumnLimit: 120
 
 ---
 Language: CSharp
 BreakBeforeBraces: Allman
 NamespaceIndentation: All
 IndentWidth: 4
+ColumnLimit: 120
 
 ---
 Language: Java
