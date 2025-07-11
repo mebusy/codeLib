@@ -59,73 +59,6 @@ t2sgen() {
 }
 
 
-# grep  implies grep -G
-# egrep implies grep -E
-#
-# There are two interpretations of the syntax in regex patterns. The difference is in the behavior of a few special characters, ?, +, (), {}, and |.
-#
-# BRE (Basic Regular Expression) – these characters do not have special meaning unless prefixed with a backslash \.
-# ERE (Extended Regular Expression) – these characters are special, unless prefixed with a backslash \.
-
-# deprecated, use myfind instead
-myfind2() {
-    if [ "$#" -lt 1 ]; then
-        echo 'usage: myfind [-opts]* "pattern" [path] [-opts]'
-        echo 'grep options supported'
-        echo e.g. 'myfind -m 4 -C 2 "ab test" -wh'
-    else
-        local  _opt="" 
-        local _path="."
-        local _pattern=""
-
-        # check all parameters one by one
-        while [ $# != 0 ]
-        do
-            # if parameter startswith `-` 
-            if [[ $1 == -* ]] ; then
-                if [[ $1 != *=* ]] ; then
-                    # if not contains `=`, then shift and read its value
-                    _opt="$_opt $1"
-                    # if $# > 1, then
-                    if [ $# -gt 1 ]; then
-                        shift
-                        # quote it
-                        _opt="${_opt} "`printf "%q\n" "$1"`
-                    fi
-                else
-                    # if contains `=`
-                    # string before `=` and `=`
-                    _opt="$_opt ${1%%=*}="
-                    # quote string after `=`
-                    _opt="${_opt}"`printf "%q\n" "${1#*=}"`
-                fi
-            else
-                if [ -z "$_pattern" ]; then
-                    _pattern=`printf "%q\n" "$1"`
-                else
-                    _path=`printf "%q\n" "$1"`
-                fi
-            fi
-
-            shift
-        done
-
-        # --exclude-dir=.git \
-        # --exclude-dir=.\*_output \
-        #
-        # --exclude-dir='./.*'  is to ignore all hidden folders starts with `.`
-        # echo 'opts:' "$_opt" #, 'pattern:' "$_pattern", 'path:' "$_path"
-        #
-        #  'use -E to switch egrep mode on MacOSX'
-        bash -c "grep -E --color=always -rinI -m 1 \
-            --exclude-dir=node_modules \
-            --exclude-dir='./.*'    \
-            --exclude=\*.{log,} \
-            --exclude=\*.min.{js,} \
-            $_opt -e $_pattern $_path"
-    fi
-}
-
 # ========================== BREW =================================
 
 # sbin
@@ -307,6 +240,7 @@ alias nvim-update='nvim --headless "+Lazy! sync" +qa && ( cd ~/.local/share/nvim
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
 # alias 'git diff'='git diff -w --color-words --ignore-space-at-eol --ignore-blank-lines --ignore-space-change --ignore-all-space'
 alias gd='git diff -w '
+alias whodel='git log --patch -S '
 
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
