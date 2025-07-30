@@ -150,7 +150,7 @@
       },
       "variables": {
         "BUILDME": {
-          "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++20 *.cpp"]
+          "shell": ["/bin/bash", "-c", "g++ -o dbg -g -std=c++20 -mavx -mavx2 -mfma -msse4.2 *.cpp"]
         },
         "arch": {
           "shell": "uname -m"
