@@ -165,7 +165,11 @@
           "engineLogging": true
         },
         "args": ["*${CommandLineArgs}"],
-        "targetArchitecture": "${arch}"
+        "targetArchitecture": "${arch}",
+        "initCommands": [
+          "type format add -f decimal uint8_t",
+          "type format add -f decimal int8_t"
+        ]
       }
     }, // end CodeLLDB
 
