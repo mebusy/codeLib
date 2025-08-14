@@ -225,6 +225,12 @@ then
     source $myProfileYtdl
 fi
 
+myProfileTmux=~/".myProfileTmux"
+if [ -L "$myProfileTmux" ]
+then
+    source $myProfileTmux
+fi
+
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then
    source "$HOME/.cargo/env"

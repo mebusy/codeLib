@@ -1,0 +1,52 @@
+#!bash
+
+# 2 horizontal panes
+myT2() {
+    # read arguments to an array
+    local args=("$@")
+    # if no arguments, use current directory
+    if [ ${#args[@]} -eq 0 ]; then
+        args=("$PWD")
+    fi
+
+
+    local session=$(basename "$PWD")
+    # echo $session
+    # if session already exists, kill it
+    if tmux has-session -t "$session" 2>/dev/null; then
+        echo "Session $session already exists"
+        # tmux kill-session -t "$session"
+        return 1
+    fi
+    
+    #Create a new detached session
+    tmux new-session -d -s $session -n $session
+
+    # for each path in args, convert to absolute path
+    local i=0
+    for _path in "${args[@]}"; do
+        if [ "${_path:0:1}" != "/" ]; then
+            _path="$PWD/$_path"
+        fi
+        # cd "$_path" || { echo "Failed to change directory to $_path"; return 1; }
+
+        local _name=$(basename "$_path")
+        echo $i, $_name
+
+        local pane_session="$session:$i"
+        if [ $i -gt 0 ]; then
+            echo "Creating new window for $_name"
+            tmux new-window -t "$pane_session" -n "$_name"
+        fi
+        # Split window into two horizontal panes
+        tmux split-window -h -t "$pane_session"
+        # cd to _path for all panes
+        tmux send-keys -t "${pane_session}.0" "cd '$_path'" C-m
+        tmux send-keys -t "${pane_session}.1" "cd '$_path'" C-m
+
+        i=$((i + 1))
+    done
+
+    # Attach to the session
+    tmux attach -t $session
+}
