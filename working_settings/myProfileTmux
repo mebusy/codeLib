@@ -50,9 +50,14 @@ myT2() {
         tmux send-keys -t "${pane_session}.0" "cd '$_path'" C-m
         tmux send-keys -t "${pane_session}.1" "cd '$_path'" C-m
 
+        # select first pane
+        tmux select-pane -t "${pane_session}.0"
+
         i=$((i + 1))
     done
 
+    # Return to first window
+    tmux select-window -t "$session:0"
     # Attach to the session
     tmux attach -t $session
 }
