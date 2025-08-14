@@ -9,8 +9,17 @@ myT2() {
         args=("$PWD")
     fi
 
+    local _mainName=$(basename "$PWD")
+    
+    local session=""
+    for _path in "${args[@]}"; do
+        _path=$(realpath "$_path")
+        local _name=$(basename "$_path")
+        session="${session}${_name}·"
+    done
+    # remove last character (·)
+    session=${session%·}
 
-    local session=$(basename "$PWD")
     # echo $session
     # if session already exists, kill it
     if tmux has-session -t "$session" 2>/dev/null; then
@@ -18,20 +27,17 @@ myT2() {
         # tmux kill-session -t "$session"
         return 1
     fi
-    
+
     #Create a new detached session
-    tmux new-session -d -s $session -n $session
+    tmux new-session -d -s $session -n $_mainName
 
     # for each path in args, convert to absolute path
     local i=0
     for _path in "${args[@]}"; do
-        if [ "${_path:0:1}" != "/" ]; then
-            _path="$PWD/$_path"
-        fi
+        _path=$(realpath "$_path")
         # cd "$_path" || { echo "Failed to change directory to $_path"; return 1; }
-
         local _name=$(basename "$_path")
-        echo $i, $_name
+        echo $i, $_name, $_path
 
         local pane_session="$session:$i"
         if [ $i -gt 0 ]; then
