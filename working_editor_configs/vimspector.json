@@ -167,8 +167,9 @@
         "args": ["*${CommandLineArgs}"],
         "targetArchitecture": "${arch}",
         "initCommands": [
-          "type format add -f decimal uint8_t",
-          "type format add -f decimal int8_t"
+          "type format add --format u 'unsigned char'",
+          "type format add --format d 'signed char'",
+          "type category enable int-as-dec"
         ]
       }
     }, // end CodeLLDB
