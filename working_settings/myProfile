@@ -247,6 +247,7 @@ alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
 # alias 'git diff'='git diff -w --color-words --ignore-space-at-eol --ignore-blank-lines --ignore-space-change --ignore-all-space'
 alias gd='git diff -w '
 alias whodel='git log --patch -S '
+alias vi-none='vi -u NONE'
 
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
