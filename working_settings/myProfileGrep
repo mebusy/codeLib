@@ -58,7 +58,7 @@ myfind() {
         echo 'provide -G if you want to use BRE'
     else
         grep -E --color=always -rinI -m 1 \
-            --exclude-dir=node_modules \
+            --exclude-dir='node_modules*' \
             --exclude-dir=.nyc_output \
             --exclude-dir='./.*'    \
             --exclude=\*.{log,} \
