@@ -1,5 +1,7 @@
 #!bash
 
+alias tma='tmux a -t '
+
 # 2 horizontal panes
 myT2() {
     # read arguments to an array
