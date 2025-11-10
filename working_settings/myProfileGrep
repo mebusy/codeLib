@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
 # grep  implies grep -G
 # egrep implies grep -E
+# grep -P implies Perl-compatible regex, support lookahead/lookbehind , but is not POSIX standard  (?!...), (?<=...), etc., also support greedy and non-greedy quantifiers .*? , .+?, named capture groups (?P<name>...), etc. On MacOS, grep -P may not be available by default.
 #
 # There are two interpretations of the syntax in regex patterns. The difference is in the behavior of a few special characters, ?, +, (), {}, and |.
 #
@@ -56,6 +57,7 @@ myfind() {
         echo 'adv 2: find lines include both pattern A and B'
         echo '  myfind A | grep -i B'
         echo 'provide -G if you want to use BRE'
+        echo 'use grep -v to EXCLUDE patterns'
     else
         grep -E --color=always -rinI -m 1 \
             --exclude-dir='node_modules*' \
