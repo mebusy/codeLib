@@ -68,3 +68,8 @@ myfind() {
             "$@"
     fi
 }
+
+myFE() {
+    # execute  myfind ... -l | xargs nvim -p
+    myfind "$@" -l | xargs nvim -p
+}
