@@ -258,7 +258,14 @@ fi
 # --------- Bat Theme ------------
 export BAT_THEME="GitHub"
 
-
+# cd to a file's directory
+cdf() {
+  if [ -f "$1" ]; then
+    cd "$(dirname "$1")"
+  else
+    cd "$1"
+  fi
+}
 
 
 # tips 
