@@ -248,8 +248,10 @@ alias nvim-update='nvim --headless "+Lazy! sync" +qa && ( cd ~/.local/share/nvim
 alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
 # alias 'git diff'='git diff -w --color-words --ignore-space-at-eol --ignore-blank-lines --ignore-space-change --ignore-all-space'
 alias gd='git diff -w '
-alias whodel='git log --patch -S '
+alias git_whodel='git log --patch -S '
+alias git_lastchange='git log -p -1 '
 alias vi-none='vi -u NONE'
+alias vi-min='MINIMAL_NVIM=1 vi '
 
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
