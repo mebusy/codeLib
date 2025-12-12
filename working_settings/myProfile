@@ -233,6 +233,12 @@ then
     source $myProfileTmux
 fi
 
+myProfileLSP=~/".myProfileLSP"
+if [ -L "$myProfileLSP" ]
+then
+    source $myProfileLSP
+fi
+
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then
    source "$HOME/.cargo/env"

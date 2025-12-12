@@ -1,0 +1,65 @@
+#!bash
+
+generatePomSrc() {
+    cat <<EOF > pom.xml
+    <project xmlns="http://maven.apache.org/POM/4.0.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <groupId>com.example</groupId>
+        <artifactId>my-java-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>jar</packaging>
+
+        <properties>
+            <maven.compiler.source>17</maven.compiler.source>
+            <maven.compiler.target>17</maven.compiler.target>
+        </properties>
+
+        <build>
+            <!-- 保留现有 src/ 目录结构 -->
+            <sourceDirectory>src</sourceDirectory>
+            <outputDirectory>target/classes</outputDirectory>
+            <resources>
+                <resource>
+                    <directory>src</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                        <include>**/*.mf</include>
+                    </includes>
+                </resource>
+            </resources>
+        </build>
+
+        <dependencies>
+    EOF
+
+    # 自动扫描 lib/ 下 jar 文件
+    if [ -d "lib" ]; then
+        i=1
+        for jar in lib/*.jar; do
+            [ -f "$jar" ] || continue
+            cat <<DEP >> pom.xml
+            <dependency>
+                <groupId>local.lib</groupId>
+                <artifactId>lib$i</artifactId>
+                <version>1.0</version>
+                <scope>system</scope>
+                <systemPath>\${project.basedir}/$jar</systemPath>
+            </dependency>
+    DEP
+            i=$((i+1))
+        done
+    fi
+
+    # 关闭 dependencies 和 project
+    cat <<EOF >> pom.xml
+        </dependencies>
+    </project>
+    EOF
+
+    echo "pom.xml 已生成，sourceDirectory 指向 src/，lib/ 下 jar 已加入依赖"
+}
