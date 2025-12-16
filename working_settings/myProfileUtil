@@ -11,7 +11,8 @@ compress_pdf() {
     CPU_CORES=$(nproc)      # Linux
     # macOS: CPU_CORES=$(sysctl -n hw.ncpu)
 
-    tmpdir=$(mktemp -d)
+    tmpdir="./tmp"
+    mkdir -p "$tmpdir"
     echo "临时目录: $tmpdir"
 
     # 1️⃣ 分割 PDF
