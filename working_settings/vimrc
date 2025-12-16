@@ -48,102 +48,102 @@ set relativenumber
 set nofixeol
 
 
-" Place the following code in your .vimrc before plug#begin() call
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-
-call plug#begin()
-" The default plugin directory will be as follows:
-"   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
-"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
-" You can specify a custom plugin directory by passing it as the argument
-"   - e.g. `call plug#begin('~/.vim/plugged')`
-"   - Avoid using standard Vim directory names like 'plugin'
-
-" Make sure you use single quotes
-
-" ------ syntax ------------------------
-" :ALEInfo   "if this comand not work, means you may not install right checkers
-Plug 'dense-analysis/ale'
-" systastic is used by java complete, and python syntax check
-" deprecated, use ale instead
-" Plug 'scrooloose/syntastic'
-
-Plug 'ycm-core/YouCompleteMe'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" To customize npm registry for coc.nvim add coc.nvim:registry in your
-" ~/.npmrc, like:
-"         coc.nvim:registry=https://registry.mycompany.org/
-
-
-" ------ language ----------------------
-Plug 'vim-ruby/vim-ruby'
-" html5 tag auto complete
-" to auto generate html5 template, 
-"   input `html:5`, then press <c-y> followed by , in 2 seconds ( if you hear a beep, you are too slow and failed)
-Plug 'mattn/emmet-vim'
-" show css color
-Plug 'ap/vim-css-color'
-Plug 'chr4/nginx.vim'
-" lua , Ctrl + a to show keyword promote
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-lua-ftplugin'
-" The tabular plugin must come before vim-markdown.
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-Plug 'tikhomirov/vim-glsl'
-
-" ------ assistant -------------------------
-Plug 'github/copilot.vim'
-" extra installation: `./install_gadget.py --all`
-Plug 'puremourning/vimspector'
-
-"auto format
-Plug 'sbdchd/neoformat'
-" after plug install: yarn install --frozen-lockfile --production
-" if your registry is not `registry.yarnpkg.com`, you need `rm yarn.lock`
-Plug 'prettier/vim-prettier'
-
-
-" ------ edit -----------------------------------
-" auto add `end` for if, def, etc...
-Plug 'tpope/vim-endwise'
-" automatic closing of quotes, parenthesis, brackets, etc
-Plug 'Raimondi/delimitMate'
-" ds cs ys 
-Plug 'tpope/vim-surround'
-Plug 'tomtom/tcomment_vim'
-" <Leader> <Leader> f
-Plug 'Lokaltog/vim-easymotion'
-" CTRL + hjkl to move between windows
-Plug 'christoomey/vim-tmux-navigator'
-" maxmize current window, default F3, conflict with vim-inspector...
-Plug 'szw/vim-maximizer'
-" rainbow parentheses
-Plug 'kien/rainbow_parentheses.vim'
-
-" ------ status -------------------------
-" git status in status line
-Plug 'tpope/vim-fugitive'
-" git edit status
-" will cover vimspector's break point sign
-" solution: set vimspector sign with higher priroty
-Plug 'airblade/vim-gitgutter'
-" Plug 'Lokaltog/vim-powerline'
-Plug 'vim-airline/vim-airline'
-
-Plug 'vim-scripts/SyntaxAttr.vim'
-
-
-" Initialize plugin system
-" - Automatically executes `filetype plugin indent on` and `syntax enable`.
-call plug#end()
+"" Place the following code in your .vimrc before plug#begin() call
+"let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+"if empty(glob(data_dir . '/autoload/plug.vim'))
+"  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
+"
+"
+"call plug#begin()
+"" The default plugin directory will be as follows:
+""   - Vim (Linux/macOS): '~/.vim/plugged'
+""   - Vim (Windows): '~/vimfiles/plugged'
+""   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+"" You can specify a custom plugin directory by passing it as the argument
+""   - e.g. `call plug#begin('~/.vim/plugged')`
+""   - Avoid using standard Vim directory names like 'plugin'
+"
+"" Make sure you use single quotes
+"
+"" ------ syntax ------------------------
+"" :ALEInfo   "if this comand not work, means you may not install right checkers
+"Plug 'dense-analysis/ale'
+"" systastic is used by java complete, and python syntax check
+"" deprecated, use ale instead
+"" Plug 'scrooloose/syntastic'
+"
+"Plug 'ycm-core/YouCompleteMe'
+"" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"" To customize npm registry for coc.nvim add coc.nvim:registry in your
+"" ~/.npmrc, like:
+""         coc.nvim:registry=https://registry.mycompany.org/
+"
+"
+"" ------ language ----------------------
+"Plug 'vim-ruby/vim-ruby'
+"" html5 tag auto complete
+"" to auto generate html5 template, 
+""   input `html:5`, then press <c-y> followed by , in 2 seconds ( if you hear a beep, you are too slow and failed)
+"Plug 'mattn/emmet-vim'
+"" show css color
+"Plug 'ap/vim-css-color'
+"Plug 'chr4/nginx.vim'
+"" lua , Ctrl + a to show keyword promote
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-lua-ftplugin'
+"" The tabular plugin must come before vim-markdown.
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+"
+"Plug 'tikhomirov/vim-glsl'
+"
+"" ------ assistant -------------------------
+"Plug 'github/copilot.vim'
+"" extra installation: `./install_gadget.py --all`
+"Plug 'puremourning/vimspector'
+"
+""auto format
+"Plug 'sbdchd/neoformat'
+"" after plug install: yarn install --frozen-lockfile --production
+"" if your registry is not `registry.yarnpkg.com`, you need `rm yarn.lock`
+"Plug 'prettier/vim-prettier'
+"
+"
+"" ------ edit -----------------------------------
+"" auto add `end` for if, def, etc...
+"Plug 'tpope/vim-endwise'
+"" automatic closing of quotes, parenthesis, brackets, etc
+"Plug 'Raimondi/delimitMate'
+"" ds cs ys 
+"Plug 'tpope/vim-surround'
+"Plug 'tomtom/tcomment_vim'
+"" <Leader> <Leader> f
+"Plug 'Lokaltog/vim-easymotion'
+"" CTRL + hjkl to move between windows
+"Plug 'christoomey/vim-tmux-navigator'
+"" maxmize current window, default F3, conflict with vim-inspector...
+"Plug 'szw/vim-maximizer'
+"" rainbow parentheses
+"Plug 'kien/rainbow_parentheses.vim'
+"
+"" ------ status -------------------------
+"" git status in status line
+"Plug 'tpope/vim-fugitive'
+"" git edit status
+"" will cover vimspector's break point sign
+"" solution: set vimspector sign with higher priroty
+"Plug 'airblade/vim-gitgutter'
+"" Plug 'Lokaltog/vim-powerline'
+"Plug 'vim-airline/vim-airline'
+"
+"Plug 'vim-scripts/SyntaxAttr.vim'
+"
+"
+"" Initialize plugin system
+"" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+"call plug#end()
 
 
 set smartindent  
@@ -504,180 +504,182 @@ let g:syntastic_always_populate_loc_list = 1
 "   prettier:  // prettier-ignore 
 "
 " Neoformat js: brew install prettier
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html,*.java  Neoformat
-" In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
-" let g:neoformat_try_node_exe = 1
-
-" Neoformat Python :  brew install black
-" Neoformat Go : gofmt
-autocmd BufWritePre *.py,*.go Neoformat
-" Neoformat lua : brew install stylua
-" ALE lua syntax check:  brew install luacheck
-" ignore stylua:  -- stylua: ignore start  /  -- stylua: ignore end
-autocmd BufWritePre *.lua Neoformat
-
-" check cpp syntax : cpplint, currently can work with YCMD
-" brew install cpplint
-" let g:syntastic_cpp_checkers = ['cpplint']
-" let g:syntastic_cpp_cpplint_exec = 'cpplint'
-" 设置 cpplint 的错误级别阈值（默认是 5），级别低于这一设置的不会显示
-" let g:syntastic_cpp_cpplint_thres = 1
-" 注意需要设置 错误聚合，才能同时显示两个 checker 的错误：
-" let syntastic_aggregate_errors = 1
-
-
-" python formater: black only
-let g:neoformat_enabled_python = ['black']
-
-" example:
-" let g:neoformat_cpp_clangformat = {
-"     \ 'exe': 'clang-format',
-"     \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 120}"'],
-" \}
-" let g:neoformat_enabled_cpp = ['clangformat']
-
-" for lang in ["c", "cpp"]
-"     let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
-"             \ . "'exe': 'clang-format',"
-"             \ . "'args': ['--style=\"{IndentWidth: 4, ColumnLimit: 120}\"'], "
-"             \ . "}"
-"     execute cmd
 "
-"     let cmd="let g:neoformat_enabled_" . lang . " = ['clangformat']"
-"     execute cmd
-" endfor
-
-
-
-" for c/c++ : clang-format:  brew install clang-format
-autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
-
-" for rust:  brew install rustfmt -- deprecated, rustup-init will take care of it
-" brew uninstall rust && brew install rustup-init && rustup-init
-autocmd BufWritePre *.rs  Neoformat
-
-" split window
-" nnoremap <Leader>sv <C-w>s
-" nnoremap <Leader>sh <C-w>v
-" nnoremap <Leader>se <C-w>e
-" nnoremap <Leader>sx :close<CR>
-
-" solve conflict with Netrw and tmux-navigator
-" just Freed <C-l> in Netrw, so as to use <C-l> in tmux-navigator
-nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
-
-" check whether have Plug vim-gitgutter
-if exists('g:loaded_gitgutter')
-    " for gitgutter update, override vim updatetime
-    " set updatetime=400
-    " or update the signs when you save a file
-    autocmd BufWritePost * GitGutter
-endif
-
-" let vim call function/alias defined in shell
-set shell=bash\ --login
-
-" GSGL
-autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
-
-
-" tab naviagor: Ctrl + o  jump to last active tab
-if !exists('g:lasttab')
-  let g:lasttab = 1
-endif
-" <C-p> to jump to last active tab, while <C-o> to jump to last buff
-map <C-p> :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
-" tab navigator
-if has('macunix')
-    map <C-b> :tabprevious<CR>
-    map <C-n> :tabnext<CR>
-endif
-
-" rainbow parentheses
-" Toggle it on/off
-au VimEnter * RainbowParenthesesToggle
-" (), the default when toggling
-au Syntax * RainbowParenthesesLoadRound
-" []
-au Syntax * RainbowParenthesesLoadSquare
-" {}
-au Syntax * RainbowParenthesesLoadBraces
-
-" remove black, because it's unvisible in most black scheme
-" you can also change the order of the colors
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-" How deep to colour (repeating the colour list if necessary) before giving up; 
-" limited for performance reasons.
-let g:rbpt_max = 15
-
-" Other Language for YCMD
-" 1. clone https://github.com/ycm-core/lsp-examples
-" 2. follows the guide, install the language server
-" 3. add following codes in .vimrc
-" :source a path stored in a variable in Vimscript is tricky
-" because :source is an ex commands and does not expect an expression
-let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
-" if filereadable( $_otherLSP )
-"     source $_otherLSP
-" endif
-
-" NOTE:
-" as document said, lua completion not work
-
-" ================= SyntaxAttr.vim [for debug]=================
-" Helper
-nnoremap <F2> :call SyntaxAttr()<CR>
-
-" ================= YCM Java =================
-let g:ycm_java_jdtls_extension_path = [
-      \ expand( '~/.vim/plugged/vimspector' ) . '/gadgets/macos'
-      \ ]
-
-let s:jdt_ls_debugger_port = 0
-function! s:StartDebugging()
-  if s:jdt_ls_debugger_port <= 0
-    " Get the DAP port
-    let s:jdt_ls_debugger_port = youcompleteme#GetCommandResponse(
-      \ 'ExecuteCommand',
-      \ 'vscode.java.startDebugSession' )
-
-    if s:jdt_ls_debugger_port == ''
-       echom 'Unable to get DAP port - is YCM initialized?'
-       let s:jdt_ls_debugger_port = 0
-       return
-     endif
-
-  endif
-
-  " Start debugging with the DAP port
-  echom 'Starting debugging with port ' . s:jdt_ls_debugger_port
-  call vimspector#LaunchWithSettings( { 'DAPPort': s:jdt_ls_debugger_port } )
-endfunction
-
-nnoremap <silent> <buffer> <Leader><F5> :call <SID>StartDebugging()<CR>
-" ================= YCM Java END =================
-
-" ================= Misc Tools =================
-" brew install fzf bat tlrc
-"    bat --list-themes | fzf --preview="bat --theme={} --color=always app.js"
-"    tlrc: tldr rust client
+" ==================== comment start =======================
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.svelte,*.yaml,*.html,*.java  Neoformat
+"" In order for Neoformat to use a project-local version of Prettier (i.e. to use node_modules/.bin/prettier instead of looking for prettier on $PATH), you must set the neoformat_try_node_exe option:
+"" let g:neoformat_try_node_exe = 1
 "
+"" Neoformat Python :  brew install black
+"" Neoformat Go : gofmt
+"autocmd BufWritePre *.py,*.go Neoformat
+"" Neoformat lua : brew install stylua
+"" ALE lua syntax check:  brew install luacheck
+"" ignore stylua:  -- stylua: ignore start  /  -- stylua: ignore end
+"autocmd BufWritePre *.lua Neoformat
+"
+"" check cpp syntax : cpplint, currently can work with YCMD
+"" brew install cpplint
+"" let g:syntastic_cpp_checkers = ['cpplint']
+"" let g:syntastic_cpp_cpplint_exec = 'cpplint'
+"" 设置 cpplint 的错误级别阈值（默认是 5），级别低于这一设置的不会显示
+"" let g:syntastic_cpp_cpplint_thres = 1
+"" 注意需要设置 错误聚合，才能同时显示两个 checker 的错误：
+"" let syntastic_aggregate_errors = 1
+"
+"
+"" python formater: black only
+"let g:neoformat_enabled_python = ['black']
+"
+"" example:
+"" let g:neoformat_cpp_clangformat = {
+""     \ 'exe': 'clang-format',
+""     \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 120}"'],
+"" \}
+"" let g:neoformat_enabled_cpp = ['clangformat']
+"
+"" for lang in ["c", "cpp"]
+""     let cmd="let g:neoformat_" . lang  .  "_clangformat = { "
+""             \ . "'exe': 'clang-format',"
+""             \ . "'args': ['--style=\"{IndentWidth: 4, ColumnLimit: 120}\"'], "
+""             \ . "}"
+""     execute cmd
+""
+""     let cmd="let g:neoformat_enabled_" . lang . " = ['clangformat']"
+""     execute cmd
+"" endfor
+"
+"
+"
+"" for c/c++ : clang-format:  brew install clang-format
+"autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cs Neoformat
+"
+"" for rust:  brew install rustfmt -- deprecated, rustup-init will take care of it
+"" brew uninstall rust && brew install rustup-init && rustup-init
+"autocmd BufWritePre *.rs  Neoformat
+"
+"" split window
+"" nnoremap <Leader>sv <C-w>s
+"" nnoremap <Leader>sh <C-w>v
+"" nnoremap <Leader>se <C-w>e
+"" nnoremap <Leader>sx :close<CR>
+"
+"" solve conflict with Netrw and tmux-navigator
+"" just Freed <C-l> in Netrw, so as to use <C-l> in tmux-navigator
+"nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
+"
+"" check whether have Plug vim-gitgutter
+"if exists('g:loaded_gitgutter')
+"    " for gitgutter update, override vim updatetime
+"    " set updatetime=400
+"    " or update the signs when you save a file
+"    autocmd BufWritePost * GitGutter
+"endif
+"
+"" let vim call function/alias defined in shell
+"set shell=bash\ --login
+"
+"" GSGL
+"autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
+"
+"
+"" tab naviagor: Ctrl + o  jump to last active tab
+"if !exists('g:lasttab')
+"  let g:lasttab = 1
+"endif
+"" <C-p> to jump to last active tab, while <C-o> to jump to last buff
+"map <C-p> :exe "tabn ".g:lasttab<CR>
+"au TabLeave * let g:lasttab = tabpagenr()
+"
+"" tab navigator
+"if has('macunix')
+"    map <C-b> :tabprevious<CR>
+"    map <C-n> :tabnext<CR>
+"endif
+"
+"" rainbow parentheses
+"" Toggle it on/off
+"au VimEnter * RainbowParenthesesToggle
+"" (), the default when toggling
+"au Syntax * RainbowParenthesesLoadRound
+"" []
+"au Syntax * RainbowParenthesesLoadSquare
+"" {}
+"au Syntax * RainbowParenthesesLoadBraces
+"
+"" remove black, because it's unvisible in most black scheme
+"" you can also change the order of the colors
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"
+"" How deep to colour (repeating the colour list if necessary) before giving up; 
+"" limited for performance reasons.
+"let g:rbpt_max = 15
+"
+"" Other Language for YCMD
+"" 1. clone https://github.com/ycm-core/lsp-examples
+"" 2. follows the guide, install the language server
+"" 3. add following codes in .vimrc
+"" :source a path stored in a variable in Vimscript is tricky
+"" because :source is an ex commands and does not expect an expression
+"let $_otherLSP = "/Volumes/WORK/WORK/lsp-examples/vimrc.generated"
+"" if filereadable( $_otherLSP )
+""     source $_otherLSP
+"" endif
+"
+"" NOTE:
+"" as document said, lua completion not work
+"
+"" ================= SyntaxAttr.vim [for debug]=================
+"" Helper
+"nnoremap <F2> :call SyntaxAttr()<CR>
+"
+"" ================= YCM Java =================
+"let g:ycm_java_jdtls_extension_path = [
+"      \ expand( '~/.vim/plugged/vimspector' ) . '/gadgets/macos'
+"      \ ]
+"
+"let s:jdt_ls_debugger_port = 0
+"function! s:StartDebugging()
+"  if s:jdt_ls_debugger_port <= 0
+"    " Get the DAP port
+"    let s:jdt_ls_debugger_port = youcompleteme#GetCommandResponse(
+"      \ 'ExecuteCommand',
+"      \ 'vscode.java.startDebugSession' )
+"
+"    if s:jdt_ls_debugger_port == ''
+"       echom 'Unable to get DAP port - is YCM initialized?'
+"       let s:jdt_ls_debugger_port = 0
+"       return
+"     endif
+"
+"  endif
+"
+"  " Start debugging with the DAP port
+"  echom 'Starting debugging with port ' . s:jdt_ls_debugger_port
+"  call vimspector#LaunchWithSettings( { 'DAPPort': s:jdt_ls_debugger_port } )
+"endfunction
+"
+"nnoremap <silent> <buffer> <Leader><F5> :call <SID>StartDebugging()<CR>
+"" ================= YCM Java END =================
+"
+"" ================= Misc Tools =================
+"" brew install fzf bat tlrc
+""    bat --list-themes | fzf --preview="bat --theme={} --color=always app.js"
+""    tlrc: tldr rust client
+""
