@@ -1,6 +1,6 @@
 #!bash
 
-compress_pdf() {
+myCompressPdf() {
     # compress_pdf_aggressive.sh
     # 用法: ./compress_pdf_aggressive.sh input.pdf output.pdf
     # 极限压缩：/screen 设置 + 分块 + 并行
@@ -8,41 +8,48 @@ compress_pdf() {
     INPUT="$1"
     OUTPUT="$2"
     BLOCK_SIZE=50           # 每块页数，可调
+if [ `uname` = "Linux" ];
+then
     CPU_CORES=$(nproc)      # Linux
-    # macOS: CPU_CORES=$(sysctl -n hw.ncpu)
+else
+    CPU_CORES=$(sysctl -n hw.ncpu)
+fi
 
-    tmpdir="./tmp"
+    tmpdir="./pdftmp"
+    rm -rf "$tmpdir"
     mkdir -p "$tmpdir"
     echo "临时目录: $tmpdir"
 
     # 1️⃣ 分割 PDF
     echo "正在分割 PDF..."
-    qpdf "$INPUT" --split-pages=1-$BLOCK_SIZE "$tmpdir/part_%03d.pdf"
+    qpdf "$INPUT" --split-pages=1-50 "$tmpdir/part.pdf"
 
 
     xargs_extra_args="-n1"
     if [ `uname` = "Linux" ];
+      echo ${xargs_extra_args}
     then
       xargs_extra_args=""
     fi
 
-    echo ${xargs_extra_args}
 
     # 2️⃣ 并行压缩每块（更小体积，低质量）
     echo "正在压缩分块 PDF（极限压缩）..."
-    ls "$tmpdir"/part_*.pdf | xargs ${xargs_extra_args} -P"$CPU_CORES" -I{} gs -sDEVICE=pdfwrite \
-        -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
-        -dDownsampleColorImages=true \
-        -dDownsampleGrayImages=true \
-        -dDownsampleMonoImages=true \
-        -dColorImageResolution=72 \
-        -dGrayImageResolution=72 \
-        -dMonoImageResolution=72 \
+    ls "$tmpdir"/part-*.pdf | xargs ${xargs_extra_args} -P"$CPU_CORES" -I{} gs -sDEVICE=pdfwrite \
+       -dCompatibilityLevel=1.4 \
+       -dPDFSETTINGS=/ebook \
+       -dDownsampleColorImages=true \
+       -dDownsampleGrayImages=true \
+       -dDownsampleMonoImages=true \
+       -dColorImageResolution=300 \
+       -dGrayImageResolution=300 \
+       -dMonoImageResolution=600 \
         -dNOPAUSE -dQUIET -dBATCH -sOutputFile="{}"_compressed "{}"
+
 
     # 3️⃣ 合并压缩后的 PDF
     echo "正在合并 PDF..."
-    qpdf --empty --pages "$tmpdir"/part_*_compressed.pdf -- "$OUTPUT"
+    qpdf --empty --pages "$tmpdir"/part-*.pdf_compressed -- "$OUTPUT"
 
     # 4️⃣ 清理临时文件
     rm -rf "$tmpdir"
