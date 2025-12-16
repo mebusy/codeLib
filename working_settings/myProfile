@@ -239,6 +239,12 @@ then
     source $myProfileLSP
 fi
 
+myProfileUtil=~/".myProfileUtil"
+if [ -L "$myProfileUtil" ]
+then
+    source $myProfileUtil
+fi
+
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then
    source "$HOME/.cargo/env"
