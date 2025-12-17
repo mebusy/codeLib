@@ -1,6 +1,6 @@
 #!bash
 
-generatePomSrc() {
+myGenPomFromSrc() {
 
 cat <<EOF > pom.xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -68,7 +68,7 @@ echo "pom.xml 已生成，sourceDirectory 指向 src/，lib/ 下 jar 已加入�
 
 
 
-generatePomStandard() {
+myGenPomStandard() {
 
 cat <<EOF > pom.xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"

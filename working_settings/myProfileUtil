@@ -37,13 +37,25 @@ fi
     echo "正在压缩分块 PDF（极限压缩）..."
     ls "$tmpdir"/part-*.pdf | xargs ${xargs_extra_args} -P"$CPU_CORES" -I{} gs -sDEVICE=pdfwrite \
        -dCompatibilityLevel=1.4 \
+       \
        -dPDFSETTINGS=/ebook \
+       \
        -dDownsampleColorImages=true \
        -dDownsampleGrayImages=true \
        -dDownsampleMonoImages=true \
-       -dColorImageResolution=300 \
-       -dGrayImageResolution=300 \
+       \
+       -dColorImageResolution=120 \
+       -dGrayImageResolution=120 \
        -dMonoImageResolution=600 \
+       \
+       -dAutoFilterColorImages=true \
+       -dAutoFilterGrayImages=true \
+       \
+       -dDetectDuplicateImages=true \
+       -dCompressFonts=true \
+       -dSubsetFonts=true \
+       -dEmbedAllFonts=true \
+       \
         -dNOPAUSE -dQUIET -dBATCH -sOutputFile="{}"_compressed "{}"
 
 
