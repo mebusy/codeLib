@@ -2,6 +2,11 @@
 
 myGenPomFromSrc() {
 
+PROP_VERSION="17"
+if [ -n "$1" ]; then
+    PROP_VERSION="$1"
+fi
+
 cat <<EOF > pom.xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,8 +20,8 @@ cat <<EOF > pom.xml
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>${PROP_VERSION}</maven.compiler.source>
+        <maven.compiler.target>${PROP_VERSION}</maven.compiler.target>
     </properties>
 
     <build>
@@ -70,6 +75,11 @@ echo "pom.xml 已生成，sourceDirectory 指向 src/，lib/ 下 jar 已加入�
 
 myGenPomStandard() {
 
+PROP_VERSION="17"
+if [ -n "$1" ]; then
+    PROP_VERSION="$1"
+fi
+
 cat <<EOF > pom.xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -83,8 +93,8 @@ cat <<EOF > pom.xml
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>${PROP_VERSION}</maven.compiler.source>
+        <maven.compiler.target>${PROP_VERSION}</maven.compiler.target>
     </properties>
 
     <dependencies>
