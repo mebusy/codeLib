@@ -276,7 +276,7 @@
       }
     },
 
-    "Java Launch": {
+    "Java Launch <Leader>F5": {
       // should compiled with `-g`
       "extends": "_base",
       "adapter": "vscode-java",
