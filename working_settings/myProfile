@@ -245,12 +245,13 @@ then
     source $myProfileUtil
 fi
 
+
 # if exists "$HOME/.cargo/env", source it, else echo warning
 if [ -f "$HOME/.cargo/env" ]; then
    source "$HOME/.cargo/env"
 else
   echo "Warning: $HOME/.cargo/env not found."
-  echo "Please install rustup[-init]"
+  echo "install rust: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 fi
 
 
