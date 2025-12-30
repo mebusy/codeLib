@@ -56,7 +56,7 @@ echo install development skds...
 if [ $instStep -le 1 ]; then
     # if brew not installed git, then ...
     brew list git &> /dev/null  || brew install git curl cmake make \
-        go rustup-init typescript node@18 mono openjdk@17 openjdk@21
+        go typescript node@18 mono openjdk@17 openjdk@21
 
     git config --global user.name "mebusy"
     git config --global user.email "golden_slime@hotmail.com"
