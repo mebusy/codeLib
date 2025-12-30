@@ -55,7 +55,7 @@ echo install development skds...
 
 if [ $instStep -le 1 ]; then
     # if brew not installed git, then ...
-    brew list git &> /dev/null  || brew install git cmake make \
+    brew list git &> /dev/null  || brew install git curl cmake make \
         go rustup-init typescript node@18 mono openjdk@17 openjdk@21
 
     git config --global user.name "mebusy"
@@ -161,7 +161,7 @@ if [ $instStep -le 8 ]; then
     then
         echo install vim tools...
         brew install yarn
-        brew install vim pylint flake8 eslint prettier black stylua luacheck cpplint clang-format rustup-init tlrc
+        brew install vim pylint flake8 eslint prettier black stylua luacheck cpplint clang-format   tlrc
     fi
 fi
 
