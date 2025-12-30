@@ -7,7 +7,7 @@
 #
 
 # Settings
-RAMDISK_SIZE=8192 # Size in MB.
+RAMDISK_SIZE=4096 # Size in MB.
 RAMDISK_NAME="RamDisk"
 
 function create_ramdisk {
