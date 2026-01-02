@@ -4,7 +4,7 @@ set -euo pipefail
 RAMDISK_NAME="RamDisk"
 MOUNT_POINT="/Volumes/${RAMDISK_NAME}"
 
-log() { echo `date` "[ramdisk-user] $*"; }
+log() { echo  "$(date) [ramdisk-user] $*"; }
 
 # 如果已经挂载就退出
 if /sbin/mount | /usr/bin/grep -q "on ${MOUNT_POINT} "; then
