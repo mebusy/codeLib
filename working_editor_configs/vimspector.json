@@ -276,7 +276,7 @@
       }
     },
 
-    "Java Launch": {
+    "Java Launch Stardard": {
       // should compiled with `-g`
       "extends": "_base",
       "adapter": "vscode-java",
@@ -284,17 +284,39 @@
       "configuration": {
         "request": "launch",
         "cwd": "${cwd}",
-        "sourcePaths": ["${cwd}/src/main/java"],
+        "sourcePaths": ["${cwd}/src/main/java"], // 仅用于源码定位
         "stopOnEntry": true,
         "stepFilters": {
           "skipClasses": ["$$JDK"]
         },
         // the followings is 'launch' only
         "mainClass": "${mainClass:Main}",
-        "classPaths": ["${cwd}/target/classes"],
+        "classPaths": ["${cwd}/target/classes", "${cwd}/lib/*"],  // CAUTION if class not found
+        "args": "${CommandLineArgs}", // no LIST !!!
+        "console": "integratedTerminal"
+      }
+    },  // end Java Lanuch
+
+    "Java Launch Src": {
+      // should compiled with `-g`
+      "extends": "_base",
+      "adapter": "vscode-java",
+      "filetypes": ["java"],
+      "configuration": {
+        "request": "launch",
+        "cwd": "${cwd}",
+        "sourcePaths": ["${cwd}/src"], // 仅用于源码定位
+        "stopOnEntry": true,
+        "stepFilters": {
+          "skipClasses": ["$$JDK"]
+        },
+        // the followings is 'launch' only
+        "mainClass": "${mainClass:Main}",
+        "classPaths": ["${cwd}/classes", "${cwd}/lib/*"],  // CAUTION if class not found
         "args": "${CommandLineArgs}", // no LIST !!!
         "console": "integratedTerminal"
       }
     } // end Java Lanuch
+
   } // end configurations
 }
