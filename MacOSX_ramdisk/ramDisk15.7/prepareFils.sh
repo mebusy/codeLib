@@ -30,3 +30,6 @@ sed -i '' "s|/Users/mebusy|$HOME|g"  ~/Library/LaunchAgents/com.mebusy.ramdisk-m
 cat ~/Library/LaunchAgents/com.mebusy.ramdisk-mount-user.plist | grep Users
 ls -l ~/Library/LaunchAgents/com.mebusy.ramdisk-mount-user.plist 
 
+echo create a file 
+echo \t ~/my_ramDiskJob.sh
+echo \t to add you own Jobs
