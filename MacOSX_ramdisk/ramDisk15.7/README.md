@@ -9,3 +9,6 @@ boot
                  └─ 用户 profile 加载
                      └─ ln -s 已经指向存在的 RamDisk
 ```
+
+
+二、用 LaunchDaemon 在“开机、登录前”运行

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mebusy.ramdisk-boot</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/sbin/ramdisk-boot.sh</string>
+  </array>
+
+  <!-- 开机就跑 -->
+  <key>RunAtLoad</key>
+  <true/>
+
+  <!-- 避免被网络/用户会话影响：尽量早 -->
+  <key>LaunchOnlyOnce</key>
+  <true/>
+  
+  <!-- 需要 root 权限 -->
+  <key>UserName</key>
+  <string>root</string>
+
+  <!-- 保证系统卷已经就绪 -->
+  <key>After</key>
+  <array>
+      <string>com.apple.system.boot</string>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/var/log/ramdisk-boot.out</string>
+  <key>StandardErrorPath</key>
+  <string>/var/log/ramdisk-boot.err</string>
+</dict>
+</plist>
