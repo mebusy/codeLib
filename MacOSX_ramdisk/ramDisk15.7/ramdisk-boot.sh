@@ -15,32 +15,7 @@ function create_ramdisk {
     # format, HFS+ 在开机期间更稳定
     # diskutil erasevolume APFSX "${RAMDISK_NAME}" `hdiutil attach -nomount "ram://${RAMDISK_BLOCKSIZE}"`
     DEV=$(hdiutil attach -nomount "ram://${RAMDISK_BLOCKSIZE}")
-    diskutil erasevolume HFS+ "${RAMDISK_NAME}" $DEV
-
-    sleep 0.2
-
-    # # 找到 APFS Volume identifier（如 disk8s1）
-    VOL_DEV=$(diskutil list | awk '/'"${RAMDISK_NAME}"'/ {print $NF}')
-    echo VOL_DEV=${VOL_DEV}
-
-    if [ -z "${VOL_DEV}" ]; then
-        echo "ERROR: APFS Volume not found"
-        exit 1
-    fi
-
-    diskutil mount "${VOL_DEV}"
-
-    # 等待 mount
-    for _ in {1..10}; do
-        /sbin/mount | grep -q "on ${MOUNT_POINT} " && break
-        sleep 0.1
-    done
-
-    # 校验
-    if ! /sbin/mount | grep -q "on ${MOUNT_POINT} "; then
-        echo "ERROR: RamDisk mount failed"
-        exit 1
-    fi
+    diskutil erasevolume APFSX "${RAMDISK_NAME}" $DEV
 }
 
 
