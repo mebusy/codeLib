@@ -4,6 +4,7 @@ set -e
 
 sudo mkdir -p /usr/local/sbin
 sudo cp -f ramdisk-boot.sh /usr/local/sbin/ramdisk-boot.sh
+sudo chown root:wheel /usr/local/sbin/ramdisk-boot.sh
 sudo chmod 755 /usr/local/sbin/ramdisk-boot.sh
 
 ls -l /usr/local/sbin/ramdisk-boot.sh
