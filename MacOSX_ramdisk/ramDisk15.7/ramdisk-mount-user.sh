@@ -31,7 +31,8 @@ log "Mount failed (volume may not exist yet)."
 exit 1
 
 # if ./my_ramDiskJob.sh exists, run it
-if [ -f ./my_ramDiskJob.sh ]; then
+if [ -f ${HOME}/my_ramDiskJob.sh ]; then
   log "Running my_ramDiskJob.sh..."
-  ./my_ramDiskJob.sh
+  ${HOME}/my_ramDiskJob.sh
 fi
+

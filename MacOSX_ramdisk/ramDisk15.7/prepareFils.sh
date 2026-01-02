@@ -33,3 +33,5 @@ ls -l ~/Library/LaunchAgents/com.mebusy.ramdisk-mount-user.plist
 echo create a file 
 echo \t ~/my_ramDiskJob.sh
 echo \t to add you own Jobs
+
+ls -l ~/my_ramDiskJob.sh
