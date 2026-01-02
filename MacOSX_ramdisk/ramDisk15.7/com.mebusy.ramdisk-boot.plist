@@ -8,7 +8,6 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/bash</string>
     <string>/usr/local/sbin/ramdisk-boot.sh</string>
   </array>
 
@@ -16,9 +15,9 @@
   <key>RunAtLoad</key>
   <true/>
 
-  <!-- （这个键在不同 macOS 版本里行为很“奇怪”，经常导致 job 只在“首次加载”跑一次，然后后续重启/重新加载时不再以你预期的方式存在于域里） -->
-  <!-- <key>LaunchOnlyOnce</key> -->
-  <!-- <true/> -->
+  <!-- 避免被网络/用户会话影响：尽量早 -->
+  <key>LaunchOnlyOnce</key>
+  <true/>
   
   <!-- 需要 root 权限 -->
   <key>UserName</key>
