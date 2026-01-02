@@ -6,7 +6,7 @@ RAMDISK_SIZE=8192 # Size in MB.
 RAMDISK_NAME="RamDisk"
 MOUNT_POINT="/Volumes/${RAMDISK_NAME}"
 
-log() { echo "[ramdisk-boot] $*"; }
+log() { echo `date` "[ramdisk-boot] $*"; }
 
 function create_ramdisk {
     if /sbin/mount | grep -q "${MOUNT_POINT}"; then
@@ -17,12 +17,12 @@ function create_ramdisk {
     # format, HFS+ 在开机期间更稳定
     # diskutil erasevolume APFSX "${RAMDISK_NAME}" `hdiutil attach -nomount "ram://${RAMDISK_BLOCKSIZE}"`
     DEV=$(hdiutil attach -nomount "ram://${RAMDISK_BLOCKSIZE}")
-    diskutil erasevolume HFS+ "${RAMDISK_NAME}" $DEV
+    diskutil erasevolume APFSX "${RAMDISK_NAME}" $DEV
 }
 
 
 # log date
-log "create_ramdisk", $(date)
+log "create_ramdisk"
 create_ramdisk
 
 
