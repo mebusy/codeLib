@@ -20,8 +20,8 @@
   <true/>
   
   <!-- 需要 root 权限 -->
-  <key>UserName</key>
-  <string>root</string>
+  <!-- <key>UserName</key> -->
+  <!-- <string>root</string> -->
 
   <!-- 保证系统卷已经就绪 -->
   <!-- <key>After</key> -->
