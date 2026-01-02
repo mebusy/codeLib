@@ -17,13 +17,11 @@ function create_ramdisk {
     DEV=$(hdiutil attach -nomount "ram://${RAMDISK_BLOCKSIZE}")
     diskutil erasevolume HFS+ "${RAMDISK_NAME}" $DEV
 
-    # 等待 APFS container 完成（非常关键）
-    sleep 0.5
-    
+    sleep 0.2
+
     # # 找到 APFS Volume identifier（如 disk8s1）
-    # VOL_DEV=$(diskutil list | awk '/APFS Volume.*'"${RAMDISK_NAME}"'/ {print $NF}')
-    # for HFS+
-    VOL_DEV=${RAMDISK_NAME}
+    VOL_DEV=$(diskutil list | awk '/'"${RAMDISK_NAME}"'/ {print $NF}')
+    echo VOL_DEV=${VOL_DEV}
 
     if [ -z "${VOL_DEV}" ]; then
         echo "ERROR: APFS Volume not found"
