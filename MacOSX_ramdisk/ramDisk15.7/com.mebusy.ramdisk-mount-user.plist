@@ -16,8 +16,8 @@
   <true/>
 
   <key>StandardOutPath</key>
-  <string>/var/log/ramdisk-mount-user.out</string>
+  <string>/tmp/ramdisk-mount-user.out</string>
   <key>StandardErrorPath</key>
-  <string>/var/log/ramdisk-mount-user.err</string>
+  <string>/tmp/ramdisk-mount-user.err</string>
 </dict>
 </plist>
