@@ -24,15 +24,16 @@ done
 
 if /sbin/mount | /usr/bin/grep -q "on ${MOUNT_POINT} "; then
   log "Mounted OK: ${MOUNT_POINT}"
+
+    # if ./my_ramDiskJob.sh exists, run it
+    if [ -f ${HOME}/my_ramDiskJob.sh ]; then
+      log "Running my_ramDiskJob.sh..."
+      /bin/bash ${HOME}/my_ramDiskJob.sh
+    fi
   exit 0
 fi
 
 log "Mount failed (volume may not exist yet)."
 exit 1
 
-# if ./my_ramDiskJob.sh exists, run it
-if [ -f ${HOME}/my_ramDiskJob.sh ]; then
-  log "Running my_ramDiskJob.sh..."
-  ${HOME}/my_ramDiskJob.sh
-fi
 
