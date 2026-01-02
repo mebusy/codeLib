@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# sudo launchctl bootout system /Library/LaunchDaemons/com.mebusy.ramdisk-boot.plist
+# launchctl bootout gui/502 ~/Library/LaunchAgents/com.mebusy.ramdisk-mount-user.plist
+
 set -e
 
 sudo mkdir -p /usr/local/sbin
