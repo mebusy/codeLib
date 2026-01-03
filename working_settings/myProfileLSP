@@ -40,6 +40,7 @@ cat <<EOF > pom.xml
         </resources>
 
         <plugins>
+            <!-- $ mvn spotbugs:check | grep ES_COMPARING_STRINGS_WITH_EQ -->
             <plugin>
               <groupId>com.github.spotbugs</groupId>
               <artifactId>spotbugs-maven-plugin</artifactId>
@@ -111,6 +112,7 @@ cat <<EOF > pom.xml
 
     <build>
         <plugins>
+            <!-- $ mvn spotbugs:check | grep ES_COMPARING_STRINGS_WITH_EQ -->
             <plugin>
               <groupId>com.github.spotbugs</groupId>
               <artifactId>spotbugs-maven-plugin</artifactId>
