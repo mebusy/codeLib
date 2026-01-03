@@ -57,7 +57,7 @@ myfind() {
         echo 'adv 2: find lines include both pattern A and B'
         echo '  myfind A | grep -i B'
         echo 'provide -G if you want to use BRE'
-        echo 'use grep -v to EXCLUDE patterns'
+        echo 'use grep -v to Reverse/Exclude patterns'
     else
         grep -E --color=always -rinI -m 1 \
             --exclude-dir='node_modules*' \
