@@ -38,6 +38,18 @@ cat <<EOF > pom.xml
                 </includes>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs-maven-plugin</artifactId>
+              <version>4.8.6.6</version>
+              <configuration>
+                <effort>Max</effort>
+                <threshold>Low</threshold>
+              </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
@@ -96,6 +108,20 @@ cat <<EOF > pom.xml
         <maven.compiler.source>${PROP_VERSION}</maven.compiler.source>
         <maven.compiler.target>${PROP_VERSION}</maven.compiler.target>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs-maven-plugin</artifactId>
+              <version>4.8.6.6</version>
+              <configuration>
+                <effort>Max</effort>
+                <threshold>Low</threshold>
+              </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
 EOF
