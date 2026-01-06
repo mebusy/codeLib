@@ -70,6 +70,12 @@ mygfind() {
 }
 
 myfind () {
+    # if `rg` not exists, use mygfind
+    if ! command -v rg >/dev/null 2>&1; then
+        mygfind "$@"
+        return $?
+    fi
+
   if [ "$#" -lt 1 ]; then
     echo 'usage: myrg [rg-ops]* "pattern" [path]'
     echo 'e.g. myrg -m 20 -C 4 "ab test" .'
