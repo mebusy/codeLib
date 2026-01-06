@@ -101,3 +101,5 @@ function json2literal() {
         python3 -c 'import sys,json; print(json.dumps( json.dumps(json.load(sys.stdin),ensure_ascii=False), ensure_ascii=False))'
     fi
 }
+
+alias bat="bat --theme dark"
