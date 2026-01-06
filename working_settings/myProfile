@@ -1,5 +1,6 @@
 #!bash
 
+# brew install ripgrep
 
 # to use , vi ~/.profile, add...
 # myProfile=~/".myProfile" 
