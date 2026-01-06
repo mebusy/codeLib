@@ -70,7 +70,12 @@ fi
 
 
 function ts2date() {
-    TZ=UTC date -r $1 "+%Y-%m-%d %H:%M:%S %Z"
+    # if is Darwin
+    if [ `uname` = "Darwin" ]; then
+        TZ=UTC date -r $1 "+%Y-%m-%d %H:%M:%S %Z"
+    else
+        TZ=UTC date -d @"$1" "+%Y-%m-%d %H:%M:%S %Z"
+    fi
 }
 
 function date2ts() {
@@ -79,6 +84,10 @@ function date2ts() {
         date +%s
     else
         # 指定输入数据 时区为 UTC
-        TZ=UTC date -j -f "%Y-%m-%d %H:%M:%S" $1 "+%s"
+        if [ `uname` = "Darwin" ]; then
+            TZ=UTC date -j -f "%Y-%m-%d %H:%M:%S" $1 "+%s"
+        else
+            TZ=UTC date -d "$1" "+%s"
+        fi
     fi
 }
