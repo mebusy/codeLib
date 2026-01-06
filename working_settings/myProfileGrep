@@ -48,7 +48,7 @@ if __name__ == "__main__":
 # BRE (Basic Regular Expression) – these characters do not have special meaning unless prefixed with a backslash \.
 # ERE (Extended Regular Expression) – these characters are special, unless prefixed with a backslash \.
 
-myfind() {
+mygfind() {
     if [ "$#" -lt 1 ]; then
         echo 'usage: myfind [grep-ops]* "pattern" [path]'
         echo e.g. 'myfind -m 4 -C 2  -wh' "ab test"
@@ -69,7 +69,26 @@ myfind() {
     fi
 }
 
+myfind () {
+  if [ "$#" -lt 1 ]; then
+    echo 'usage: myrg [rg-ops]* "pattern" [path]'
+    echo 'e.g. myrg -m 20 -C 4 "ab test" .'
+    echo 'tip: use -F for fixed-string, -uuu to ignore ignore-files'
+    return 1
+  fi
+  # 默认输出 path:line:match
+  # 如果开了 --column，rg 会变成 path:line:col:match
+  rg --no-heading -H -n -i --color=always \
+     -m 1 \
+     --glob '!node_modules*/**' \
+     --glob '!.nyc_output/**' \
+     --glob '!*.log' \
+     --glob '!*.min.js' \
+     "$@"
+}
+
 myFE() {
     # execute  myfind ... -l | xargs nvim -p
-    myfind "$@" -l | xargs nvim -p
+    myfind "$@" --color=auto --colors 'path:none' -l | xargs nvim -p
 }
+
