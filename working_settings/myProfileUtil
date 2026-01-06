@@ -67,3 +67,18 @@ fi
     rm -rf "$tmpdir"
     echo "完成! 输出文件: $OUTPUT"
 }
+
+
+function ts2date() {
+    TZ=UTC date -r $1 "+%Y-%m-%d %H:%M:%S %Z"
+}
+
+function date2ts() {
+    # if $1 is not provided, use current date
+    if [ -z "$1" ]; then
+        date +%s
+    else
+        # 指定输入数据 时区为 UTC
+        TZ=UTC date -j -f "%Y-%m-%d %H:%M:%S" $1 "+%s"
+    fi
+}
