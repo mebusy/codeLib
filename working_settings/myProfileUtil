@@ -111,3 +111,6 @@ proclist () {
 	fi
 	pgrep -f $procName | xargs -I {} ps -p {} -o pid,ppid,user,group,tty,%cpu,%mem,rss,command
 }
+
+alias bat="bat --theme dark"
+
