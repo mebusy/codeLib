@@ -114,3 +114,38 @@ proclist () {
 
 alias bat="bat --theme dark"
 
+function login2pod() {
+    # k_jd -n dev
+    args=("$@")
+    # it may contain alias, expand alias
+    expanded_args=()
+    for arg in "${args[@]}"; do
+        # echo $arg
+        # which whether arg is an alias, if so replace the alias name with its value
+        alias_value=$(alias $arg 2>/dev/null | sed -E "s/$arg='(.*)'/\1/")
+        if [ -n "$alias_value" ]; then
+            expanded_args+=("$alias_value")
+        else
+            expanded_args+=("$arg")
+        fi
+    done
+    # echo "Logging into pod: ${expanded_args[*]}"
+
+    pod=$(
+        bash -c "${expanded_args[*]} get po" |
+        fzf |
+        awk '{print $1}'
+    )
+
+    [ -z "$pod" ] && return
+
+    # 🔥 关键点：stdin/stdout/stderr 接回 tty
+    # 管道里的 stdin 只是一根 pipe，不是终端
+    # kubectl 看到的是：stdin = pipe
+    # 要用当前用户真正的终端作为 stdin 
+    #     /dev/tty = 当前 shell 所属的真实终端
+    #     即使你在管道里，也能强行“插回去”
+    # 这是处理 fzf + exec + interactive program 的通用解法。
+    bash -c "${expanded_args[*]} exec -it $pod -- /bin/bash" </dev/tty
+}
+
