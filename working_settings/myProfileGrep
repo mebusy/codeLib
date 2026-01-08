@@ -86,6 +86,8 @@ myfind () {
   # 如果开了 --column，rg 会变成 path:line:col:match
   rg --no-heading -H -n -i --color=always \
      -m 1 \
+     --max-columns 300 \
+     --max-columns-preview \
      --glob '!node_modules*/**' \
      --glob '!.nyc_output/**' \
      --glob '!*.log' \
