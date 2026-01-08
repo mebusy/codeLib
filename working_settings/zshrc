@@ -163,7 +163,17 @@ unsetopt nomatch
 # 'wild	    精确匹配 (quoted)	精确包含 wild
 # !fire	    inverse-exact-match	不包含 fire
 # !.mp3$	inverse-suffix-exact-match	不以.mp3 结尾
-
+#
+# fzf 的设计哲学: fzf 不是“搜索工具”，它是一个“选择器”
+# 它只做三件事：
+#     接收标准输入
+#     做极速模糊匹配
+#     把你选的结果输出
+# 所以最强的用法永远是：
+#   something | fzf | something_else
+# 例子：
+# ps aux | fzf | awk '{print $2}' | xargs kill
+#
 if command -v fzf &> /dev/null; then
     eval "$(fzf --zsh)"
 
