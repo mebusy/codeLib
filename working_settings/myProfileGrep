@@ -65,7 +65,8 @@ mygfind() {
             --exclude-dir='./.*'    \
             --exclude=\*.{log,} \
             --exclude=\*.min.{js,} \
-            "$@"
+            "$@" \
+            | cut -c1-300
     fi
 }
 
