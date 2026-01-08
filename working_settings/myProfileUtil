@@ -114,7 +114,8 @@ proclist () {
 
 alias bat="bat --theme dark"
 
-function login2pod() {
+# login to k8s pod with fzf selection
+function l2pod() {
     # k_jd -n dev
     args=("$@")
     # it may contain alias, expand alias
@@ -131,13 +132,28 @@ function login2pod() {
     done
     # echo "Logging into pod: ${expanded_args[*]}"
 
+    # 1 选择 pod
     pod=$(
-        bash -c "${expanded_args[*]} get po" |
+        bash -c "${expanded_args[*]} get po --no-headers " |
         fzf |
         awk '{print $1}'
     )
 
     [ -z "$pod" ] && return
+
+    # 2 获取 container 列表
+    containers=($(
+        bash -c "${expanded_args[*]} get po $pod -o jsonpath='{.spec.containers[*].name}'"
+    ))
+    # echo "Containers in pod $pod: ${containers[*]}"
+
+    # 3. 如果有多个 container，选择一个
+    if [ "${#containers[*]}" -eq 1 ]; then
+        container=${containers[*]}
+    else
+        container=$(printf '%s\n' "${containers[@]}" | fzf)
+        [ -z "$container" ] && return
+    fi
 
     # 🔥 关键点：stdin/stdout/stderr 接回 tty
     # 管道里的 stdin 只是一根 pipe，不是终端
@@ -146,6 +162,8 @@ function login2pod() {
     #     /dev/tty = 当前 shell 所属的真实终端
     #     即使你在管道里，也能强行“插回去”
     # 这是处理 fzf + exec + interactive program 的通用解法。
-    bash -c "${expanded_args[*]} exec -it $pod -- /bin/bash" </dev/tty
+    #
+    # 4 exec 进入 pod + container
+    bash -c "${expanded_args[*]} exec -it $pod -c "$container" -- /bin/bash" </dev/tty
 }
 
