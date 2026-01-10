@@ -101,3 +101,14 @@ myFE() {
     myfind "$@" --color=auto --colors 'path:none' -l | xargs nvim -p
 }
 
+fd2() {
+    # exclude hidden files and dirs by default
+    _args=(".")  # 默认搜索当前目录
+    # if param provided, use it as _args
+    if [ "$#" -gt 0 ]; then
+        _args=("$@")  # 保持参数的数组形式
+    fi
+    # "${_args[@]}" 会展开为多个参数，而不是一个拼接成的字符串。
+    find "${_args[@]}" -not -path "*/.*" 2> /dev/null
+}
+
