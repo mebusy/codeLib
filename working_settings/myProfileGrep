@@ -104,11 +104,17 @@ myFE() {
 fd2() {
     # exclude hidden files and dirs by default
     _args=(".")  # 默认搜索当前目录
-    # if param provided, use it as _args
+    # if param provided, 
     if [ "$#" -gt 0 ]; then
-        _args=("$@")  # 保持参数的数组形式
+        # if not starts with '-' then use it as _args
+        if [[ "$1" != -* ]]; then
+            _args=("$@")  # 保持参数的数组形式
+        else
+            # otherwise, use default "." + all params as _args
+            _args+=("$@")
+        fi
     fi
     # "${_args[@]}" 会展开为多个参数，而不是一个拼接成的字符串。
-    find "${_args[@]}" -not -path "*/.*" 2> /dev/null
+    find "${_args[@]}" -not -path "*/.*" # 2> /dev/null
 }
 
