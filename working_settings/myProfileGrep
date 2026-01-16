@@ -83,6 +83,8 @@ myfind () {
     echo 'tip: use -F for fixed-string (Treat all patterns as literals.)'
     echo '     use -s for case-sensitive'
     echo '     use -uuu to ignore ignore-files'
+    echo '     use --pcre2  "(?=.*A)(?=.*B)" to find line matching both A and B'
+    echo '           (?=...) is positive lookahead, 不消耗字符'
     echo 'use grep -v to Reverse/Exclude patterns'
     return 1
   fi
