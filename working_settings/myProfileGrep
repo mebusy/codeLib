@@ -80,7 +80,10 @@ myfind () {
   if [ "$#" -lt 1 ]; then
     echo 'usage: myrg [rg-ops]* "pattern" [path]'
     echo 'e.g. myrg -m 20 -C 4 "ab test" .'
-    echo 'tip: use -F for fixed-string, -uuu to ignore ignore-files'
+    echo 'tip: use -F for fixed-string (Treat all patterns as literals.)'
+    echo '     use -s for case-sensitive'
+    echo '     use -uuu to ignore ignore-files'
+    echo 'use grep -v to Reverse/Exclude patterns'
     return 1
   fi
   # 默认输出 path:line:match
