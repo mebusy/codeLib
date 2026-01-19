@@ -167,3 +167,15 @@ function l2pod() {
     bash -c "${expanded_args[*]} exec -it $pod -c "$container" -- /bin/bash" </dev/tty
 }
 
+
+# use ramdisk as tmp dir on macOS
+temDir="/Volumes/RamDisk/TEMPDIR"
+if [ -d "$temDir" ] ; then
+    export TMPDIR=$temDir
+    cleanTmpDir() {
+        if [ -d "$temDir" ] ; then
+            find "$temDir" -type f -mtime +7 -delete
+        fi
+    }
+fi
+
