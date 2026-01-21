@@ -1,6 +1,7 @@
 #!bash
 
 alias tma='tmux attach-session -t '
+alias tmd='tmux detach -s '
 
 # 2 horizontal panes
 myT2() {
