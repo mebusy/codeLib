@@ -259,10 +259,12 @@ fi
 alias nvim-update='nvim --headless "+Lazy! sync" +qa && ( cd ~/.local/share/nvim/lazy/vimspector && ./install_gadget.py --all )'
 # alias ycmd-install="( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )"
 # alias vimsp-install="( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )"
-alias my-blame='git blame  --color-lines --color-by-age  -w -C -C -C -M -M -M '
+alias my-blame='git blame  --color-lines --color-by-age  -w -C -M '  # double -C for copy from other files, but slow
 # alias 'git diff'='git diff -w --color-words --ignore-space-at-eol --ignore-blank-lines --ignore-space-change --ignore-all-space'
 alias gd='git diff -w '
 alias gd2='git diff --color-words --ignore-all-space --ignore-blank-lines '
+alias gda='git -c difftool.araxis.cmd='\''open -a "Araxis Merge" "$LOCAL" "$REMOTE"'\'' difftool --no-prompt -w'
+
 alias git_whodel='git log --patch -S '
 alias git_lastchange='git log -p -1 '
 alias vi-none='vi -u NONE'
