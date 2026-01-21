@@ -102,7 +102,7 @@ function json2literal() {
     fi
 }
 
-proclist () {
+myProclist () {
 	procName="$1" 
 	if [ -z "$procName" ]
 	then
@@ -115,7 +115,7 @@ proclist () {
 alias bat="bat --theme dark"
 
 # login to k8s pod with fzf selection
-function l2pod() {
+function myl2pod() {
     # k_jd -n dev
     args=("$@")
     # it may contain alias, expand alias

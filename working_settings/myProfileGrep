@@ -106,7 +106,15 @@ myFE() {
     myfind "$@" --color=auto --colors 'path:none' -l | xargs nvim -p
 }
 
-fd2() {
+# my search files
+mysf() {
+    if [ "$#" -lt 1 ]; then
+        echo 'usage: myfd [path] -name "pattern"'
+        # patternA or patternB
+        echo '    myfd [path] -name "A.js" -o -name "B.js" '
+        echo '注意pattern加上引号，防止zsh展开'
+        return 1
+    fi
     # exclude hidden files and dirs by default
     _args=(".")  # 默认搜索当前目录
     # if param provided, 
