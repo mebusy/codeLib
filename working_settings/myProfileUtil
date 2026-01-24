@@ -169,8 +169,14 @@ function myl2pod() {
 
 
 # use ramdisk as tmp dir on macOS
-temDir="/Volumes/RamDisk/TEMPDIR"
-if [ -d "$temDir" ] ; then
+ramDisk="/Volumes/RamDisk"
+temDir="${ramDisk}/TEMPDIR"
+if [ -d "$ramDisk" ] ; then
+    # if tmp dir not exists, create it
+    if [ ! -d "$temDir" ] ; then
+        mkdir -p "$temDir"
+    fi
+
     export TMPDIR=$temDir
     cleanTmpDir() {
         if [ -d "$temDir" ] ; then
