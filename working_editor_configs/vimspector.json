@@ -7,6 +7,10 @@
         "--port",
         "${unusedLocalPort}"
       ]
+    },
+    "dlv-remote": {
+      "port": "${port}",
+      "host": "${host}"
     }
   },
 
@@ -100,16 +104,17 @@
       }
     },
 
-    "[go] Attach": {
+    "[go] attach": {
+      "extends": "_base",
+      "adapter": "dlv-remote",
       "filetypes": ["go"],
-      "adapter": "vscode-go",
       "variables": {
-        "processId": "${processId:12345}"
+        "host": "127.0.0.1",
+        "port": "38697"
       },
       "configuration": {
         "request": "attach",
-        "mode": "local",
-        "processId": "${processId}"
+        "mode": "remote"
       }
     },
 

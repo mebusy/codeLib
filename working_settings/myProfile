@@ -146,8 +146,8 @@ fi
 
 # ========================== GO =================================
 if command -v brew &> /dev/null; then
-    # export GOROOT="$(brew --prefix go)/libexec"
-    export GOROOT=`go env GOROOT`
+    export GOROOT="$(brew --prefix go)/libexec"
+    # export GOROOT=`go env GOROOT`
 fi
 
 export PATH=$PATH:"$HOME/go/bin"
