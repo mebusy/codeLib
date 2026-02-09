@@ -194,3 +194,26 @@ if [ -d "$ramDisk" ] ; then
     }
 fi
 
+# 用于 slog 日志输出美化
+alias slog='jq -Rr '"'"'
+def color_level(l):
+  if l=="ERROR" then "\u001b[31m"
+  elif l=="WARN" then "\u001b[33m"
+  elif l=="INFO" then "\u001b[32m"
+  elif l=="DEBUG" then "\u001b[36m"
+  else "" end;
+
+def color_msg(s):
+  "\u001b[36m" + s + "\u001b[0m";  # cyan
+
+(fromjson? // .) |
+if type=="object" then
+  "\(.time // "") " +
+  (color_level(.level) + "[\(.level // "")]\u001b[0m ") +
+  (color_msg(.msg // "")) +
+  (del(.time,.level,.msg) | if .=={} then "" else " " + tojson end)
+else
+  .
+end
+'"'"
+

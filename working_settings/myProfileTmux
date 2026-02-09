@@ -66,7 +66,31 @@ myT2() {
 }
 
 myT4() {
-    SESSION_NAME="dev4"
+    # read arguments to an array
+    local args=("$@")
+    # if no arguments, use current directory
+    if [ ${#args[@]} -eq 0 ]; then
+        args=("$PWD")
+    fi
+
+    local _mainName=$(basename "$PWD")
+    
+    local session=""
+    for _path in "${args[@]}"; do
+        _path=$(realpath "$_path")
+        local _name=$(basename "$_path")
+        session="${session}${_name}·"
+    done
+    # remove last character (·)
+    session=${session%·}
+
+    # echo $session
+    # if session already exists, kill it
+    if tmux has-session -t "$session" 2>/dev/null; then
+        echo "Session $session already exists"
+        # tmux kill-session -t "$session"
+        return 1
+    fi
 
     # 参数：
     # $1 上左
@@ -80,44 +104,44 @@ myT4() {
     DIR_BR="$4"
 
     # 如果 session 已存在就直接进入
-    tmux has-session -t "$SESSION_NAME" 2>/dev/null
+    tmux has-session -t "$session" 2>/dev/null
     if [ $? -eq 0 ]; then
-        tmux attach -t "$SESSION_NAME"
+        tmux attach -t "$session"
         exit 0
     fi
 
     # 创建 session
-    tmux new-session -d -s "$SESSION_NAME"
+    tmux new-session -d -s "$session"
 
     # 当前只有 pane 0  <Leader> + q
 
     # ---------- 第一步：左右 1:1 ----------
-    tmux split-window -h -t "$SESSION_NAME":0
+    tmux split-window -h -t "$session":0
 
     # 此时：
     # pane 0 = 左
     # pane 1 = 右
 
     # ---------- 第二步：左侧上下 2:1 ----------
-    tmux split-window -v -p 33 -t "$SESSION_NAME":0.0
+    tmux split-window -v -p 33 -t "$session":0.0
     # pane 0 = 上左
     # pane 1 = 下左
     # pane 2 = 右
 
     # ---------- 第三步：右侧上下 2:1 ----------
-    tmux split-window -v -p 33 -t "$SESSION_NAME":0.2
+    tmux split-window -v -p 33 -t "$session":0.2
 
     # 0 | 2
     # 1 | 3
     #
     # ---------- 设置目录 ----------
-    [ -n "$DIR_TL" ] && tmux send-keys -t "$SESSION_NAME":0.0 "cd \"$DIR_TL\"" C-m
-    [ -n "$DIR_TR" ] && tmux send-keys -t "$SESSION_NAME":0.2 "cd \"$DIR_TR\"" C-m
-    [ -n "$DIR_BL" ] && tmux send-keys -t "$SESSION_NAME":0.1 "cd \"$DIR_BL\"" C-m
-    [ -n "$DIR_BR" ] && tmux send-keys -t "$SESSION_NAME":0.3 "cd \"$DIR_BR\"" C-m
+    [ -n "$DIR_TL" ] && tmux send-keys -t "$session":0.0 "cd \"$DIR_TL\"" C-m
+    [ -n "$DIR_TR" ] && tmux send-keys -t "$session":0.2 "cd \"$DIR_TR\"" C-m
+    [ -n "$DIR_BL" ] && tmux send-keys -t "$session":0.1 "cd \"$DIR_BL\"" C-m
+    [ -n "$DIR_BR" ] && tmux send-keys -t "$session":0.3 "cd \"$DIR_BR\"" C-m
 
     # 焦点回到左上
-    tmux select-pane -t "$SESSION_NAME":0.0
+    tmux select-pane -t "$session":0.0
 
-    tmux attach -t "$SESSION_NAME"
+    tmux attach -t "$session"
 }
