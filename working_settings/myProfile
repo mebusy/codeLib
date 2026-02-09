@@ -265,6 +265,12 @@ alias gd='git diff -w '
 alias gd2='git diff --color-words --ignore-all-space --ignore-blank-lines '
 alias gda='git -c difftool.araxis.cmd='\''open -a "Araxis Merge" "$LOCAL" "$REMOTE"'\'' difftool --no-prompt -w'
 
+# 看某一次提交具体改了什么	git show <commit>
+# 快速看 HEAD	git show
+# 看一段时间内的改动	git log -p
+# 查“什么时候改了这个文件”	git log -p -- <file>
+# 查“谁引入了这个 bug”	git log -p -S foo
+
 alias git_whodel='git log --patch -S '
 alias git_lastchange='git log -p -1 '
 alias vi-none='vi -u NONE'

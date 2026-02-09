@@ -71,10 +71,19 @@ fi
 
 function ts2date() {
     # if is Darwin
-    if [ `uname` = "Darwin" ]; then
-        TZ=UTC date -r $1 "+%Y-%m-%d %H:%M:%S %Z"
+    if [ -z "$1" ]; then
+        TZ=UTC date "+%Y-%m-%d %H:%M:%S %Z"
     else
-        TZ=UTC date -d @"$1" "+%Y-%m-%d %H:%M:%S %Z"
+        ts=$1
+        # 如果 ts是毫秒，转换为秒
+        if [ $ts -gt 1000000000000 ]; then
+            ts=$(($ts / 1000))
+        fi
+        if [ `uname` = "Darwin" ]; then
+            TZ=UTC date -r $ts "+%Y-%m-%d %H:%M:%S %Z"
+        else
+            TZ=UTC date -d @"ts" "+%Y-%m-%d %H:%M:%S %Z"
+        fi
     fi
 }
 
