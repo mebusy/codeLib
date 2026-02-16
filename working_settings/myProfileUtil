@@ -198,9 +198,9 @@ fi
 alias slog='jq -Rr '"'"'
 def color_level(l):
   if l=="ERROR" then "\u001b[31m"
-  elif l=="WARN" then "\u001b[33m"
+  elif l=="WARN" then "\u001b[35m"
   elif l=="INFO" then "\u001b[32m"
-  elif l=="DEBUG" then "\u001b[36m"
+  elif l=="DEBUG" then "\u001b[33m"
   else "" end;
 
 def color_msg(s):
