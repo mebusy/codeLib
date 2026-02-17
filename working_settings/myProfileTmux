@@ -18,6 +18,8 @@ myT2() {
     for _path in "${args[@]}"; do
         _path=$(realpath "$_path")
         local _name=$(basename "$_path")
+        # remove '.' in _name
+        _name=${_name//./}
         session="${session}${_name}·"
     done
     # remove last character (·)
@@ -79,6 +81,8 @@ myT4() {
     for _path in "${args[@]}"; do
         _path=$(realpath "$_path")
         local _name=$(basename "$_path")
+        # remove '.' in _name
+        _name=${_name//./}
         session="${session}${_name}·"
     done
     # remove last character (·)
