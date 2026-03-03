@@ -78,8 +78,8 @@ myfind () {
     fi
 
   if [ "$#" -lt 1 ]; then
-    echo 'usage: myrg [rg-ops]* "pattern" [path]'
-    echo 'e.g. myrg -m 20 -C 4 "ab test" .'
+    echo 'usage: myfind [rg-ops]* "pattern" [path]'
+    echo 'e.g. myfind -m 20 -C 4 "ab test" .'
     echo 'tip: use -F for fixed-string (Treat all patterns as literals.)'
     echo '     use -s for case-sensitive'
     echo '     use -uuu to ignore ignore-files'
