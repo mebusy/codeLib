@@ -125,8 +125,8 @@ if [ "$(uname)" = "Darwin" ]; then
     #default java21
     export JAVA_HOME=$JAVA_21_HOME;export PATH=$JAVA_HOME/bin:$PATH
 else
-    # for linux with jenv
-    if command -v jenv &> /dev/null; then
+    # for linux with jenv and brew
+    if command -v jenv &> /dev/null && command -v brew &> /dev/null; then
         eval "$(jenv init -)"
         # for jdk in openjdk@8 openjdk@11 openjdk@17 , print brew --prefix $jdk
         for jdk in openjdk@8 openjdk@11 openjdk@17
