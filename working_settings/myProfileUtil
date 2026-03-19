@@ -217,3 +217,4 @@ else
 end
 '"'"
 
+alias myDiskPressure="memory_pressure -l normal && vm_stat 1"
