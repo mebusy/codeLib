@@ -11,6 +11,7 @@
 
 # check your bash script:  https://www.shellcheck.net/
 
+export LANG=en_US.UTF-8   # 对 tmux wrap 很重要
 export LC_ALL=en_US.UTF-8
 
 # 中科大 homebrew
