@@ -235,4 +235,20 @@ if [ `uname` = "Darwin" ]; then
         return 1
       fi
     }
+
+    pbpaste() {
+      if command -v pbpaste >/dev/null 2>&1; then
+        command pbpaste
+      elif command -v wl-paste >/dev/null 2>&1; then
+        wl-paste
+      elif command -v xclip >/dev/null 2>&1; then
+        xclip -selection clipboard -o
+      elif command -v xsel >/dev/null 2>&1; then
+        xsel --clipboard --output
+      else
+        echo "No clipboard tool found (need wl-paste/xclip/xsel)" >&2
+        return 1
+      fi
+    }
+
 fi
