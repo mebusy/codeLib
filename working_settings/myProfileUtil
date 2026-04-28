@@ -220,7 +220,7 @@ end
 alias myDiskPressure="memory_pressure -l normal && vm_stat 1"
 
 
-if [ `uname` = "Darwin" ]; then
+if [ `uname` = "Linux" ]; then
     pbcopy() {
       if command -v pbcopy >/dev/null 2>&1; then
         command pbcopy
