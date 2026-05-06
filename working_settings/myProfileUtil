@@ -252,3 +252,93 @@ if [ `uname` = "Linux" ]; then
     }
 
 fi
+
+if [ `uname` = "Darwin" ]; then
+    function myMemory() {
+        top -l 1 | grep PhysMem
+
+        vm_stat | awk '
+        BEGIN {
+          ps = 4096;
+        }
+
+        # 读取 page size（保险）
+        /page size of/ {
+          ps = $8;
+          next;
+        }
+
+        NR==1 { next }
+
+        {
+          line = $0;
+
+          # 提取数值（最后一个字段）
+          value = $NF;
+          gsub("\\.", "", value);
+
+          name = $1;
+          for (i=2; i<NF; i++) name = name " " $i;
+
+          # =========================
+          # 1️⃣ 内存类（Pages → GB）
+          # =========================
+          if (line ~ /Pages free/ ||
+              line ~ /Pages active/ ||
+              line ~ /Pages inactive/ ||
+              line ~ /Pages speculative/ ||
+              line ~ /Pages throttled/ ||
+              line ~ /Pages wired/ ||
+              line ~ /Pages purgeable/ ||
+              line ~ /File-backed pages/ ||
+              line ~ /Anonymous pages/ ||
+              line ~ /Pages stored in compressor/ ||
+              line ~ /Pages occupied by compressor/) {
+
+            printf "%-40s %10.2f GB\n", name, value * ps / 1024 / 1024 / 1024;
+          }
+
+          # =========================
+          # 2️⃣ 计数类（→ Million）
+          # =========================
+          else if (line ~ /Translation faults/ ||
+                   line ~ /Pageins/ ||
+                   line ~ /Pageouts/ ||
+                   line ~ /Swapins/ ||
+                   line ~ /Swapouts/ ||
+                   line ~ /Compressions/ ||
+                   line ~ /Decompressions/ ||
+                   line ~ /Copy-on-write/ ||
+                   line ~ /Zero filled/ ||
+                   line ~ /Reactivated/ ||
+                   line ~ /Purged/) {
+
+            printf "%-40s %10.2f M\n", name, value / 1000000;
+          }
+        }'
+
+        echo "Pages stored in compressor: 多少内存被压缩"
+        echo "Pages occupied by compressor: 压缩后占用多少内存"
+        echo "Pages wired down: 不能被换出的内存（通常是内核 + I/O + 像 RAM Disk 这种东西)"
+        echo "Swapouts/Swapins: Swap 行为（很重要）"
+        echo "Pages active + inactive: 大致等于正在使用的内存（减去wired 减去compressor）"
+
+        echo ""
+        echo "🔥 QUICK INSIGHT"
+
+        # heuristic
+        pressure=$(memory_pressure 2>/dev/null | grep -i "System-wide memory free percentage" | awk '{print $5}' | tr -d '%')
+
+        if [[ -n "$pressure" ]]; then
+          if (( pressure < 10 )); then
+            echo "⚠️ CRITICAL: very low free memory"
+          elif (( pressure < 25 )); then
+            echo "⚠️ HIGH PRESSURE: system is under memory stress"
+          else
+            echo "✅ NORMAL"
+          fi
+        fi
+
+
+    }
+fi
