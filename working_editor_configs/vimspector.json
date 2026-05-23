@@ -187,6 +187,19 @@
         "initCommands": [
           "type format add --format u 'unsigned char'",
           "type format add --format d 'signed char'",
+
+          // "type format add --format hex 'short'",
+          // "type format add --format hex 'unsigned short'",
+          // "type format add --format hex 'int'",
+          // "type format add --format hex 'unsigned int'",
+          // "type format add --format hex 'long'",
+          // "type format add --format hex 'unsigned long'",
+          // "type format add --format hex 'long long'",
+          // "type format add --format hex 'unsigned long long'",
+          // "type format add --format hex 'size_t'",
+          // "type format add --format hex 'ssize_t'",
+          // "type format add --format hex 'std::size_t'",
+
           "type category enable int-as-dec"
         ]
       }
