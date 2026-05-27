@@ -109,9 +109,9 @@ myFE() {
 # my search files
 mysf() {
     if [ "$#" -lt 1 ]; then
-        echo 'usage: myfd [path] -name "pattern"'
+        echo 'usage: mysf [path] -name "pattern"'
         # patternA or patternB
-        echo '    myfd [path] -name "A.js" -o -name "B.js" '
+        echo '    mysf [path] -name "A.js" -o -name "B.js" '
         echo '  for case insensitive, use -iname instead of -name'
         echo '  for regex, use -regex or -iregex, 不支持(A|B)'
         echo '  注意pattern加上引号，防止zsh展开'
