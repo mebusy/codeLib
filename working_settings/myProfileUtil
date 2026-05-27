@@ -222,9 +222,7 @@ alias myDiskPressure="memory_pressure -l normal && vm_stat 1"
 
 if [ `uname` = "Linux" ]; then
     pbcopy() {
-      if command -v pbcopy >/dev/null 2>&1; then
-        command pbcopy
-      elif command -v wl-copy >/dev/null 2>&1; then
+      if command -v wl-copy >/dev/null 2>&1; then
         wl-copy
       elif command -v xclip >/dev/null 2>&1; then
         xclip -selection clipboard
@@ -237,9 +235,7 @@ if [ `uname` = "Linux" ]; then
     }
 
     pbpaste() {
-      if command -v pbpaste >/dev/null 2>&1; then
-        command pbpaste
-      elif command -v wl-paste >/dev/null 2>&1; then
+      if command -v wl-paste >/dev/null 2>&1; then
         wl-paste
       elif command -v xclip >/dev/null 2>&1; then
         xclip -selection clipboard -o
