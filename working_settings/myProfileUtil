@@ -192,6 +192,8 @@ if [ -d "$ramDisk" ] ; then
             find "$TMPDIR" -type f -mtime +2 -delete
         fi
     }
+# $ crontab -e
+# 0 2 * * * [ -d "/Volumes/RamDisk/TEMPDIR" ] && find "/Volumes/RamDisk/TEMPDIR" -type f -mtime +2 -delete
 fi
 
 # 用于 slog 日志输出美化
