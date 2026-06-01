@@ -189,7 +189,7 @@ if [ -d "$ramDisk" ] ; then
     export TMPDIR=$temDir
     cleanTmpDir() {
         if [ -d "$temDir" ] ; then
-            find "$temDir" -type f -mtime +7 -delete
+            find "$temDir" -type f -mtime +2 -delete
         fi
     }
 fi
