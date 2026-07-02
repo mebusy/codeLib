@@ -78,7 +78,10 @@ if [ $instStep -le 2 ]; then
     if [ ! -d "$HOME/.cargo" ];
     then
         echo install rustup... interaction needed !!!
-        rustup-init
+        # brew install rustup
+        # rustup toolchain install stable
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
     fi
 fi
 
@@ -164,6 +167,9 @@ if [ $instStep -le 8 ]; then
         echo install vim tools...
         brew install yarn
         brew install neovim pylint luacheck cpplint tlrc
+
+
+        python -m pip install pynvim
     fi
 fi
 
@@ -191,6 +197,7 @@ if [ $instStep -le 20 ]; then
         echo :Copilot setup
     fi
 fi
+
 
 
 # go install github.com/codegangsta/gin@latest
