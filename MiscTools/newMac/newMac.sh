@@ -168,7 +168,7 @@ if [ $instStep -le 8 ]; then
         brew install yarn
         brew install neovim pylint luacheck cpplint tlrc
 
-        brew install alpaca bat flamegraph fzf colima docker maven kubernetes-cli ripgrep telnet wget
+        brew install bat flamegraph fzf colima docker maven kubernetes-cli ripgrep telnet wget
 
         python -m pip install pynvim
     fi
