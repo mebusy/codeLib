@@ -37,6 +37,7 @@ if [ $instStep -le 0 ]; then
     fi
 fi
 
+
 # if os is Darwin and arm64, then ...        
 if [ `uname` == "Darwin" ] && [ `uname -m` == "arm64" ];
 then
@@ -61,7 +62,8 @@ if [ $instStep -le 1 ]; then
     git config --global user.name "mebusy"
     git config --global user.email "golden_slime@hotmail.com"
     git config --global pull.rebase false
-    
+    git config --global core.quotepath false  
+
     # openjdk@8  # TODO
     # if OS is not Darwin silicon
     if [ `uname` != "Darwin" ] || [ `uname -m` != "arm64" ];
@@ -76,7 +78,10 @@ if [ $instStep -le 2 ]; then
     if [ ! -d "$HOME/.cargo" ];
     then
         echo install rustup... interaction needed !!!
-        rustup-init
+        # brew install rustup
+        # rustup toolchain install stable
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
     fi
 fi
 
@@ -115,8 +120,8 @@ if [ $instStep -le 4 ]; then
     if ! brew list pyenv &> /dev/null
     then
         brew install pyenv
-        pyenv install 3.11
-        pyenv global 3.11
+        pyenv install 3.12
+        pyenv global 3.12
     fi
 fi
 
@@ -139,7 +144,7 @@ if [ $instStep -le 6 ]; then
     if ! brew list powerlevel10k &> /dev/null
     then
         echo install powerlevel10k...
-        brew install romkatv/powerlevel10k/powerlevel10k
+        brew install powerlevel10k
     fi
 fi
 
@@ -161,7 +166,11 @@ if [ $instStep -le 8 ]; then
     then
         echo install vim tools...
         brew install yarn
-        brew install vim pylint flake8 eslint prettier black stylua luacheck cpplint clang-format   tlrc
+        brew install neovim pylint luacheck cpplint tlrc
+
+        brew install bat flamegraph fzf colima docker maven kubernetes-cli ripgrep telnet wget
+
+        python -m pip install pynvim
     fi
 fi
 
@@ -172,8 +181,6 @@ if [ $instStep -le 13 ]; then
     ( cd ../../working_settings && sh makesoftlink.sh ) 
     ( cd ../../working_editor_configs && sh makesoftlink_ed.sh ) 
 
-    vim +PlugInstall +qall
-
     # source will stop the script
     source ~/.profile
     echo  !!!! run `./newMac.sh 14`   again
@@ -181,26 +188,9 @@ fi
 
 
 
-
-if [ $instStep -le 14 ]; then
-( cd ~/.vim/plugged/YouCompleteMe && ./install.py --all && rm -rf third_party/ycmd/third_party/tern_runtime/node_modules )
-fi
-
-
-if [ $instStep -le 15 ]; then
-    ( cd ~/.vim/plugged/vimspector && ./install_gadget.py --all )
-fi
-if [ $instStep -le 16 ]; then
-    if [ -n "$http_proxy" ]; then
-        ( cd ~/.vim/plugged/vim-prettier && rm yarn.lock && yarn install --frozen-lockfile --production && git checkout . )
-    else
-        ( cd ~/.vim/plugged/vim-prettier && yarn install --frozen-lockfile --production )
-    fi
-fi
-
 # tools normally need install in /Applications/
 brew install rectangle xquartz
-brew install ffmpeg mitmproxy tmux graphviz
+brew install ffmpeg sdl2 pkgconf mitmproxy tmux graphviz
 
 if [ $instStep -le 20 ]; then
     if [ `uname` != "Darwin" ];
@@ -208,6 +198,7 @@ if [ $instStep -le 20 ]; then
         echo :Copilot setup
     fi
 fi
+
 
 
 # go install github.com/codegangsta/gin@latest
