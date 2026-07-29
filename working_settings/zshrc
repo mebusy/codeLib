@@ -156,7 +156,8 @@ unsetopt nomatch
 # if fzf is installed, set up fzf key bindings and fzf completion
 # fzf provide a preview function
 #   - fzf --preview="bat --color=always {}"
-# usage: 1. fzf (or 'ctrl + t') 2. vi **<TAB>  3. kill -9 **<TAB>
+# usage: 1. fzf (or 'ctrl + t') 2. vi **<TAB>  3. kill -9 **<TAB>  4. ctrl + r search history
+#
 #
 # 查找命令	匹配类型	说明
 # sbtrkt	模糊匹配	匹配 sbtrkt
