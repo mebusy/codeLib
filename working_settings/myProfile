@@ -273,9 +273,24 @@ alias gda='git -c difftool.araxis.cmd='\''open -a "Araxis Merge" "$LOCAL" "$REMO
 # 查“谁引入了这个 bug”	git log -p -S foo
 
 alias git_whodel='git log --patch -S '
-alias git_lastchange='git log -p -1 '
 alias vi-none='vi -u NONE'
 alias vi-min='MINIMAL_NVIM=1 vi '
+
+function git_lastn() {
+    if [ "$#" -lt 1 ]; then
+        echo 'usage: git_lastn n'
+    else
+        # $1 depends on positive or negative
+        #   -2 => last 2 commits
+        #    2 => --since="2 days ago"
+        if [ "$1" -lt 0 ]; then
+            # apend remaing args except $1 to git log
+            git log -p -n $((-1 * $1)) ${@:2}
+        else
+            git log -p --since="$1 days ago" ${@:2}
+        fi
+    fi
+}
 
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
