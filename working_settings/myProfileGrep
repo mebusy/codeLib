@@ -101,6 +101,11 @@ myfind () {
      "$@"
 }
 
+# mf is equivalent to myfind
+mf() {
+    myfind "$@"
+}
+
 myFE() {
     # execute  myfind ... -l | xargs nvim -p
     myfind "$@" --color=auto --colors 'path:none' -l | xargs nvim -p
