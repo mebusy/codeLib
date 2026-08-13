@@ -111,6 +111,16 @@ function json2literal() {
     fi
 }
 
+function literal2json() {
+    if [[ -t 0 && -f "$1" ]]; then
+        # 如果有文件参数
+        python3 -c 'import sys,json; print(json.load(open("'$1'")))'  | python -m json.tool
+    else
+        # 否则从 stdin 读
+        python3 -c 'import sys,json; print(json.load(sys.stdin))'  | python -m json.tool
+    fi
+}
+
 myProclist () {
 	procName="$1" 
 	if [ -z "$procName" ]
