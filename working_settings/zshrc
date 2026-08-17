@@ -122,12 +122,33 @@ source $ZSH/oh-my-zsh.sh
 
 export LC_ALL=en_US.UTF-8
 
+
+# ========================== BREW =================================
+
+# sbin
+export PATH="$PATH:/usr/local/sbin"
+
+if [ "$(uname)" = "Darwin" ] && [ "$(uname -m)" = "arm64" ]; then
+    if [ -d "/opt/homebrew/" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+elif [ "$(uname)" = "Linux" ]; then
+    if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+else
+    if [ -d "/usr/local/bin/" ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
 # if exists, source ~/.profile
 if [[ -f ~/.bash_profile ]]; then
     source ~/.bash_profile
 elif [[ -f ~/.profile ]]; then
     source ~/.profile
 fi
+
 
 # fix powerlevel10k path issue
 if command -v brew &> /dev/null; then

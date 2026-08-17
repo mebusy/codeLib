@@ -63,26 +63,6 @@ t2sgen() {
 }
 
 
-# ========================== BREW =================================
-
-# sbin
-export PATH="$PATH:/usr/local/sbin"
-
-# if os is Darwin and arm64, then ...        
-if [ `uname` = "Darwin" ] && [ `uname -m` = "arm64" ];
-then
-    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ `uname` = "Linux" ];
-then
-    if [ -d "/home/linuxbrew/.linuxbrew/" ];
-    then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    fi
-else
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
-
 # Linux, let /usr/local/bin has higher priority than /homebrew
 # export PATH="/usr/local/bin:$PATH"
 
