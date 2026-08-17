@@ -102,7 +102,7 @@ function date2ts() {
 }
 
 function json2literal() {
-    if [[ -t 0 && -f "$1" ]]; then
+    if [[ -n "$1" ]]; then
         # 如果有文件参数
         python3 -c 'import sys,json; print(json.dumps( json.dumps(json.load(open("'$1'")),ensure_ascii=False), ensure_ascii=False))'
     else
@@ -112,7 +112,7 @@ function json2literal() {
 }
 
 function literal2json() {
-    if [[ -t 0 && -f "$1" ]]; then
+    if [[ -n "$1" ]]; then
         # 如果有文件参数
         python3 -c 'import sys,json; print(json.load(open("'$1'")))'  | python -m json.tool
     else
