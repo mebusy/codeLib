@@ -253,6 +253,11 @@ alias gda='git -c difftool.araxis.cmd='\''open -a "Araxis Merge" "$LOCAL" "$REMO
 # 查“谁引入了这个 bug”	git log -p -S foo
 
 alias git_whodel='git log --patch -S '
+# -S：查“这个字符串的出现次数发生变化”的提交
+# --reverse：按最早到最晚排，第一个就是最早引入它的 commit
+# -- path/to/file：只限定这个文件
+alias git_whointro='git log --reverse -S '
+
 alias vi-none='vi -u NONE'
 alias vi-min='MINIMAL_NVIM=1 vi '
 
