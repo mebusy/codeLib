@@ -252,11 +252,61 @@ alias gda='git -c difftool.araxis.cmd='\''open -a "Araxis Merge" "$LOCAL" "$REMO
 # 查“什么时候改了这个文件”	git log -p -- <file>
 # 查“谁引入了这个 bug”	git log -p -S foo
 
-alias git_whodel='git log --patch -S '
+# alias git_whodel='git log --patch -S '
+if alias git_whodel &> /dev/null; then
+    unalias git_whodel
+fi
+git_whodel() {
+  local needle="$1"
+  local file="$2"
+  local c
+  local old_count
+  local new_count
+
+  if [ -z "$needle" ] || [ -z "$file" ]; then
+    echo "用法: git_all_delete_oneline \"字符串\" path/to/file"
+    return 1
+  fi
+
+  git log --format='%H' -S"$needle" -- "$file" | while read -r c; do
+    [ -z "$c" ] && continue
+
+    old_count=$(
+      git diff "${c}^" "$c" -- "$file" | grep '^-' | grep -F "$needle" | wc -l | tr -d ' '
+    )
+    new_count=$(
+      git diff "${c}^" "$c" -- "$file" | grep '^+' | grep -F "$needle" | wc -l | tr -d ' '
+    )
+
+    if [ "$old_count" -gt "$new_count" ]; then
+      git --no-pager show --format='%H | %ad | %an | %s' --date=iso --no-patch "$c"
+    fi
+  done
+}
+
 # -S：查“这个字符串的出现次数发生变化”的提交
 # --reverse：按最早到最晚排，第一个就是最早引入它的 commit
 # -- path/to/file：只限定这个文件
-alias git_whointro='git log --reverse -S '
+# alias git_whointro='git log --reverse -S '
+# if has alias git_whointro, then unalias it
+if alias git_whointro &> /dev/null; then
+  unalias git_whointro
+fi
+git_whointro() {
+  local needle="$1"
+  local file="$2"
+
+  if [ -z "$needle" ] || [ -z "$file" ]; then
+    echo "用法: git_first_add \"字符串\" path/to/file"
+    return 1
+  fi
+
+  git log --reverse \
+    --format='%H|%ad|%an|%s' \
+    --date=iso \
+    -S"$needle" -- "$file" | head -n 1
+}
+
 
 alias vi-none='vi -u NONE'
 alias vi-min='MINIMAL_NVIM=1 vi '
