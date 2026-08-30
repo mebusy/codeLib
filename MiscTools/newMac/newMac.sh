@@ -170,7 +170,6 @@ if [ $instStep -le 8 ]; then
 
         brew install bat flamegraph fzf colima docker maven kubernetes-cli ripgrep telnet wget
 
-        python -m pip install pynvim
     fi
 fi
 
@@ -186,6 +185,10 @@ if [ $instStep -le 13 ]; then
     echo  !!!! run `./newMac.sh 14`   again
 fi
 
+
+if [ $instStep -le 15 ]; then
+    python -m pip install pynvim
+fi
 
 
 # tools normally need install in /Applications/
