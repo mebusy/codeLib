@@ -111,15 +111,18 @@ function json2literal() {
     fi
 }
 
+
 function literal2json() {
     if [[ -n "$1" ]]; then
         # 如果有文件参数
-        python3 -c 'import sys,json; print(json.load(open("'$1'")))'  | python -m json.tool
+        python3 -c 'import sys,json; print(json.load(open("'$1'")))'  | python -m json.tool --no-ensure-ascii
     else
         # 否则从 stdin 读
-        python3 -c 'import sys,json; print(json.load(sys.stdin))'  | python -m json.tool
+        python3 -c 'import sys,json; print(json.load(sys.stdin))'  | python -m json.tool --no-ensure-ascii
     fi
 }
+
+alias jsonfmt='python -m json.tool --no-ensure-ascii'
 
 myProclist () {
 	procName="$1" 
