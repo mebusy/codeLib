@@ -118,7 +118,17 @@ function literal2json() {
         python3 -c 'import sys,json; print(json.load(open("'$1'")))'  | python -m json.tool --no-ensure-ascii
     else
         # 否则从 stdin 读
-        python3 -c 'import sys,json; print(json.load(sys.stdin))'  | python -m json.tool --no-ensure-ascii
+        python3 -c '
+import sys
+import json
+
+s = json.load(sys.stdin)
+
+# 外层 JSON string -> 内层 JSON
+obj = json.loads(s, strict=False)
+
+print(json.dumps(obj, ensure_ascii=False))
+'  | python -m json.tool --no-ensure-ascii
     fi
 }
 
