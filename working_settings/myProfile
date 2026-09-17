@@ -295,6 +295,12 @@ fi
 git_whointro() {
   local needle="$1"
   local file="$2"
+  local since="$3"
+
+  # if since not provoide, then set since to unixtime 0
+  if [ -z "$since" ]; then
+    since="1970-01-01"
+  fi
 
   if [ -z "$needle" ] || [ -z "$file" ]; then
     echo "用法: git_first_add \"字符串\" path/to/file"
@@ -304,6 +310,7 @@ git_whointro() {
   git log --reverse \
     --format='%H|%ad|%an|%s' \
     --date=iso \
+    --since="$since" \
     -S"$needle" -- "$file" | head -n 1
 }
 
