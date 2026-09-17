@@ -188,7 +188,12 @@ fi
 
 if [ $instStep -le 15 ]; then
     python -m pip install pynvim
-    pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+    # pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    # recover to official pypi
+    # pip config unset global.index-url
+    # show config
+    # pip config list
 fi
 
 
