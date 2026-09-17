@@ -366,4 +366,5 @@ fi
 
 alias mac-allow="xattr -d com.apple.quarantine"
 alias cm='container machine'
+alias myecho="printf '%s'"
 
