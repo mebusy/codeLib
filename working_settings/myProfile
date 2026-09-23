@@ -337,6 +337,8 @@ function git_lastn() {
 function git_diffbranch() {
     if [ "$#" -lt 2 ]; then
         echo 'usage: git_diffbranch branch1 branch2'
+        echo 'e.g. compare 2 remote branch'
+        echo '   git_diffbranch origin/hotfix origin/ptr file.txt'
     else
         branch1="$1"
         branch2="$2"
