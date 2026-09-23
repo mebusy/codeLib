@@ -334,6 +334,24 @@ function git_lastn() {
     fi
 }
 
+function git_diffbranch() {
+    if [ "$#" -lt 2 ]; then
+        echo 'usage: git_diffbranch branch1 branch2'
+    else
+        branch1="$1"
+        branch2="$2"
+        # the $3 is a specific file, if provided, then only diff that file
+        if [ "$#" -ge 3 ]; then
+            file="$3"
+            git diff --patience \
+                <(git show "$branch1":"$file") \
+                <(git show "$branch2":"$file")
+        else
+            git diff --patience $branch1 $branch2
+        fi
+    fi
+}
+
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
 fi
