@@ -342,6 +342,10 @@ function git_diffbranch() {
     else
         branch1="$1"
         branch2="$2"
+        # if branch1 or branch2 contains "origin/", then remove fetch origin first
+        if [[ "$branch1" == origin/* || "$branch2" == origin/* ]]; then
+            git fetch origin
+        fi
         # the $3 is a specific file, if provided, then only diff that file
         if [ "$#" -ge 3 ]; then
             file="$3"
