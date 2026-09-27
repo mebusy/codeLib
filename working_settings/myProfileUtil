@@ -368,3 +368,9 @@ alias mac-allow="xattr -d com.apple.quarantine"
 alias cm='container machine'
 alias myecho="printf '%s'"
 
+export OLLAMA_MODELS="/Volumes/WORK/WORK/ollama/models"
+# if folder not exists, create it
+if [ ! -d "$OLLAMA_MODELS" ]; then
+    mkdir -p "$OLLAMA_MODELS"
+fi
+
