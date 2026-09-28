@@ -368,9 +368,21 @@ alias mac-allow="xattr -d com.apple.quarantine"
 alias cm='container machine'
 alias myecho="printf '%s'"
 
-export OLLAMA_MODELS="/Volumes/WORK/WORK/ollama/models"
+export OLLAMA_MODELS="/Volumes/WORK/ollama/models"
 # if folder not exists, create it
 if [ ! -d "$OLLAMA_MODELS" ]; then
     mkdir -p "$OLLAMA_MODELS"
 fi
+
+homebrew_ollam_config="$HOME/.homebrew/services/ollama.env"
+# if not exists, create it, or append to it
+if [ ! -f "$homebrew_ollam_config" ]; then
+    mkdir -p "$(dirname "$homebrew_ollam_config")"
+    echo "OLLAMA_MODELS=$OLLAMA_MODELS" > "$homebrew_ollam_config"
+else
+    if ! grep -q "OLLAMA_MODELS" "$homebrew_ollam_config"; then
+        echo "OLLAMA_MODELS=$OLLAMA_MODELS" >> "$homebrew_ollam_config"
+    fi
+fi
+
 
