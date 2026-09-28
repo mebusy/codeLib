@@ -385,4 +385,4 @@ else
     fi
 fi
 
-
+alias localkilo="KILO_CONFIG=\"$HOME/.config/kilo/local.json\" kilo"
