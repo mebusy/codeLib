@@ -18,7 +18,7 @@ PARAMETER repeat_penalty 1.05
 PARAMETER num_predict 1024
 
 # 上下文按显存调；多模态建议至少 8k 起
-PARAMETER num_ctx 8192
+# PARAMETER num_ctx 16384
 
 # 统一系统提示：约束输出格式，减少幻觉
 SYSTEM """You are a multimodal assistant specialized in image and audio understanding.
