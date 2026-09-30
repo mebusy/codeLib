@@ -1,0 +1,31 @@
+# Gemma 4 12B (vision/audio oriented runtime profile for Ollama)
+# 注意：将 FROM 改成你本地实际可用的 gemma4 12b 模型标签
+# 例如：FROM gemma4:12b
+FROM gemma4:12b
+
+TEMPLATE """{{ if .System }}<start_of_turn>system
+{{ .System }}<end_of_turn>
+{{ end }}{{ if .Prompt }}<start_of_turn>user
+{{ .Prompt }}<end_of_turn>
+{{ end }}<start_of_turn>model
+"""
+
+# 偏稳健、结构化输出更友好（VQA/OCR/ASR摘要）
+PARAMETER temperature 0.2
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.05
+PARAMETER num_predict 1024
+
+# 上下文按显存调；多模态建议至少 8k 起
+PARAMETER num_ctx 8192
+
+# 统一系统提示：约束输出格式，减少幻觉
+SYSTEM """You are a multimodal assistant specialized in image and audio understanding.
+Rules:
+1) Be concise and factual.
+2) If information is uncertain, say "uncertain" and ask for a clearer image/audio segment.
+3) For extraction tasks, output strict JSON when the user asks for JSON.
+4) Keep original language of the user unless asked otherwise.
+5) Do not invent entities not present in the input.
+"""
