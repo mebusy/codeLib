@@ -358,6 +358,23 @@ function git_diffbranch() {
     fi
 }
 
+# write a function git_untrack()
+# if no args provide, output `git status -s | awk '/^\?\?/ {print substr($0,4)}'`
+# if -d is provided, then delete the untracked files `git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm ` , if -r also provided, then delete recursively
+function git_untrack() {
+    if [ "$#" -eq 0 ]; then
+        git status -s | awk '/^\?\?/ {print substr($0,4)}'
+    elif [ "$1" = "-d" ]; then
+        if [ "$2" = "-r" ]; then
+            git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm -rf
+        else
+            git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm
+        fi
+    else
+        echo 'usage: git_untrack [-d [-r]]'
+    fi
+}
+
 if [ "$(uname)" = "Darwin" ]; then
     alias mdfind='mdfind 2> /dev/null '
 fi
