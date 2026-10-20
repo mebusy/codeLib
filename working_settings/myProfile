@@ -358,21 +358,31 @@ function git_diffbranch() {
     fi
 }
 
-# write a function git_untrack()
-# if no args provide, output `git status -s | awk '/^\?\?/ {print substr($0,4)}'`
-# if -d is provided, then delete the untracked files `git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm ` , if -r also provided, then delete recursively
-function git_untrack() {
-    if [ "$#" -eq 0 ]; then
-        git status -s | awk '/^\?\?/ {print substr($0,4)}'
-    elif [ "$1" = "-d" ]; then
-        if [ "$2" = "-r" ]; then
-            git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm -rf
-        else
-            git status -s | awk '/^\?\?/ {print substr($0,4)}' | xargs rm
-        fi
-    else
-        echo 'usage: git_untrack [-d [-r]]'
+function git_stFiles() {
+    local marker="$1"
+
+    # if not provided, echo 'usage: git_stFiles <git status mark>'
+    if [ -z "$marker" ]; then
+        echo 'usage: git_stFiles <git status mark>'
+        echo 'e.g. git_stFiles M'
+        echo '     git_stFiles D'
+        echo '     git_stFiles ??'
+        echo '     git_stFiles A'
+        echo '     git_stFiles R'
+        return 1
     fi
+
+    git status --short | awk -v marker="$marker" '
+    {
+        status = substr($0, 1, 2)
+        path = substr($0, 4)
+
+        if (marker == "M" && status ~ /M/) print path
+        else if (marker == "D" && status ~ /D/) print path
+        else if (marker == "??" && status == "??") print path
+        else if (marker == "A" && status ~ /A/) print path
+        else if (marker == "R" && status ~ /R/) print path
+    }'
 }
 
 if [ "$(uname)" = "Darwin" ]; then
