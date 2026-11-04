@@ -79,9 +79,6 @@ git config --global diff.colorMovedWS allow-indentation-change
 # 启用彩色输出
 git config --global color.ui auto
 
-# 显示空白字符错误
-git config --global core.whitespace \
-  trailing-space,space-before-tab
 
     # openjdk@8  # TODO
     # if OS is not Darwin silicon
