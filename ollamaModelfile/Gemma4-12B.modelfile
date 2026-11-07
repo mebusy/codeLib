@@ -8,17 +8,17 @@ PARAMETER temperature 0.2
 PARAMETER top_p 0.9
 PARAMETER top_k 40
 PARAMETER repeat_penalty 1.05
-PARAMETER num_predict 1024
+# PARAMETER num_predict 1024
 
 # 上下文按显存调；多模态建议至少 8k 起, 最大支持 262144
 PARAMETER num_ctx 65536
 
 # 统一系统提示：约束输出格式，减少幻觉
-SYSTEM """You are a multimodal assistant specialized in image and audio understanding.
-Rules:
-1) Be concise and factual.
-2) If information is uncertain, say "uncertain" and ask for a clearer image/audio segment.
-3) For extraction tasks, output strict JSON when the user asks for JSON.
-4) Keep original language of the user unless asked otherwise.
-5) Do not invent entities not present in the input.
-"""
+# SYSTEM """You are a multimodal assistant specialized in image and audio understanding.
+# Rules:
+# 1) Be concise and factual.
+# 2) If information is uncertain, say "uncertain" and ask for a clearer image/audio segment.
+# 3) For extraction tasks, output strict JSON when the user asks for JSON.
+# 4) Keep original language of the user unless asked otherwise.
+# 5) Do not invent entities not present in the input.
+# """
