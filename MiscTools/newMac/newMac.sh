@@ -64,6 +64,22 @@ if [ $instStep -le 1 ]; then
     git config --global pull.rebase false
     git config --global core.quotepath false  
 
+# 更适合代码的差异匹配算法
+git config --global diff.algorithm histogram
+
+# 自动调整 diff 区块边界，让代码更容易阅读
+git config --global diff.indentHeuristic true
+
+# 对移动的代码块使用不同颜色
+git config --global diff.colorMoved dimmed-zebra
+
+# 移动代码时忽略纯缩进变化
+git config --global diff.colorMovedWS allow-indentation-change
+
+# 启用彩色输出
+git config --global color.ui auto
+
+
     # openjdk@8  # TODO
     # if OS is not Darwin silicon
     if [ `uname` != "Darwin" ] || [ `uname -m` != "arm64" ];
