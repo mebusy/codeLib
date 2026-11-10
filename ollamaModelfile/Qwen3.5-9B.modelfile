@@ -1,0 +1,36 @@
+# ============================================================
+# Qwen3.5-9B 4bit - Game Development Assistant
+# Base: Ollama qwen3.5:9b
+# Target: Apple Silicon M4 Pro 24GB
+# ============================================================
+
+FROM qwen3.5:9b
+
+# ------------------------------------------------------------
+# Runtime parameters
+# ------------------------------------------------------------
+
+# 128K content
+PARAMETER num_ctx 131072
+
+# Allow reasonably long code and technical explanations
+PARAMETER num_predict 4096
+
+# Lower temperature for reliable coding and debugging
+PARAMETER temperature 0.35
+
+PARAMETER top_p 0.9
+PARAMETER top_k 30
+PARAMETER repeat_penalty 1.05
+
+# ------------------------------------------------------------
+# System prompt
+# ------------------------------------------------------------
+
+SYSTEM """
+你是一名资深游戏开发工程师、游戏架构师和技术顾问。
+
+你的主要任务是帮助用户设计、开发、调试和优化游戏。
+你不仅需要解释技术原理，还应尽可能提供可以直接使用的实现方案。
+"""
+
