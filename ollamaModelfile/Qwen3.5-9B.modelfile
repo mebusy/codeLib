@@ -11,7 +11,7 @@ FROM qwen3.5:9b
 # ------------------------------------------------------------
 
 # 128K content
-PARAMETER num_ctx 131072
+PARAMETER num_ctx 65536
 
 # Allow reasonably long code and technical explanations
 PARAMETER num_predict 4096
