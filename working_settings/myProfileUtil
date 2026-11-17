@@ -370,8 +370,10 @@ alias myecho="printf '%s'"
 
 export OLLAMA_MODELS="/Volumes/WORK/ollama/models"
 # if folder not exists, create it
-if [ ! -d "$OLLAMA_MODELS" ]; then
-    mkdir -p "$OLLAMA_MODELS"
+if [ -d "/Volumes/WORK" ]; then
+    if [ ! -d "$OLLAMA_MODELS" ]; then
+        mkdir -p "$OLLAMA_MODELS"
+    fi
 fi
 
 homebrew_ollam_config="$HOME/.homebrew/services/ollama.env"
