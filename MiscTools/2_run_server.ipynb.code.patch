@@ -1,0 +1,57 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP: Install CUDA Runtime Dependencies
+# Fix missing libcudart.so.12 / libcublas.so.12
+# ══════════════════════════════════════════════════════════════════════════════
+
+import os
+import sys
+import site
+import subprocess
+from pathlib import Path
+
+print("Installing CUDA 12 runtime libraries...")
+
+subprocess.run([
+    sys.executable, "-m", "pip", "install", "-q",
+    "nvidia-cuda-runtime-cu12",
+    "nvidia-cublas-cu12"
+], check=True)
+
+# ── Locate NVIDIA shared libraries ────────────────────────────────────────────
+
+cuda_lib_dirs = []
+
+for base in site.getsitepackages():
+    nvidia_dir = Path(base) / "nvidia"
+
+    if nvidia_dir.exists():
+        for lib_name in ["libcudart.so.12", "libcublas.so.12"]:
+            for lib in nvidia_dir.rglob(lib_name):
+                cuda_lib_dirs.append(str(lib.parent))
+
+# Remove duplicate paths
+cuda_lib_dirs = list(dict.fromkeys(cuda_lib_dirs))
+
+# ── Configure dynamic library search path ────────────────────────────────────
+
+old_path = os.environ.get("LD_LIBRARY_PATH", "")
+
+os.environ["LD_LIBRARY_PATH"] = ":".join(
+    cuda_lib_dirs + ["/kaggle/working", old_path]
+)
+
+print("\nCUDA library directories:")
+for path in cuda_lib_dirs:
+    print("  ", path)
+
+# ── Verify required libraries ────────────────────────────────────────────────
+
+for lib_name in ["libcudart.so.12", "libcublas.so.12"]:
+    found = any(
+        (Path(path) / lib_name).exists()
+        for path in cuda_lib_dirs
+    )
+    print(f"{'✅' if found else '❌'} {lib_name}")
+
+print("\n✅ CUDA Runtime setup completed.")
+
