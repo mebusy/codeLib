@@ -387,4 +387,4 @@ else
     fi
 fi
 
-alias localkilo="XDG_CONFIG_HOME=$HOME/.config/kilo-local kilo"
+# alias localkilo="XDG_CONFIG_HOME=$HOME/.config/kilo-local kilo"
