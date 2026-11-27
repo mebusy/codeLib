@@ -388,3 +388,6 @@ else
 fi
 
 # alias localkilo="XDG_CONFIG_HOME=$HOME/.config/kilo-local kilo"
+
+alias last_kilo_id="kilo session list -n 1 --format json | jq -r '.[0].id'"
+
